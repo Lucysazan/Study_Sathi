@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { isActivePath, mainNav } from '@/lib/nav';
-import { useSavedIds } from '@/lib/saved/use-saved-ids';
+import { useSavedIds } from '@/lib/storage/guest-data';
 
 const MENU_ID = 'main-navigation';
 

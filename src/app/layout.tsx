@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import { Footer } from '@/components/layout/Footer';
+import { StorageNotice, Toast } from '@/components/layout/GuestFeedback';
 import { Header } from '@/components/layout/Header';
 import './globals.css';
 
@@ -27,8 +28,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           Skip to content
         </a>
         <Header />
+        <StorageNotice />
         <main id="main">{children}</main>
         <Footer />
+        <Toast />
       </body>
     </html>
   );
