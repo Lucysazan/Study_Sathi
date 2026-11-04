@@ -27,3 +27,7 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 - [0.5] Copy: removed "prototype"/"proposed" wording (About intro, SDG paragraph, roadmap label "Available now", interface-language note, library catalogue note) following the owner's footer change; honesty statements kept — src/app/about/page.tsx, src/components/resources/ResourceLibrary.tsx
 - [0.5] Filter panel id via `useId()`: Next 16 keeps visited pages mounted (hidden with React Activity), so fixed ids could repeat — src/components/resources/ResourceLibrary.tsx
 - [0.9] Visual check: every page matches prototype height at 768 and 1280 px; 360 px matches except 17 px from the shorter catalogue note. Behaviour check (30 scripted checks, 3 runs): bookmarks + badge + toast, prototype data migration, search/filters/chips/reset, path progress/notes/budget persistence, blocked-storage notice — scratch scripts, not committed
+
+## 2026-11-04 (Phase 1)
+- [1.1] firebase.json (Auth 9099, Firestore 8080, UI 4000), .firebaserc (`demo-studysathi`), empty firestore.indexes.json, default-deny firestore.rules (public catalogue read; users read own doc and change only nickname/avatarId; server-only XP ledger; admin read-all); scripts `emulators`, `test:rules` — Phase 1 foundation
+- [1.6] Rules test harness (`tests/rules`, `vitest.rules.config.mts`) with 10 tests run inside `firebase emulators:exec`; unit tests exclude them — tests/rules/*

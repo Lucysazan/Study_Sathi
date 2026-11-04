@@ -1,0 +1,59 @@
+rules_version = '2';
+
+// StudySathi Firestore rules. See docs/ARCHITECTURE.md §4.
+// Default deny: anything not matched below is blocked.
+// Trusted writes (roles, XP, stats, leaderboards, publishing) happen only on the server with
+// firebase-admin, which bypasses these rules. Every rule has a test in tests/rules/.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() && request.auth.token.role == 'admin';
+    }
+
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    // ----- Public catalogue (read-only for everyone; admins edit via the server) -----
+    match /resources/{id} {
+      allow read: if true;
+    }
+    match /learningPaths/{id} {
+      allow read: if true;
+    }
+    match /badges/{id} {
+      allow read: if true;
+    }
+
+    // ----- Users -----
+    // Created by the server at sign-up. Users read their own doc and may change only their
+    // nickname and avatar. role, stats, parentUid, childUids, leaderboardOptIn: server only.
+    match /users/{uid} {
+      allow read: if isSelf(uid) || isAdmin();
+      allow update: if isSelf(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['nickname', 'avatarId'])
+        && (!('nickname' in request.resource.data) || (
+          request.resource.data.nickname is string
+          && request.resource.data.nickname.size() >= 2
+          && request.resource.data.nickname.size() <= 20))
+        && (!('avatarId' in request.resource.data) || request.resource.data.avatarId is string);
+      allow create, delete: if false;
+
+      // Server-only XP ledger.
+      match /xpEvents/{eventKey} {
+        allow read: if isSelf(uid) || isAdmin();
+        allow write: if false;
+      }
+    }
+
+    // Admins can read anything (writes still go through the server).
+    match /{document=**} {
+      allow read: if isAdmin();
+    }
+  }
+}

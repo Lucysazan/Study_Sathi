@@ -7,7 +7,8 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
-    include: ['src/**/*.test.{ts,tsx}', 'tests/**/*.test.{ts,tsx}'],
-    exclude: ['node_modules', 'legacy', '.next'],
+    include: ['src/**/*.test.{ts,tsx}'],
+    // Rules tests need the emulator: run them with `npm run test:rules`.
+    exclude: ['node_modules', 'legacy', '.next', 'tests/rules/**'],
   },
 });
