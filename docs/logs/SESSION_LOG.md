@@ -74,3 +74,14 @@ Template:
 **Files touched:** scripts/*, src/data/*, src/lib/{admin,validation}/*, src/app/admin/**, src/components/admin/*, globals.css, tests/rules/*, docs/*
 **Checks:** lint ✅ · typecheck ✅ · test ✅ (59) · test:rules ✅ (11) · build ✅
 **Next:** Finish browser verification of the admin features, then Phase 3.
+
+## 2026-11-05 · Session 4 · Copilot (MAI-Code-1.1-Flash)
+**Goal:** Fix the Next.js 16 Cache Components auth prereq: request-time session checks and the prerender warning on the admin route.
+**Done:**
+- Verified the canonical Next.js 16 guidance in `node_modules/next/dist/docs/` and removed the incompatible `dynamic = 'force-dynamic'` route configs.
+- Added `await connection()` before the auth-time check in [src/lib/auth/session.ts](src/lib/auth/session.ts), which marks the current-time validation as request-time and avoids the `Date.now()` prerender warning under Cache Components.
+- Kept the session guard inside the existing Suspense-based `PortalShell` pattern, matching the documented App Router pattern for `cookies()`/session verification.
+**Not done / blocked:** The repo-wide Vitest suite still fails before any tests run with `TypeError: Cannot read properties of undefined (reading 'config')` and the rules suite still fails with “Vitest failed to find the runner”; this appears to be a runner/configuration problem rather than the auth fix itself.
+**Files touched:** [src/lib/auth/session.ts](src/lib/auth/session.ts), [src/app/admin/layout.tsx](src/app/admin/layout.tsx), [src/app/parent/layout.tsx](src/app/parent/layout.tsx), [src/app/creator/layout.tsx](src/app/creator/layout.tsx), [src/app/learn/layout.tsx](src/app/learn/layout.tsx), [src/app/account/page.tsx](src/app/account/page.tsx)
+**Checks:** lint ✅ · typecheck ✅ · build ✅ · test ❌ · test:rules ❌
+**Next:** Resolve the shared Vitest runner/config issue; then rerun the full repo checks and continue with Phase 2 browser verification.

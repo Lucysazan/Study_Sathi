@@ -6,6 +6,7 @@ export default defineConfig({
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
   test: {
+    globals: true,
     environment: 'node',
     include: ['src/**/*.test.{ts,tsx}'],
     // Rules tests need the emulator: run them with `npm run test:rules`.

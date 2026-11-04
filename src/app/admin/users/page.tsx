@@ -1,7 +1,9 @@
 import { Search } from 'lucide-react';
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { PortalHeader } from '@/components/admin/PortalHeader';
 import { UserRowControls } from '@/components/admin/UserRowControls';
+import { PortalLoading } from '@/components/portal/PortalShell';
 import { listUsersForAdmin } from '@/lib/admin/users';
 import { getCurrentUser } from '@/lib/auth/session';
 
@@ -14,7 +16,7 @@ const roleLabels: Record<string, string> = {
   admin: 'Admin',
 };
 
-export default async function AdminUsersPage({ searchParams }: PageProps<'/admin/users'>) {
+async function AdminUsersBody({ searchParams }: PageProps<'/admin/users'>) {
   const params = await searchParams;
   const q = typeof params.q === 'string' ? params.q.slice(0, 100) : '';
   const [me, { users, total, capped }] = await Promise.all([
@@ -103,4 +105,16 @@ export default async function AdminUsersPage({ searchParams }: PageProps<'/admin
       )}
     </>
   );
+}
+
+export async function AdminUsersPage(props: PageProps<'/admin/users'>) {
+  return (
+    <Suspense fallback={<PortalLoading />}>
+      <AdminUsersBody {...props} />
+    </Suspense>
+  );
+}
+
+export default function AdminUsersRoute(props: PageProps<'/admin/users'>) {
+  return <AdminUsersPage {...props} />;
 }

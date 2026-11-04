@@ -2,6 +2,13 @@
 
 Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until the previous one builds and its checks pass. If a task grows, split it here rather than doing it all at once.
 
+## Current status — Firebase and app state
+- [x] Firebase project credentials are present in `.env` for the real StudySathi project.
+- [x] Local development is intentionally running against Firebase emulators via `.env.local` with `NEXT_PUBLIC_USE_EMULATORS=true`.
+- [x] Firestore Auth + Admin SDK wiring is active for local emulator development and production-safe env validation.
+- [x] Admin resource and user pages were verified in-browser after the request-time session fix under Next 16.
+- [ ] Production deploy to Vercel still needs the repo connected to the owner’s Vercel account and final env values set there.
+
 ## Phase 0 — Repo setup and parity migration (no Firebase yet)
 - [x] Move the Vite prototype into `legacy/` (read-only reference)
 - [x] Scaffold Next.js (App Router, TypeScript strict, ESLint, `src/`, `@/` alias); add Prettier, Vitest
@@ -26,8 +33,8 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 ## Phase 2 — Content in Firestore + admin basics
 - [x] Seed script for resources, learning paths, badges
 - [x] Public resource pages read Firestore at build/ISR (fall back to seed JSON if unavailable)
-- [x] Admin layout + sidebar; admin resources CRUD; audit log entries (built; browser test passed for access control + overview, rest of the scripted run still to finish — see HANDOVER)
-- [x] Admin users list (search, role change, disable) (built; browser verification still to finish — see HANDOVER)
+- [x] Admin layout + sidebar; admin resources CRUD; audit log entries (verified in-browser; request-time auth fix applied under Next 16)
+- [x] Admin users list (search, role change, disable) (verified in-browser; role and access changes are working)
 
 ## Phase 3 — Parents and students
 - [ ] Parent dashboard, add child (username + password), reset child password

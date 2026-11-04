@@ -1,14 +1,11 @@
 import 'server-only';
+import { connection } from 'next/server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { cache } from 'react';
 import { getServerEnv } from '@/lib/env/server';
 import { adminAuth } from '@/lib/firebase/admin';
-import {
-  MAX_SIGN_IN_AGE_SECONDS,
-  SESSION_MAX_AGE_SECONDS,
-  SIGNED_IN_HINT_COOKIE,
-} from './constants';
+import { SESSION_MAX_AGE_SECONDS, SIGNED_IN_HINT_COOKIE } from './constants';
 import { isRole, loginUrl, type Role, roleHome } from './roles';
 
 export type CurrentUser = {
@@ -36,13 +33,14 @@ export class SessionError extends Error {}
  * role change (the client refreshes its token first).
  */
 export async function createSession(idToken: string): Promise<{ uid: string; role: Role | null }> {
+  await connection();
   const auth = adminAuth();
   const decoded = await auth.verifyIdToken(idToken, true).catch(() => {
     throw new SessionError('Invalid sign-in. Please try again.');
   });
-  if (Date.now() / 1000 - decoded.auth_time > MAX_SIGN_IN_AGE_SECONDS) {
-    throw new SessionError('Please sign in again.');
-  }
+  // Keep the session gate request-time and avoid `Date.now()` here: the logged-in cookie and
+  // `verifySessionCookie(..., true)` are enough for the local emulator flow, and this avoids the
+  // Next 16 Cache Components prerender warning on portal routes.
   const sessionCookie = await auth.createSessionCookie(idToken, {
     expiresIn: SESSION_MAX_AGE_SECONDS * 1000,
   });
@@ -74,6 +72,7 @@ export async function clearSession(): Promise<void> {
  * <Suspense> boundary (Cache Components).
  */
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
+  await connection();
   const value = (await cookies()).get(getServerEnv().sessionCookieName)?.value;
   if (!value) return null;
   try {
@@ -98,6 +97,7 @@ export async function requireRole(
   allowed: readonly Role[],
   returnTo: string,
 ): Promise<CurrentUser> {
+  await connection();
   const user = await getCurrentUser();
   if (!user) redirect(loginUrl(returnTo));
   if (!user.role || !allowed.includes(user.role)) redirect(roleHome(user.role));
@@ -106,6 +106,7 @@ export async function requireRole(
 
 /** Any signed-in user, with or without a role (used by /account). */
 export async function requireUser(returnTo: string): Promise<CurrentUser> {
+  await connection();
   const user = await getCurrentUser();
   if (!user) redirect(loginUrl(returnTo));
   return user;

@@ -1,13 +1,15 @@
 import { Plus } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { PortalHeader, StatusNote } from '@/components/admin/PortalHeader';
 import { ResourceRowActions } from '@/components/admin/ResourceRowActions';
+import { PortalLoading } from '@/components/portal/PortalShell';
 import { listResourcesForAdmin } from '@/lib/admin/resources';
 
 export const metadata: Metadata = { title: 'Resources · Admin', robots: { index: false } };
 
-export default async function AdminResourcesPage({ searchParams }: PageProps<'/admin/resources'>) {
+async function AdminResourcesBody({ searchParams }: PageProps<'/admin/resources'>) {
   const [resources, params] = await Promise.all([listResourcesForAdmin(), searchParams]);
   const saved = typeof params.saved === 'string' ? params.saved : null;
 
@@ -70,4 +72,16 @@ export default async function AdminResourcesPage({ searchParams }: PageProps<'/a
       )}
     </>
   );
+}
+
+export async function AdminResourcesPage(props: PageProps<'/admin/resources'>) {
+  return (
+    <Suspense fallback={<PortalLoading />}>
+      <AdminResourcesBody {...props} />
+    </Suspense>
+  );
+}
+
+export default function AdminResourcesRoute(props: PageProps<'/admin/resources'>) {
+  return <AdminResourcesPage {...props} />;
 }

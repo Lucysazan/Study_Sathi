@@ -13,7 +13,9 @@
 | 2: Content in Firestore + admin basics | ✅ Built, ⚠️ browser verification only partly done (see below) |
 | 3–7 | Not started |
 
-- Checks on the final code: lint ✅ · typecheck ✅ · `npm run test` 59 ✅ · `npm run test:rules` 11 ✅ · `npm run build` ✅.
+- Current repo status: lint ✅ · typecheck ✅ · build ✅.
+- Current test status: `npm run test` ❌ (runner/config issue: `describe`/`it` are undefined before tests execute) and `npm run test:rules` ❌ (same Vitest runner problem under the emulator wrapper).
+- The Cache Components auth bug has been fixed: the shared session helper no longer triggers the `Date.now()` prerender warning, and protected portal routes keep the App Router Suspense pattern rather than using the removed `dynamic = 'force-dynamic'` config.
 - No real Firebase project yet. Everything runs on the local emulators (`demo-studysathi`).
 
 ### Phase 2 verification status (do this first)

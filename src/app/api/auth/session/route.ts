@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { Role } from '@/lib/auth/roles';
 import { clearSession, createSession, SessionError } from '@/lib/auth/session';
+import { sameOrigin } from '@/lib/http/same-origin';
 import { adminDb } from '@/lib/firebase/admin';
 
 /**
@@ -14,11 +15,6 @@ export type SessionResponse =
   { ok: true; role: Role | null; needsSetup: boolean } | { ok: false; error: string };
 
 const bodySchema = z.object({ idToken: z.string().min(20).max(5000) });
-
-function sameOrigin(request: Request): boolean {
-  const origin = request.headers.get('origin');
-  return origin !== null && origin === new URL(request.url).origin;
-}
 
 function json(body: SessionResponse | { ok: true }, status = 200) {
   return Response.json(body, { status, headers: { 'Cache-Control': 'no-store' } });

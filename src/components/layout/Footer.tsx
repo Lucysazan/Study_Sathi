@@ -1,14 +1,6 @@
 import { BookOpen } from 'lucide-react';
-import { cacheLife } from 'next/cache';
 import Link from 'next/link';
 import { Logo } from './Logo';
-
-/** Cached so the footer stays in the static shell (Cache Components forbids a raw `new Date()`). */
-async function CurrentYear() {
-  'use cache';
-  cacheLife('days');
-  return <>{new Date().getFullYear()}</>;
-}
 
 // Note: link columns are <div>s, not <nav>s. The ported CSS styles every <nav> as the header menu.
 export function Footer() {
@@ -47,9 +39,7 @@ export function Footer() {
         </div>
       </div>
       <div className="site-container footer-bottom">
-        <span>
-          © <CurrentYear /> StudySathi
-        </span>
+        <span>© 2026 StudySathi</span>
         <span>External learning materials belong to their original providers.</span>
       </div>
     </footer>
