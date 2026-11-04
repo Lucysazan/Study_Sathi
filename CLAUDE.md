@@ -135,7 +135,7 @@ Details of data model, rules and auth flow: `docs/ARCHITECTURE.md`.
 - **Never trust the client for points, roles or publishing.** XP, badges, streaks, leaderboard entries, roles and course status are written only by server code using `firebase-admin`. Firestore rules must block client writes to them.
 - `lib/firebase/admin.ts` and anything using it must import `'server-only'`. Never expose admin credentials or non-`NEXT_PUBLIC_` env vars to the client.
 - Every Server Action: validate with zod → check the session and role → do the work → `revalidatePath`/`revalidateTag` → return a typed result `{ ok: true, data } | { ok: false, error }`. No thrown errors to the UI.
-- Protect portal routes twice: `middleware.ts` redirects when no session cookie exists (cheap check), and each portal `layout.tsx` calls `requireRole()` (real check with admin SDK, Node runtime).
+- Protect portal routes twice: `src/proxy.ts` (Next 16 name for middleware) redirects when no session cookie exists (cheap check), and each portal `layout.tsx` wraps its content in `PortalShell`, which calls `requireRole()` inside `<Suspense>` (real check with admin SDK, Node runtime).
 - Use `next/image`, `next/link`, the Metadata API, `loading.tsx`, `error.tsx`, and `not-found.tsx` per route segment where useful.
 - Path alias `@/` → `src/`. Named exports for components; one component per file once it passes ~150 lines.
 - Firestore free tier is small (roughly 50k reads / 20k writes per day). Design for few reads: denormalize, store lesson blocks inside the lesson document, use aggregate counters, cache public pages (static or ISR), never list whole collections in client components.

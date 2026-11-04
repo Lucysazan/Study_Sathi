@@ -66,3 +66,14 @@ Template:
 **Context:** Phase 1 adds Firebase Auth, Firestore, session cookies and rules tests.
 **Decision:** Runtime: `firebase` (client SDK), `firebase-admin` (server), `zod` (validation), `server-only` (build error if server code reaches the client) — all from the CLAUDE.md stack. Dev: `firebase-tools` (emulators + deploy; pinned in the repo so `npm run emulators` and `npm run test:rules` work without a global install), `@firebase/rules-unit-testing` (official rules test helpers), `tsx` (run TypeScript scripts such as `scripts/set-role.ts`). Local development and tests use the emulators with the `demo-studysathi` project id: the `demo-` prefix means the tools never contact a real Firebase project.
 **Consequences:** Java 11+ is needed for the emulators (owner machine has 25). Production project id is added later with `firebase use --add`.
+
+## ADR-010: Sign-up flow, creator applicants, and the signed-in hint cookie
+**Date:** 2026-11-04 · **Status:** Accepted (creator-applicant default pending owner confirmation)
+**Context:** Phase 1 needs self sign-up for parents and creator applicants, a way into the site from the public header, and role checks that work with Cache Components.
+**Decision:**
+- Parents get the `parent` role at sign-up. Creator applicants get a user doc with `role: null, requestedRole: 'creator'` and no claim; they see a "what happens next" note at `/account` until an admin approves them (Phase 4 adds the application form and review queue).
+- After sign-in the browser goes to `next` (same-site paths only) or the role's home (`/learn`, `/parent`, `/creator`, `/admin`, or `/account` without a role), using a full page load so new cookies apply everywhere.
+- The header shows "Log in" / "My account" from a readable, non-secret `ss_signed_in` cookie, read in the browser. Reading the real session in the header would make every public page dynamic (a server invocation per view); the hint keeps them static. All real checks use the httpOnly session cookie on the server.
+- Session cookie lasts 7 days; sign-out revokes refresh tokens on every device.
+- No email copy in `users/{uid}`; Firebase Auth holds it.
+**Consequences:** A stale hint cookie (expired session) shows "My account", which leads to the login page. Fine. Promoting a creator later means `assignRole(..., 'creator')`, which also clears `requestedRole`.

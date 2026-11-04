@@ -23,14 +23,21 @@ After changing a role, the server revokes refresh tokens so the new claim applie
 - Adults: Firebase Auth email/password or Google, client side.
 - Students (no email needed): parent picks a **username** and **password** for the child. The server creates a Firebase Auth user with a synthetic email `{username}@${STUDENT_LOGIN_DOMAIN}` (never emailed). Students log in with username + password; the login form adds the domain. Parents can reset the child's password from the parent portal (server action → `admin.auth().updateUser`).
 - After client sign-in, the client posts the ID token to `POST /api/auth/session`; the server verifies it and sets an httpOnly, secure, `sameSite=lax` session cookie (`createSessionCookie`, 5–14 days). `DELETE` clears it and revokes tokens.
-- `middleware.ts` (Edge): if a `/learn`, `/parent`, `/creator` or `/admin` route has no session cookie → redirect to `/login?next=...`. It does **not** verify the cookie (admin SDK can't run on Edge).
-- Each portal `layout.tsx` (Node): `requireRole(['admin'])` etc. verifies the cookie with `verifySessionCookie(cookie, true)` and redirects if wrong.
+- `src/proxy.ts` (Next 16 renamed middleware to proxy): if a `/learn`, `/parent`, `/creator`, `/admin` or `/account` route has no session cookie → redirect to `/login?next=...`. It does **not** verify the cookie.
+- Each portal `layout.tsx` uses `PortalShell` → `RoleGate` → `requireRole([...])`, which verifies the cookie with `verifySessionCookie(cookie, true)` (also catches revoked tokens and disabled accounts) and redirects: not signed in → login; wrong role → the user's own home. With Cache Components this check runs inside `<Suspense>`, so the site header/footer stay in the static shell.
+- `next` after login is accepted only as a same-site path (`safeNextPath`).
+- Session cookie: httpOnly, `sameSite=lax`, secure in production, 7 days; minted only from a sign-in less than 5 minutes old. `/api/auth/session` rejects requests whose `Origin` is not this site.
+- A second, readable cookie `ss_signed_in=1` only tells the static header to show "My account" instead of "Log in". It grants nothing.
+- **Adult sign-up** (`/signup`): Firebase creates the user in the browser → server action `completeSignup` verifies the ID token and sets up the account (`setUpAccount`): parents get the `parent` claim + user doc; creator applicants get a user doc with `role: null, requestedRole: 'creator'` and no claim until an admin approves them (Phase 4) → the browser refreshes its token and posts it to `/api/auth/session` again. A first Google sign-in from `/login` (no user doc yet) shows the same setup step.
+- Role changes (`assignRole`, used by `scripts/set-role.ts` and later the admin UI) update the claim and user doc, write `auditLog`, and revoke refresh tokens.
 
 ## 3. Firestore data model
 
 ```
 users/{uid}
-  role, displayName (adults only), nickname, avatarId, createdAt, status: active|disabled
+  role (null until approved for creator applicants), requestedRole?: 'creator'
+  displayName (adults only), nickname, avatarId, createdAt, updatedAt?, status: active|disabled
+  # no email stored here: it already lives in Firebase Auth (minimum personal data)
   parentUid?            # students
   childUids?: string[]  # parents
   leaderboardOptIn: bool (students, default false, set by parent)

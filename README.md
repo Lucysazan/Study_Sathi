@@ -26,7 +26,7 @@ Runs on free tiers: **Vercel Hobby** and **Firebase Spark**. See `docs/ARCHITECT
 ### 1. Prerequisites
 - Node.js LTS (20 or newer) and npm
 - Java 11+ (needed by the Firebase emulators)
-- Firebase CLI: `npm i -g firebase-tools`
+- Firebase CLI: included as a dev dependency (`npx firebase …`); a global install is optional
 - A Firebase project (Spark plan) and a Vercel account
 
 ### 2. Install
@@ -45,7 +45,13 @@ npm ci
 6. `firebase login` then `firebase use --add` and choose your project.
 
 ### 4. Environment variables
-Copy `.env.example` to `.env.local` and fill in:
+For local development with the emulators, `.env.local` needs one line:
+
+```bash
+NEXT_PUBLIC_USE_EMULATORS=true
+```
+
+Everything else has a safe local default (project `demo-studysathi`; see `src/lib/env/schema.ts`). For a real Firebase project, copy `.env.example` to `.env.local` and fill in:
 
 ```bash
 # Public (safe for the browser)
@@ -66,18 +72,21 @@ STUDENT_LOGIN_DOMAIN=students.studysathi.local
 ### 5. Run locally
 ```bash
 npm run emulators   # terminal 1: Auth + Firestore emulators (UI at http://localhost:4000)
-npm run seed        # terminal 2: loads resources, learning paths and badges
 npm run dev         # terminal 2: http://localhost:3000
+# npm run seed      # (Phase 2) loads resources, learning paths and badges into Firestore
 ```
 
-Create your first admin: sign up in the app, then run
+Create your first admin: sign up in the app (as a parent), then run
 ```bash
-npx tsx scripts/set-role.ts you@example.com admin
+npm run set-role -- you@example.com admin          # emulators
+npm run set-role -- you@example.com admin --prod   # real project (needs admin credentials)
 ```
+The user is signed out everywhere; the new role applies at their next login.
 
 ### 6. Quality checks
 ```bash
 npm run lint && npm run typecheck && npm run test && npm run build
+npm run test:rules   # Firestore rules tests (starts the Firestore emulator for you)
 ```
 
 ## Deploying to Vercel
@@ -85,7 +94,8 @@ npm run lint && npm run typecheck && npm run test && npm run build
 2. Add every variable from `.env.local` to Vercel → Settings → Environment Variables. Set `NEXT_PUBLIC_USE_EMULATORS=false`. Paste the private key with literal `\n` line breaks; `lib/firebase/admin.ts` converts them.
 3. Firebase console → Authentication → Settings → **Authorized domains**: add your `*.vercel.app` domain and any custom domain.
 4. Deploy rules and indexes from your machine: `firebase deploy --only firestore:rules,firestore:indexes`.
-5. Run the seed script once against production: `npm run seed -- --prod`.
+5. Run the seed script once against production: `npm run seed -- --prod` (Phase 2).
+6. Create the first admin: `npm run set-role -- you@example.com admin --prod`.
 
 Note: Vercel Hobby is intended for non-commercial projects. If StudySathi becomes part of a commercial service, move to a paid plan.
 

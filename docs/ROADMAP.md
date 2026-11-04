@@ -16,12 +16,12 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [ ] Deploy preview to Vercel (needs the owner to connect the repo to a Vercel account)
 
 ## Phase 1 — Firebase foundation and auth
-- [ ] `firebase.json`, emulators config, `firestore.rules` (default deny), `firestore.indexes.json`
-- [ ] `lib/firebase/client.ts`, `lib/firebase/admin.ts` (server-only), env validation with zod
-- [ ] Session cookie route `/api/auth/session`, `getCurrentUser()`, `requireRole()`, `middleware.ts`
-- [ ] Login / signup pages (parent + creator applicant; student username login)
-- [ ] `scripts/set-role.ts`; first admin works end to end
-- [ ] Rules test harness with the emulator
+- [x] `firebase.json`, emulators config, `firestore.rules` (default deny), `firestore.indexes.json`
+- [x] `lib/firebase/client.ts`, `lib/firebase/admin.ts` (server-only), env validation with zod
+- [x] Session cookie route `/api/auth/session`, `getCurrentUser()`, `requireRole()`, `proxy.ts` (Next 16 name for middleware)
+- [x] Login / signup pages (parent + creator applicant; student username login)
+- [x] `scripts/set-role.ts`; first admin works end to end
+- [x] Rules test harness with the emulator
 
 ## Phase 2 — Content in Firestore + admin basics
 - [ ] Seed script for resources, learning paths, badges

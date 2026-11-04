@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { isActivePath, mainNav } from '@/lib/nav';
 import { useSavedIds } from '@/lib/storage/guest-data';
+import { AccountLink } from './AccountLink';
 
 const MENU_ID = 'main-navigation';
 
@@ -54,6 +55,7 @@ function NavbarContent({ pathname }: { pathname: string | null }) {
         })}
       </nav>
       <div className="nav-tools">
+        <AccountLink />
         <Link className="saved-nav" href="/saved" aria-label={`Saved resources (${saved.length})`}>
           <Bookmark size={20} aria-hidden="true" />
           <span className="saved-label">Saved</span>

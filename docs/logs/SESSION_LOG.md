@@ -49,3 +49,15 @@ Template:
 **Files touched:** src/app/**, src/components/**, src/lib/**, src/data/**, src/types/**, docs/*
 **Checks:** lint ✅ · typecheck ✅ · test ✅ (28) · build ✅
 **Next:** Owner review; then Vercel preview and Phase 1 (Firebase foundation).
+
+## 2026-11-04 · Session 2 · Claude Code (claude-opus-5-5)
+**Goal:** Phase 1 — Firebase foundation and auth. Owner confirmed the new About wording stays.
+**Done:**
+- Emulator config (`demo-studysathi`), default-deny rules + 10 rules tests, env validation, Firebase client/admin.
+- Session cookies, `getCurrentUser`/`requireRole`, `/api/auth/session`, `proxy.ts`.
+- Login (student + adult tabs, Google), sign-up (parent / creator applicant), setup step, `/account`, placeholder portals, header account link.
+- `scripts/set-role.ts`; first admin verified end to end in the browser against the emulators.
+**Not done / blocked:** Vercel preview (needs owner's account). Real Firebase project not created yet.
+**Files touched:** firebase.json, .firebaserc, firestore.rules, src/proxy.ts, src/app/{(auth),account,admin,parent,creator,learn,api}/*, src/components/{auth,portal}/*, src/lib/{auth,env,firebase,validation}/*, scripts/set-role.ts, tests/rules/*, docs/*
+**Checks:** lint ✅ · typecheck ✅ · test ✅ (50) · test:rules ✅ (10) · build ✅
+**Next:** Phase 2 — seed script, Firestore-backed resource pages, admin layout + resources CRUD.
