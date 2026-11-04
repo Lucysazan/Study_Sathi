@@ -31,3 +31,4 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 ## 2026-11-04 (Phase 1)
 - [1.1] firebase.json (Auth 9099, Firestore 8080, UI 4000), .firebaserc (`demo-studysathi`), empty firestore.indexes.json, default-deny firestore.rules (public catalogue read; users read own doc and change only nickname/avatarId; server-only XP ledger; admin read-all); scripts `emulators`, `test:rules` — Phase 1 foundation
 - [1.6] Rules test harness (`tests/rules`, `vitest.rules.config.mts`) with 10 tests run inside `firebase emulators:exec`; unit tests exclude them — tests/rules/*
+- [1.2] Env validation with zod (client + server schemas, emulator defaults, private-key `\n` fix, refuses emulators in Vercel production) + 7 tests; lazy Firebase client (in-memory persistence, emulator connect) and server-only admin SDK (emulator hosts or service-account cert) — src/lib/env/*, src/lib/firebase/* — Phase 1 foundation; `.env.example` documents emulator-only local setup
