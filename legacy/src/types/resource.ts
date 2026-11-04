@@ -1,0 +1,1 @@
+export type Resource = {id:string;title:string;provider:string;category:string;topic:string;description:string;language:string;age:string;minAge:number|null;maxAge:number|null;format:string;purpose:string;url:string;note:string;verification:string};
