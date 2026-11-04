@@ -25,6 +25,7 @@ After changing a role, the server revokes refresh tokens so the new claim applie
 - After client sign-in, the client posts the ID token to `POST /api/auth/session`; the server verifies it and sets an httpOnly, secure, `sameSite=lax` session cookie (`createSessionCookie`, 5–14 days). `DELETE` clears it and revokes tokens.
 - `src/proxy.ts` (Next 16 renamed middleware to proxy): if a `/learn`, `/parent`, `/creator`, `/admin` or `/account` route has no session cookie → redirect to `/login?next=...`. It does **not** verify the cookie.
 - Each portal `layout.tsx` uses `PortalShell` → `RoleGate` → `requireRole([...])`, which verifies the cookie with `verifySessionCookie(cookie, true)` (also catches revoked tokens and disabled accounts) and redirects: not signed in → login; wrong role → the user's own home. With Cache Components this check runs inside `<Suspense>`, so the site header/footer stay in the static shell.
+- **Layouts do not protect pages.** Next renders a layout and its page in parallel, so the page runs even if the layout redirects (Next docs: authentication.md "Layouts and auth checks"). Every admin data function calls `requireAdmin()` itself (`src/lib/admin/guard.ts`, data access layer), and every Server Action calls `getAdmin()`/role checks before doing anything. `PortalShell` in the layout is only an extra layer.
 - `next` after login is accepted only as a same-site path (`safeNextPath`).
 - Session cookie: httpOnly, `sameSite=lax`, secure in production, 7 days; minted only from a sign-in less than 5 minutes old. `/api/auth/session` rejects requests whose `Origin` is not this site.
 - A second, readable cookie `ss_signed_in=1` only tells the static header to show "My account" instead of "Log in". It grants nothing.
@@ -92,6 +93,10 @@ auditLog/{autoId}                     # admin/creator actions: actorUid, action,
 | `checkpoint` | `message` | Celebration / summary between sections |
 
 New block types require an ADR. Each block type = one editor component (`components/blocks/editors`) + one player component (`components/blocks/players`) + a zod schema.
+
+## 3b. Catalogue reads (public site)
+
+`getCatalog()` (`src/data/catalog.server.ts`) reads `resources` + `learningPaths` with firebase-admin inside `'use cache'`, tag `catalog`, `cacheLife('hours')`. Admin saves call `updateTag('catalog')` so visitors see changes on the next load. If Firestore is empty, unreachable or slower than 4 s, it serves the bundled seed (`src/data/seed/*`) with `cacheLife('minutes')`. Builds therefore never need Firebase. Resource ids are numeric for the seed and title slugs for admin-added ones.
 
 ## 4. Security rules (principles)
 

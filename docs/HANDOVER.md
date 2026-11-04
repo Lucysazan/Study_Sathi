@@ -2,94 +2,100 @@
 
 > Rewrite this whole file at the end of every session. A new agent with no chat history must be able to continue from here.
 
-**Last updated:** 2026-11-04 · **By:** Session 2 (Claude Code, claude-opus-5-5) · **Branch:** `main` → `origin` = https://github.com/Lucysazan/Study_Sathi (local `main` is ahead of `origin/main`; push when the owner says so)
+**Last updated:** 2026-11-05 · **By:** Session 3 (Claude Code, claude-opus-5-5) → handing over to another agent (Codex / ChatGPT)
+**Branch:** `main`, pushed to `origin` = https://github.com/Lucysazan/Study_Sathi
 
 ## Current state
-- **Phase 0 done** (except the Vercel preview, which needs the owner's account). **Phase 1 done.** Waiting for owner review before Phase 2.
-- Public site: all pages ported from the prototype and fully static.
-- Auth works end to end on the emulators:
-  - `/login`: student username tab, plus parent/creator tab with email or Google.
-  - `/signup`: parent or course-creator applicant.
-  - `/account`.
-  - Placeholder portals `/admin`, `/parent`, `/creator`, `/learn`, each with sign-out.
-  - `npm run set-role` creates the first admin.
-- The owner connected GitHub (`origin`) and merged a Vercel config commit (`vercel.json`, `.nvmrc`) during Session 2. No real Firebase project yet, so local development uses only the emulators. On Vercel without Firebase env vars, the public site works, but sign-in will fail until the env vars are set.
-- Checks: lint ✅ · typecheck ✅ · `npm run test` 50 ✅ · `npm run test:rules` 10 ✅ · build ✅.
+| Phase | Status |
+| --- | --- |
+| 0: Port the Vite prototype to Next.js | ✅ Done, except the Vercel preview deploy (needs the owner's Vercel + Firebase env vars) |
+| 1: Firebase foundation and auth | ✅ Done and verified in the browser (25 scripted checks + Google sign-in) |
+| 2: Content in Firestore + admin basics | ✅ Built, ⚠️ browser verification only partly done (see below) |
+| 3–7 | Not started |
+
+- Checks on the final code: lint ✅ · typecheck ✅ · `npm run test` 59 ✅ · `npm run test:rules` 11 ✅ · `npm run build` ✅.
+- No real Firebase project yet. Everything runs on the local emulators (`demo-studysathi`).
+
+### Phase 2 verification status (do this first)
+| Feature | Unit/rules tests | Browser checked |
+| --- | --- | --- |
+| Seed script (add-missing, `--force`, `--prod` guard) | n/a | ✅ by running it |
+| Public pages read Firestore; seed fallback when it's down | n/a | ✅ two builds (on/off) |
+| Parent blocked from `/admin/*`, no admin data in the response | n/a | ✅ |
+| Admin overview counts + recent activity | n/a | ✅ |
+| Add / edit / delete resource, public site updates at once, delete blocked for path resources | form schema ✅ | ❌ **not yet**: the test script stopped on a selector bug in the script (not the app) |
+| Users: search, approve creator applicant, turn off/on, self-protection | n/a | ❌ **not yet** |
+| Admin pages at 360 px | n/a | ❌ not yet |
+
+How to verify: start the emulators + seed, `npm run build && npx next start -p 3123`, then click through `/admin` as an admin (steps in "How to run it"). A Playwright script for this existed only in the previous agent's scratch folder. Re-create it under `tests/e2e/` if you want it in the repo (ROADMAP Phase 7 plans Playwright).
 
 ## How to run it
-1. `.env.local` contains `NEXT_PUBLIC_USE_EMULATORS=true` (already created on the owner's machine; it's gitignored).
-2. Terminal 1: `npm run emulators` (Auth 9099, Firestore 8080, UI 4000). It needs Java; the owner has Java 25.
-3. Terminal 2: `npm run dev` → http://localhost:3000. Sign up as a parent, then `npm run set-role -- you@example.com admin`, then log in again → `/admin`.
+1. `.env.local` contains `NEXT_PUBLIC_USE_EMULATORS=true` (gitignored; create it on a new machine).
+2. Terminal 1: `npm run emulators` (Auth 9099, Firestore 8080, UI http://localhost:4000). Needs Java 11+.
+3. Terminal 2: `npm run seed`, then `npm run dev` → http://localhost:3000.
+4. Sign up at `/signup` as a parent → `npm run set-role -- you@example.com admin` → log in again → `/admin`.
+5. Never run the rules tests against your dev data by hand: use `npm run test:rules` (it uses project `demo-studysathi-rules`).
 
 ## Code map
-- `src/app/**`: routes. `(auth)/login`, `(auth)/signup`, `account`, portal folders, `api/auth/session/route.ts`.
-- `src/proxy.ts`: cheap cookie-presence redirect for portal routes (Next 16 renamed middleware → proxy).
-- `src/lib/auth/`:
-  - `roles.ts`: role list, role homes, `safeNextPath` (tested).
-  - `session.ts`: server-only; `createSession`, `clearSession`, `getCurrentUser`, `requireRole`, `requireUser`.
-  - `accounts.ts`: `setUpAccount`, `assignRole`. It takes admin instances as arguments, so scripts can use it too.
-  - `actions.ts`: `completeSignup` server action.
-  - `client-flow.ts`: browser side of sign-in.
-  - `errors.ts`: friendly Firebase error copy.
-  - `constants.ts`.
-- `src/lib/env/`: `schema.ts` holds the pure zod schemas (tested), `client.ts` / `server.ts` validate lazily, and `public-config.ts` holds the student login domain.
-- `src/lib/firebase/`: `client.ts` (in-memory auth persistence, emulator aware) and `admin.ts` (server-only).
-- `src/components/auth/*` (forms), `src/components/portal/*` (`PortalShell` = Suspense + `RoleGate`).
-- `tests/rules/*`: rules tests, run inside `firebase emulators:exec` by `npm run test:rules`.
-- Earlier (Phase 0): `src/components/{layout,resources,paths,ui,home}`, `src/lib/{filters,budget,categories,storage}`, `src/data/*`.
+- `src/app/`: routes.
+  - Public: `/`, `/resources`, `/resources/[id]`, `/learning-paths`, `/learning-paths/[id]`, `/volunteers`, `/saved`, `/about`.
+  - Auth: `(auth)/login`, `(auth)/signup`, `account`.
+  - Portals: `admin/**` (real), `parent`, `creator`, `learn` (placeholders).
+  - API: `api/auth/session`.
+- `src/proxy.ts`: cookie-presence redirect for portal routes (Next 16 renamed middleware → proxy).
+- `src/data/`:
+  - `catalog.ts`: pure helpers plus `seedCatalog`;
+  - `catalog.server.ts`: `getCatalog()`, Firestore + cache + seed fallback;
+  - `seed/`: resources.json, learningPaths.ts, badges.ts.
+- `src/lib/auth/`: roles, session (server-only), accounts (`setUpAccount`, `assignRole`), actions, client-flow, errors.
+- `src/lib/admin/`: `guard.ts` (`requireAdmin`, `getAdmin`), `audit.ts`, `overview.ts`, `resources.ts`, `users.ts`. **Every read calls `requireAdmin()`.**
+- `src/lib/validation/`: zod schemas (auth forms, resource form + Firestore docs).
+- `src/lib/`: `filters.ts`, `budget.ts`, `categories.ts`, `storage/` (guest localStorage), `env/` (zod env), `firebase/` (client + admin).
+- `src/components/`: `layout`, `resources`, `paths`, `home`, `ui`, `auth`, `portal` (`PortalShell`), `admin`.
+- `scripts/`: `seed.ts`, `set-role.ts`, `lib/admin.ts`. Scripts use emulators unless `--prod`.
+- `tests/rules/`: Firestore rules tests.
 
 ## Things the next agent must know
-- **Read `AGENTS.md`**: this Next.js version differs from older training data. Check `node_modules/next/dist/docs/` first.
+- **Read `AGENTS.md`**: this Next.js (16.4) differs from older training data. Check `node_modules/next/dist/docs/` before using a Next API.
+- **Layouts don't protect pages** (ADR-011). Any new portal page must call a guarded data function or `requireRole()` itself. Every Server Action re-checks the user: validate with zod → check role → do the work → `updateTag`/`revalidatePath` → return `ActionResult`.
 - **Cache Components:**
-  - Anything that reads cookies or the session must be inside `<Suspense>`: use `PortalShell` for portal layouts, and put `getCurrentUser()` in components under it.
+  - Anything that reads cookies or the session goes inside `<Suspense>`.
   - No raw `new Date()` in prerendered server components.
-  - Client components using `useSearchParams` need a Suspense fallback that doesn't call it (see `LoginForm` vs `LoginFormFromUrl`).
-- **Visited pages stay mounted (hidden):** use `useId()` for ids. In browser tests, count `:visible` elements, and look for form errors with `.form-error`, not `role=alert` (Next has its own empty `role=alert` route announcer).
-- **Header "Log in" / "My account"** reads the non-secret `ss_signed_in` cookie in the browser so public pages stay static. Never use it for access decisions (ADR-010).
-- **Roles:**
-  - Only server code writes roles: `assignRole` updates the claim, the user doc and the audit log, then revokes tokens.
-  - The session cookie carries the claims from when it was created, so a role change requires a fresh login. Revocation forces that.
-- **firebase-admin can't be imported by scripts through `server-only` modules.** Put shared logic in modules that take `Auth` / `Firestore` as parameters, like `accounts.ts`.
+  - Client components using `useSearchParams` need a fallback that doesn't call it.
+  - Visited pages stay mounted but hidden: use `useId()` for ids; in tests count `:visible` elements, and read errors from `.form-error` (Next has its own empty `role=alert`).
+- **Catalogue:** public pages call `getCatalog()`. After changing resources or paths in a Server Action, call `updateTag(CATALOG_TAG)`.
 - **CSS:**
   - Use `site-container`, not `container`.
-  - Every `<nav>` gets header-menu styles, so use `<div>` for other link groups.
-  - New CSS goes in section 4 ("Additions") at the end of `globals.css`.
-  - Bare `h1`/`h2` have weight 400 after Tailwind's reset, so set a weight on new headings.
-- Prettier ignores `*.md`. `.gitattributes` forces LF. In Git Bash, set `MSYS_NO_PATHCONV=1` when passing `/routes` to scripts.
-- Visual/behaviour check method: `next start -p 3123` (production build) + `playwright-core` with installed Edge from a scratch folder. The prototype build for comparison is in the owner's `Downloads/SussanProject/StudySathi/dist`.
-
-## In progress
-- Nothing. Waiting for owner review.
+  - The prototype CSS styles every `<nav>` like the header menu, so override it, as `.portal-sidebar nav` does.
+  - New CSS goes in section 4 at the end of `globals.css`.
+  - Bare headings are weight 400, so set a weight.
+- **Header "Log in / My account"** reads a non-secret hint cookie (ADR-010). Never use it for access.
+- Prettier ignores `*.md`; `.gitattributes` forces LF. Node ≥ 22.12 (`.nvmrc` 24). On Windows Git Bash, set `MSYS_NO_PATHCONV=1` when passing `/routes` as arguments.
 
 ## Next steps (in order)
-1. Owner review of Phase 1 (try the "How to run it" steps above).
-2. Owner: push `main`; create the Firebase project (Spark); add env vars in Vercel (README §3–4, "Deploying to Vercel"). Then deploy rules (`npx firebase deploy --only firestore:rules,firestore:indexes`).
-3. Phase 2:
-   - seed script (`npm run seed`): resources, learning paths, badges;
-   - resource pages read Firestore at build/ISR, falling back to the seed;
-   - admin layout + sidebar;
-   - admin resources CRUD with audit log;
-   - admin users list.
+1. **Finish Phase 2 browser verification** (table above). Fix anything found and log it.
+2. Optional small wins: adult "Forgot password" by email; an admin page for learning paths (resources used by a path can't be deleted until paths are editable).
+3. Owner tasks:
+   - create the Firebase project (Spark) and service account;
+   - set the Vercel env vars (README "Deploying to Vercel");
+   - deploy rules: `npx firebase deploy --only firestore:rules,firestore:indexes`;
+   - `npm run seed -- --prod`, then `npm run set-role -- <email> admin --prod`.
+4. **Phase 3** (ROADMAP): parent dashboard + add child (username + password), student profile (nickname + 12 avatars), signed-in bookmarks/notes in Firestore with guest → account merge.
 
 ## Open questions (defaults in use until the owner answers)
 | Question | Default in use |
 | --- | --- |
-| Creator applicants: account with no role + "what happens next" note until an admin approves (Phase 4)? | Yes (ADR-010) |
-| Can students aged 13–16 sign up themselves, or must every student be created by a parent? | Parent-created only (signup page says so) |
-| Where are course images/PDFs hosted? (Firebase Storage needs the paid Blaze plan) | Image URLs + YouTube/Vimeo embeds; Cloudinary free tier proposed in ADR-004 (pending) |
-| Should the UI be bilingual (English/Nepali) from the start? | English first; keep strings in one place for later translation |
-| Do volunteers/teachers need "classes" to group students? | Not in v1 |
-| Password reset for adults ("Forgot password?" by email)? | Not built yet; suggest adding in Phase 2 or 3 |
-| Firebase project? | None yet; emulators only |
-| `.nvmrc` was 20.9.0 in the Vercel commit; changed to 24 because firebase-admin 14 needs Node 22+ and Vitest 5 needs 22.12+. OK? | Node 24 (`engines: >=22.12`) |
+| Creator applicants: account with no role + "what happens next" note until an admin approves? | Yes (ADR-010); approval = admin sets role "Creator" in Users |
+| Starter badges (`src/data/seed/badges.ts`, 7 badges): names OK? | Seeded as written |
+| Can students aged 13–16 sign up themselves? | No; parent-created only |
+| Course images/PDFs hosting (Storage needs Blaze) | URLs + YouTube/Vimeo; Cloudinary proposed (ADR-004, pending) |
+| Bilingual UI from the start? | English first |
+| Classes for volunteers? | Not in v1 |
+| `.nvmrc` 24 (was 20.9.0 in the Vercel commit) | Node 24; firebase-admin 14 needs ≥ 22 |
 
 ## Known issues / risks
-- About says "No accounts or personal profiles are needed." Still true for the public site, but revisit when student accounts arrive (Phase 3). The owner chose to keep the current About wording.
-- Firestore free-tier quotas: keep reads low (ARCHITECTURE §6). `/account` costs 1 read; the portal checks cost 0 reads (they use claims).
-- `npm run emulators` saves data to `.emulator-data/` on a clean exit (Ctrl+C); it's gitignored.
-- `next build` warns about a stray `package-lock.json` in `C:\Users\DELL\Downloads` (outside the repo). Harmless.
-- firebase-tools prints `url.parse()` deprecation warnings on start. They come from its dependencies and are harmless.
-
-## Environment notes
-- Node 24.14 (`.nvmrc` 24; firebase-admin 14 needs ≥ 22), npm 11, Java 25 (Temurin). firebase-tools 15 is a dev dependency (`npx firebase …`).
-- Commands: `npm run dev | build | lint | typecheck | test | test:rules | emulators | set-role | format`.
+- Admin users list shows the first 1,000 accounts (no paging yet).
+- About says "No accounts or personal profiles are needed": revisit when student accounts arrive (Phase 3). The owner chose to keep the current About wording.
+- Firestore free tier: public pages cost reads only when the cache refreshes. The admin overview costs ~3 reads plus the audit list.
+- `npm run emulators` saves data to `.emulator-data/` only on a clean Ctrl+C exit.
+- Harmless warnings: a stray `package-lock.json` in the owner's Downloads folder; firebase-tools `url.parse()` deprecation notices.

@@ -77,3 +77,9 @@ Template:
 - Session cookie lasts 7 days; sign-out revokes refresh tokens on every device.
 - No email copy in `users/{uid}`; Firebase Auth holds it.
 **Consequences:** A stale hint cookie (expired session) shows "My account", which leads to the login page. Fine. Promoting a creator later means `assignRole(..., 'creator')`, which also clears `requestedRole`.
+
+## ADR-011: Admin data access layer and catalogue caching
+**Date:** 2026-11-05 · **Status:** Accepted
+**Context:** Next renders layouts and pages in parallel, so a role check in a portal layout does not stop the page's data fetching or keep its output out of the RSC payload. Separately, public pages must not cost Firestore reads per visitor.
+**Decision:** Admin reads go through functions in `src/lib/admin/*` that each call `requireAdmin()`. Server Actions re-check with `getAdmin()` and return typed results. The public catalogue is one cached server read (`getCatalog`, tag `catalog`) refreshed by `updateTag` after admin edits, with a short-lived seed fallback. Deleting a resource that a learning path uses is blocked. Admins cannot change their own role or turn off their own account. Rules tests use project id `demo-studysathi-rules` (emulator `singleProjectMode: false`) so they never wipe dev data.
+**Consequences:** New portal pages must call a guarded data function or `requireRole()` themselves; a layout gate alone is not enough.

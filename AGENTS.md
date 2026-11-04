@@ -1,3 +1,12 @@
+# AGENTS.md — StudySathi
+
+Any AI coding agent (Codex, ChatGPT, Claude, …) working here: before doing anything,
+
+1. Read `CLAUDE.md`: the project rules and the **session protocol** (it applies to every agent, not just Claude).
+2. Read `docs/HANDOVER.md`: current state, what is verified, what to do next.
+3. Read the last entries of `docs/logs/SESSION_LOG.md` and the active phase in `docs/ROADMAP.md`.
+4. At the end of your session, update the logs, roadmap and handover as `CLAUDE.md` §0 describes, and commit docs with the code.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know

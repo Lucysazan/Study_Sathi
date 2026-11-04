@@ -24,10 +24,10 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Rules test harness with the emulator
 
 ## Phase 2 — Content in Firestore + admin basics
-- [ ] Seed script for resources, learning paths, badges
-- [ ] Public resource pages read Firestore at build/ISR (fall back to seed JSON if unavailable)
-- [ ] Admin layout + sidebar; admin resources CRUD; audit log entries
-- [ ] Admin users list (search, role change, disable)
+- [x] Seed script for resources, learning paths, badges
+- [x] Public resource pages read Firestore at build/ISR (fall back to seed JSON if unavailable)
+- [x] Admin layout + sidebar; admin resources CRUD; audit log entries (built; browser test passed for access control + overview, rest of the scripted run still to finish — see HANDOVER)
+- [x] Admin users list (search, role change, disable) (built; browser verification still to finish — see HANDOVER)
 
 ## Phase 3 — Parents and students
 - [ ] Parent dashboard, add child (username + password), reset child password

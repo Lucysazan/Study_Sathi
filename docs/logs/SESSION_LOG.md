@@ -62,3 +62,15 @@ Template:
 **Checks:** lint ✅ · typecheck ✅ · test ✅ (50) · test:rules ✅ (10) · build ✅
 **Next:** Phase 2 — seed script, Firestore-backed resource pages, admin layout + resources CRUD.
 **Note (handover mismatch, per protocol):** during this session the owner added `origin` (https://github.com/Lucysazan/Study_Sathi) and merged a Vercel commit (`vercel.json`, `.nvmrc` = 20.9.0). Handover said "no remote"; fixed. `.nvmrc` → 24 and `engines` → `>=22.12` because firebase-admin 14 requires Node ≥ 22 and Vitest 5 requires ≥ 22.12.
+
+## 2026-11-05 · Session 3 · Claude Code (claude-opus-5-5)
+**Goal:** Phase 2: content in Firestore + admin basics.
+**Done:**
+- Seed script, Firestore-backed catalogue with seed fallback (verified both ways in builds).
+- Admin portal: overview, resources CRUD with audit log, users (search, role change, turn off/on).
+- Security: admin auth checks moved into the data layer after finding that layouts don't gate pages.
+- Rules tests isolated from dev data; 11 rules tests, 59 unit tests.
+**Not done / blocked:** The scripted browser run of the admin features stopped early because of a selector bug in the test script (not the app). Passed: parent blocked from admin (and no admin data in the response), overview counts, activity. Not yet run in the browser: add/edit/delete resource, users actions. The owner asked to wrap up and hand over.
+**Files touched:** scripts/*, src/data/*, src/lib/{admin,validation}/*, src/app/admin/**, src/components/admin/*, globals.css, tests/rules/*, docs/*
+**Checks:** lint ✅ · typecheck ✅ · test ✅ (59) · test:rules ✅ (11) · build ✅
+**Next:** Finish browser verification of the admin features, then Phase 3.
