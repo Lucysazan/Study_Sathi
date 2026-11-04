@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "emulators": "firebase emulators:start --project demo-studysathi --import=.emulator-data --export-on-exit=.emulator-data",
     "test:rules": "firebase emulators:exec --only firestore --project demo-studysathi \"vitest run --config vitest.rules.config.mts\"",
-    "set-role": "tsx scripts/set-role.ts"
+    "set-role": "tsx scripts/set-role.ts",
+    "seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
     "firebase": "^13.2.0",

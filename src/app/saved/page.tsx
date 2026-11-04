@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { SavedList } from '@/components/resources/SavedList';
 import { PageTitle } from '@/components/ui/PageTitle';
+import { getCatalog } from '@/data/catalog.server';
 
 export const metadata: Metadata = {
   title: 'My Saved Resources',
@@ -8,7 +9,8 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-export default function SavedPage() {
+export default async function SavedPage() {
+  const { resources, source } = await getCatalog();
   return (
     <>
       <PageTitle
@@ -17,7 +19,7 @@ export default function SavedPage() {
         intro="Your next discoveries, all in one place. Saved on this browser, without an account."
       />
       <section className="site-container section">
-        <SavedList />
+        <SavedList resources={resources} canPrune={source === 'firestore'} />
       </section>
     </>
   );

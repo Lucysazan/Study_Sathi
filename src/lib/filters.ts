@@ -11,6 +11,29 @@ export const categories = [
   'Environment',
 ] as const;
 
+/** Allowed values for resource fields (shared by filters, the admin form and Firestore parsing). */
+export const resourceFormats = [
+  'Website',
+  'Video',
+  'Interactive Lesson',
+  'Game',
+  'Reading Material',
+  'Activity',
+] as const;
+export const learningPurposes = [
+  'Independent Learning',
+  'Teaching / Group Learning',
+  'Both',
+] as const;
+/** Language labels a resource can have. The Language filter understands exactly these. */
+export const resourceLanguages = [
+  'English',
+  'Nepali',
+  'Nepali / English',
+  'Multiple Languages',
+  'Varies',
+] as const;
+
 export type Filters = {
   q: string;
   category: string;
@@ -52,13 +75,13 @@ export const filterFields: readonly FilterField[] = [
     key: 'format',
     label: 'Resource Format',
     allLabel: 'All Formats',
-    options: ['Website', 'Video', 'Interactive Lesson', 'Game', 'Reading Material', 'Activity'],
+    options: resourceFormats,
   },
   {
     key: 'purpose',
     label: 'Learning Purpose',
     allLabel: 'All Purposes',
-    options: ['Independent Learning', 'Teaching / Group Learning', 'Both'],
+    options: learningPurposes,
   },
 ];
 

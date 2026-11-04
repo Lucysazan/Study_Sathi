@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import { useId, useState } from 'react';
 import { Empty } from '@/components/ui/Empty';
 import { PageTitle } from '@/components/ui/PageTitle';
-import { resources } from '@/data/catalog';
 import {
   emptyFilters,
   filterKeys,
@@ -19,10 +18,12 @@ import {
 import { FilterPanel } from './FilterPanel';
 import { ResourceGrid } from './ResourceGrid';
 
-type Props = { teaching?: boolean };
+import type { Resource } from '@/types/catalog';
+
+type Props = { teaching?: boolean; resources: readonly Resource[] };
 
 /** Search + filters + results. Filters live in the query string so views can be shared. */
-export function ResourceLibrary({ teaching = false }: Props) {
+export function ResourceLibrary({ teaching = false, resources }: Props) {
   const params = useSearchParams();
   const fromUrl = filtersFromSearchParams(new URLSearchParams(params.toString()));
 
@@ -42,20 +43,36 @@ export function ResourceLibrary({ teaching = false }: Props) {
     window.history.replaceState(null, '', window.location.pathname + filtersToQueryString(next));
   }
 
-  return <LibraryView teaching={teaching} filters={{ ...fromUrl, q }} onChange={setFilters} />;
+  return (
+    <LibraryView
+      teaching={teaching}
+      resources={resources}
+      filters={{ ...fromUrl, q }}
+      onChange={setFilters}
+    />
+  );
 }
 
 /** Full library with no filters: shown while the query string is unknown during prerendering. */
-export function ResourceLibraryFallback({ teaching = false }: Props) {
-  return <LibraryView teaching={teaching} filters={emptyFilters} onChange={() => {}} />;
+export function ResourceLibraryFallback({ teaching = false, resources }: Props) {
+  return (
+    <LibraryView
+      teaching={teaching}
+      resources={resources}
+      filters={emptyFilters}
+      onChange={() => {}}
+    />
+  );
 }
 
 function LibraryView({
   teaching,
+  resources,
   filters: f,
   onChange,
 }: {
   teaching: boolean;
+  resources: readonly Resource[];
   filters: Filters;
   onChange: (next: Filters) => void;
 }) {

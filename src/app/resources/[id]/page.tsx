@@ -5,22 +5,25 @@ import { notFound } from 'next/navigation';
 import { CategoryIcon } from '@/components/resources/CategoryIcon';
 import { ResourceGrid } from '@/components/resources/ResourceGrid';
 import { SaveButton } from '@/components/resources/SaveButton';
-import { getRelatedResources, getResource, resources } from '@/data/catalog';
+import { findResource, relatedResources } from '@/data/catalog';
+import { getCatalog } from '@/data/catalog.server';
 import { getCategoryMeta } from '@/lib/categories';
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const { resources } = await getCatalog();
   return resources.map((r) => ({ id: r.id }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<'/resources/[id]'>): Promise<Metadata> {
-  const r = getResource((await params).id);
+  const r = findResource(await getCatalog(), (await params).id);
   return r ? { title: r.title, description: r.description } : {};
 }
 
 export default async function ResourceDetailsPage({ params }: PageProps<'/resources/[id]'>) {
-  const r = getResource((await params).id);
+  const catalog = await getCatalog();
+  const r = findResource(catalog, (await params).id);
   if (!r) notFound();
   const { className } = getCategoryMeta(r.category);
 
@@ -95,7 +98,7 @@ export default async function ResourceDetailsPage({ params }: PageProps<'/resour
           All resources <ArrowRight size={17} aria-hidden="true" />
         </Link>
       </div>
-      <ResourceGrid resources={getRelatedResources(r)} />
+      <ResourceGrid resources={relatedResources(catalog, r)} />
     </section>
   );
 }

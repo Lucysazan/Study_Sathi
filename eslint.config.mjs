@@ -8,6 +8,15 @@ const eslintConfig = defineConfig([
   ...nextTs,
   // Turn off style rules that Prettier handles. Must come last.
   prettier,
+  {
+    rules: {
+      // Allow `const { secret: _secret, ...rest } = obj` to drop fields, and `_unused` args.
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', ignoreRestSiblings: true },
+      ],
+    },
+  },
   globalIgnores(['.next/**', 'out/**', 'build/**', 'coverage/**', 'next-env.d.ts', 'legacy/**']),
 ]);
 

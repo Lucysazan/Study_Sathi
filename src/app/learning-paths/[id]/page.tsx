@@ -4,27 +4,30 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PathSteps } from '@/components/paths/PathSteps';
 import { CategoryIcon } from '@/components/resources/CategoryIcon';
-import { getPath, getResource, paths } from '@/data/catalog';
+import { findPath, findResource } from '@/data/catalog';
+import { getCatalog } from '@/data/catalog.server';
 import { getCategoryMeta } from '@/lib/categories';
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const { paths } = await getCatalog();
   return paths.map((p) => ({ id: p.id }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<'/learning-paths/[id]'>): Promise<Metadata> {
-  const p = getPath((await params).id);
+  const p = findPath(await getCatalog(), (await params).id);
   return p ? { title: p.title, description: p.description } : {};
 }
 
 export default async function PathDetailsPage({ params }: PageProps<'/learning-paths/[id]'>) {
-  const p = getPath((await params).id);
+  const catalog = await getCatalog();
+  const p = findPath(catalog, (await params).id);
   if (!p) notFound();
 
   const resourceTitles: Record<string, string> = {};
   for (const s of p.steps) {
-    const r = s.resource ? getResource(s.resource) : undefined;
+    const r = s.resource ? findResource(catalog, s.resource) : undefined;
     if (r) resourceTitles[r.id] = r.title;
   }
 

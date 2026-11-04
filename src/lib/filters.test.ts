@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { resources } from '@/data/catalog';
+import { seedCatalog } from '@/data/catalog';
 import type { Resource } from '@/types/catalog';
 import {
   emptyFilters,
@@ -102,6 +102,8 @@ describe('filterResources: search and combined filters', () => {
     expect(filterResources(resources, emptyFilters)).toHaveLength(resources.length);
   });
 });
+
+const { resources } = seedCatalog;
 
 describe('real catalogue sanity checks', () => {
   it('has the 15 curated resources', () => {

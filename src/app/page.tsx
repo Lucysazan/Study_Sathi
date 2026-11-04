@@ -6,7 +6,8 @@ import { CategoryIcon } from '@/components/resources/CategoryIcon';
 import { ResourceGrid } from '@/components/resources/ResourceGrid';
 import { MissionBanner } from '@/components/ui/MissionBanner';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { featuredResourceIds, getResource, paths, resources } from '@/data/catalog';
+import { featuredResources } from '@/data/catalog';
+import { getCatalog } from '@/data/catalog.server';
 import { categoryMeta } from '@/lib/categories';
 import { filtersToQueryString, emptyFilters } from '@/lib/filters';
 
@@ -28,8 +29,10 @@ const howSteps = [
   },
 ];
 
-export default function HomePage() {
-  const featured = featuredResourceIds.map(getResource).filter((r) => r !== undefined);
+export default async function HomePage() {
+  const catalog = await getCatalog();
+  const { resources, paths } = catalog;
+  const featured = featuredResources(catalog);
 
   return (
     <>

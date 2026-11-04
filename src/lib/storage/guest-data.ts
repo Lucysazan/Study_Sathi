@@ -1,6 +1,5 @@
 'use client';
 
-import { isKnownResourceId } from '@/data/catalog';
 import { createLocalStore } from './local-store';
 import { parseNotes, parseProgress, parseSavedIds, STORAGE_KEYS, toggleItem } from './parsers';
 
@@ -8,7 +7,7 @@ import { parseNotes, parseProgress, parseSavedIds, STORAGE_KEYS, toggleItem } fr
 
 const savedStore = createLocalStore<readonly string[]>(
   STORAGE_KEYS.saved,
-  (raw) => parseSavedIds(raw, isKnownResourceId),
+  (raw) => parseSavedIds(raw),
   [],
 );
 const progressStore = createLocalStore<readonly string[]>(STORAGE_KEYS.progress, parseProgress, []);
@@ -57,6 +56,13 @@ export function toggleSaved(id: string) {
       notice: 'Your browser could not save changes. Your collection will last for this visit only.',
     });
   }
+}
+
+/** Drop saved IDs that are not in the catalogue any more. No-op when nothing changes. */
+export function pruneSaved(knownIds: readonly string[]) {
+  const current = savedStore.get();
+  const kept = current.filter((id) => knownIds.includes(id));
+  if (kept.length !== current.length) savedStore.set(kept);
 }
 
 // ----- Learning path progress and notes -----

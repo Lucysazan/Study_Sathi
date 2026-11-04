@@ -2,14 +2,15 @@ import { Compass } from 'lucide-react';
 import type { Metadata } from 'next';
 import { PathCard } from '@/components/paths/PathCard';
 import { PageTitle } from '@/components/ui/PageTitle';
-import { paths } from '@/data/catalog';
+import { getCatalog } from '@/data/catalog.server';
 
 export const metadata: Metadata = {
   title: 'Learning Paths',
   description: 'Short, curated sequences of free resources and activities, at your own pace.',
 };
 
-export default function LearningPathsPage() {
+export default async function LearningPathsPage() {
+  const { paths } = await getCatalog();
   return (
     <>
       <PageTitle

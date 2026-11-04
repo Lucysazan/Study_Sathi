@@ -2,6 +2,7 @@ import { Clock, Leaf, Users } from 'lucide-react';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ResourceLibrary, ResourceLibraryFallback } from '@/components/resources/ResourceLibrary';
+import { getCatalog } from '@/data/catalog.server';
 
 export const metadata: Metadata = {
   title: 'For Volunteers',
@@ -24,11 +25,12 @@ const sessionPlan = [
   { time: '5 min', title: 'Reflection', text: 'Share one safety habit to try this week.' },
 ];
 
-export default function VolunteersPage() {
+export default async function VolunteersPage() {
+  const { resources } = await getCatalog();
   return (
     <>
-      <Suspense fallback={<ResourceLibraryFallback teaching />}>
-        <ResourceLibrary teaching />
+      <Suspense fallback={<ResourceLibraryFallback teaching resources={resources} />}>
+        <ResourceLibrary teaching resources={resources} />
       </Suspense>
 
       <section className="site-container section volunteer-bottom">
