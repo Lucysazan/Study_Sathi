@@ -1,0 +1,121 @@
+# Architecture
+
+Keep this file accurate. If you change the data model, rules or auth flow, update this file in the same commit and add an entry to `logs/DECISIONS.md`.
+
+## 1. Roles
+
+| Role | How they get it | Can do |
+| --- | --- | --- |
+| `guest` | Not signed in | Public site; bookmarks/notes in localStorage |
+| `student` | Created by a parent (or by admin) | Learn, earn XP, leaderboard, own profile (nickname + avatar) |
+| `parent` | Self sign-up (email/password or Google) | Create/manage linked students, view their progress, leaderboard opt-in |
+| `creator` | Sign up → apply → admin approves | Create/edit own courses, submit for review, view own analytics |
+| `admin` | `scripts/set-role.ts` or another admin | Everything; approvals, publishing, users, resources, badges |
+
+Roles live in two places, both written **only by server code**:
+- Firebase Auth **custom claim** `role` (used by Firestore rules and session checks).
+- `users/{uid}.role` (used for listing and display).
+
+After changing a role, the server revokes refresh tokens so the new claim applies on next sign-in.
+
+## 2. Authentication flow
+
+- Adults: Firebase Auth email/password or Google, client side.
+- Students (no email needed): parent picks a **username** and **password** for the child. The server creates a Firebase Auth user with a synthetic email `{username}@${STUDENT_LOGIN_DOMAIN}` (never emailed). Students log in with username + password; the login form adds the domain. Parents can reset the child's password from the parent portal (server action → `admin.auth().updateUser`).
+- After client sign-in, the client posts the ID token to `POST /api/auth/session`; the server verifies it and sets an httpOnly, secure, `sameSite=lax` session cookie (`createSessionCookie`, 5–14 days). `DELETE` clears it and revokes tokens.
+- `middleware.ts` (Edge): if a `/learn`, `/parent`, `/creator` or `/admin` route has no session cookie → redirect to `/login?next=...`. It does **not** verify the cookie (admin SDK can't run on Edge).
+- Each portal `layout.tsx` (Node): `requireRole(['admin'])` etc. verifies the cookie with `verifySessionCookie(cookie, true)` and redirects if wrong.
+
+## 3. Firestore data model
+
+```
+users/{uid}
+  role, displayName (adults only), nickname, avatarId, createdAt, status: active|disabled
+  parentUid?            # students
+  childUids?: string[]  # parents
+  leaderboardOptIn: bool (students, default false, set by parent)
+  stats: { xp, level, streakDays, lastActiveDate, badgeIds[] }   # server-only
+
+users/{uid}/xpEvents/{eventKey}       # server-only ledger; eventKey = idempotency key, e.g. "lesson:{courseId}:{lessonId}"
+  amount, reason, createdAt
+users/{uid}/notes/{noteKey}           # private reflections (student/parent can read own)
+users/{uid}/saved/{resourceId}        # bookmarks for signed-in users
+
+resources/{id}                        # the 15 curated resources (+ admin additions); same shape as legacy Resource type
+learningPaths/{id}                    # 3 fixed paths, seeded
+
+courses/{courseId}
+  title, slug, summary, category, minAge, maxAge, language, coverImageUrl?
+  creatorUid, creatorName
+  status: draft | in_review | changes_requested | published | archived
+  reviewNote?                          # admin feedback
+  moduleOrder: [{ id, title, lessonIds: [] }]   # whole outline in one read
+  lessonCount, totalXp, estimatedMinutes
+  stats: { views, enrollments, completions }    # server-only counters
+  createdAt, updatedAt, publishedAt?
+
+courses/{courseId}/lessons/{lessonId}
+  title, xp, estimatedMinutes
+  blocks: Block[]                      # all blocks in one document (keep under ~900 KB)
+
+enrollments/{uid}_{courseId}
+  uid, courseId, completedLessonIds[], quizBest: { [blockId]: score }, startedAt, completedAt?, lastLessonId
+
+leaderboards/{periodId}               # e.g. "all-time", "week-2026-W45"
+  top: [{ uid, nickname, avatarId, xp }]   # top 20, server maintained, one read per view
+leaderboards/{periodId}/entries/{uid}      # each opted-in student's weekly xp (for computing rank)
+
+badges/{badgeId}                      # name, description, icon (lucide name), rule {type, value}
+creatorApplications/{uid}             # status: pending|approved|rejected, motivation, createdAt
+auditLog/{autoId}                     # admin/creator actions: actorUid, action, target, at
+```
+
+### Block types (lesson content)
+
+| type | Fields | Notes |
+| --- | --- | --- |
+| `text` | `markdown` | Rendered with a sanitizer; no raw HTML |
+| `video` | `provider: youtube\|vimeo`, `url`, `caption` | Embed only; use privacy-enhanced YouTube (`youtube-nocookie.com`) |
+| `image` | `url`, `alt` (required) | See ADR-004 for hosting |
+| `resource` | `resourceId`, `tip` | Card linking to a library resource |
+| `quiz` | `questions: [{ prompt, kind: single\|multi\|truefalse, options, correct, explain }]`, `passScore` | Instant kind feedback |
+| `sort` | `buckets: [..]`, `items: [{ label, bucket }]` | e.g. needs vs wants; tap-to-place, no drag required |
+| `budget` | `total`, `currency`, `categories: [..]` | Generalized from the NPR 500 activity |
+| `reflection` | `prompt` | Private; stored in `users/{uid}/notes` |
+| `checkpoint` | `message` | Celebration / summary between sections |
+
+New block types require an ADR. Each block type = one editor component (`components/blocks/editors`) + one player component (`components/blocks/players`) + a zod schema.
+
+## 4. Security rules (principles)
+
+- Default deny.
+- Public read: `resources`, `learningPaths`, `badges`, `courses` where `status == 'published'` (and their lessons), `leaderboards/*` top docs.
+- Creators: read/write their own courses while `status in [draft, changes_requested]`; cannot change `status` beyond `draft → in_review`, cannot touch `stats`.
+- Students: read own `users/{uid}`, `enrollments` they own, own `notes`, own `saved`. Write only `notes`, `saved`, and `nickname`/`avatarId` on own user doc.
+- Parents: read their children's user docs and enrollments (`uid in parent.childUids`).
+- Admin claim: full access.
+- **Never client-writable:** `role`, `stats`, `xpEvents`, `leaderboards`, course `status` (except creator submit), course `stats`, `auditLog`.
+- Every rule has a test in `tests/rules/` run against the emulator.
+
+## 5. Gamification rules (v1)
+
+Implemented as pure functions in `lib/gamification/` (unit tested), applied by server actions inside a Firestore transaction.
+
+- **XP:** lesson complete = lesson `xp` (default 10). Quiz: up to +5 on first pass; retries can still pass but award no extra XP. Course complete bonus = +50. Daily streak bonus = +5 (first completion of the day).
+- **Idempotency:** each award writes `xpEvents/{eventKey}` first; if it exists, no XP is given. Prevents double points from refreshes or replays.
+- **Levels:** level = thresholds `[0, 50, 120, 220, 350, 520, 750, 1000, ...]`; level names are friendly (Seedling, Sprout, Sapling, Tree...).
+- **Streaks:** calendar days in `Asia/Kathmandu` time. Missing a day resets gently ("Start a new streak today!"); no guilt messages.
+- **Badges:** rule types `first_lesson`, `course_complete`, `category_complete`, `streak_days`, `xp_total`, `quiz_perfect`. Checked after each award.
+- **Leaderboard:** only opted-in students (parent consent). Shows nickname + avatar only. Weekly board resets Sunday 00:00 Kathmandu time; all-time board too. Students always see their own rank; the page shows the top 10 plus "you" — never a "bottom of the list".
+- **Healthy design:** no timers on quizzes, no loss of points, no streak-shaming, celebrate effort ("You finished 3 lessons this week!").
+
+## 6. Free-tier budget (design constraints)
+
+- Firestore Spark: ~50k reads, 20k writes, 20k deletes per day, 1 GiB storage. Public pages are statically generated or cached (ISR) so visitors don't cost reads. Course outline = 1 read; lesson = 1 read; leaderboard = 1 read.
+- View counts: increment at most once per session per course (cookie flag) through a server action.
+- No Cloud Functions, no scheduled functions: weekly leaderboard rollover happens lazily (period id derived from date; first write of a new week creates the new doc).
+- Vercel Hobby: serverless function limits apply; keep server actions short.
+
+## 7. Guest data migration
+
+Guests keep using localStorage keys from the prototype (`studysathi-saved`, `studysathi-progress`, `studysathi-notes`). On first sign-in as a student, offer "Bring your saved items into your account?" and merge them via a server action, then clear local keys.
