@@ -3,10 +3,11 @@
 Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until the previous one builds and its checks pass. If a task grows, split it here rather than doing it all at once.
 
 ## Phase 0 — Repo setup and parity migration (no Firebase yet)
-- [ ] Move the Vite prototype into `legacy/` (read-only reference)
-- [ ] Scaffold Next.js (App Router, TypeScript strict, ESLint, `src/`, `@/` alias); add Prettier, Vitest
-- [ ] Port design tokens and styles from `legacy/src/style.css` into `src/app/globals.css`; load fonts with `next/font/google` (Plus Jakarta Sans, Inter)
-- [ ] Port shared components: Logo, Navbar (with mobile menu), Footer, ResourceCard, CategoryIcon, FilterPanel, Empty, LearningArt, PathCard
+- [x] Move the Vite prototype into `legacy/` (read-only reference)
+- [x] Scaffold Next.js (App Router, TypeScript strict, ESLint, `src/`, `@/` alias); add Prettier, Vitest
+- [x] Port design tokens and styles from `legacy/src/style.css` into `src/app/globals.css`; load fonts with `next/font/google` (Plus Jakarta Sans, Inter)
+- [x] Port layout components: Logo, Navbar (with mobile menu), Footer; render in root layout
+- [ ] Port shared components: ResourceCard, CategoryIcon, FilterPanel, Empty, LearningArt, PathCard
 - [ ] Port pages: Home, Resources (query-string filters), Resource details, Learning paths, Path details (incl. budget), Volunteers, Saved, About, Not found
 - [ ] Port `filters.ts` with unit tests (age overlap, language rules, combined filters)
 - [ ] Keep localStorage behaviour for guests (same keys)

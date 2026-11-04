@@ -25,3 +25,16 @@ Template:
 **Files touched:** documentation only
 **Checks:** n/a
 **Next:** Phase 0 — move prototype to `legacy/` and scaffold Next.js.
+
+## 2026-11-04 · Session 1 · Claude Code (claude-opus-5-5)
+**Goal:** Phase 0 steps 1–4: legacy move, Next.js scaffold, tokens/styles/fonts, Logo/Navbar/Footer. Stop for owner review.
+**Done:**
+- Handover mismatch found: the starter repo contained only docs (no prototype, no git). Owner confirmed: copy the prototype from `Downloads/SussanProject/StudySathi` (without `dist/`) and `git init` on `main`.
+- Copied prototype into `legacy/` (verified identical with `diff`).
+- Scaffolded Next.js 16.4.5 + React 19.3 + Tailwind 4.3 + Vitest 5 + Prettier; ADR-008 records Next 16 defaults (Cache Components, React Compiler).
+- Ported the full stylesheet with tokens; fonts via next/font; layout components; 7 unit tests.
+- Visual check against the prototype's built `dist/` at 360/768/1280 px with Edge + playwright-core (scratch only): header, footer and mobile menu match; no horizontal scroll.
+**Not done / blocked:** Remaining Phase 0 tasks (shared components, pages, filters port, localStorage save/unsave, metadata, Vercel preview).
+**Files touched:** legacy/*, package.json, configs, src/app/*, src/components/layout/*, src/lib/*, docs/*
+**Checks:** lint ✅ · typecheck ✅ · test ✅ (7) · build ✅
+**Next:** Owner reviews steps 1–4; then port shared components (ResourceCard, CategoryIcon, …) and the data files.
