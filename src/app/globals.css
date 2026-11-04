@@ -2553,3 +2553,19 @@
     }
   }
 }
+
+/* ---------- 4. Additions for the Next.js app (keep after the ported styles) ---------- */
+@layer components {
+  /* Not found uses an h1 inside the empty state; match the prototype's .empty h2 look. */
+  .empty h1 {
+    font-size: 23px;
+    line-height: 1.35;
+    letter-spacing: -1px;
+    font-weight: 750;
+  }
+  @media (max-width: 600px) {
+    .empty h1 {
+      font-size: 21px;
+    }
+  }
+}

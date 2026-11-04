@@ -38,3 +38,14 @@ Template:
 **Files touched:** legacy/*, package.json, configs, src/app/*, src/components/layout/*, src/lib/*, docs/*
 **Checks:** lint ✅ · typecheck ✅ · test ✅ (7) · build ✅
 **Next:** Owner reviews steps 1–4; then port shared components (ResourceCard, CategoryIcon, …) and the data files.
+
+## 2026-11-04 · Session 1 (continued) · Claude Code (claude-opus-5-5)
+**Goal:** Owner feedback: remove "SIP prototype" from footer; continue Phase 0 (home page was a placeholder).
+**Done:**
+- Footer copy fixed. Data + filters (tests), guest storage (tests), shared components, all public pages, static params + metadata, budget logic (tests). 28 unit tests.
+- Visual parity check at 360/768/1280 px against the prototype's build; 30 scripted behaviour checks pass on 3 consecutive runs.
+- Found and handled Next 16 behaviour: visited pages stay mounted but hidden (React Activity) → use `useId()` for ids; tests must count `:visible` elements.
+**Not done / blocked:** Vercel preview deploy (needs owner's Vercel account). About-page copy rewording needs owner confirmation.
+**Files touched:** src/app/**, src/components/**, src/lib/**, src/data/**, src/types/**, docs/*
+**Checks:** lint ✅ · typecheck ✅ · test ✅ (28) · build ✅
+**Next:** Owner review; then Vercel preview and Phase 1 (Firebase foundation).

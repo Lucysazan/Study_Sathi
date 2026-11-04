@@ -7,12 +7,13 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Scaffold Next.js (App Router, TypeScript strict, ESLint, `src/`, `@/` alias); add Prettier, Vitest
 - [x] Port design tokens and styles from `legacy/src/style.css` into `src/app/globals.css`; load fonts with `next/font/google` (Plus Jakarta Sans, Inter)
 - [x] Port layout components: Logo, Navbar (with mobile menu), Footer; render in root layout
-- [ ] Port shared components: ResourceCard, CategoryIcon, FilterPanel, Empty, LearningArt, PathCard
-- [ ] Port pages: Home, Resources (query-string filters), Resource details, Learning paths, Path details (incl. budget), Volunteers, Saved, About, Not found
-- [ ] Port `filters.ts` with unit tests (age overlap, language rules, combined filters)
-- [ ] Keep localStorage behaviour for guests (same keys)
-- [ ] `generateStaticParams` for resource and path detail pages; per-page metadata
-- [ ] Visual check vs prototype at 360px, 768px, 1280px; deploy preview to Vercel
+- [x] Port shared components: ResourceCard, CategoryIcon, FilterPanel, Empty, LearningArt, PathCard
+- [x] Port pages: Home, Resources (query-string filters), Resource details, Learning paths, Path details (incl. budget), Volunteers, Saved, About, Not found
+- [x] Port `filters.ts` with unit tests (age overlap, language rules, combined filters)
+- [x] Keep localStorage behaviour for guests (same keys)
+- [x] `generateStaticParams` for resource and path detail pages; per-page metadata
+- [x] Visual check vs prototype at 360px, 768px, 1280px
+- [ ] Deploy preview to Vercel (needs the owner to connect the repo to a Vercel account)
 
 ## Phase 1 — Firebase foundation and auth
 - [ ] `firebase.json`, emulators config, `firestore.rules` (default deny), `firestore.indexes.json`
