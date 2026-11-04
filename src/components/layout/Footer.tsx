@@ -48,7 +48,7 @@ export function Footer() {
       </div>
       <div className="site-container footer-bottom">
         <span>
-          © <CurrentYear /> StudySathi · SIP prototype
+          © <CurrentYear /> StudySathi
         </span>
         <span>External learning materials belong to their original providers.</span>
       </div>
