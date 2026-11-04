@@ -61,3 +61,4 @@ Template:
 **Files touched:** firebase.json, .firebaserc, firestore.rules, src/proxy.ts, src/app/{(auth),account,admin,parent,creator,learn,api}/*, src/components/{auth,portal}/*, src/lib/{auth,env,firebase,validation}/*, scripts/set-role.ts, tests/rules/*, docs/*
 **Checks:** lint ✅ · typecheck ✅ · test ✅ (50) · test:rules ✅ (10) · build ✅
 **Next:** Phase 2 — seed script, Firestore-backed resource pages, admin layout + resources CRUD.
+**Note (handover mismatch, per protocol):** during this session the owner added `origin` (https://github.com/Lucysazan/Study_Sathi) and merged a Vercel commit (`vercel.json`, `.nvmrc` = 20.9.0). Handover said "no remote"; fixed. `.nvmrc` → 24 and `engines` → `>=22.12` because firebase-admin 14 requires Node ≥ 22 and Vitest 5 requires ≥ 22.12.

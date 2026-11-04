@@ -2,7 +2,7 @@
 
 > Rewrite this whole file at the end of every session. A new agent with no chat history must be able to continue from here.
 
-**Last updated:** 2026-11-04 · **By:** Session 2 (Claude Code, claude-opus-5-5) · **Branch:** `main` (local only, no remote yet)
+**Last updated:** 2026-11-04 · **By:** Session 2 (Claude Code, claude-opus-5-5) · **Branch:** `main` → `origin` = https://github.com/Lucysazan/Study_Sathi (local `main` is ahead of `origin/main`; push when the owner says so)
 
 ## Current state
 - **Phase 0 done** (except the Vercel preview, which needs the owner's account). **Phase 1 done.** Waiting for owner review before Phase 2.
@@ -13,7 +13,7 @@
   - `/account`.
   - Placeholder portals `/admin`, `/parent`, `/creator`, `/learn`, each with sign-out.
   - `npm run set-role` creates the first admin.
-- No real Firebase project or Vercel project yet. Local development uses only the emulators.
+- The owner connected GitHub (`origin`) and merged a Vercel config commit (`vercel.json`, `.nvmrc`) during Session 2. No real Firebase project yet, so local development uses only the emulators. On Vercel without Firebase env vars, the public site works, but sign-in will fail until the env vars are set.
 - Checks: lint ✅ · typecheck ✅ · `npm run test` 50 ✅ · `npm run test:rules` 10 ✅ · build ✅.
 
 ## How to run it
@@ -63,7 +63,7 @@
 
 ## Next steps (in order)
 1. Owner review of Phase 1 (try the "How to run it" steps above).
-2. Owner: create the Firebase project (Spark) + GitHub repo + Vercel project; fill env vars (README §3–4, "Deploying to Vercel"). Then deploy rules (`npx firebase deploy --only firestore:rules,firestore:indexes`).
+2. Owner: push `main`; create the Firebase project (Spark); add env vars in Vercel (README §3–4, "Deploying to Vercel"). Then deploy rules (`npx firebase deploy --only firestore:rules,firestore:indexes`).
 3. Phase 2:
    - seed script (`npm run seed`): resources, learning paths, badges;
    - resource pages read Firestore at build/ISR, falling back to the seed;
@@ -80,7 +80,8 @@
 | Should the UI be bilingual (English/Nepali) from the start? | English first; keep strings in one place for later translation |
 | Do volunteers/teachers need "classes" to group students? | Not in v1 |
 | Password reset for adults ("Forgot password?" by email)? | Not built yet; suggest adding in Phase 2 or 3 |
-| GitHub remote / Vercel / Firebase project? | None yet; local only |
+| Firebase project? | None yet; emulators only |
+| `.nvmrc` was 20.9.0 in the Vercel commit; changed to 24 because firebase-admin 14 needs Node 22+ and Vitest 5 needs 22.12+. OK? | Node 24 (`engines: >=22.12`) |
 
 ## Known issues / risks
 - About says "No accounts or personal profiles are needed." Still true for the public site, but revisit when student accounts arrive (Phase 3). The owner chose to keep the current About wording.
@@ -90,5 +91,5 @@
 - firebase-tools prints `url.parse()` deprecation warnings on start. They come from its dependencies and are harmless.
 
 ## Environment notes
-- Node 24.14, npm 11, Java 25 (Temurin). firebase-tools 15 is a dev dependency (`npx firebase …`).
+- Node 24.14 (`.nvmrc` 24; firebase-admin 14 needs ≥ 22), npm 11, Java 25 (Temurin). firebase-tools 15 is a dev dependency (`npx firebase …`).
 - Commands: `npm run dev | build | lint | typecheck | test | test:rules | emulators | set-role | format`.
