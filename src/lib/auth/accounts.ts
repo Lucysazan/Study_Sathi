@@ -1,5 +1,6 @@
 import type { Auth } from 'firebase-admin/auth';
 import { FieldValue, type Firestore } from 'firebase-admin/firestore';
+import { writeAudit } from '@/lib/admin/audit';
 import { isRole, type Role } from './roles';
 
 /**
@@ -82,12 +83,11 @@ export async function assignRole(
       },
       { merge: true },
     );
-  await db.collection('auditLog').add({
+  await writeAudit(db, {
     actorUid: actor,
     action: 'role.set',
     target: uid,
-    role,
-    at: FieldValue.serverTimestamp(),
+    summary: `Role set to ${role}`,
   });
   await auth.revokeRefreshTokens(uid);
 }

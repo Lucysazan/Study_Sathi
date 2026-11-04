@@ -6,7 +6,8 @@ export async function createRulesEnv(): Promise<RulesTestEnvironment> {
   const hostPort = process.env.FIRESTORE_EMULATOR_HOST ?? '127.0.0.1:8080';
   const [host = '127.0.0.1', port = '8080'] = hostPort.split(':');
   return initializeTestEnvironment({
-    projectId: 'demo-studysathi',
+    // Own project id: clearFirestore() in tests must never wipe the dev emulator data.
+    projectId: 'demo-studysathi-rules',
     firestore: {
       rules: readFileSync('firestore.rules', 'utf8'),
       host,

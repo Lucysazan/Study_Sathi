@@ -1,0 +1,30 @@
+import 'server-only';
+import { adminAuth, adminDb } from '@/lib/firebase/admin';
+import { type AuditEntry, recentAudit } from './audit';
+import { requireAdmin } from './guard';
+import { countPendingCreators } from './users';
+
+/** Numbers and recent activity for the admin overview. Admin only. */
+export async function getAdminOverview(): Promise<{
+  adminName: string | null;
+  resourceCount: number;
+  accountCount: string;
+  pendingCreators: number;
+  activity: AuditEntry[];
+}> {
+  const admin = await requireAdmin();
+  const db = adminDb();
+  const [resources, users, pendingCreators, activity] = await Promise.all([
+    db.collection('resources').count().get(),
+    adminAuth().listUsers(1000),
+    countPendingCreators(),
+    recentAudit(db),
+  ]);
+  return {
+    adminName: admin.name,
+    resourceCount: resources.data().count,
+    accountCount: `${users.users.length}${users.pageToken ? '+' : ''}`,
+    pendingCreators,
+    activity,
+  };
+}

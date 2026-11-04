@@ -50,6 +50,15 @@ describe('default deny', () => {
   });
 });
 
+describe('audit log', () => {
+  it('is readable by admins only and never writable from the client', async () => {
+    await assertSucceeds(asUser(admin).doc('auditLog/a1').get());
+    await assertFails(asUser(student).doc('auditLog/a1').get());
+    await assertFails(asUser(admin).doc('auditLog/a2').set({ action: 'fake' }));
+    await assertFails(asUser(admin).doc('auditLog/a1').delete());
+  });
+});
+
 describe('public catalogue', () => {
   it('is readable by guests', async () => {
     await assertSucceeds(asGuest().doc('resources/1').get());
