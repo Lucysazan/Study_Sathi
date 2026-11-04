@@ -1,12 +1,29 @@
+# dependencies
 node_modules/
+
+# next.js / build output
+.next/
+out/
+build/
 dist/
+next-env.d.ts
+*.tsbuildinfo
+
+# testing
+coverage/
+
+# env files (only the example is committed)
 .env
 .env.*
-
-.env*.local
-.env
-.firebase/
-*-debug.log
-serviceAccount*.json
-.next/
 !.env.example
+
+# firebase
+.firebase/
+serviceAccount*.json
+*-debug.log
+npm-debug.log*
+
+# misc
+.DS_Store
+*.pem
+.vercel
