@@ -129,3 +129,6 @@ Portal errors use the installed Next 16 retry prop and static role-appropriate r
 
 ## 2026-11-05 - Session 14 - Codex
 Add @playwright/test as a dev-only dependency for the roadmap browser smoke suite. Isolate demo emulators, child environment, cookie and Next output; block external browser traffic and never target a live URL with test writers. Keep entered account values after failed actions; logout must confirm server session clearing. Live Firestore probes exposed missing indexes not enforced by emulator; define two catalog/review and five creator aggregate indexes. Deployment uses existing API permissions, never changes IAM: Rules API succeeded after CLI Service Usage check denial; index create denied, requiring owner login.
+
+## 2026-11-05 - Session 15 - Codex
+Respect user preference for a single main production branch, Vercel site and real Firebase project for local development. Automated smoke fixtures continue to use disposable local emulators only. Production seed approval is explicit and preserves existing records. Owner authentication remains an interactive user step; authorization codes and tokens must not enter chat or Git.

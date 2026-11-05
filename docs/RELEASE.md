@@ -41,3 +41,5 @@ Record actual deployment URL, commit, project, checks and any failures in HANDOV
 ## Current project checkpoint (2026-11-05)
 
 Existing site: https://studysathisip.vercel.app/; Git origin Lucysazan/Study_Sathi, production branch main (confirmed by owner). The authorized push 30f4e35 started a Vercel deployment under study-sathi. Production Auth already authorizes the site. Rules release is deployed; seven indexes await an owner login because the Admin SDK service account cannot create indexes. No IAM permissions were changed. Use `npm run check:live -- --prod --project studysathi-20d2c` after index deployment; it prints query pass/fail only. Production catalog seeding needs the separately requested explicit approval.
+
+Session 15: owner confirmed a single main/production setup. Application release 30f4e35 completed successfully. Production catalog seeding was explicitly approved and completed: 15 resources, 3 paths, 7 badges verified. Owner Firebase login was launched and its official page opened; indexes remain pending until the user finishes authentication in browser/terminal. Do not send authorization codes through chat.

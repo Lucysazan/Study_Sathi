@@ -105,3 +105,6 @@ Added shared PortalRecovery plus portal loading/error/not-found boundaries; pres
 
 ## 2026-11-05 - Session 14 - Codex
 Added isolated Playwright desktop/mobile runner and 22 end-to-end cases; browser-discovered label, current-metadata save, failed-form retention and logout/offline recovery fixes. Added seven composite course indexes and read-only live query probe; reproducible Vercel install and release guide. Explicitly authorized production Rules API release succeeded, indexes denied by IAM. Existing domain already authorized; user authorized Git push.
+
+## 2026-11-05 - Session 15 - Codex
+Completed explicitly authorized production catalog seed (25 missing records) and verified counts; confirmed Vercel application release success; launched owner Firebase login for pending index deployment. No application code or env changes.

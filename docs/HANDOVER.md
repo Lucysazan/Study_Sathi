@@ -1,9 +1,16 @@
 # Handover
 
-Last updated: 2026-11-05, Codex session 14. Branch: main.
+Last updated: 2026-11-05, Codex session 15. Branch: main.
 
 ## Current state
 StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/course flows, nine activity formats with stacked lessons, gamification/consented leaderboards and analytics are implemented. Cover/language metadata and submission checklist are now implemented. Student account toolbar, course discovery and linked-parent progress are implemented. Desktop/360px Chromium smoke tests now pass. Broader assistive-technology/manual acceptance and final live deployment/index verification remain unfinished. ROADMAP is current; do not claim all phases complete.
+
+## Session 15 release follow-up
+- User clarified one production branch/project: main and the same real Firebase project for local development. Keep this setup; no new dev branch, hosting project or Firebase environment. Disposable automated-test emulators remain isolated test processes, not deployed environments.
+- User explicitly approved adding missing production catalog records. npm run seed -- --prod succeeded in studysathi-20d2c: 25 created, no existing documents overwritten. Read-only counts verified 15 resources, 3 learningPaths and 7 badges.
+- Vercel status for application release 30f4e35 is success (deployment CXim7cA6Fab8EkFgE3684tyHX8jn); follow-up documentation commit 1e6b634 was still deploying when checked. Existing site returns 200 on home/login/resources and 307 to login for unsigned /learn.
+- User asked the agent to start owner login. Firebase CLI was not logged in; launched login and opened its official generated sign-in page in the user's browser. This CLI uses an agent-friendly flow: user must complete Google sign-in and run the displayed finishing command in their terminal. Do not request or commit authorization codes/tokens. Login completion and the seven indexes remain pending.
+- No app-code or env changes this session. Existing untracked admin helper preserved.
 
 ## Session 14 changes
 - Added @playwright/test (dev dependency) and npm run test:e2e: owns fresh local Auth/Firestore emulators, a separate localhost:3100 Next server/.next-e2e output, demo project and cookie overrides, one worker, desktop/360px Chromium. No normal env files changed; no production test accounts created. External browser requests blocked; artifacts ignored.
@@ -39,7 +46,7 @@ StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/cou
 - 43 emulator tests / 6 files PASS this session: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
 - Lint, typecheck, production build PASS. Public build used catalogue seed fallback; this does not prove live seeding.
 - 22 Playwright Chromium tests PASS across desktop/360px; see Session 14 coverage and limits. Native UI host is not needed for the automated suite. Production login/play-through is not yet verified.
-- Production rules deployed with explicit approval; live read-only config/query checks performed. Index creation denied by IAM. No env/service-account/IAM changes or production test-account writes. Release 30f4e35 pushed to origin/main (fast-forward from 80290cc), explicitly authorized. Vercel Git status confirms deployment in progress at https://vercel.com/susan-shresthas-projects-be9908c2/study-sathi/CXim7cA6Fab8EkFgE3684tyHX8jn; successful completion is not yet verified.
+- Production rules deployed with explicit approval; live read-only config/query checks performed. Index creation denied by IAM. No env/service-account/IAM changes or production test-account writes. Release 30f4e35 pushed to origin/main (fast-forward from 80290cc), explicitly authorized. Vercel Git status confirms deployment in progress at https://vercel.com/susan-shresthas-projects-be9908c2/study-sathi/CXim7cA6Fab8EkFgE3684tyHX8jn; application release 30f4e35 completed successfully (verified Session 15); newer documentation deployment was still pending.
 
 ## Environment
 .env and .env.local retain NEXT_PUBLIC_USE_EMULATORS=false. Keep production parity. PowerShell uses npm.cmd/npx.cmd (npm.ps1 blocked). .nvmrc is 24; Node 26 host works with Firebase CLI engine warning. Some tests need approved execution outside sandbox for esbuild/CLI config.
@@ -48,7 +55,7 @@ All integration writers require loopback FIRESTORE_EMULATOR_HOST and dedicated d
 ## Next work
 1. Complete remaining manual/assistive-technology acceptance of Phases 3-7 (smoke coverage now exists): parent/child/reset/profile; private sync/merge/logout; metadata and stacked editor/autosave/review/publish; quizzes, XP/dashboard, leaderboard consent; analytics pagination/errors; keyboard and 360px layout. Use npm run test:e2e for browser regression; remaining manual checks are in ACCEPTANCE.md.
 2. Run docs/ACCEPTANCE.md for route recovery, keyboard/forms, zoom, screen readers and desktop/360px views. Portal boundaries and source-level accessibility fixes are implemented; acceptance remains pending.
-3. Owner must log into Firebase CLI to deploy the seven indexes (service-account index create denied), then run check:live and verify the Git-triggered Vercel release. Production seeding and authenticated live smoke still need verification. No abandonment tracker exists: analytics show completion funnels only. No view-event TTL cleanup was deployed.
+3. Owner must log into Firebase CLI to deploy the seven indexes (service-account index create denied), then run check:live and verify the Git-triggered Vercel release. Production seeding is complete and counts verified; authenticated live smoke still needs verification. No abandonment tracker exists: analytics show completion funnels only. No view-event TTL cleanup was deployed.
 
 ## Code map/invariants
 Read AGENTS.md, CLAUDE.md, DESIGN, ROADMAP and logs. Use installed Next docs before APIs. Session checks must stay request-time/Suspense-safe; layouts alone do not protect data. Admin SDK bypasses client rules, so actions/data readers must check role/ownership.
@@ -62,8 +69,8 @@ Read AGENTS.md, CLAUDE.md, DESIGN, ROADMAP and logs. Use installed Next docs bef
 ## Release follow-up
 - Live read-only probes: catalog/category/review and all five creator sums fail code 9 until the seven indexes exist; creator pagination and status counts pass. Do not mistake emulator/browser passes for live index readiness.
 - Owner was asked to run npx.cmd firebase login; instructions given for VS Code Terminal and cd .\Study_Sathi. Await login confirmation, then use owner credentials (not the denied service-account credentials) to deploy indexes and rerun npm run check:live -- --prod --project studysathi-20d2c.
-- Separate catalog seed attempt was blocked by automatic approval review because production data seeding was not explicitly approved. Asked whether npm run seed -- --prod may add missing resources/paths/badges; approval remains pending. No seed writes occurred.
+- Separate catalog seeding was explicitly approved and completed in Session 15: 25 added, 15 resources/3 paths/7 badges verified; existing records preserved.
 - Existing public site HTTP 200 for /, /login, /resources; unsigned /learn and /admin return 307 to login. These do not prove the new Git deployment finished or authenticated production behavior.
 
 ## Checkpoints
-Previous checkpoints include faf5409 and c112725. Session 11 code/docs/tests form a local metadata checkpoint. Pre-existing scripts/ensure-admin-user.mjs remains untracked/excluded. No env/service-account files staged; no push/deploy.
+Previous checkpoints include faf5409 and c112725. Session 11 code/docs/tests form a local metadata checkpoint. Pre-existing scripts/ensure-admin-user.mjs remains untracked/excluded. No env/service-account files staged. Release code/docs pushed, production rules released, catalog seeded and Vercel app release succeeded; indexes still blocked on owner login.

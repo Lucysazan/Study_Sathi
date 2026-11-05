@@ -101,7 +101,8 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Playwright smoke tests: all-role login, stacked quiz/reward/completion, publish, family/reset/consent, offline forms/logout, private sync and analytics (22 desktop/360px cases)
 - [x] Production rules deployed to studysathi-20d2c with explicit approval; existing Vercel Auth domain verified
 - [ ] Deploy seven course indexes: service account denied index creation; owner Firebase login requested
-- [ ] Verify newly pushed Git-triggered Vercel release, seed state and authenticated live smoke
+- [x] Git-triggered Vercel app release 30f4e35 succeeded; production catalog seeded and counts verified (15 resources/3 paths/7 badges)
+- [ ] Finish index deployment and authenticated live smoke; verify latest follow-up documentation deployment
 
 ## Later (do not start without an ADR)
 - Nepali UI translation · class/group leaderboards for volunteers · offline packs · certificates of completion · email notifications
