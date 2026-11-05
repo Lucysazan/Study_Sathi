@@ -1,15 +1,16 @@
 'use server';
 
 import { FieldValue } from 'firebase-admin/firestore';
-import { invalid, ok } from '@/lib/actions';
+import { revalidatePath } from 'next/cache';
+import { invalid, ok, fail } from '@/lib/actions';
 import { courseDraftSchema } from '@/lib/course/draft';
 import { requireRole } from '@/lib/auth/session';
 import { adminDb } from '@/lib/firebase/admin';
 
 export async function saveCourseDraft(input: unknown) {
-  const user = await requireRole(['creator'], '/creator/new');
   const parsed = courseDraftSchema.safeParse(input);
   if (!parsed.success) return invalid(parsed.error);
+  const user = await requireRole(['creator'], '/creator/new');
 
   const draft = {
     ...parsed.data,
@@ -19,8 +20,12 @@ export async function saveCourseDraft(input: unknown) {
     updatedAt: FieldValue.serverTimestamp(),
   };
 
-  const ref = adminDb().collection('courses').doc();
-  await ref.set(draft, { merge: true });
-
-  return ok({ id: ref.id, status: draft.status });
+  try {
+    const ref = adminDb().collection('courses').doc();
+    await ref.set(draft);
+    revalidatePath('/creator', 'layout');
+    return ok({ id: ref.id, status: draft.status });
+  } catch {
+    return fail('We could not save your draft. Please try again.');
+  }
 }

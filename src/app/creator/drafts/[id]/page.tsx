@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { PortalLoading } from '@/components/portal/PortalShell';
 import { requireRole } from '@/lib/auth/session';
 import { adminDb } from '@/lib/firebase/admin';
+import { readCourseMetadata } from '@/lib/course/metadata';
 import { readCourseOutline } from '@/lib/course/outline';
 import { CourseOutlineEditor } from './CourseOutlineEditor';
 
@@ -30,7 +31,7 @@ async function CourseDraftEditorContent({ params }: { params: Promise<{ id: stri
   const outline = readCourseOutline(doc.get('outline'));
 
   const title = String(doc.get('title') ?? 'Untitled course');
-  const summary = String(doc.get('summary') ?? '');
+  const details = readCourseMetadata(doc.data() ?? {});
 
   return (
     <section className="site-container section portal-welcome">
@@ -40,8 +41,7 @@ async function CourseDraftEditorContent({ params }: { params: Promise<{ id: stri
         <CourseOutlineEditor
           courseId={id}
           initialOutline={outline ?? { modules: [] }}
-          title={title}
-          summary={summary}
+          initialMetadata={details}
         />
       ) : (
         <div className="notice">

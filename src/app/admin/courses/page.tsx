@@ -47,13 +47,19 @@ async function AdminCoursesBody() {
                     <small>{course.creatorName ?? 'Creator not set'}</small>
                   </td>
                   <td>
-                    <span className={`chip ${course.status === 'published' ? 'chip-success' : 'chip-muted'}`}>
+                    <span
+                      className={`chip ${course.status === 'published' ? 'chip-success' : 'chip-muted'}`}
+                    >
                       {course.status}
                     </span>
                   </td>
                   <td>{course.summary || 'No summary yet.'}</td>
                   <td>
-                    <CourseReviewControls courseId={course.id} status={course.status} title={course.title} />
+                    <CourseReviewControls
+                      courseId={course.id}
+                      status={course.status}
+                      title={course.title}
+                    />
                   </td>
                 </tr>
               ))}

@@ -1,10 +1,14 @@
 'use client';
 
+import { CourseMetadataFields } from '@/components/course/CourseMetadataFields';
+import { CourseChecklist } from '@/components/course/CourseChecklist';
+import { courseChecklist } from '@/lib/course/metadata';
+
 import { ArrowLeft, Plus, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import type { CourseLesson, CourseOutline } from '@/lib/course/draft';
+import { useEffect, useState, useRef } from 'react';
+import type { CourseLesson, CourseOutline, CourseDraftInput } from '@/lib/course/draft';
 import { BlockStackEditor } from '@/components/course/BlockStackEditor';
 import { SortEditor } from '@/components/course/SortEditor';
 import { BudgetEditor } from '@/components/course/BudgetEditor';
@@ -91,16 +95,18 @@ function createLesson(kind: CourseLesson['kind'] = 'text'): CourseLesson {
 export function CourseOutlineEditor({
   courseId,
   initialOutline,
-  title,
-  summary,
+  initialMetadata,
 }: {
   courseId: string;
   initialOutline: CourseOutline;
-  title: string;
-  summary: string;
+  initialMetadata: CourseDraftInput;
 }) {
   const router = useRouter();
   const [modules, setModules] = useState<CourseOutline['modules']>(initialOutline.modules);
+  const [metadata, setMetadata] = useState(initialMetadata);
+  const savedSnapshot = useRef(
+    JSON.stringify({ modules: initialOutline.modules, metadata: initialMetadata }),
+  );
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
@@ -108,18 +114,21 @@ export function CourseOutlineEditor({
   const [autosaveState, setAutosaveState] = useState<'idle' | 'saving' | 'saved'>('idle');
 
   useEffect(() => {
-    if (submitState === 'success') return;
+    const snapshot = JSON.stringify({ modules, metadata });
+    if (submitState === 'success' || snapshot === savedSnapshot.current) return;
     let active = true;
     const timeout = setTimeout(async () => {
       setAutosaveState('saving');
-      const result = await saveCourseOutline(courseId, { modules });
+      const result = await saveCourseOutline(courseId, { modules }, metadata);
       if (!active) return;
       if (!result.ok) {
-        setError(result.error);
+        setError(result.fieldErrors ? Object.values(result.fieldErrors).join(' ') : result.error);
         setAutosaveState('idle');
         return;
       }
 
+      savedSnapshot.current = snapshot;
+      setError('');
       setAutosaveState('saved');
     }, 800);
 
@@ -127,7 +136,7 @@ export function CourseOutlineEditor({
       active = false;
       clearTimeout(timeout);
     };
-  }, [modules, courseId, submitState]);
+  }, [modules, metadata, courseId, submitState]);
 
   function addModule() {
     setModules((current) => [
@@ -409,7 +418,7 @@ export function CourseOutlineEditor({
     const saved = await saveCourseOutline(courseId, { modules });
     if (!saved.ok) {
       setBusy(false);
-      setError(saved.error);
+      setError(saved.fieldErrors ? Object.values(saved.fieldErrors).join(' ') : saved.error);
       return;
     }
     const result = await submitCourseForReview(courseId);
@@ -425,12 +434,7 @@ export function CourseOutlineEditor({
     router.refresh();
   }
 
-  const checklist = {
-    title: title.trim().length >= 3,
-    summary: summary.trim().length >= 20,
-    modules: modules.length > 0,
-    lessons: modules.every((module) => module.lessons.length > 0),
-  };
+  const checklist = courseChecklist(metadata, { modules });
 
   return (
     <form className="auth-form" style={{ maxWidth: 820 }} onSubmit={onSubmit} noValidate>
@@ -440,6 +444,7 @@ export function CourseOutlineEditor({
         </p>
       )}
 
+      <CourseMetadataFields value={metadata} onChange={setMetadata} />
       <div className="module-card" style={{ padding: '1rem 1.25rem', marginBottom: '1rem' }}>
         <div
           style={{
@@ -459,12 +464,7 @@ export function CourseOutlineEditor({
                 : 'Draft'}
           </span>
         </div>
-        <ul style={{ margin: '0.5rem 0 0', paddingLeft: '1.2rem', display: 'grid', gap: '0.4rem' }}>
-          <li>{checklist.title ? '✅' : '⬜'} Course title is filled in</li>
-          <li>{checklist.summary ? '✅' : '⬜'} Summary is at least 20 characters</li>
-          <li>{checklist.modules ? '✅' : '⬜'} At least one module is added</li>
-          <li>{checklist.lessons ? '✅' : '⬜'} Every module has at least one lesson</li>
-        </ul>
+        <CourseChecklist checklist={checklist} />
       </div>
 
       {modules.length === 0 ? (
@@ -663,13 +663,7 @@ export function CourseOutlineEditor({
         <button
           type="button"
           className="button secondary"
-          disabled={
-            busy ||
-            !checklist.title ||
-            !checklist.summary ||
-            !checklist.modules ||
-            !checklist.lessons
-          }
+          disabled={busy || !checklist.ready}
           onClick={handleSubmitForReview}
         >
           Submit for review

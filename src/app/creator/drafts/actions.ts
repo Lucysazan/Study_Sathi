@@ -5,7 +5,8 @@ import { revalidatePath } from 'next/cache';
 import { readCourseOutline } from '@/lib/course/outline';
 import { FieldValue } from 'firebase-admin/firestore';
 import { invalid, ok, fail } from '@/lib/actions';
-import { courseOutlineSchema, courseReadySchema } from '@/lib/course/draft';
+import { courseOutlineSchema, courseDraftSchema } from '@/lib/course/draft';
+import { courseChecklist } from '@/lib/course/metadata';
 import { requireRole } from '@/lib/auth/session';
 import { adminDb } from '@/lib/firebase/admin';
 
@@ -44,10 +45,12 @@ const courseIdSchema = z
   .max(128)
   .regex(/^[^/]+$/);
 
-export async function saveCourseOutline(courseId: string, input: unknown) {
+export async function saveCourseOutline(courseId: string, input: unknown, metadata?: unknown) {
   if (!courseIdSchema.safeParse(courseId).success) return fail('Choose a valid draft.');
   const parsed = courseOutlineSchema.safeParse(input);
   if (!parsed.success) return invalid(parsed.error);
+  const details = metadata === undefined ? null : courseDraftSchema.safeParse(metadata);
+  if (details && !details.success) return invalid(details.error);
   const user = await requireRole(['creator'], '/creator/drafts');
   try {
     const db = adminDb();
@@ -60,10 +63,17 @@ export async function saveCourseOutline(courseId: string, input: unknown) {
         current.get('status') !== 'draft'
       )
         return fail('Only your own drafts can be edited.');
-      tx.update(ref, { outline: parsed.data, updatedAt: FieldValue.serverTimestamp() });
+      const data = details?.success ? details.data : null;
+      // The creator cannot change review/publish status through metadata.
+      const safeDetails = data ? { ...data, status: 'draft' } : {};
+      tx.update(ref, {
+        ...safeDetails,
+        outline: parsed.data,
+        updatedAt: FieldValue.serverTimestamp(),
+      });
       return ok({ id: courseId });
     });
-    if (result.ok) revalidatePath('/creator/drafts');
+    if (result.ok) revalidatePath('/creator', 'layout');
     return result;
   } catch {
     return fail('We could not save your draft. Please try again.');
@@ -84,19 +94,19 @@ export async function submitCourseForReview(courseId: string) {
         current.get('status') !== 'draft'
       )
         return fail('Only your own drafts can be submitted.');
-      const title = String(current.get('title') ?? '').trim();
-      const summary = String(current.get('summary') ?? '').trim();
-      const outline = courseReadySchema.safeParse(readCourseOutline(current.get('outline')));
-      if (title.length < 3 || summary.length < 20 || !outline.success)
-        return fail('Add a title, summary and complete lessons before submitting.');
+      const outline = readCourseOutline(current.get('outline'));
+      if (!courseChecklist(current.data(), outline).ready)
+        return fail(
+          'Complete the course details, cover, language and lesson checklist before submitting.',
+        );
       tx.update(ref, {
         status: 'review',
-        outline: outline.data,
+        outline,
         updatedAt: FieldValue.serverTimestamp(),
       });
       return ok();
     });
-    if (result.ok) revalidatePath('/creator/drafts');
+    if (result.ok) revalidatePath('/creator', 'layout');
     return result;
   } catch {
     return fail('We could not submit your draft. Please try again.');

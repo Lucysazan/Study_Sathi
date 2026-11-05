@@ -8,7 +8,10 @@ import { PortalLoading } from '@/components/portal/PortalShell';
 import { getCourseForAdmin } from '@/lib/admin/courses';
 import { CourseReviewDetail } from './CourseReviewDetail';
 
-export const metadata: Metadata = { title: 'Course review detail · Admin', robots: { index: false } };
+export const metadata: Metadata = {
+  title: 'Course review detail · Admin',
+  robots: { index: false },
+};
 
 async function AdminCourseDetailBody({ params }: PageProps<'/admin/courses/[id]'>) {
   const { id } = await params;
@@ -24,7 +27,11 @@ async function AdminCourseDetailBody({ params }: PageProps<'/admin/courses/[id]'
       />
 
       <div className="portal-actions" style={{ justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-        <Link href="/admin/courses" className="button secondary" aria-label="Back to course review queue">
+        <Link
+          href="/admin/courses"
+          className="button secondary"
+          aria-label="Back to course review queue"
+        >
           <ArrowLeft size={18} aria-hidden="true" />
           Back to queue
         </Link>

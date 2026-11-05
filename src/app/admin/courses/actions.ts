@@ -1,6 +1,7 @@
 'use server';
 
 import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
 import { type ActionResult, fail, ok } from '@/lib/actions';
 import { getAdmin, NOT_ALLOWED } from '@/lib/admin/guard';
 import { setCourseReviewNote, updateCourseReviewStatus } from '@/lib/admin/courses';
@@ -18,6 +19,9 @@ export async function setCourseStatus(courseId: unknown, status: unknown): Promi
 
   try {
     await updateCourseReviewStatus(parsedId.data, parsedStatus.data, admin.uid);
+    revalidatePath('/admin/courses');
+    revalidatePath('/creator', 'layout');
+    revalidatePath('/learn/courses', 'layout');
     return ok();
   } catch (error) {
     console.error('setCourseStatus failed', error);
@@ -31,7 +35,8 @@ export async function saveCourseReviewNote(
 ): Promise<ActionResult> {
   const parsedId = z.string().min(1).max(128).safeParse(courseId);
   const parsed = courseReviewNoteSchema.safeParse(input);
-  if (!parsedId.success || !parsed.success) return fail('Please leave a useful note for the creator.');
+  if (!parsedId.success || !parsed.success)
+    return fail('Please leave a useful note for the creator.');
 
   const admin = await getAdmin();
   if (!admin) return fail(NOT_ALLOWED);

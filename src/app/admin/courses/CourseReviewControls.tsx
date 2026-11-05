@@ -45,17 +45,36 @@ export function CourseReviewControls({
         <Link href={`/admin/courses/${courseId}`} className="button secondary">
           Open
         </Link>
-        <button type="button" className="button secondary" disabled={pending || status === 'draft'} onClick={() => handleSetStatus('draft')}>
+        <button
+          type="button"
+          className="button secondary"
+          disabled={pending || status === 'draft'}
+          onClick={() => handleSetStatus('draft')}
+        >
           Draft
         </button>
-        <button type="button" className="button secondary" disabled={pending || status === 'review'} onClick={() => handleSetStatus('review')}>
+        <button
+          type="button"
+          className="button secondary"
+          disabled={pending || status === 'review'}
+          onClick={() => handleSetStatus('review')}
+        >
           Review
         </button>
-        <button type="button" className="button primary" disabled={pending || status === 'published'} onClick={() => handleSetStatus('published')}>
+        <button
+          type="button"
+          className="button primary"
+          disabled={pending || status === 'published'}
+          onClick={() => handleSetStatus('published')}
+        >
           Publish
         </button>
       </div>
-      {message && <p className="admin-row-status" role="status">{message}</p>}
+      {message && (
+        <p className="admin-row-status" role="status">
+          {message}
+        </p>
+      )}
     </div>
   );
 }

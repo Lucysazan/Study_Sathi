@@ -1,6 +1,7 @@
 import 'server-only';
 import { FieldValue } from 'firebase-admin/firestore';
-import { courseReadySchema } from '@/lib/course/draft';
+import { courseChecklist } from '@/lib/course/metadata';
+import type { CourseOutline } from '@/lib/course/draft';
 import { readCourseOutline } from '@/lib/course/outline';
 import { adminDb } from '@/lib/firebase/admin';
 import { writeAudit } from './audit';
@@ -17,14 +18,12 @@ export type CourseReviewItem = {
 };
 
 export type CourseReviewDetail = CourseReviewItem & {
-  outline: {
-    modules: Array<{
-      id: string;
-      title: string;
-      lessons: Array<{ id: string; title: string; kind: string; duration: string }>;
-    }>;
-  } | null;
+  outline: CourseOutline | null;
   reviewNote: string | null;
+  language: string;
+  coverImageUrl: string;
+  coverAlt: string;
+  checklist: ReturnType<typeof courseChecklist>;
 };
 
 export async function listCoursesForReview(): Promise<CourseReviewItem[]> {
@@ -62,6 +61,10 @@ export async function getCourseForAdmin(id: string): Promise<CourseReviewDetail 
     updatedAt: snap.get('updatedAt')?.toDate ? snap.get('updatedAt').toDate().toISOString() : null,
     outline: readCourseOutline(outline),
     reviewNote: typeof snap.get('reviewNote') === 'string' ? snap.get('reviewNote') : null,
+    language: typeof snap.get('language') === 'string' ? snap.get('language') : '',
+    coverImageUrl: typeof snap.get('coverImageUrl') === 'string' ? snap.get('coverImageUrl') : '',
+    coverAlt: typeof snap.get('coverAlt') === 'string' ? snap.get('coverAlt') : '',
+    checklist: courseChecklist(snap.data(), readCourseOutline(outline)),
   };
 }
 
@@ -81,22 +84,20 @@ export async function updateCourseReviewStatus(
   actorUid: string,
 ): Promise<void> {
   await requireAdmin();
-  const ref = adminDb().collection('courses').doc(courseId);
-  const current = await ref.get();
-  if (!current.exists) throw new Error('Course not found.');
-  if (
-    status === 'published' &&
-    !courseReadySchema.safeParse(readCourseOutline(current.get('outline'))).success
-  )
-    throw new Error('Complete the lessons before publishing.');
-
-  await ref.set(
-    {
-      status,
-      updatedAt: FieldValue.serverTimestamp(),
-    },
-    { merge: true },
-  );
+  const db = adminDb();
+  const ref = db.collection('courses').doc(courseId);
+  await db.runTransaction(async (tx) => {
+    const current = await tx.get(ref);
+    if (!current.exists) throw new Error('Course not found.');
+    if (
+      status === 'published' &&
+      !courseChecklist(current.data(), readCourseOutline(current.get('outline'))).ready
+    )
+      throw new Error(
+        'Complete the course details, cover, language and lessons before publishing.',
+      );
+    tx.update(ref, { status, updatedAt: FieldValue.serverTimestamp() });
+  });
 
   await writeAudit(adminDb(), {
     actorUid,

@@ -3300,3 +3300,9 @@
 .analytics-bar span { display: block; height: 100%; background: var(--primary); }
 @media (max-width: 900px) { .analytics-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .analytics-metrics { grid-template-columns: minmax(0, 1fr); } }
+
+.course-cover { display: block; width: 100%; height: auto; max-height: 360px; object-fit: cover; border-radius: 12px; margin-block: 16px; }
+.course-metadata { border: 1px solid var(--border); border-radius: 12px; padding: 20px; min-width: 0; margin-block: 20px; }
+.course-metadata legend { font-weight: 700; }
+.course-checklist { padding-left: 20px; display: grid; gap: 8px; margin-block: 16px; }
+.course-checklist span { font-weight: 700; }

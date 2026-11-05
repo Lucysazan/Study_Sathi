@@ -1,3 +1,4 @@
+import { CourseCover } from '@/components/course/CourseCover';
 import { courseCategories } from '@/lib/course/draft';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -19,6 +20,9 @@ export type CourseCatalogItem = {
   budget: string;
   status: 'published';
   updatedAt: string | null;
+  language: string;
+  coverImageUrl: string;
+  coverAlt: string;
 };
 
 async function listPublishedCourses(category?: string, age?: string): Promise<CourseCatalogItem[]> {
@@ -41,6 +45,9 @@ async function listPublishedCourses(category?: string, age?: string): Promise<Co
       ageRange: String(doc.get('ageRange') ?? 'All ages'),
       budget: String(doc.get('budget') ?? 'Flexible'),
       status: 'published' as const,
+      language: typeof doc.get('language') === 'string' ? doc.get('language') : '',
+      coverImageUrl: typeof doc.get('coverImageUrl') === 'string' ? doc.get('coverImageUrl') : '',
+      coverAlt: typeof doc.get('coverAlt') === 'string' ? doc.get('coverAlt') : '',
       updatedAt: doc.get('updatedAt')?.toDate ? doc.get('updatedAt').toDate().toISOString() : null,
     }))
     .filter((course) => {
@@ -130,6 +137,8 @@ async function LearnCoursesBody({ searchParams }: PageProps<'/learn/courses'>) {
                 <span className="chip chip-muted">{course.ageRange}</span>
               </div>
 
+              <CourseCover src={course.coverImageUrl} alt={course.coverAlt || course.title} />
+              <p>Language: {course.language || 'Not specified'}</p>
               <p style={{ margin: '0.75rem 0 0' }}>{course.summary}</p>
 
               <div

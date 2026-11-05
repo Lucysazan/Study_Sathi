@@ -82,7 +82,7 @@ export function QuizPlayer({
             New badge: {badge.name}
           </p>
         ))}
-      {!courseId && <p>Creator preview: practice only. No points are awarded.</p>}
+      {!courseId && <p>Preview only. No points are awarded.</p>}
     </div>
   );
 }

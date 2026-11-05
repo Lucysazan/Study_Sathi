@@ -1,3 +1,4 @@
+import { CourseCover } from '@/components/course/CourseCover';
 import { CourseView } from '@/components/course/CourseView';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -62,6 +63,11 @@ async function LearnCourseContent({ params }: { params: Promise<{ id: string }> 
       <CourseView courseId={id} />
       <div className="eyebrow">COURSE</div>
       <h1 className="detail-title">{title}</h1>
+      <CourseCover
+        src={String(courseSnap.get('coverImageUrl') ?? '')}
+        alt={String(courseSnap.get('coverAlt') || title)}
+      />
+      <p>Language: {String(courseSnap.get('language') || 'Not specified')}</p>
 
       <div className="portal-actions" style={{ justifyContent: 'flex-start', flexWrap: 'wrap' }}>
         <Link href="/learn/courses" className="button secondary">

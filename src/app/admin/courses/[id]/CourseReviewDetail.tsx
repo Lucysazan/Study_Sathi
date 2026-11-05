@@ -3,6 +3,9 @@
 import { CheckCircle2, MessageSquareText } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { CourseCover } from '@/components/course/CourseCover';
+import { CourseChecklist } from '@/components/course/CourseChecklist';
+import { LessonContent } from '@/components/course/LessonContent';
 import type { CourseReviewDetail } from '@/lib/admin/courses';
 import { saveCourseReviewNote, setCourseStatus } from '../actions';
 
@@ -58,16 +61,37 @@ export function CourseReviewDetail({ course }: { course: CourseReviewDetail }) {
       </div>
 
       <div className="portal-actions" style={{ justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-        <button type="button" className="button secondary" disabled={busy} onClick={() => handleStatus('draft')}>
+        <button
+          type="button"
+          className="button secondary"
+          disabled={busy}
+          onClick={() => handleStatus('draft')}
+        >
           Set to draft
         </button>
-        <button type="button" className="button secondary" disabled={busy} onClick={() => handleStatus('review')}>
+        <button
+          type="button"
+          className="button secondary"
+          disabled={busy}
+          onClick={() => handleStatus('review')}
+        >
           Set to review
         </button>
-        <button type="button" className="button primary" disabled={busy} onClick={() => handleStatus('published')}>
+        <button
+          type="button"
+          className="button primary"
+          disabled={busy || !course.checklist.ready}
+          onClick={() => handleStatus('published')}
+        >
           Publish course
         </button>
       </div>
+      <section>
+        <h3>Publication checklist</h3>
+        <p>Teaching language: {course.language || 'Not specified'}</p>
+        <CourseCover src={course.coverImageUrl} alt={course.coverAlt || course.title} />
+        <CourseChecklist checklist={course.checklist} />
+      </section>
 
       {error && (
         <p className="form-error" role="alert">
@@ -90,7 +114,14 @@ export function CourseReviewDetail({ course }: { course: CourseReviewDetail }) {
               <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
                 {module.lessons.map((lesson) => (
                   <li key={lesson.id}>
-                    {lesson.title} · {lesson.kind} · {lesson.duration}
+                    <details>
+                      <summary>
+                        {lesson.title} ·{' '}
+                        {lesson.blocks?.length ? `${lesson.blocks.length} activities` : lesson.kind}{' '}
+                        · {lesson.duration}
+                      </summary>
+                      <LessonContent lesson={lesson} />
+                    </details>
                   </li>
                 ))}
               </ul>

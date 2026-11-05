@@ -33,15 +33,43 @@ function current(overrides: Record<string, unknown> = {}) {
     status: 'draft',
     title: 'A course',
     summary: 'A helpful summary for learners.',
+    category: 'science',
+    ageRange: '12-15',
+    budget: 'Flexible',
+    language: 'English',
+    coverImageUrl: 'https://example.com/cover.png',
+    coverAlt: 'A mountain landscape',
     outline,
     ...overrides,
   };
-  return { exists: true, get: (key: string) => data[key] };
+  return { exists: true, data: () => data, get: (key: string) => data[key] };
 }
 beforeEach(() => {
   vi.resetAllMocks();
 });
 describe('creator write boundary', () => {
+  it('saves details atomically with the outline without permitting status or ownership injection', async () => {
+    m.get.mockResolvedValue(current());
+    const metadata = {
+      ...current().data(),
+      status: 'published',
+      createdBy: 'attacker',
+      language: 'Nepali',
+    };
+    expect((await saveCourseOutline('course', outline, metadata)).ok).toBe(true);
+    expect(m.update).toHaveBeenCalledWith(
+      'courses/course',
+      expect.objectContaining({ outline, language: 'Nepali', status: 'draft' }),
+    );
+    expect(m.update.mock.calls[0]?.[1]).not.toHaveProperty('createdBy');
+  });
+  it('requires new metadata before submitting a legacy draft for review', async () => {
+    m.get.mockResolvedValue(
+      current({ language: undefined, coverImageUrl: undefined, coverAlt: undefined }),
+    );
+    expect((await submitCourseForReview('course')).ok).toBe(false);
+    expect(m.update).not.toHaveBeenCalled();
+  });
   it('stores the canonical outline object', async () => {
     m.get.mockResolvedValue(current());
     expect((await saveCourseOutline('course', outline)).ok).toBe(true);

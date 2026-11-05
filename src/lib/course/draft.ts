@@ -14,6 +14,7 @@ export const courseCategories = [
 ] as const;
 
 export const courseStatus = ['draft', 'review', 'published'] as const;
+export const courseLanguages = ['English', 'Nepali', 'English and Nepali'] as const;
 
 export const courseLessonKinds = [
   'text',
@@ -136,6 +137,14 @@ export const courseDraftSchema = z.object({
     .max(80)
     .default('Flexible'),
   status: z.enum(courseStatus).default('draft'),
+  language: z.union([z.enum(courseLanguages), z.literal('')]).default(''),
+  coverImageUrl: z
+    .string()
+    .trim()
+    .max(500)
+    .refine((url) => url === '' || !!safeMediaUrl(url), 'Use a valid HTTPS image link.')
+    .default(''),
+  coverAlt: z.string().trim().max(240).default(''),
 });
 
 export const courseOutlineSchema = z

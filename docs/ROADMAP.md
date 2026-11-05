@@ -5,7 +5,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 ## Current status (2026-11-05)
 - Phases 0-2: implementation complete; Vercel deployment remains outstanding.
 - Phase 3: family accounts, profile, private library sync and merge implemented; browser acceptance checks remain.
-- Phase 4: creator/admin flow, nine activity formats and stacked lessons implemented; cover/language and browser acceptance remain.
+- Phase 4: creator/admin flow, nine activity formats and stacked lessons implemented; cover/language/checklist implemented; browser acceptance remains.
 - Phase 5: lesson rendering, transactional progress, course resume and session views implemented; browser/mobile acceptance remains.
 - Phase 6: lesson/quiz rewards, levels, streaks, badges, dashboard and parent-consented leaderboards implemented; browser acceptance remains. Phase 7 analytics and shared loading/error recovery implemented; browser accessibility/e2e and deployment remain unfinished.
 - Both local env files currently set NEXT_PUBLIC_USE_EMULATORS=false. Do not switch the app to emulators to hide production issues. Rules tests use their own demo project.
@@ -60,8 +60,9 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Sort activity editor/player and schema (validated groups/items, keyboard controls, practice feedback)
 - [x] Budget activity editor/player and schema (fictional whole-rupee NPR plans and feedback)
 - [x] Stacked activities per lesson, with legacy compatibility, ordering, removal and per-block readiness validation
-- [ ] Cover/language metadata and checklist; evaluate splitting large inline course outlines into lesson documents if needed
-- [ ] Browser verify rapid edits/autosave, submit, return to draft and publish; mobile layout
+- [x] Cover image URL/description, explicit teaching language, editable metadata and shared creator/admin readiness checklist
+- Bounded inline storage remains in use; a lesson-document split is deferred unless size requires it.
+- [ ] Browser verify metadata/cover/language, rapid edits/autosave, submit, return to draft and publish; mobile layout
 
 ## Phase 5 ? Learning experience
 - [x] Published-only catalogue, category filter, course details and transactional enrollment
@@ -90,6 +91,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [ ] Browser acceptance of analytics, sparse/empty metrics and mobile completion charts
 - [x] Admin overview learning metrics and real creator workspace status counts
 - [ ] Accessibility pass (keyboard, screen reader labels, focus, contrast)
+- [ ] Remaining DESIGN polish: student header XP/avatar, recommendations and parent progress summaries
 - [x] Shared root loading/error recovery plus analytics error/not-found and empty states
 - [ ] Audit all route-specific loading/error/empty states in the browser
 - [ ] Playwright smoke tests: login per role, complete a lesson, publish a course

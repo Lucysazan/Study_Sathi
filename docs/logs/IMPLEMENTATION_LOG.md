@@ -90,3 +90,9 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 - Added transactional per-lesson completion counters using FieldPath for literal IDs and a versioned new-enrollment cohort for an honest completion rate. Replays/concurrency cannot inflate counts; historical enrollments are excluded from the new rate. No raw student records are read for creator analytics.
 - Added semantic metric cards, relative per-lesson completion bars, clear tracking limitations, global loading/error recovery using Next 16 retry, and analytics-specific retry/not-found/empty states.
 - Added pure metric tests and isolated emulator ownership, role, sparse aggregate, pagination, cohort and dotted-ID tests. 131 unit and 36 emulator tests pass; build/lint/typecheck pass. Browser host remains unavailable.
+
+## 2026-11-05 - Session 11
+- Added cover URL/alt and explicit teaching language to draft metadata, shared new/edit fields and image preview/failure fallback. New-course form now opens the created editor instead of offering a nonfunctional review-status selector.
+- Draft metadata saves in the same transaction as its outline; status/ownership injection remains blocked. Combined autosave skips untouched initial data and surfaces validation messages. Shared checklist validates all course metadata and nested lesson readiness.
+- Creator submission and transactional admin publishing enforce the same readiness contract; review UI shows cover/language/checklist and actual lesson previews without awarding points. Old published courses stay readable and show unspecified language when missing. Student catalogue/detail render optional metadata.
+- Added metadata/legacy/security unit tests and isolated edit/submit/publish/race integration tests. 138 unit tests and 40 emulator tests pass; lint/typecheck/build pass. Browser host unavailable; no visual/mobile/live acceptance claimed.

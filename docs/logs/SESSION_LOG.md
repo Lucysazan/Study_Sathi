@@ -136,3 +136,9 @@ Goal: Phase 7 analytics and error-state foundation.
 Done: owner-scoped paginated creator analytics and lesson funnels, real studio status counts, admin learning aggregates, versioned new-enrollment completion rates and literal per-lesson counters, shared root loading/error recovery and analytics-specific states. Documented prospective limits and avoided student identity/private-progress reads.
 Checks: 131 unit tests, 36 isolated emulator tests, lint/typecheck/build PASS. Browser host unavailable; no visual/mobile/live acceptance or deployment claimed.
 Next: browser acceptance, cover/language metadata, accessibility/e2e, deployment/live checks. Existing untracked admin helper preserved; env/service accounts excluded.
+
+## 2026-11-05 - Session 11 - Codex
+Goal: finish cover/language metadata and submission checklist.
+Done: shared new/edit fields and covers, combined metadata/outline autosave, complete checklist, transactional review/publish enforcement and race protection, full admin lesson preview, student metadata display and legacy compatibility.
+Checks: 138 unit tests, 40 isolated emulator tests, lint/typecheck/build PASS. Browser host unavailable; no visual/mobile/live acceptance or deployment. No live data/env changes.
+Next: DESIGN polish, browser acceptance, accessibility/e2e and deployment/live verification. Existing untracked admin helper preserved and excluded.
