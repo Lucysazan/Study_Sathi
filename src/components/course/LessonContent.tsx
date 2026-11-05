@@ -1,10 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { useId, useState } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import type { CourseLessonLike } from '@/lib/course/learning';
 import { safeMediaUrl, videoEmbedUrl } from '@/lib/course/media';
 import { saveNote, useNotes } from '@/lib/storage/guest-data';
+import { SortPlayer } from './SortPlayer';
+import { BudgetPlayer } from './BudgetPlayer';
 
 /** Practice feedback only. Completion and all future rewards are server-controlled. */
 export function LessonContent({
@@ -13,7 +15,22 @@ export function LessonContent({
 }: {
   lesson: CourseLessonLike;
   courseId?: string;
-}) {
+}): ReactNode {
+  if (lesson.blocks?.length)
+    return (
+      <div className="lesson-stack">
+        {lesson.blocks.map((block) => (
+          <section key={block.id} className="lesson-block">
+            <h3>{block.title || 'Activity'}</h3>
+            <LessonBlockContent lesson={block} courseId={courseId} />
+          </section>
+        ))}
+      </div>
+    );
+  return <LessonBlockContent lesson={lesson} courseId={courseId} />;
+}
+
+function LessonBlockContent({ lesson, courseId }: { lesson: CourseLessonLike; courseId?: string }) {
   const id = useId();
   const [answer, setAnswer] = useState('');
   const [checked, setChecked] = useState(false);
@@ -23,6 +40,21 @@ export function LessonContent({
   const media = safeMediaUrl(lesson.mediaUrl);
   const embed = videoEmbedUrl(lesson.mediaUrl);
   switch (lesson.kind) {
+    case 'sort':
+      return lesson.sortActivity ? (
+        <SortPlayer key={JSON.stringify(lesson.sortActivity)} activity={lesson.sortActivity} />
+      ) : (
+        <p>This sorting activity is being prepared.</p>
+      );
+    case 'budget':
+      return lesson.budgetActivity ? (
+        <BudgetPlayer
+          key={JSON.stringify(lesson.budgetActivity)}
+          activity={lesson.budgetActivity}
+        />
+      ) : (
+        <p>This budget activity is being prepared.</p>
+      );
     case 'text':
       return (
         <div className="lesson-prose">{lesson.content || 'This lesson is being prepared.'}</div>

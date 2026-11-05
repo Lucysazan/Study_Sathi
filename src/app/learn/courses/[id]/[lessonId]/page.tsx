@@ -96,7 +96,9 @@ async function LearnCourseLessonContent({
             marginBottom: '1rem',
           }}
         >
-          <span className="chip chip-muted">{lesson.kind}</span>
+          <span className="chip chip-muted">
+            {lesson.blocks?.length ? `${lesson.blocks.length} activities` : lesson.kind}
+          </span>
           <span className="chip chip-muted">{lesson.duration ?? '10 min'}</span>
           {isComplete ? (
             <span className="chip chip-success">Completed</span>

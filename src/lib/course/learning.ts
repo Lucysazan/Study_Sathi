@@ -1,3 +1,5 @@
+import type { SortActivity, BudgetActivity } from './activities';
+
 export type CourseLessonLike = {
   id?: string;
   title?: string;
@@ -11,6 +13,9 @@ export type CourseLessonLike = {
   question?: string;
   options?: string[];
   correctAnswer?: string;
+  sortActivity?: SortActivity;
+  budgetActivity?: BudgetActivity;
+  blocks?: CourseLessonLike[];
 };
 
 export type CourseModuleLike = {

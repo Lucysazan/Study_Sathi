@@ -3267,3 +3267,9 @@
   .lesson-actions { position: sticky; bottom: 0; background: var(--surface, #fff); padding: 12px 0; z-index: 2; }
   .lesson-actions .button { min-height: 44px; width: 100%; }
 }
+
+.lesson-stack { display: grid; gap: 28px; }
+.lesson-block { padding-block: 16px; border-bottom: 1px solid var(--border); min-width: 0; }
+.lesson-block h3 { font-weight: 700; margin-bottom: 16px; }
+.lesson-block-editor { padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-block: 16px; min-width: 0; }
+.course-activity input, .course-activity select { min-height: 44px; max-width: 100%; }

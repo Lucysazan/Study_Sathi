@@ -57,9 +57,10 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Submission saves current edits before review; creator cannot publish or edit a course under review/published
 - [x] Admin review queue, notes and publish/return-to-draft actions
 - [x] Canonical outline object saves with compatibility reads for previously saved array outlines
-- [ ] Sort activity editor/player and schema
-- [ ] Budget activity editor/player and schema
-- [ ] Full multi-block lesson documents (current editor has one content kind per lesson); cover/language metadata and checklist
+- [x] Sort activity editor/player and schema (validated groups/items, keyboard controls, practice feedback)
+- [x] Budget activity editor/player and schema (fictional whole-rupee NPR plans and feedback)
+- [x] Stacked activities per lesson, with legacy compatibility, ordering, removal and per-block readiness validation
+- [ ] Cover/language metadata and checklist; evaluate splitting large inline course outlines into lesson documents if needed
 - [ ] Browser verify rapid edits/autosave, submit, return to draft and publish; mobile layout
 
 ## Phase 5 ? Learning experience
@@ -70,7 +71,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Course completion counts, progress bar, outline links, first-unfinished resume and review links
 - [x] Per-authenticated-session course view deduplication; transactional enrollment/completion counters
 - [ ] Browser verify learning play-through, refresh persistence, repeat/concurrent submissions and 360px sticky controls
-- [ ] Render sort/budget and stacked blocks after Phase 4 models are added
+- [x] Render sort/budget and stacked blocks through the shared learner/creator preview renderer
 
 ## Phase 6 — Gamification
 - [ ] `lib/gamification` pure functions + tests (xp, levels, streaks, badges)

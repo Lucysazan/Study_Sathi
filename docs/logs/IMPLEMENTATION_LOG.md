@@ -66,3 +66,8 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 - Added private account library (bookmarks/progress/notes), transactional mutations, merge prompt and debounced client writes; public guest experience remains available.
 - Added safe media renderer with video embeds, inline quiz practice and private reflection input; progress UI, session-view digest ledger and idempotent enrollment/completion counters.
 - Added family, creator, library, media, view and completion regressions. Updated ROADMAP against actual code and corrected its stale emulator claim.
+
+## 2026-11-05 - Session 8: lesson activities
+- Added bounded sort/budget schemas, pure feedback helpers, accessible editor/player components and shared preview support.
+- Added optional ordered blocks to lessons without rewriting existing data; completion remains at lesson level. Nested media readiness, unique IDs and a 700 KB outline bound prevent invalid or oversized submissions. Fixed nested quiz editing to update the selected block.
+- Validation: lint/typecheck and 114 unit tests pass; activity-only production build passed; final stacked-lesson build remains to be run.

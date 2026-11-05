@@ -44,3 +44,5 @@ Learner routes/actions: src/app/learn/courses; family actions: src/app/parent/ac
 
 ## Working tree and checkpoint
 Session began with extensive uncommitted earlier portal/course work, which was preserved and extended. The local checkpoint includes that related src/docs work together with this session's changes. scripts/ensure-admin-user.mjs was already untracked and is intentionally excluded. No env files, service-account files or secrets are included. No push/deploy was requested or performed.
+
+Session 8 checkpoint in progress: sort/budget editors and players plus optional stacked blocks are implemented. Old single-kind lessons and array outlines remain readable. Lesson-level completion stays unchanged. Lint/typecheck and 114 tests pass. See current ROADMAP; cover/language and browser acceptance remain. Next work is Phase 6 rewards.

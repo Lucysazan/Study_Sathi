@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { CourseLesson, CourseOutline } from '@/lib/course/draft';
+import { BlockStackEditor } from '@/components/course/BlockStackEditor';
+import { SortEditor } from '@/components/course/SortEditor';
+import { BudgetEditor } from '@/components/course/BudgetEditor';
 import { LessonContent } from '@/components/course/LessonContent';
 import { saveCourseOutline, submitCourseForReview } from '../actions';
 
@@ -16,6 +19,8 @@ const lessonKindOptions = [
   { value: 'quiz', label: 'Quiz' },
   { value: 'reflection', label: 'Reflection' },
   { value: 'checkpoint', label: 'Checkpoint' },
+  { value: 'sort', label: 'Sorting activity' },
+  { value: 'budget', label: 'Budget activity' },
 ] as const;
 
 function createLesson(kind: CourseLesson['kind'] = 'text'): CourseLesson {
@@ -26,6 +31,22 @@ function createLesson(kind: CourseLesson['kind'] = 'text'): CourseLesson {
     duration: '10 min',
   };
 
+  if (kind === 'sort')
+    return {
+      ...base,
+      sortActivity: {
+        buckets: ['Needs', 'Wants'],
+        items: [
+          { label: 'School books', bucket: 'Needs' },
+          { label: 'A new toy', bucket: 'Wants' },
+        ],
+      },
+    };
+  if (kind === 'budget')
+    return {
+      ...base,
+      budgetActivity: { total: 500, currency: 'NPR', categories: ['Needs', 'Wants', 'Savings'] },
+    };
   if (kind === 'text') {
     return {
       ...base,
@@ -174,25 +195,30 @@ export function CourseOutlineEditor({
     updateModule(moduleIndex, nextModule);
   }
 
-  function addQuizOption(moduleIndex: number, lessonIndex: number) {
-    const lesson = modules[moduleIndex]?.lessons[lessonIndex];
-    if (!lesson || lesson.kind !== 'quiz') return;
-
-    const nextOptions = [
-      ...(lesson.options ?? ['Option 1', 'Option 2']),
-      `Option ${(lesson.options?.length ?? 2) + 1}`,
-    ];
-    updateLesson(moduleIndex, lessonIndex, {
-      ...lesson,
-      options: nextOptions,
-      correctAnswer: lesson.correctAnswer ?? nextOptions[0],
-    });
-  }
-
-  function renderLessonFields(moduleIndex: number, lessonIndex: number, lesson: CourseLesson) {
-    const setLesson = (next: CourseLesson) => updateLesson(moduleIndex, lessonIndex, next);
+  function renderLessonFields(
+    moduleIndex: number,
+    lessonIndex: number,
+    lesson: CourseLesson,
+    onChange?: (next: CourseLesson) => void,
+  ) {
+    const setLesson =
+      onChange ?? ((next: CourseLesson) => updateLesson(moduleIndex, lessonIndex, next));
 
     switch (lesson.kind) {
+      case 'sort':
+        return lesson.sortActivity ? (
+          <SortEditor
+            value={lesson.sortActivity}
+            onChange={(sortActivity) => setLesson({ ...lesson, sortActivity })}
+          />
+        ) : null;
+      case 'budget':
+        return lesson.budgetActivity ? (
+          <BudgetEditor
+            value={lesson.budgetActivity}
+            onChange={(budgetActivity) => setLesson({ ...lesson, budgetActivity })}
+          />
+        ) : null;
       case 'text':
         return (
           <div className="field-group">
@@ -261,7 +287,7 @@ export function CourseOutlineEditor({
             </div>
 
             <div className="field-group">
-              <label>Answer options</label>
+              <p>Answer options</p>
               <div style={{ display: 'grid', gap: '0.5rem' }}>
                 {(lesson.options ?? ['Option 1', 'Option 2']).map((option, optionIndex) => (
                   <div
@@ -269,6 +295,7 @@ export function CourseOutlineEditor({
                     style={{ display: 'flex', gap: '0.5rem' }}
                   >
                     <input
+                      aria-label={`Answer option ${optionIndex + 1}`}
                       value={option}
                       onChange={(event) => {
                         const nextOptions = [...(lesson.options ?? ['Option 1', 'Option 2'])];
@@ -276,7 +303,10 @@ export function CourseOutlineEditor({
                         setLesson({
                           ...lesson,
                           options: nextOptions,
-                          correctAnswer: lesson.correctAnswer ?? nextOptions[0],
+                          correctAnswer:
+                            lesson.correctAnswer === option
+                              ? event.target.value
+                              : (lesson.correctAnswer ?? nextOptions[0]),
                         });
                       }}
                     />
@@ -303,7 +333,16 @@ export function CourseOutlineEditor({
               <button
                 type="button"
                 className="button secondary"
-                onClick={() => addQuizOption(moduleIndex, lessonIndex)}
+                disabled={(lesson.options?.length ?? 2) >= 6}
+                onClick={() =>
+                  setLesson({
+                    ...lesson,
+                    options: [
+                      ...(lesson.options ?? ['Option 1', 'Option 2']),
+                      `Option ${(lesson.options?.length ?? 2) + 1}`,
+                    ],
+                  })
+                }
               >
                 Add option
               </button>
@@ -535,6 +574,7 @@ export function CourseOutlineEditor({
                     <label htmlFor={`lesson-kind-${lesson.id}`}>Format</label>
                     <select
                       id={`lesson-kind-${lesson.id}`}
+                      disabled={!!lesson.blocks}
                       value={lesson.kind}
                       onChange={(event) => {
                         const nextLesson = createLesson(event.target.value as CourseLesson['kind']);
@@ -568,7 +608,34 @@ export function CourseOutlineEditor({
                 </div>
 
                 <div style={{ marginTop: '0.75rem' }}>
-                  {renderLessonFields(moduleIndex, lessonIndex, lesson)}
+                  {lesson.blocks ? (
+                    <BlockStackEditor
+                      blocks={lesson.blocks}
+                      createBlock={createLesson}
+                      onChange={(blocks) =>
+                        updateLesson(moduleIndex, lessonIndex, { ...lesson, blocks })
+                      }
+                      renderFields={(block, onChange) =>
+                        renderLessonFields(moduleIndex, lessonIndex, block, onChange)
+                      }
+                    />
+                  ) : (
+                    <>
+                      {renderLessonFields(moduleIndex, lessonIndex, lesson)}
+                      <button
+                        type="button"
+                        className="button secondary"
+                        onClick={() =>
+                          updateLesson(moduleIndex, lessonIndex, {
+                            ...lesson,
+                            blocks: [{ ...lesson, id: crypto.randomUUID() }, createLesson('text')],
+                          })
+                        }
+                      >
+                        Add another activity to this lesson
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             ))}
