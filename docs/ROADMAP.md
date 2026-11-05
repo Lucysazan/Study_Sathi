@@ -3,7 +3,7 @@
 Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until the previous one builds and its checks pass. If a task grows, split it here rather than doing it all at once.
 
 ## Current status (2026-11-05)
-- [ ] Production incident: logs confirmed firebase-admin/jwks-rsa/jose ERR_REQUIRE_ESM. Scoped dependency fix passes restrictive runtime + 30 production browser checks; verify deployed API responses before marking resolved. Signup transport/retry fixes pass local production-mode tests.
+- [x] Production auth ERR_REQUIRE_ESM resolved in cec1ab3: scoped jwks-rsa/jose compatibility fix, restrictive import/RSA regression, 30 production browser cases; live setup/session JSON 400 and invalid-token 401 verified. Signed-in production acceptance remains separate.
 - Phases 0-2: implementation complete; Vercel deployment remains outstanding.
 - Phase 3: family accounts, profile, private library sync and merge implemented; browser acceptance checks remain.
 - Phase 4: creator/admin flow, nine activity formats and stacked lessons implemented; cover/language/checklist implemented; browser acceptance remains.

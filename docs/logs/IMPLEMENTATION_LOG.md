@@ -119,3 +119,5 @@ Added same-origin JSON auth setup route and moved setup into server-only helper;
 
 ## 2026-11-05 - Session 18 - Codex
 Confirmed Vercel ERR_REQUIRE_ESM from the supplied runtime logs; reproduced Firebase Admin auth import under --no-experimental-require-module. Added scoped jwks-rsa jose 5.10.0 override/lockfile and Node 24 pin; runtime import + RSA public-key/signature regression. Production-mode E2E starts the app with require(ESM) disabled to prevent localhost-only false acceptance.
+
+Session 18 deployed result: verified cec1ab3 on the live domain; normal JSON validation and invalid-token rejection replace the previous auth module-load 500 errors.
