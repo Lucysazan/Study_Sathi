@@ -29,7 +29,7 @@ After changing a role, the server revokes refresh tokens so the new claim applie
 - `next` after login is accepted only as a same-site path (`safeNextPath`).
 - Session cookie: httpOnly, `sameSite=lax`, secure in production, 7 days; minted only from a sign-in less than 5 minutes old. `/api/auth/session` rejects requests whose `Origin` is not this site.
 - A second, readable cookie `ss_signed_in=1` only tells the static header to show "My account" instead of "Log in". It grants nothing.
-- **Adult sign-up** (`/signup`): Firebase creates the user in the browser → server action `completeSignup` verifies the ID token and sets up the account (`setUpAccount`): parents get the `parent` claim + user doc; creator applicants get a user doc with `role: null, requestedRole: 'creator'` and no claim until an admin approves them (Phase 4) → the browser refreshes its token and posts it to `/api/auth/session` again. A first Google sign-in from `/login` (no user doc yet) shows the same setup step.
+- **Adult sign-up** (`/signup`): Firebase creates the user in the browser → same-origin JSON endpoint `POST /api/auth/setup` calls the server-only `completeSignup` helper, verifies the ID token and sets up the account (`setUpAccount`): parents get the `parent` claim + user doc; creator applicants get a user doc with `role: null, requestedRole: 'creator'` and no claim until an admin approves them (Phase 4) → the browser refreshes its token and posts it to `/api/auth/session` again. A first Google sign-in from `/login` (no user doc yet) shows the same setup step.
 - Role changes (`assignRole`, used by `scripts/set-role.ts` and later the admin UI) update the claim and user doc, write `auditLog`, and revoke refresh tokens.
 
 ## 3. Firestore data model

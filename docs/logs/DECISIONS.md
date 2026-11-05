@@ -135,3 +135,6 @@ Respect user preference for a single main production branch, Vercel site and rea
 
 ## 2026-11-05 - Session 16 - Codex
 Use the owner-authenticated Firebase CLI for the already-approved production index deployment. Keep service-account IAM permissions and the single main/production setup unchanged. Deployment acceptance and completed index builds are verified separately.
+
+## 2026-11-05 - Session 17 - Codex
+Use a no-store JSON endpoint for the ID-token account-setup exchange, matching the existing session endpoint and avoiding RSC/action-manifest transport for signup. Preserve existing server token/role validation and approval model. Unknown framework errors must not be rendered verbatim; use explicit AuthFlowError for safe public messages. Resume only the already-authenticated in-memory user matching the signup email. Production-mode regression checks use disposable emulator fixtures, never real signup identities.

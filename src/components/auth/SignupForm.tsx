@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { type FormEvent, useState } from 'react';
 import type { AccountType } from '@/lib/auth/accounts';
 import { finishSetup, goAfterSignIn, startSession } from '@/lib/auth/client-flow';
-import { errorCode, friendlyAuthError } from '@/lib/auth/errors';
+import { authFormError } from '@/lib/auth/errors';
 import { getClientAuth } from '@/lib/firebase/client';
 import {
   accountTypeSchema,
@@ -32,12 +32,7 @@ export function SignupForm() {
   const [busy, setBusy] = useState(false);
 
   function fail(error: unknown) {
-    const code = errorCode(error);
-    const message = code
-      ? friendlyAuthError(code, 'adult')
-      : error instanceof Error
-        ? error.message
-        : friendlyAuthError(undefined, 'adult');
+    const message = authFormError(error, 'adult');
     setErrors(message ? { form: message } : {});
     setBusy(false);
   }
@@ -55,11 +50,13 @@ export function SignupForm() {
     setBusy(true);
     try {
       const auth = await getClientAuth();
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        parsed.data.email,
-        parsed.data.password,
-      );
+      // A failed setup request may follow successful Auth creation. Resume that signed-in
+      // account instead of trying to create the same email again.
+      const user =
+        auth.currentUser?.email?.toLowerCase() === parsed.data.email.toLowerCase()
+          ? auth.currentUser
+          : (await createUserWithEmailAndPassword(auth, parsed.data.email, parsed.data.password))
+              .user;
       await complete(user, parsed.data.accountType, parsed.data.displayName);
     } catch (error) {
       fail(error);

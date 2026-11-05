@@ -29,6 +29,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] `lib/firebase/client.ts`, `lib/firebase/admin.ts` (server-only), env validation with zod
 - [x] Session cookie route `/api/auth/session`, `getCurrentUser()`, `requireRole()`, `proxy.ts` (Next 16 name for middleware)
 - [x] Login / signup pages (parent + creator applicant; student username login)
+- [x] JSON account setup, interrupted-signup recovery, safe auth errors and production-mode parent/creator signup regression coverage
 - [x] `scripts/set-role.ts`; first admin works end to end
 - [x] Rules test harness with the emulator
 
@@ -98,7 +99,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Shared root loading/error recovery plus analytics error/not-found and empty states
 - [x] Portal-specific loading, retry and generic unavailable states (student/parent/creator/admin)
 - [ ] Audit all route-specific loading/error/empty states in the browser (docs/ACCEPTANCE.md)
-- [x] Playwright smoke tests: all-role login, stacked quiz/reward/completion, publish, family/reset/consent, offline forms/logout, private sync and analytics (22 desktop/360px cases)
+- [x] Playwright smoke tests: all-role login, stacked quiz/reward/completion, publish, family/reset/consent, offline forms/logout, private sync and analytics (30 production-build desktop/360px cases, including signup/retry/security)
 - [x] Production rules deployed to studysathi-20d2c with explicit approval; existing Vercel Auth domain verified
 - [x] Seven production course indexes deployed and READY; all ten live query probes PASS
 - [x] Git-triggered Vercel app release 30f4e35 succeeded; production catalog seeded and counts verified (15 resources/3 paths/7 badges)

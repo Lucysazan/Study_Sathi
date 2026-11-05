@@ -2,7 +2,8 @@
 
 import type { User } from 'firebase/auth';
 import type { SessionResponse } from '@/app/api/auth/session/route';
-import { completeSignup } from './actions';
+import type { ActionResult } from './setup';
+import { AuthFlowError } from './errors';
 import type { AccountType } from './accounts';
 import { type Role, roleHome, safeNextPath } from './roles';
 
@@ -17,8 +18,8 @@ async function postSession(idToken: string): Promise<SessionResult> {
     body: JSON.stringify({ idToken }),
   });
   const body = (await res.json().catch(() => null)) as SessionResponse | null;
-  if (!body) throw new Error('Could not sign you in. Please try again.');
-  if (!body.ok) throw new Error(body.error);
+  if (!body) throw new AuthFlowError('Could not sign you in. Please try again.');
+  if (!body.ok) throw new AuthFlowError(body.error);
   return { role: body.role, needsSetup: body.needsSetup };
 }
 
@@ -33,12 +34,17 @@ export async function finishSetup(
   accountType: AccountType,
   displayName: string,
 ): Promise<SessionResult> {
-  const result = await completeSignup({
-    idToken: await user.getIdToken(),
-    accountType,
-    displayName,
+  const response = await fetch('/api/auth/setup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: await user.getIdToken(), accountType, displayName }),
   });
-  if (!result.ok) throw new Error(result.error);
+  const result = (await response.json().catch(() => null)) as ActionResult<{
+    role: Role | null;
+  }> | null;
+  if (!result)
+    throw new AuthFlowError('We could not finish setting up your account. Please try again.');
+  if (!result.ok) throw new AuthFlowError(result.error);
   return postSession(await user.getIdToken(true));
 }
 

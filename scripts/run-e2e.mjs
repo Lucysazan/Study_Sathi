@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 
 // These overrides belong only to child processes. Never read, write or source .env here.
 const overrides = {
@@ -25,9 +25,23 @@ if (mode && mode !== '--app' && mode !== '--test') throw new Error('Unknown E2E 
 if (mode && Object.entries(overrides).some(([key, value]) => (process.env[key] ?? '') !== value)) {
   throw new Error('Use npm run test:e2e to start the isolated local runner.');
 }
+if (mode === '--app' && process.env.STUDYSATHI_E2E_PRODUCTION === '1') {
+  const build = spawnSync(process.execPath, ['node_modules/next/dist/bin/next', 'build'], {
+    stdio: 'inherit',
+    env: { ...process.env, ...overrides },
+  });
+  if (build.status !== 0) process.exit(build.status ?? 1);
+}
 const args =
   mode === '--app'
-    ? ['node_modules/next/dist/bin/next', 'dev', '--hostname', '127.0.0.1', '--port', '3100']
+    ? [
+        'node_modules/next/dist/bin/next',
+        process.env.STUDYSATHI_E2E_PRODUCTION === '1' ? 'start' : 'dev',
+        '--hostname',
+        '127.0.0.1',
+        '--port',
+        '3100',
+      ]
     : mode === '--test'
       ? ['node_modules/@playwright/test/cli.js', 'test']
       : [

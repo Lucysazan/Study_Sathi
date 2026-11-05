@@ -17,6 +17,7 @@ export default defineConfig({
   timeout: 90_000,
   expect: { timeout: 15_000 },
   reporter: 'list',
+  grep: process.env.STUDYSATHI_E2E_GREP ? new RegExp(process.env.STUDYSATHI_E2E_GREP) : undefined,
   use: {
     baseURL: 'http://localhost:3100',
     trace: 'retain-on-failure',

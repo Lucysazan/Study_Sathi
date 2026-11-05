@@ -113,3 +113,6 @@ Completed explicitly authorized production catalog seed (25 missing records) and
 Deployed all seven checked-in course composite indexes with authenticated owner CLI credentials after earlier service-account permission denial; verifying index readiness with the existing read-only probe.
 
 Session 16 result: verified seven READY indexes, ten passing live probes, successful Vercel app release 5017c40 and public/unsigned-route smoke checks.
+
+## 2026-11-05 - Session 17 - Codex
+Added same-origin JSON auth setup route and moved setup into server-only helper; auth client no longer imports a setup Server Action. Preserve matching Firebase user for interrupted signup retry; only deliberate public auth errors reach forms. Delay shared auth input enablement until hydration. Added signup/retry/forged-token/browser production-build support and unit regressions.

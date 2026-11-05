@@ -9,7 +9,7 @@ import {
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { type FormEvent, useState } from 'react';
-import { errorCode, friendlyAuthError } from '@/lib/auth/errors';
+import { authFormError } from '@/lib/auth/errors';
 import { goAfterSignIn, startSession } from '@/lib/auth/client-flow';
 import { getClientAuth } from '@/lib/firebase/client';
 import {
@@ -59,12 +59,7 @@ export function LoginForm({ studentLoginDomain, next }: Props & { next: string |
   }
 
   function fail(error: unknown) {
-    const code = errorCode(error);
-    const message = code
-      ? friendlyAuthError(code, tab)
-      : error instanceof Error
-        ? error.message
-        : friendlyAuthError(undefined, tab);
+    const message = authFormError(error, tab);
     setErrors(message ? { form: message } : {});
     setBusy(false);
   }

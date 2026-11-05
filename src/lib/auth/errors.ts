@@ -2,6 +2,17 @@
  * Plain-language messages for Firebase Auth error codes (DESIGN.md "Auth pages").
  * Returns '' when nothing should be shown (e.g. the user closed the Google popup).
  */
+export class AuthFlowError extends Error {}
+
+/** Only known public auth messages may reach forms; never expose framework exceptions. */
+export function authFormError(error: unknown, audience: 'student' | 'adult'): string {
+  const code = errorCode(error);
+  if (code) return friendlyAuthError(code, audience);
+  return error instanceof AuthFlowError
+    ? error.message
+    : 'We could not complete sign-in. Please try again.';
+}
+
 export function friendlyAuthError(code: string | undefined, audience: 'student' | 'adult'): string {
   switch (code) {
     case 'auth/invalid-credential':

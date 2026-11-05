@@ -8,6 +8,7 @@ import { finishSetup, goAfterSignIn } from '@/lib/auth/client-flow';
 import { accountTypeSchema, displayNameSchema, fieldErrors } from '@/lib/validation/auth';
 import { AccountTypeChoice } from './AccountTypeChoice';
 import { Field } from './Field';
+import { authFormError } from '@/lib/auth/errors';
 
 const schema = z.object({ accountType: accountTypeSchema, displayName: displayNameSchema });
 
@@ -31,7 +32,7 @@ export function SetupStep({ user, next }: { user: User; next: string | null }) {
       const session = await finishSetup(user, parsed.data.accountType, parsed.data.displayName);
       goAfterSignIn(session.role, next);
     } catch (error) {
-      setErrors({ form: error instanceof Error ? error.message : 'Please try again.' });
+      setErrors({ form: authFormError(error, 'adult') });
       setBusy(false);
     }
   }

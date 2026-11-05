@@ -1,9 +1,16 @@
 # Handover
 
-Last updated: 2026-11-05, Codex session 16. Branch: main.
+Last updated: 2026-11-05, Codex session 17. Branch: main.
 
 ## Current state
 StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/course flows, nine activity formats with stacked lessons, gamification/consented leaderboards and analytics are implemented. Cover/language metadata and submission checklist are now implemented. Student account toolbar, course discovery and linked-parent progress are implemented. Desktop/360px Chromium smoke tests now pass. Production application deployment, catalog seeding, rules, Auth domain and all ten live query/index probes are verified. Broader assistive-technology/manual acceptance and authenticated production play-through remain unfinished. ROADMAP is current; do not claim all phases complete.
+
+## Session 17 signup recovery
+- User reported production React #441 during creator signup. Decoder identifies a generic server-render error; fresh parent/creator signup passed locally in development and production before changes, so the exact live exception is not proven from available logs.
+- Moved account setup from a browser-imported Server Action into a same-origin no-store JSON POST /api/auth/setup endpoint with the existing token verification, schema and trusted role logic. Server-only helper now lib/auth/setup.ts; token refresh/session exchange still follows setup. This avoids the RSC/action-manifest transport for account creation.
+- Signup retries resume the matching in-memory Firebase user after a failed setup response, rather than attempting duplicate email creation. Authentication forms expose deliberate public errors/Firebase messages and replace raw framework exceptions with plain retry feedback.
+- Production-mode smoke tests also exposed fast input before hydration being discarded on static login pages. Shared auth Field disables input until its handlers hydrate.
+- Added isolated signup/security/retry browser cases and unit coverage for origin guard/JSON responses/error redaction. E2E runner now supports production build/start via STUDYSATHI_E2E_PRODUCTION=1, plus optional diagnostic grep. Final signup/browser verification: 146 unit tests and all 30 production-mode browser cases PASS; normal release build/lint/typecheck results recorded below. No production accounts were created for tests.
 
 ## Session 16 release follow-up
 - Owner Firebase CLI login completed successfully. No authorization code/token is stored in repository files.
@@ -48,10 +55,10 @@ StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/cou
 - Student course catalogue/detail show optional cover and teaching language. Legacy published courses stay readable without migration; missing language shows Not specified, never an inferred English label. Legacy drafts need new metadata before submission/republishing.
 
 ## Validation
-- 141 unit tests / 29 files PASS.
-- 43 emulator tests / 6 files PASS this session: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
-- Lint, typecheck, production build PASS. Public build used catalogue seed fallback; this does not prove live seeding.
-- 22 Playwright Chromium tests PASS across desktop/360px; see Session 14 coverage and limits. Native UI host is not needed for the automated suite. Production login/play-through is not yet verified.
+- 146 unit tests / 31 files PASS.
+- Previous rules-suite verification: 43 emulator tests / 6 files PASS: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
+- Lint, typecheck, production build PASS. Normal production build passed with the configured real project. Isolated browser builds intentionally use demo catalog fallback; production seed counts were verified separately.
+- 30 Playwright Chromium tests PASS against an isolated production build across desktop/360px; see Session 14 coverage and limits. Native UI host is not needed for the automated suite. Production login/play-through is not yet verified.
 - Production rules deployed with explicit approval; live read-only config/query checks performed. Initial service-account index creation was denied by IAM; owner CLI deployment and all ten live probes now succeeded. No env/service-account/IAM changes or production test-account writes. Release 30f4e35 pushed to origin/main (fast-forward from 80290cc), explicitly authorized. Vercel Git status confirms deployment in progress at https://vercel.com/susan-shresthas-projects-be9908c2/study-sathi/CXim7cA6Fab8EkFgE3684tyHX8jn; application release 30f4e35 completed successfully (verified Session 15); newer documentation deployment was still pending.
 
 ## Environment
