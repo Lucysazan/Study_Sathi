@@ -185,3 +185,5 @@ Goal: implement one quick USP at user request. Chose public English/Nepali Nepal
 Session 20 mission validation: 149 unit tests /33 files PASS; two production-build desktop/360px mission browser cases PASS. Tests cover public homepage entry, wrong-choice explanation, language switching preserving progress, safer selections, result/replay, focus and overflow. Nepali mobile screenshot inspected. Prior 30-case auth/LMS result remains historical; no account/course logic changed.
 
 Session 20 final local checks: lint, typecheck and production build PASS. No dependency changes, Firebase mutations or full-site translation. Public mission release is ready to push.
+
+Session 20 live verification: 524b3f1 pushed to main; Vercel deployment succeeded. Public /safety-mission returns HTTP 200. Fresh anonymous live Chromium at 360px verified English/Nepali switching, correct-choice feedback and no horizontal overflow. No live accounts, saved answers, XP or cloud writes. Full mission completion/replay was verified in the isolated production-build desktop/mobile tests.

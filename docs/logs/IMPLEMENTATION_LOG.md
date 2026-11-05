@@ -127,3 +127,5 @@ Recovered local development server after dependency reorganization by restarting
 
 ## 2026-11-05 - Session 20 - Codex
 Added /safety-mission, bilingual authored scenario data, accessible leaf player, explanation/safer-action feedback, in-memory score/replay and safety-plan result. Added prominent homepage promo/hero entry, scoped responsive styling and authoritative guidance links. Data-integrity and production browser flow coverage added.
+
+Session 20 release: 524b3f1 deployed and anonymous public mission language/feedback/mobile smoke verified on studysathisip.vercel.app.

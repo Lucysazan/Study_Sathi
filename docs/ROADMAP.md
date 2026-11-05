@@ -108,7 +108,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [ ] Authenticated live user play-through and remaining manual/assistive-technology acceptance
 
 ## User-requested USP - Public safety mission
-- [ ] Ship and verify three-scenario English/Nepali safety mission with homepage entry, explanations and local practice result (Session 20 ADR)
+- [x] Ship and verify three-scenario English/Nepali safety mission with homepage entry, explanations and local practice result (524b3f1; live anonymous mobile check PASS)
 - [ ] Native-speaker review and learner pilot; no impact claim before evaluation
 
 ## Later (do not start without an ADR)
