@@ -144,3 +144,6 @@ Vercel logs identify jwks-rsa requiring ESM-only jose as the actual auth runtime
 
 ## 2026-11-05 - Session 19 - Codex
 For Windows lockfile reinstall checks, use an isolated folder while a dev server is running. An in-place install can leave native files locked and an existing Turbopack process with stale resolution references; stop/restart only the verified project server when recovery is necessary.
+
+## 2026-11-05 - Session 20 - Bilingual public safety mission (USP)
+User explicitly requested one fast, concrete differentiating feature for the social-innovation project. Add Spot the Scam - Nepal Edition: three fictional local-context decisions (wallet OTP, NPR prize fee, ordinary school reminder), English/Nepali explanations and an in-memory practice result, public without signup. This is a scoped bilingual learning activity, authorized here as an ADR exception to deferred full-site translation; no general i18n framework or claim of unique invention/validated impact. No new dependency, Firebase writes, XP, public sharing or learner-data collection. Distinguish selection from safer-action feedback; keep retry and keyboard focus. Guidance references Nepal Bank cyber-security and Nepal Police safety tips, with attribution and no endorsement claim. Static Nepali wording needs native-speaker review before asserting linguistic validation.

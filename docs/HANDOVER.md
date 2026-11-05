@@ -1,9 +1,15 @@
 # Handover
 
-Last updated: 2026-11-05, Codex session 19. Branch: main.
+Last updated: 2026-11-05, Codex session 20. Branch: main.
 
 ## Current state
 StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/course flows, nine activity formats with stacked lessons, gamification/consented leaderboards and analytics are implemented. Cover/language metadata and submission checklist are now implemented. Student account toolbar, course discovery and linked-parent progress are implemented. Desktop/360px Chromium smoke tests now pass. Production application deployment, catalog seeding, rules, Auth domain and all ten live query/index probes are verified. Broader assistive-technology/manual acceptance and authenticated production play-through remain unfinished. ROADMAP is current; do not claim all phases complete.
+
+## Session 20 public safety mission
+- User requested one fast USP for the social-innovation project. Added /safety-mission: three fictional Nepal-context decisions, English/Nepali toggle, clues/safer-action explanations, practice result, safety plan and replay. Public, no signup and no mission data storage/cloud writes/XP. This is a contextual learning activity, not measured educational impact or a claim of unique invention.
+- Main homepage hero/promo links to the mission. Existing design tokens, phone layout, 44px choices, accessible language state, focus after feedback/next/replay, and no new dependencies. Source guidance links to Nepal Bank and Nepal Police; native-speaker review of Nepali copy remains pending.
+- ADR permits this limited bilingual activity without starting full-site translation. Shared account/course flows remain unchanged. Data unit checks cover answer references and translation presence; browser flow checks wrong/correct choices, language continuity, result/replay and narrow-screen overflow.
+- Validation: 149 unit tests /33 files PASS; dedicated mission production-build browser flow PASS at desktop and 360px, including English/Nepali progress continuity and replay. Nepali phone screenshot visually inspected. Prior 30 auth/LMS browser cases are historical, not rerun for this additive public route. Lint, typecheck and normal production build PASS. Release push/deployment verification follows.
 
 ## Session 19 local dev recovery
 - User saw Turbopack Could not find Next.js package after the earlier dependency reinstall. next/package.json exists and resolves to 16.4.5; the active dev server had retained pre-reinstall references.
@@ -71,7 +77,7 @@ Verified release cec1ab3 deployed successfully (Vercel CNCRS7v7kbV5vzLMaZPSdco5p
 - Student course catalogue/detail show optional cover and teaching language. Legacy published courses stay readable without migration; missing language shows Not specified, never an inferred English label. Legacy drafts need new metadata before submission/republishing.
 
 ## Validation
-- 147 unit tests / 32 files PASS.
+- 149 unit tests / 33 files PASS.
 - Previous rules-suite verification: 43 emulator tests / 6 files PASS: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
 - Lint, typecheck, production build PASS. Normal production build passed with the configured real project. Isolated browser builds intentionally use demo catalog fallback; production seed counts were verified separately.
 - 30 Playwright Chromium tests PASS against an isolated production build across desktop/360px; see Session 14 coverage and limits. Native UI host is not needed for the automated suite. Production login/play-through is not yet verified.

@@ -178,3 +178,10 @@ Session 18 final verification: cec1ab3 pushed and Vercel deployed successfully. 
 
 ## 2026-11-05 - Session 19 - Codex
 Resolved local Turbopack missing Next.js package error after earlier reinstall: verified next/package.json present/16.4.5, identified and stopped only stale project dev-server/workers, restarted on port 3000 in background. Login/signup HTTP 200 and no missing-package message. No app/env/config/dependency changes; tests not rerun for process restart. Ignored .firebase logs record runtime output. Unrelated learning-path instant-shell-url-data diagnostic observed, not claimed fixed.
+
+## 2026-11-05 - Session 20 - Codex
+Goal: implement one quick USP at user request. Chose public English/Nepali Nepal-context safety decision practice rather than more resource listings. Three fictional scenarios, immediate explanations, local practice result and no-account access; no persistence/XP/cloud writes. Added homepage entry, responsive layout and keyboard focus. Initial unit result 149 PASS; final mission browser/build checks follow. Existing untracked admin helper preserved; no env or live account changes.
+
+Session 20 mission validation: 149 unit tests /33 files PASS; two production-build desktop/360px mission browser cases PASS. Tests cover public homepage entry, wrong-choice explanation, language switching preserving progress, safer selections, result/replay, focus and overflow. Nepali mobile screenshot inspected. Prior 30-case auth/LMS result remains historical; no account/course logic changed.
+
+Session 20 final local checks: lint, typecheck and production build PASS. No dependency changes, Firebase mutations or full-site translation. Public mission release is ready to push.

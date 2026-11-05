@@ -107,5 +107,9 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Verify Vercel app release 5017c40, public responses and signed-out portal redirects
 - [ ] Authenticated live user play-through and remaining manual/assistive-technology acceptance
 
+## User-requested USP - Public safety mission
+- [ ] Ship and verify three-scenario English/Nepali safety mission with homepage entry, explanations and local practice result (Session 20 ADR)
+- [ ] Native-speaker review and learner pilot; no impact claim before evaluation
+
 ## Later (do not start without an ADR)
 - Nepali UI translation · class/group leaderboards for volunteers · offline packs · certificates of completion · email notifications

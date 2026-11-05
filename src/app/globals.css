@@ -3324,3 +3324,44 @@
 .auth-form [aria-invalid='true'] { border-color: var(--error); }
 .portal-actions > a { min-height: 44px; display: inline-flex; align-items: center; }
 .portal-welcome h1, .learning-card, .portal-actions { overflow-wrap: anywhere; }
+
+/* Public, bilingual safety practice. All interactions remain on this page. */
+.mission-promo { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 24px; padding: 28px; margin-block: 28px; background: var(--light-green); border: 1px solid var(--border); border-radius: 14px; }
+.mission-promo h2 { font-size: 27px; margin-block: 8px; }
+.mission-promo-icon { color: var(--primary); }
+.safety-mission { max-width: 760px; margin-inline: auto; overflow-wrap: anywhere; }
+.safety-mission[lang='ne'] { font-family: 'Nirmala UI', 'Noto Sans Devanagari', system-ui, sans-serif; line-height: 1.9; }
+.safety-mission[lang='ne'] h1, .safety-mission[lang='ne'] h2, .safety-mission[lang='ne'] h3 { font-family: inherit; letter-spacing: normal; }
+.mission-language { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-bottom: 24px; }
+.mission-language button { min-height: 44px; border: 1px solid var(--border); border-radius: 8px; padding: 8px 18px; }
+.mission-language button[aria-pressed='true'] { background: var(--primary); color: white; }
+.mission-intro { margin-block: 16px 24px; }
+.safety-mission progress { width: 100%; height: 12px; accent-color: var(--primary); margin-bottom: 24px; }
+.mission-scenario h2 { margin-block: 12px 20px; font-size: 26px; }
+.mission-message { background: var(--background); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.mission-message > span { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 13px; font-weight: 600; }
+.mission-message blockquote { margin: 12px 0 0; line-height: 1.8; }
+.mission-scenario fieldset { border: 0; padding: 0; margin-block: 24px; min-width: 0; }
+.mission-scenario legend { font-weight: 700; margin-bottom: 12px; }
+.mission-option { display: flex; align-items: flex-start; gap: 12px; padding: 16px; min-height: 44px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; cursor: pointer; }
+.mission-option input { margin-top: 6px; flex-shrink: 0; accent-color: var(--primary); }
+.mission-option:has(input:checked) { border-color: var(--primary); background: var(--background); }
+.mission-option[data-safer='true'] { border-color: var(--primary); background: var(--light-green); }
+.mission-option:has(input:focus-visible) { outline: 3px solid var(--primary); outline-offset: 3px; }
+.mission-feedback { background: var(--light-green); border-radius: 10px; padding: 20px; margin-block: 20px; }
+.mission-feedback h3 { display: flex; gap: 8px; align-items: center; }
+.mission-feedback p { margin-top: 12px; color: var(--heading); }
+.mission-note { font-size: 13px; margin-top: 20px; }
+.mission-note a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.mission-result > svg { color: var(--primary); margin-bottom: 16px; }
+.mission-plan { font-size: 20px; color: var(--heading); margin-block: 20px; }
+.safety-mission .button { white-space: normal; min-height: 44px; max-width: 100%; }
+@media (max-width: 800px) {
+  .mission-promo { grid-template-columns: auto minmax(0, 1fr); padding: 22px; gap: 16px; }
+  .mission-promo > .button { grid-column: 1 / -1; justify-self: start; }
+}
+@media (max-width: 480px) {
+  .mission-promo { grid-template-columns: minmax(0, 1fr); }
+  .mission-scenario { padding: 20px; }
+  .mission-message { padding: 16px; }
+}

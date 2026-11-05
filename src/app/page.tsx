@@ -1,6 +1,7 @@
 import { ArrowRight, ArrowUpRight, BookOpen, Compass, Leaf, Search, Users } from 'lucide-react';
 import Link from 'next/link';
 import { HomeHero } from '@/components/home/HomeHero';
+import { SafetyMissionPromo } from '@/components/home/SafetyMissionPromo';
 import { PathCard } from '@/components/paths/PathCard';
 import { CategoryIcon } from '@/components/resources/CategoryIcon';
 import { ResourceGrid } from '@/components/resources/ResourceGrid';
@@ -37,6 +38,7 @@ export default async function HomePage() {
   return (
     <>
       <HomeHero />
+      <SafetyMissionPromo />
 
       <div className="intro-strip">
         <div className="site-container">

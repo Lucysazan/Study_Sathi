@@ -124,3 +124,6 @@ Session 18 deployed result: verified cec1ab3 on the live domain; normal JSON val
 
 ## 2026-11-05 - Session 19 - Codex
 Recovered local development server after dependency reorganization by restarting the verified project process tree; package resolution and login/signup HTTP checks pass. No product code change.
+
+## 2026-11-05 - Session 20 - Codex
+Added /safety-mission, bilingual authored scenario data, accessible leaf player, explanation/safer-action feedback, in-memory score/replay and safety-plan result. Added prominent homepage promo/hero entry, scoped responsive styling and authoritative guidance links. Data-integrity and production browser flow coverage added.

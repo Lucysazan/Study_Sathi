@@ -31,8 +31,8 @@ export function HomeHero() {
           <Link className="button" href="/resources">
             Explore Resources <ArrowRight size={18} aria-hidden="true" />
           </Link>
-          <Link className="button secondary" href="/learning-paths">
-            Start Learning <BookOpen size={18} aria-hidden="true" />
+          <Link className="button secondary" href="/safety-mission">
+            Try Safety Mission <BookOpen size={18} aria-hidden="true" />
           </Link>
         </div>
         <div className="hero-notes">
