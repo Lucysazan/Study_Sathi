@@ -1,11 +1,35 @@
 import { describe, expect, it } from 'vitest';
 import { learningDay, learningWeek, levelInfo, nextStreak, statsSchema } from './stats';
-import { lessonReward } from './rewards';
+import { lessonReward, quizReward } from './rewards';
 
 const fresh = () => statsSchema.parse({});
 const now = new Date('2026-11-05T10:00:00Z');
 const input = { now, completedCourse: false, category: 'science' };
 describe('learner reward rules', () => {
+  it('awards the safety badge only for the explicit Digital Safety category', () => {
+    expect(
+      lessonReward(fresh(), { ...input, completedCourse: true, category: 'digital-safety' })
+        .newBadges,
+    ).toContain('safe-explorer');
+    expect(
+      lessonReward(fresh(), { ...input, completedCourse: true, category: 'digital-skills' })
+        .newBadges,
+    ).not.toContain('safe-explorer');
+  });
+  it('awards a trusted quiz pass without changing lesson count or streak', () => {
+    const result = quizReward({ ...fresh(), xp: 95 }, now);
+    expect(result).toMatchObject({ xpAwarded: 5, dailyBonus: 0, courseBonus: 0 });
+    expect(result.stats).toMatchObject({
+      xp: 100,
+      lessonCount: 0,
+      lastActiveDate: null,
+      streakDays: 0,
+      quizPerfect: true,
+    });
+    expect(result.newBadges).toContain('sharp-thinker');
+    expect(result.newBadges).toContain('curious-mind');
+    expect(quizReward(result.stats, now).newBadges).not.toContain('sharp-thinker');
+  });
   it('awards the first lesson and daily bonus with a first-steps badge', () => {
     const reward = lessonReward(fresh(), input);
     expect(reward).toMatchObject({

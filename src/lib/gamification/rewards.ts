@@ -21,6 +21,11 @@ export function lessonReward(previous: LearnerStats, input: LessonRewardInput) {
     weeklyXp: (previous.weeklyPeriod === weeklyPeriod ? previous.weeklyXp : 0) + xpAwarded,
   };
   stats.level = levelInfo(stats.xp).level;
+  const newBadges = updateBadges(stats, previous.badgeIds);
+  return { stats, xpAwarded, newBadges, dailyBonus: streak.dailyBonus, courseBonus };
+}
+
+function updateBadges(stats: LearnerStats, previousBadges: string[]) {
   const earned = badges
     .filter((badge) => {
       switch (badge.rule.type) {
@@ -35,11 +40,25 @@ export function lessonReward(previous: LearnerStats, input: LessonRewardInput) {
         case 'category_complete':
           return stats.completedCategories.includes(badge.rule.value);
         case 'quiz_perfect':
-          return false; // Requires a future trusted quiz-grade event.
+          return stats.quizPerfect;
       }
     })
     .map((badge) => badge.id);
-  const newBadges = earned.filter((id) => !previous.badgeIds.includes(id));
-  stats.badgeIds = [...new Set([...previous.badgeIds, ...earned])];
-  return { stats, xpAwarded, newBadges, dailyBonus: streak.dailyBonus, courseBonus };
+  const newBadges = earned.filter((id) => !previousBadges.includes(id));
+  stats.badgeIds = [...new Set([...previousBadges, ...earned])];
+  return newBadges;
+}
+
+export function quizReward(previous: LearnerStats, now: Date) {
+  const weeklyPeriod = learningWeek(now);
+  const stats: LearnerStats = {
+    ...previous,
+    xp: previous.xp + 5,
+    quizPerfect: true,
+    weeklyPeriod,
+    weeklyXp: (previous.weeklyPeriod === weeklyPeriod ? previous.weeklyXp : 0) + 5,
+  };
+  stats.level = levelInfo(stats.xp).level;
+  const newBadges = updateBadges(stats, previous.badgeIds);
+  return { stats, xpAwarded: 5, newBadges, dailyBonus: 0, courseBonus: 0 };
 }

@@ -6,6 +6,7 @@ import { SignOutButton } from '@/components/auth/SignOutButton';
 import { PortalLoading } from '@/components/portal/PortalShell';
 import { requireRole } from '@/lib/auth/session';
 import { AccountForm } from '@/components/portal/AccountForm';
+import { setLeaderboardConsent } from './leaderboard-actions';
 import { resetChildPassword } from './actions';
 import { adminDb } from '@/lib/firebase/admin';
 
@@ -78,6 +79,24 @@ async function ParentDashboard() {
                     {String(child.get('avatarId') ?? 'leaf')}
                   </h4>
                   <p>Username: {String(child.get('username') ?? '')}</p>
+                  <p>Leaderboard: {child.get('leaderboardOptIn') === true ? 'On' : 'Off'}</p>
+                  <p>
+                    Turning this on shares the learner?s nickname, avatar and XP with other
+                    learners. You can turn it off at any time.
+                  </p>
+                  <AccountForm
+                    action={setLeaderboardConsent}
+                    label="Save leaderboard visibility"
+                    fields={[
+                      { name: 'childUid', label: '', type: 'hidden', value: child.id },
+                      {
+                        name: 'consent',
+                        label: 'Leaderboard visibility',
+                        options: ['off', 'on'],
+                        value: child.get('leaderboardOptIn') === true ? 'on' : 'off',
+                      },
+                    ]}
+                  />
                   <details>
                     <summary>Reset password</summary>
                     <AccountForm

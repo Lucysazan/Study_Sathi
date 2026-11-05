@@ -43,6 +43,16 @@ beforeEach(async () => {
 });
 
 describe('default deny', () => {
+  it('keeps leaderboard writes and participant records server-only', async () => {
+    await seed(env, { 'leaderboards/all-time/entries/student-1': { xp: 100 } });
+    await assertFails(asUser(student).doc('leaderboards/all-time/entries/student-1').get());
+    await assertFails(
+      asUser(student).doc('leaderboards/all-time/entries/student-1').set({ xp: 9999 }),
+    );
+    await assertFails(
+      asUser(admin).doc('leaderboards/all-time/entries/student-1').set({ xp: 9999 }),
+    );
+  });
   it('keeps private library data and view events inaccessible to other learners', async () => {
     await seed(env, {
       'users/student-1/privateData/library': { notes: { private: 'A private note' } },

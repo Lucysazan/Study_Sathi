@@ -99,6 +99,9 @@ async function Dashboard() {
         <Link href="/learn/courses" className="button secondary">
           All courses
         </Link>
+        <Link href="/learn/leaderboard" className="button secondary">
+          Learning together
+        </Link>
         <Link href="/learn/profile" className="button secondary">
           My profile
         </Link>

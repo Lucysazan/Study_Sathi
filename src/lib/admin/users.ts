@@ -1,4 +1,5 @@
 import 'server-only';
+import { syncLeaderboardEntries } from '@/lib/gamification/entries';
 import { FieldValue } from 'firebase-admin/firestore';
 import { isRole, type Role } from '@/lib/auth/roles';
 import { studentLoginDomain } from '@/lib/env/public-config';
@@ -65,17 +66,23 @@ export async function listUsersForAdmin(
 
 /** Turn an account off or on. Disabling also signs the user out everywhere. */
 export async function setDisabled(uid: string, disabled: boolean, actorUid: string): Promise<void> {
+  await requireAdmin();
   const auth = adminAuth();
   const db = adminDb();
   const user = await auth.updateUser(uid, { disabled });
   if (disabled) await auth.revokeRefreshTokens(uid);
-  await db
-    .collection('users')
-    .doc(uid)
-    .set(
-      { status: disabled ? 'disabled' : 'active', updatedAt: FieldValue.serverTimestamp() },
-      { merge: true },
-    );
+  const batch = db.batch();
+  batch.set(
+    db.collection('users').doc(uid),
+    {
+      status: disabled ? 'disabled' : 'active',
+      updatedAt: FieldValue.serverTimestamp(),
+      ...(disabled ? { leaderboardOptIn: false } : {}),
+    },
+    { merge: true },
+  );
+  if (disabled) syncLeaderboardEntries(batch, db, uid, null, false, new Date());
+  await batch.commit();
   await writeAudit(db, {
     actorUid,
     action: disabled ? 'user.disable' : 'user.enable',

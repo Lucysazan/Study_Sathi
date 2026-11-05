@@ -122,3 +122,11 @@ Goal: continue toward the remaining phases.
 Done: sort/budget lesson activity schemas/editors/players; compatible stacked blocks and bounded outlines; core Phase 6 lesson XP, Kathmandu streaks/weeks, levels/baseline badges, atomic ledger/progress, dashboard and static reward feedback.
 Checks: lint/typecheck/build pass; 125 unit tests and 16 isolated emulator tests pass, including real concurrent same/different lesson submissions and dashboard reward state. Browser host unavailable; UI/mobile/live acceptance remains pending. No live mutations/config changes/deploy.
 Next: browser acceptance; cover/language checklist; trusted quiz rewards and parent-consented leaderboards; Phase 7 analytics/polish/deployment. Updated HANDOVER/ROADMAP/ARCHITECTURE/decision and implementation logs. Existing untracked admin helper is preserved and excluded.
+
+## 2026-11-05 - Session 9 - Codex
+Goal: finish Phase 6 feature implementation.
+Done: server-graded first-success quiz rewards/perfect badge, legacy/stack compatibility and retry UI; parent consent, private weekly/all-time top ten + own tied ranks, atomic opt-out/reward behavior, withdrawal on disable/role changes; explicit Digital Safety category and badge mapping.
+Checks: lint/typecheck/build pass; 28 emulator tests passed. Final unit count recorded below. Browser host remains unavailable; desktop/mobile/live acceptance is not claimed. No live data/config mutation, external publication or deployment.
+Next: Phase 3-6 browser acceptance, remaining cover/language metadata, then Phase 7 analytics, accessibility/e2e and deployment checks.
+
+Session 9 final verification: 127 unit tests / 25 files PASS; 28 emulator tests / 3 files PASS; lint, typecheck and production build PASS.

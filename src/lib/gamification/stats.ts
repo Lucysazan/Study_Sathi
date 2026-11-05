@@ -10,6 +10,7 @@ export const statsSchema = z.object({
     .regex(/^\d{4}-\d{2}-\d{2}$/)
     .nullable()
     .default(null),
+  quizPerfect: z.boolean().default(false),
   lessonCount: counter.default(0),
   courseCount: counter.default(0),
   badgeIds: z.array(z.string()).max(100).default([]),

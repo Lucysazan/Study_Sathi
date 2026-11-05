@@ -6,9 +6,10 @@ import type { CourseLessonLike } from '@/lib/course/learning';
 import { safeMediaUrl, videoEmbedUrl } from '@/lib/course/media';
 import { saveNote, useNotes } from '@/lib/storage/guest-data';
 import { SortPlayer } from './SortPlayer';
+import { QuizPlayer } from './QuizPlayer';
 import { BudgetPlayer } from './BudgetPlayer';
 
-/** Practice feedback only. Completion and all future rewards are server-controlled. */
+/** Shared presentation; authenticated quiz grading and rewards run on the server. */
 export function LessonContent({
   lesson,
   courseId,
@@ -22,18 +23,24 @@ export function LessonContent({
         {lesson.blocks.map((block) => (
           <section key={block.id} className="lesson-block">
             <h3>{block.title || 'Activity'}</h3>
-            <LessonBlockContent lesson={block} courseId={courseId} />
+            <LessonBlockContent lesson={block} courseId={courseId} lessonId={lesson.id} />
           </section>
         ))}
       </div>
     );
-  return <LessonBlockContent lesson={lesson} courseId={courseId} />;
+  return <LessonBlockContent lesson={lesson} courseId={courseId} lessonId={lesson.id} />;
 }
 
-function LessonBlockContent({ lesson, courseId }: { lesson: CourseLessonLike; courseId?: string }) {
+function LessonBlockContent({
+  lesson,
+  courseId,
+  lessonId,
+}: {
+  lesson: CourseLessonLike;
+  courseId?: string;
+  lessonId?: string;
+}) {
   const id = useId();
-  const [answer, setAnswer] = useState('');
-  const [checked, setChecked] = useState(false);
   const [noteError, setNoteError] = useState('');
   const notes = useNotes();
   const noteKey = `lesson-${courseId}-${lesson.id}`;
@@ -98,42 +105,12 @@ function LessonBlockContent({ lesson, courseId }: { lesson: CourseLessonLike; co
       );
     case 'quiz':
       return (
-        <div>
-          <fieldset>
-            <legend>{lesson.question}</legend>
-            {(lesson.options ?? []).map((option, index) => (
-              <label className="lesson-choice" key={`${index}-${option}`}>
-                <input
-                  type="radio"
-                  name={`${id}-answer`}
-                  value={option}
-                  checked={answer === option}
-                  required
-                  onChange={() => {
-                    setAnswer(option);
-                    setChecked(false);
-                  }}
-                />
-                {option}
-              </label>
-            ))}
-          </fieldset>
-          <button
-            type="button"
-            onClick={() => setChecked(true)}
-            className="button secondary"
-            disabled={!answer}
-          >
-            Check answer
-          </button>
-          <p role="status">
-            {checked
-              ? answer === lesson.correctAnswer
-                ? '✓ That’s right. Well done!'
-                : 'Try again. Read the lesson and choose another answer.'
-              : ''}
-          </p>
-        </div>
+        <QuizPlayer
+          key={JSON.stringify([lesson.question, lesson.options, lesson.correctAnswer])}
+          quiz={lesson}
+          courseId={courseId}
+          lessonId={lessonId}
+        />
       );
     case 'reflection':
       return (

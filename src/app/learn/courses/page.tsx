@@ -1,3 +1,4 @@
+import { courseCategories } from '@/lib/course/draft';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -7,15 +8,7 @@ import { requireRole } from '@/lib/auth/session';
 
 export const metadata: Metadata = { title: 'Course catalog', robots: { index: false } };
 
-const validCategories = [
-  'digital-skills',
-  'literacy',
-  'science',
-  'math',
-  'arts',
-  'language',
-  'wellbeing',
-] as const;
+const validCategories = courseCategories;
 
 export type CourseCatalogItem = {
   id: string;
@@ -96,17 +89,7 @@ async function LearnCoursesBody({ searchParams }: PageProps<'/learn/courses'>) {
           >
             All courses
           </Link>
-          {(
-            [
-              'digital-skills',
-              'literacy',
-              'science',
-              'math',
-              'arts',
-              'language',
-              'wellbeing',
-            ] as const
-          ).map((value) => (
+          {validCategories.map((value) => (
             <Link
               key={value}
               href={`/learn/courses?category=${encodeURIComponent(value)}`}

@@ -3281,3 +3281,8 @@
 .level-ring { width: 88px; height: 88px; border-radius: 50%; display: grid; place-items: center; margin-block: 16px; }
 .level-ring span { width: 66px; height: 66px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-weight: 700; font-size: 24px; }
 @media (max-width: 600px) { .learning-dashboard { grid-template-columns: minmax(0, 1fr); } }
+
+.leaderboard-podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; padding: 0; margin-block: 20px; }
+.leaderboard-list { padding-left: 24px; margin-block: 20px; }
+.leaderboard-list li { padding-block: 10px; }
+@media (max-width: 600px) { .leaderboard-podium { grid-template-columns: minmax(0, 1fr); } }

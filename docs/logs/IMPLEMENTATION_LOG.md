@@ -77,3 +77,10 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 - Integrated hashed lesson xpEvents, daily/course bonuses and server stats writes into the same transaction as completion. Repeated or historical completions do not mint XP.
 - Replaced learner placeholder with guarded dashboard, level progress ring, habit/badge/continue cards, and static completion reward feedback. Enrollment tracks currentCourseId.
 - Added unit regressions and isolated real-Firestore concurrency integration tests. No cloud credentials/config were changed or live learner data mutated during testing.
+
+## 2026-11-05 - Session 9
+- Added server quiz grading with published-course/enrollment/lesson/block/answer checks; first successful pass gives +5 XP once, with level/weekly totals and perfect-quiz badge. Shared QuizPlayer separates preview practice from authenticated grading.
+- Added minimal server-only leaderboard entries, current-week/all-time top ten + own rank, tied ranks, and presentation-only rows without IDs or private fields.
+- Linked-parent consent writes entries atomically; awards read consent in their transaction so opt-out cannot be undone by a concurrent reward. Disable/role changes revoke visibility and remove current entries.
+- Added explicit digital-safety course category and canonical safety badge rule; catalogue and creator use the same category list.
+- Added emulator tests for authorization, double quiz awards, legacy quizzes, privacy, old-week reset, beyond-top-ten rank, ties, consent/reward races and administrative withdrawal.

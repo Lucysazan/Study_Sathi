@@ -7,7 +7,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - Phase 3: family accounts, profile, private library sync and merge implemented; browser acceptance checks remain.
 - Phase 4: creator/admin flow, nine activity formats and stacked lessons implemented; cover/language and browser acceptance remain.
 - Phase 5: lesson rendering, transactional progress, course resume and session views implemented; browser/mobile acceptance remains.
-- Phase 6: lesson XP, levels, streaks, baseline badges and dashboard implemented; quiz awards and leaderboards remain. Phase 7 analytics/polish remain unfinished.
+- Phase 6: lesson/quiz rewards, levels, streaks, badges, dashboard and parent-consented leaderboards implemented; browser acceptance remains. Phase 7 analytics/polish remain unfinished.
 - Both local env files currently set NEXT_PUBLIC_USE_EMULATORS=false. Do not switch the app to emulators to hide production issues. Rules tests use their own demo project.
 - Automated checks are recorded in HANDOVER; a passing build does not imply browser, live Firebase or deployment acceptance.
 
@@ -78,11 +78,12 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Award transaction with idempotent `xpEvents`; emulator-tested concurrent completions
 - [x] Student dashboard: level ring, streak, badges, continue card
 - [x] Static XP feedback and earned badge cards (reduced-motion safe)
-- [ ] Server-graded quiz first-pass XP and perfect-quiz badge
-- [ ] Reconcile category badge taxonomy (seed Digital Safety vs course digital-skills); no badge silently mapped
+- [x] Server-graded first successful quiz pass (+5 XP once) and perfect-quiz badge; legacy and stacked quizzes supported
+- [x] Explicit Digital Safety course category and canonical digital-safety badge rule; Digital Skills does not grant this badge
 - [ ] Browser acceptance for awards, dashboard resume and static celebrations
-- [ ] Leaderboards (weekly + all-time, opt-in, top 10 + you)
-- [ ] Parent leaderboard toggle
+- [x] Leaderboards (weekly + all-time, opt-in, top 10 + you, shared ranks for ties)
+- [x] Linked-parent consent toggle; atomic opt-out and withdrawal on account disable/role changes
+- [ ] Browser/mobile acceptance for quiz retries, leaderboard views and parent consent changes
 
 ## Phase 7 — Analytics and polish
 - [ ] Creator analytics (views, enrollments, completions, per-lesson drop-off)

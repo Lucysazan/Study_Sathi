@@ -4,6 +4,7 @@ import { budgetActivitySchema, sortActivitySchema } from './activities';
 
 export const courseCategories = [
   'digital-skills',
+  'digital-safety',
   'literacy',
   'science',
   'math',

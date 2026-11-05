@@ -66,6 +66,6 @@ export const badges: readonly Badge[] = [
     name: 'Safe Explorer',
     description: 'You completed a Digital Safety course.',
     icon: 'ShieldCheck',
-    rule: { type: 'category_complete', value: 'Digital Safety' },
+    rule: { type: 'category_complete', value: 'digital-safety' },
   },
 ];

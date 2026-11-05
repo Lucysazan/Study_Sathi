@@ -1,3 +1,4 @@
+import { syncLeaderboardEntries } from '@/lib/gamification/entries';
 import type { Auth } from 'firebase-admin/auth';
 import { FieldValue, type Firestore } from 'firebase-admin/firestore';
 import { writeAudit } from '@/lib/admin/audit';
@@ -70,19 +71,21 @@ export async function assignRole(
 ): Promise<void> {
   const user = await auth.getUser(uid);
   await auth.setCustomUserClaims(uid, { ...(user.customClaims ?? {}), role });
-  await db
-    .collection('users')
-    .doc(uid)
-    .set(
-      {
-        role,
-        requestedRole: null,
-        displayName: user.displayName ?? null,
-        status: 'active',
-        updatedAt: FieldValue.serverTimestamp(),
-      },
-      { merge: true },
-    );
+  const batch = db.batch();
+  batch.set(
+    db.collection('users').doc(uid),
+    {
+      role,
+      requestedRole: null,
+      displayName: user.displayName ?? null,
+      status: 'active',
+      leaderboardOptIn: false,
+      updatedAt: FieldValue.serverTimestamp(),
+    },
+    { merge: true },
+  );
+  syncLeaderboardEntries(batch, db, uid, null, false, new Date());
+  await batch.commit();
   await writeAudit(db, {
     actorUid: actor,
     action: 'role.set',
