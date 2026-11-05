@@ -1,3 +1,5 @@
+﻿import { getChildProgress } from '@/lib/parent/progress';
+import { avatarGlyphs } from '@/lib/avatars';
 import { ArrowRight, Plus, Users } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -25,13 +27,27 @@ async function ParentDashboard() {
   const doc = await adminDb().collection('users').doc(user.uid).get();
   const childUids: unknown = doc.get('childUids');
   const children = Array.isArray(childUids)
-    ? childUids.filter((value): value is string => typeof value === 'string')
+    ? [
+        ...new Set(
+          childUids.filter(
+            (value): value is string =>
+              typeof value === 'string' &&
+              value.length > 0 &&
+              value.length <= 128 &&
+              !value.includes('/'),
+          ),
+        ),
+      ].slice(0, 10)
     : [];
 
   const childDocs = await Promise.all(
     children.map((id) => adminDb().collection('users').doc(id).get()),
   );
-  const linked = childDocs.filter((child) => child.exists && child.get('parentUid') === user.uid);
+  const linked = childDocs.filter(
+    (child) =>
+      child.exists && child.get('parentUid') === user.uid && child.get('role') === 'student',
+  );
+  const summaries = await Promise.all(linked.map((child) => getChildProgress(child.id)));
   const firstName = user.name?.split(' ')[0] ?? 'Parent';
 
   return (
@@ -44,8 +60,8 @@ async function ParentDashboard() {
         <div>
           <h3>Family overview</h3>
           <p>
-            {children.length > 0
-              ? `You have ${children.length} child account${children.length === 1 ? '' : 's'} linked.`
+            {linked.length > 0
+              ? `You have ${linked.length} child account${linked.length === 1 ? '' : 's'} linked.`
               : 'No child accounts are linked yet. Add your first learner to begin tracking progress.'}
           </p>
         </div>
@@ -65,23 +81,31 @@ async function ParentDashboard() {
       <div className="admin-list" style={{ marginTop: '1.5rem' }}>
         <div className="module-card" style={{ padding: '1rem 1.25rem' }}>
           <h3 style={{ margin: 0 }}>Children</h3>
-          {children.length === 0 ? (
+          {linked.length === 0 ? (
             <p style={{ margin: '0.75rem 0 0' }}>
               No children added yet. Once a child account is created, you will be able to review
               activity and reset access here.
             </p>
           ) : (
             <ul style={{ margin: '0.75rem 0 0', paddingLeft: '1.1rem' }}>
-              {linked.map((child) => (
+              {linked.map((child, index) => (
                 <li key={child.id}>
                   <h4>
-                    {String(child.get('nickname') ?? 'Learner')} ?{' '}
-                    {String(child.get('avatarId') ?? 'leaf')}
+                    {String(child.get('nickname') ?? 'Learner')}{' '}
+                    {avatarGlyphs[String(child.get('avatarId') ?? 'leaf')] ?? avatarGlyphs.leaf}
                   </h4>
+                  <p>
+                    Level {summaries[index]?.level ?? 1} / {summaries[index]?.weeklyLessons ?? 0}{' '}
+                    recorded lessons this week
+                  </p>
+                  <p>Current course: {summaries[index]?.course?.title ?? 'None to show yet'}</p>
+                  <Link href={`/parent/children/${encodeURIComponent(child.id)}`}>
+                    View progress
+                  </Link>
                   <p>Username: {String(child.get('username') ?? '')}</p>
                   <p>Leaderboard: {child.get('leaderboardOptIn') === true ? 'On' : 'Off'}</p>
                   <p>
-                    Turning this on shares the learner?s nickname, avatar and XP with other
+                    Turning this on shares the learner&apos;s nickname, avatar and XP with other
                     learners. You can turn it off at any time.
                   </p>
                   <AccountForm

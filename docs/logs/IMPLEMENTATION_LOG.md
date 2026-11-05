@@ -96,3 +96,6 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 - Draft metadata saves in the same transaction as its outline; status/ownership injection remains blocked. Combined autosave skips untouched initial data and surfaces validation messages. Shared checklist validates all course metadata and nested lesson readiness.
 - Creator submission and transactional admin publishing enforce the same readiness contract; review UI shows cover/language/checklist and actual lesson previews without awarding points. Old published courses stay readable and show unspecified language when missing. Student catalogue/detail render optional metadata.
 - Added metadata/legacy/security unit tests and isolated edit/submit/publish/race integration tests. 138 unit tests and 40 emulator tests pass; lint/typecheck/build pass. Browser host unavailable; no visual/mobile/live acceptance claimed.
+
+## 2026-11-05 - Session 12 - Codex
+Student account toolbar with request-scoped cached guarded reads and layout invalidation; bounded published-course discovery; parent summaries and ownership-guarded progress route; weekly lesson counter and Kathmandu rollover; reusable course progress summary. Added boundary and emulator ownership/discovery coverage.

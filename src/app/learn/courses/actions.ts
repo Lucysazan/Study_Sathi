@@ -150,7 +150,7 @@ export async function completeLesson(formData: FormData): Promise<ActionResult<R
     });
     if (result.ok) {
       revalidatePath(`/learn/courses/${courseId}`, 'layout');
-      revalidatePath('/learn');
+      revalidatePath('/learn', 'layout');
     }
     return result;
   } catch {

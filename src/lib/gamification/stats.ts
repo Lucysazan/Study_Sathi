@@ -17,6 +17,7 @@ export const statsSchema = z.object({
   completedCategories: z.array(z.string()).max(100).default([]),
   weeklyPeriod: z.string().nullable().default(null),
   weeklyXp: counter.default(0),
+  weeklyLessons: counter.default(0),
 });
 export type LearnerStats = z.infer<typeof statsSchema>;
 
@@ -68,4 +69,12 @@ export function nextStreak(previous: LearnerStats, today: string) {
     Date.parse(`${today}T00:00:00Z`) - Date.parse(`${previous.lastActiveDate}T00:00:00Z`) ===
       86400000;
   return { days: consecutive ? previous.streakDays + 1 : 1, dailyBonus: 5, date: today };
+}
+
+export function visibleActivity(stats: LearnerStats, now: Date) {
+  const dates = [learningDay(now), learningDay(new Date(now.getTime() - 86400000))];
+  return {
+    streak: stats.lastActiveDate && dates.includes(stats.lastActiveDate) ? stats.streakDays : 0,
+    weeklyLessons: stats.weeklyPeriod === learningWeek(now) ? stats.weeklyLessons : 0,
+  };
 }

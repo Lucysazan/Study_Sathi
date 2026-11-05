@@ -1,3 +1,4 @@
+import { getCourseRecommendations } from '@/lib/course/recommendations';
 import { getStudentDashboard } from '@/lib/gamification/dashboard';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -17,7 +18,8 @@ export default function LearnPage() {
 }
 
 async function Dashboard() {
-  const { stats, level, streak, continuing, nickname, avatarId } = await getStudentDashboard();
+  const [{ stats, level, streak, continuing, nickname, avatarId }, recommendations] =
+    await Promise.all([getStudentDashboard(), getCourseRecommendations()]);
   const earned = badges.filter((badge) => stats.badgeIds.includes(badge.id));
   return (
     <section className="site-container section portal-welcome">
@@ -95,6 +97,19 @@ async function Dashboard() {
           )}
         </div>
       </div>
+      <h2>Courses to explore</h2>
+      <div className="learning-dashboard">
+        {recommendations.map((course) => (
+          <article className="learning-card" key={course.id}>
+            <h3>
+              <Link href={`/learn/courses/${encodeURIComponent(course.id)}`}>{course.title}</Link>
+            </h3>
+            <p>{course.summary}</p>
+            <p>Teaching language: {course.language || 'Not specified'}</p>
+          </article>
+        ))}
+      </div>
+      {!recommendations.length && <p>Browse all courses to find your next lesson.</p>}
       <div className="portal-actions" style={{ flexWrap: 'wrap' }}>
         <Link href="/learn/courses" className="button secondary">
           All courses

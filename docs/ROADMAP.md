@@ -91,7 +91,8 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [ ] Browser acceptance of analytics, sparse/empty metrics and mobile completion charts
 - [x] Admin overview learning metrics and real creator workspace status counts
 - [ ] Accessibility pass (keyboard, screen reader labels, focus, contrast)
-- [ ] Remaining DESIGN polish: student header XP/avatar, recommendations and parent progress summaries
+- [x] Student learning account toolbar (XP/avatar/profile/logout), bounded published-course discovery and linked-parent progress summaries
+- [ ] Browser acceptance of student toolbar, discovery and parent progress at desktop/360px
 - [x] Shared root loading/error recovery plus analytics error/not-found and empty states
 - [ ] Audit all route-specific loading/error/empty states in the browser
 - [ ] Playwright smoke tests: login per role, complete a lesson, publish a course

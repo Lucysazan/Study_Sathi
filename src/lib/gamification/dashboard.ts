@@ -1,20 +1,15 @@
 import 'server-only';
-import { requireRole } from '@/lib/auth/session';
+import { loadStudentAccount } from './account';
 import { adminDb } from '@/lib/firebase/admin';
-import { learningDay, levelInfo, statsSchema } from './stats';
-import { getCourseModules, getCourseLessonPath } from '@/lib/course/learning';
+import { levelInfo, visibleActivity } from './stats';
+import { summarizeCourseProgress } from '@/lib/course/progress-summary';
 import { readCourseOutline } from '@/lib/course/outline';
 
 export async function getStudentDashboard() {
-  const user = await requireRole(['student'], '/learn');
+  const { user, account, stats } = await loadStudentAccount();
   const db = adminDb();
-  const account = await db.collection('users').doc(user.uid).get();
-  const stats = statsSchema.parse(account.get('stats') ?? {});
   const level = levelInfo(stats.xp);
-  const now = new Date();
-  const recent = [learningDay(now), learningDay(new Date(now.getTime() - 86400000))];
-  const streak =
-    stats.lastActiveDate && recent.includes(stats.lastActiveDate) ? stats.streakDays : 0;
+  const { streak } = visibleActivity(stats, new Date());
   let courseId: unknown = account.get('currentCourseId');
   if (typeof courseId !== 'string') {
     const enrollment = await db
@@ -43,19 +38,14 @@ export async function getStudentDashboard() {
       db.collection('courseEnrollments').doc(`${user.uid}_${courseId}`).get(),
     ]);
     if (course.get('status') === 'published' && enrollment.exists) {
-      const lessons = getCourseModules({
-        outline: readCourseOutline(course.get('outline')) ?? { modules: [] },
-      }).flatMap((part) => part.lessons ?? []);
-      const saved: unknown = progress.get('completedLessons');
-      const completed = new Set(Array.isArray(saved) ? saved : []);
-      const next = lessons.find((lesson) => lesson.id && !completed.has(lesson.id));
-      continuing = {
-        title: String(course.get('title') ?? 'Your course'),
-        path: next?.id ? getCourseLessonPath(courseId, next.id) : `/learn/courses/${courseId}`,
-        done: lessons.filter((lesson) => completed.has(lesson.id)).length,
-        total: lessons.length,
-        complete: !next,
-      };
+      continuing = summarizeCourseProgress(
+        courseId,
+        String(course.get('title') ?? 'Your course'),
+        {
+          outline: readCourseOutline(course.get('outline')) ?? { modules: [] },
+        },
+        progress.get('completedLessons'),
+      );
     }
   }
   return {

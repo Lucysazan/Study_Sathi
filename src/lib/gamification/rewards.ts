@@ -19,6 +19,7 @@ export function lessonReward(previous: LearnerStats, input: LessonRewardInput) {
       : previous.completedCategories,
     weeklyPeriod,
     weeklyXp: (previous.weeklyPeriod === weeklyPeriod ? previous.weeklyXp : 0) + xpAwarded,
+    weeklyLessons: (previous.weeklyPeriod === weeklyPeriod ? previous.weeklyLessons : 0) + 1,
   };
   stats.level = levelInfo(stats.xp).level;
   const newBadges = updateBadges(stats, previous.badgeIds);
@@ -57,6 +58,7 @@ export function quizReward(previous: LearnerStats, now: Date) {
     quizPerfect: true,
     weeklyPeriod,
     weeklyXp: (previous.weeklyPeriod === weeklyPeriod ? previous.weeklyXp : 0) + 5,
+    weeklyLessons: previous.weeklyPeriod === weeklyPeriod ? previous.weeklyLessons : 0,
   };
   stats.level = levelInfo(stats.xp).level;
   const newBadges = updateBadges(stats, previous.badgeIds);

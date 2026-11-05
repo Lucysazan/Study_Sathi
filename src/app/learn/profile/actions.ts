@@ -15,7 +15,7 @@ export async function saveProfile(data: FormData): Promise<ActionResult> {
   } catch {
     return fail('We could not save your profile. Please try again.');
   }
-  revalidatePath('/learn');
+  revalidatePath('/learn', 'layout');
   revalidatePath('/learn/profile');
   return ok();
 }

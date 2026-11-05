@@ -53,7 +53,7 @@ export async function submitQuiz(input: unknown): Promise<ActionResult<QuizRecei
       const receipt = await awardQuiz(tx, db, user.uid, { courseId, lessonId, quizId, now });
       return ok({ correct: true, ...receipt });
     });
-    if (result.ok && result.data.xpAwarded > 0) revalidatePath('/learn');
+    if (result.ok && result.data.xpAwarded > 0) revalidatePath('/learn', 'layout');
     return result;
   } catch {
     return fail('We could not check your answer. Please try again.');
