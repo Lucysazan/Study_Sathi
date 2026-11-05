@@ -107,6 +107,7 @@ export function CourseOutlineEditor({
   const savedSnapshot = useRef(
     JSON.stringify({ modules: initialOutline.modules, metadata: initialMetadata }),
   );
+  const autosaveRequest = useRef<Promise<unknown> | null>(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
@@ -115,11 +116,17 @@ export function CourseOutlineEditor({
 
   useEffect(() => {
     const snapshot = JSON.stringify({ modules, metadata });
-    if (submitState === 'success' || snapshot === savedSnapshot.current) return;
+    if (busy || submitState === 'success' || snapshot === savedSnapshot.current) return;
     let active = true;
     const timeout = setTimeout(async () => {
       setAutosaveState('saving');
-      const result = await saveCourseOutline(courseId, { modules }, metadata);
+      const request = saveCourseOutline(courseId, { modules }, metadata).catch(() => ({
+        ok: false as const,
+        error: 'We could not save your draft. Check your connection and try again.',
+        fieldErrors: undefined,
+      }));
+      autosaveRequest.current = request;
+      const result = await request;
       if (!active) return;
       if (!result.ok) {
         setError(result.fieldErrors ? Object.values(result.fieldErrors).join(' ') : result.error);
@@ -136,7 +143,7 @@ export function CourseOutlineEditor({
       active = false;
       clearTimeout(timeout);
     };
-  }, [modules, metadata, courseId, submitState]);
+  }, [modules, metadata, courseId, submitState, busy]);
 
   function addModule() {
     setModules((current) => [
@@ -398,7 +405,8 @@ export function CourseOutlineEditor({
     setError('');
     setBusy(true);
 
-    const result = await saveCourseOutline(courseId, { modules });
+    await autosaveRequest.current;
+    const result = await saveCourseOutline(courseId, { modules }, metadata);
     setBusy(false);
 
     if (!result.ok) {
@@ -406,6 +414,7 @@ export function CourseOutlineEditor({
       return;
     }
 
+    savedSnapshot.current = JSON.stringify({ modules, metadata });
     setAutosaveState('saved');
     router.refresh();
   }
@@ -415,13 +424,17 @@ export function CourseOutlineEditor({
     setBusy(true);
     setSubmitState('idle');
 
-    const saved = await saveCourseOutline(courseId, { modules });
+    await autosaveRequest.current;
+    const saved = await saveCourseOutline(courseId, { modules }, metadata);
     if (!saved.ok) {
       setBusy(false);
       setError(saved.fieldErrors ? Object.values(saved.fieldErrors).join(' ') : saved.error);
       return;
     }
-    const result = await submitCourseForReview(courseId);
+    const result = await submitCourseForReview(courseId).catch(() => ({
+      ok: false as const,
+      error: 'We could not submit your draft. Please try again.',
+    }));
     setBusy(false);
 
     if (!result.ok) {

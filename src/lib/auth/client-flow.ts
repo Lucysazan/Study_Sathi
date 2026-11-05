@@ -52,7 +52,8 @@ export function goAfterSignIn(role: Role | null, next: string | null): void {
 
 /** Sign out on the server (revokes tokens, clears cookies), then go home. */
 export async function signOutEverywhere(): Promise<void> {
-  await fetch('/api/auth/session', { method: 'DELETE' }).catch(() => undefined);
+  const response = await fetch('/api/auth/session', { method: 'DELETE' });
+  if (!response.ok) throw new Error('Sign out failed');
   // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- see above
   window.location.assign('/');
 }

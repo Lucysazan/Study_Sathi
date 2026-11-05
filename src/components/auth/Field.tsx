@@ -12,8 +12,8 @@ export function Field({
   const id = useId();
   const describedBy = [error ? `${id}-error` : '', hint ? `${id}-hint` : ''].filter(Boolean);
   return (
-    <label className="field" htmlFor={id}>
-      {label}
+    <div className="field">
+      <label htmlFor={id}>{label}</label>
       <input
         id={id}
         aria-invalid={error ? true : undefined}
@@ -26,6 +26,6 @@ export function Field({
           {error}
         </span>
       )}
-    </label>
+    </div>
   );
 }

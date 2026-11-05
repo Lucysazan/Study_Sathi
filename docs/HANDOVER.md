@@ -1,9 +1,18 @@
 # Handover
 
-Last updated: 2026-11-05, Codex session 13. Branch: main.
+Last updated: 2026-11-05, Codex session 14. Branch: main.
 
 ## Current state
-StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/course flows, nine activity formats with stacked lessons, gamification/consented leaderboards and analytics are implemented. Cover/language metadata and submission checklist are now implemented. Student account toolbar, course discovery and linked-parent progress are implemented. Browser/mobile acceptance, accessibility/e2e and deployment remain unfinished. ROADMAP is current; do not claim all phases complete.
+StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/course flows, nine activity formats with stacked lessons, gamification/consented leaderboards and analytics are implemented. Cover/language metadata and submission checklist are now implemented. Student account toolbar, course discovery and linked-parent progress are implemented. Desktop/360px Chromium smoke tests now pass. Broader assistive-technology/manual acceptance and final live deployment/index verification remain unfinished. ROADMAP is current; do not claim all phases complete.
+
+## Session 14 changes
+- Added @playwright/test (dev dependency) and npm run test:e2e: owns fresh local Auth/Firestore emulators, a separate localhost:3100 Next server/.next-e2e output, demo project and cookie overrides, one worker, desktop/360px Chromium. No normal env files changed; no production test accounts created. External browser requests blocked; artifacts ignored.
+- 22 browser tests cover all four logins, role redirect/httpOnly cookie, stacked quiz wrong/correct/repeat rewards, enrollment/completion/refresh, immediate metadata submission/admin publish, skip/menu focus, parent create/consent/progress/password reset and session revocation, profile/offline retry/logout, guest merge/cross-browser sync/logout isolation/private-note exclusion, analytics and missing-course recovery. Mobile student/admin screenshots inspected; this is not full screen-reader/real-device acceptance.
+- Browser-discovered fixes: login labels no longer include hint/error text in their names; manual save/review submission includes current metadata and waits for in-flight autosave; draft network failures show feedback; account forms preserve typed values after failure; account/learning forms catch connection failures; logout stays on the page with retry feedback when the session-clear request fails.
+- Added check:live (read-only, --prod --project required), seven missing course indexes, release guide and npm ci Vercel installs. Live queries proved missing indexes for catalog/review and owner-scoped sum analytics; emulators do not enforce these indexes.
+- User confirmed studysathisip.vercel.app is the existing Git-connected site and explicitly authorized push; site HTTP 200. GitHub main was 80290cc (Phase 2), behind local LMS changes. No local Vercel token/link; do not infer no Git connection from this.
+- User explicitly approved production rules/index deployment to studysathi-20d2c. CLI stopped at Service Usage GET 403. Existing Rules API deployment succeeded: release now projects/studysathi-20d2c/rulesets/e838422c-f480-478e-a42a-415ce8a6eaa9; prior ruleset f7d1966c-596e-46b2-8902-73054af5c71e. Index creation was denied by Google Cloud (permission 7). No indexes created and no IAM changes attempted. Owner Firebase CLI login requested; seven index definitions are ready for deployment.
+- Live Auth config already includes studysathisip.vercel.app. Web/admin configs and service account were checked for matching studysathi-20d2c; emulator flag remains false. No credential contents logged or staged.
 
 ## Session 13 changes
 - Accessibility code pass: mobile navigation Escape restores focus to the toggle; skip target is programmatically focusable; AccountForm exposes aria-busy and connects field errors with aria-invalid/aria-describedby and unique IDs.
@@ -27,19 +36,19 @@ StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/cou
 
 ## Validation
 - 141 unit tests / 29 files PASS.
-- Previous Session 12 verification: 43 emulator tests / 6 files PASS: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
+- 43 emulator tests / 6 files PASS this session: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
 - Lint, typecheck, production build PASS. Public build used catalogue seed fallback; this does not prove live seeding.
-- Browser/native host was unavailable in prior sessions; no browser checks performed this session. No visual/mobile, end-to-end click-through, cross-device or live index/query acceptance claimed.
-- No live data/config mutation, env/service-account change, rules/index deployment, push or Vercel deploy performed.
+- 22 Playwright Chromium tests PASS across desktop/360px; see Session 14 coverage and limits. Native UI host is not needed for the automated suite. Production login/play-through is not yet verified.
+- Production rules deployed with explicit approval; live read-only config/query checks performed. Index creation denied by IAM. No env/service-account/IAM changes or production test-account writes. Push/deployment outcome to be recorded below.
 
 ## Environment
 .env and .env.local retain NEXT_PUBLIC_USE_EMULATORS=false. Keep production parity. PowerShell uses npm.cmd/npx.cmd (npm.ps1 blocked). .nvmrc is 24; Node 26 host works with Firebase CLI engine warning. Some tests need approved execution outside sandbox for esbuild/CLI config.
 All integration writers require loopback FIRESTORE_EMULATOR_HOST and dedicated disposable demo projects: rules, rewards, leaderboards, review and per-test analytics. They do not initialize from live app config.
 
 ## Next work
-1. Browser acceptance of Phases 3-7: parent/child/reset/profile; private sync/merge/logout; metadata and stacked editor/autosave/review/publish; quizzes, XP/dashboard, leaderboard consent; analytics pagination/errors; keyboard and 360px layout. Browser host must be available for visual acceptance.
+1. Complete remaining manual/assistive-technology acceptance of Phases 3-7 (smoke coverage now exists): parent/child/reset/profile; private sync/merge/logout; metadata and stacked editor/autosave/review/publish; quizzes, XP/dashboard, leaderboard consent; analytics pagination/errors; keyboard and 360px layout. Use npm run test:e2e for browser regression; remaining manual checks are in ACCEPTANCE.md.
 2. Run docs/ACCEPTANCE.md for route recovery, keyboard/forms, zoom, screen readers and desktop/360px views. Portal boundaries and source-level accessibility fixes are implemented; acceptance remains pending.
-3. E2e smoke tests and final deployment/live smoke checks. No abandonment tracker exists: analytics show completion funnels only. No view-event TTL cleanup was deployed.
+3. Owner must log into Firebase CLI to deploy the seven indexes (service-account index create denied), then run check:live and verify the Git-triggered Vercel release. Production seeding and authenticated live smoke still need verification. No abandonment tracker exists: analytics show completion funnels only. No view-event TTL cleanup was deployed.
 
 ## Code map/invariants
 Read AGENTS.md, CLAUDE.md, DESIGN, ROADMAP and logs. Use installed Next docs before APIs. Session checks must stay request-time/Suspense-safe; layouts alone do not protect data. Admin SDK bypasses client rules, so actions/data readers must check role/ownership.

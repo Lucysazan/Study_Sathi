@@ -15,7 +15,9 @@
     "emulators": "firebase emulators:start --project demo-studysathi --import=.emulator-data --export-on-exit=.emulator-data",
     "test:rules": "firebase emulators:exec --only firestore --project demo-studysathi \"vitest run --config vitest.rules.config.mts\"",
     "set-role": "tsx scripts/set-role.ts",
-    "seed": "tsx scripts/seed.ts"
+    "seed": "tsx scripts/seed.ts",
+    "test:e2e": "node scripts/run-e2e.mjs",
+    "check:live": "tsx scripts/check-live-queries.ts"
   },
   "dependencies": {
     "firebase": "^13.2.0",
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^6.0.0",
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^24.19.2",
     "@types/react": "^19",

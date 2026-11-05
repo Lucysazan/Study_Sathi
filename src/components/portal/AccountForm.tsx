@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useId } from 'react';
+import { useActionState, useId, useState } from 'react';
 import type { ActionResult } from '@/lib/actions';
 import { avatarGlyphs } from '@/lib/avatars';
 
@@ -24,8 +24,23 @@ export function AccountForm({
   label: string;
 }) {
   const id = useId();
+  // Keep entered values when React resets an action form after a failed request.
+  const [values, setValues] = useState<Record<string, string>>(() =>
+    Object.fromEntries(
+      fields.map((field) => [field.name, field.value ?? field.options?.[0] ?? '']),
+    ),
+  );
   const [state, submit, pending] = useActionState(
-    async (_: ActionResult | null, data: FormData) => action(data),
+    async (_: ActionResult | null, data: FormData): Promise<ActionResult> => {
+      try {
+        return await action(data);
+      } catch {
+        return {
+          ok: false,
+          error: 'Could not connect. Please check your connection and try again.',
+        };
+      }
+    },
     null,
   );
   return (
@@ -37,7 +52,10 @@ export function AccountForm({
             <select
               id={`${id}-${field.name}`}
               name={field.name}
-              defaultValue={field.value}
+              value={values[field.name] ?? ''}
+              onChange={(event) =>
+                setValues((current) => ({ ...current, [field.name]: event.target.value }))
+              }
               aria-invalid={(state && !state.ok && !!state.fieldErrors?.[field.name]) || undefined}
               aria-describedby={
                 state && !state.ok && state.fieldErrors?.[field.name]
@@ -56,7 +74,10 @@ export function AccountForm({
               id={`${id}-${field.name}`}
               name={field.name}
               type={field.type ?? 'text'}
-              defaultValue={field.value}
+              value={values[field.name] ?? ''}
+              onChange={(event) =>
+                setValues((current) => ({ ...current, [field.name]: event.target.value }))
+              }
               required
               minLength={field.minLength}
               maxLength={field.maxLength}

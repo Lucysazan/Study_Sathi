@@ -18,7 +18,19 @@ export function LearningAction({
   label: string;
 }) {
   const [state, submit, pending] = useActionState(
-    async (_previous: ActionResult<unknown> | null, data: FormData) => action(data),
+    async (
+      _previous: ActionResult<unknown> | null,
+      data: FormData,
+    ): Promise<ActionResult<unknown>> => {
+      try {
+        return await action(data);
+      } catch {
+        return {
+          ok: false,
+          error: 'Could not connect. Please check your connection and try again.',
+        };
+      }
+    },
     null,
   );
   const data = state?.ok && state.data && typeof state.data === 'object' ? state.data : null;

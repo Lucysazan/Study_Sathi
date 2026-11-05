@@ -126,3 +126,6 @@ Use a Suspense-wrapped student account toolbar below the shared public header. K
 
 ## 2026-11-05 - Session 13 - Codex
 Portal errors use the installed Next 16 retry prop and static role-appropriate return links, without raw error details or assurances about unsaved edits. Generic unavailable copy avoids disclosing whether a private record exists. Source fixes and browser accessibility acceptance are tracked separately. No dependencies added.
+
+## 2026-11-05 - Session 14 - Codex
+Add @playwright/test as a dev-only dependency for the roadmap browser smoke suite. Isolate demo emulators, child environment, cookie and Next output; block external browser traffic and never target a live URL with test writers. Keep entered account values after failed actions; logout must confirm server session clearing. Live Firestore probes exposed missing indexes not enforced by emulator; define two catalog/review and five creator aggregate indexes. Deployment uses existing API permissions, never changes IAM: Rules API succeeded after CLI Service Usage check denial; index create denied, requiring owner login.

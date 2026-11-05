@@ -102,3 +102,6 @@ Student account toolbar with request-scoped cached guarded reads and layout inva
 
 ## 2026-11-05 - Session 13 - Codex
 Added shared PortalRecovery plus portal loading/error/not-found boundaries; preserved analytics overrides. Linked AccountForm field errors to inputs/selects and exposed busy state. Mobile menu Escape restores toggle focus; skip target accepts programmatic focus. Added scoped account controls, touch targets and text wrapping.
+
+## 2026-11-05 - Session 14 - Codex
+Added isolated Playwright desktop/mobile runner and 22 end-to-end cases; browser-discovered label, current-metadata save, failed-form retention and logout/offline recovery fixes. Added seven composite course indexes and read-only live query probe; reproducible Vercel install and release guide. Explicitly authorized production Rules API release succeeded, indexes denied by IAM. Existing domain already authorized; user authorized Git push.

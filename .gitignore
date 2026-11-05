@@ -11,6 +11,9 @@ next-env.d.ts
 
 # testing
 coverage/
+.next-e2e/
+playwright-report/
+test-results/
 
 # env files (only the example is committed)
 .env

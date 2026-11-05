@@ -24,8 +24,8 @@ Runs on free tiers: **Vercel Hobby** and **Firebase Spark**. See `docs/ARCHITECT
 ## Getting started
 
 ### 1. Prerequisites
-- Node.js LTS (20 or newer) and npm
-- Java 11+ (needed by the Firebase emulators)
+- Node.js 24 LTS and npm
+- Java 21 (needed by the Firebase emulators)
 - Firebase CLI: included as a dev dependency (`npx firebase …`); a global install is optional
 - A Firebase project (Spark plan) and a Vercel account
 
@@ -86,14 +86,18 @@ The user is signed out everywhere; the new role applies at their next login.
 ### 6. Quality checks
 ```bash
 npm run lint && npm run typecheck && npm run test && npm run build
-npm run test:rules   # Firestore rules tests (starts the Firestore emulator for you)
+npm run test:rules   # Firestore rules/integration tests
+npx playwright install chromium
+npm run test:e2e     # isolated Auth/Firestore + Chromium desktop/360px smoke tests
 ```
+
+See [docs/RELEASE.md](docs/RELEASE.md) for isolated test details and the release sequence.
 
 ## Deploying to Vercel
 1. Import the repo in Vercel (framework: Next.js).
 2. Add every variable from `.env.local` to Vercel → Settings → Environment Variables. Set `NEXT_PUBLIC_USE_EMULATORS=false`. Paste the private key with literal `\n` line breaks; `lib/firebase/admin.ts` converts them.
 3. Firebase console → Authentication → Settings → **Authorized domains**: add your `*.vercel.app` domain and any custom domain.
-4. Deploy rules and indexes from your machine: `firebase deploy --only firestore:rules,firestore:indexes`.
+4. Deploy rules and indexes from your machine: `npx firebase deploy --only firestore:rules,firestore:indexes --project <actual-project-id>`.
 5. Run the seed script once against production: `npm run seed -- --prod` (Phase 2).
 6. Create the first admin: `npm run set-role -- you@example.com admin --prod`.
 

@@ -22,7 +22,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Keep localStorage behaviour for guests (same keys)
 - [x] `generateStaticParams` for resource and path detail pages; per-page metadata
 - [x] Visual check vs prototype at 360px, 768px, 1280px
-- [ ] Deploy preview to Vercel (needs the owner to connect the repo to a Vercel account)
+- [x] Existing Vercel site confirmed at https://studysathisip.vercel.app/ (user confirmed Git connection; current release tracked below)
 
 ## Phase 1 — Firebase foundation and auth
 - [x] `firebase.json`, emulators config, `firestore.rules` (default deny), `firestore.indexes.json`
@@ -45,8 +45,9 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Student nickname and fixed 12-avatar selector; matching server validation and rules
 - [x] Signed-in bookmarks, path progress and private notes sync through authenticated server actions
 - [x] Guest merge prompt; idempotent merge preserves account notes and clears guest copy after success
-- [ ] Browser verify add child ? student login ? profile ? password reset at desktop/360px
-- [ ] Browser verify sync across devices, merge, logout isolation and offline/retry feedback
+- [x] Chromium desktop/360px smoke: parent creates child, student login/profile, password reset and old-session revocation
+- [x] Chromium separate-context library sync/guest merge/private-note exclusion/logout isolation; profile and logout offline retry
+- [ ] Manual private-library offline editing/reconnect and real-device acceptance
 
 ## Phase 4 ? Creator portal and course builder
 - [x] Creator studio, application and admin approval
@@ -97,8 +98,10 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Shared root loading/error recovery plus analytics error/not-found and empty states
 - [x] Portal-specific loading, retry and generic unavailable states (student/parent/creator/admin)
 - [ ] Audit all route-specific loading/error/empty states in the browser (docs/ACCEPTANCE.md)
-- [ ] Playwright smoke tests: login per role, complete a lesson, publish a course
-- [ ] Production deploy, rules deployed, seed run, authorized domains set
+- [x] Playwright smoke tests: all-role login, stacked quiz/reward/completion, publish, family/reset/consent, offline forms/logout, private sync and analytics (22 desktop/360px cases)
+- [x] Production rules deployed to studysathi-20d2c with explicit approval; existing Vercel Auth domain verified
+- [ ] Deploy seven course indexes: service account denied index creation; owner Firebase login requested
+- [ ] Verify newly pushed Git-triggered Vercel release, seed state and authenticated live smoke
 
 ## Later (do not start without an ADR)
 - Nepali UI translation · class/group leaderboards for volunteers · offline packs · certificates of completion · email notifications
