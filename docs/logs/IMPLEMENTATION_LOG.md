@@ -108,3 +108,8 @@ Added isolated Playwright desktop/mobile runner and 22 end-to-end cases; browser
 
 ## 2026-11-05 - Session 15 - Codex
 Completed explicitly authorized production catalog seed (25 missing records) and verified counts; confirmed Vercel application release success; launched owner Firebase login for pending index deployment. No application code or env changes.
+
+## 2026-11-05 - Session 16 - Codex
+Deployed all seven checked-in course composite indexes with authenticated owner CLI credentials after earlier service-account permission denial; verifying index readiness with the existing read-only probe.
+
+Session 16 result: verified seven READY indexes, ten passing live probes, successful Vercel app release 5017c40 and public/unsigned-route smoke checks.

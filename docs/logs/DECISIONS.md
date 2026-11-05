@@ -132,3 +132,6 @@ Add @playwright/test as a dev-only dependency for the roadmap browser smoke suit
 
 ## 2026-11-05 - Session 15 - Codex
 Respect user preference for a single main production branch, Vercel site and real Firebase project for local development. Automated smoke fixtures continue to use disposable local emulators only. Production seed approval is explicit and preserves existing records. Owner authentication remains an interactive user step; authorization codes and tokens must not enter chat or Git.
+
+## 2026-11-05 - Session 16 - Codex
+Use the owner-authenticated Firebase CLI for the already-approved production index deployment. Keep service-account IAM permissions and the single main/production setup unchanged. Deployment acceptance and completed index builds are verified separately.

@@ -156,3 +156,8 @@ Session 14 release update: 30f4e35 pushed to main; Vercel reports deployment pen
 
 ## 2026-11-05 - Session 15 - Codex
 User clarified single main/production setup and asked the agent to start owner login. Retained same production Firebase config; no additional dev environment. Explicit seed approval received: 25 missing records added, no overwrites; verified 15 resources/3 paths/7 badges. Vercel app release 30f4e35 success, docs commit 1e6b634 still pending when checked. Started Firebase agent login and opened official page for user authentication; must finish in browser/terminal, never share auth codes in chat. Index creation still blocked until owner login. Public home/resources/login HTTP 200 and unsigned learn redirect verified. Docs-only changes; previous 141 unit/43 Firestore/22 browser checks remain historical, not rerun.
+
+## 2026-11-05 - Session 16 - Codex
+Owner Firebase CLI login completed; explicitly approved seven-index deployment to studysathi-20d2c succeeded. Initial API state CREATING and query probes still code 9 during build. Awaiting readiness before claiming live query acceptance. No app/env/IAM changes; no credentials written to project files.
+
+Session 16 final verification: seven indexes READY; all ten production query probes PASS after serving propagation. Vercel release 5017c40 success, public home/login/resources HTTP 200 and unsigned learn/admin 307 to login. No app/env/IAM changes. Historical automated suite results not rerun for operations/docs only. Authenticated production and manual accessibility acceptance remain open.
