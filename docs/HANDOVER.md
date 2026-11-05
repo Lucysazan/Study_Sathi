@@ -1,48 +1,38 @@
 # Handover
 
-Last updated: 2026-11-05, Codex session 7. Branch: main.
+Last updated: 2026-11-05, Codex session 8. Branch: main.
 
 ## Current state
-StudySathi is a Next.js 16.4.5 + Firebase LMS. Public pages, auth/session guards, admin resources/users, creator applications/drafts/review, and published learner courses are implemented. Phase 3 family/profile/private-library features and the seven-format Phase 5 player are implemented with automated regression coverage. Browser acceptance is still pending. ROADMAP now distinguishes implemented features from unchecked acceptance work.
+StudySathi is a Next.js 16.4.5 + Firebase LMS. Public/auth/admin, creator drafts/review and learner courses are implemented. Phase 3 family/profile/private-library features are implemented with browser acceptance pending. Phase 4/5 now support nine activity formats and stacked activities per lesson. Phase 6 core lesson XP, levels, streaks, baseline badges and dashboard are implemented. All phases are NOT complete: see ROADMAP for exact acceptance checks and outstanding scope.
 
-The owner asked to continue toward all phases. Phases 6 (XP, streaks, badges, opt-in leaderboard) and 7 (analytics dashboards, accessibility/e2e, deployment) are NOT done. Phase 4 still needs sort/budget and stacked blocks/cover/language metadata. Current inline outlines have one content kind per lesson; do not claim full stacked-block support.
+## Session 8 changes
+- Sort editor/player: 2-6 unique groups and 2-12 unique items, valid answer-group references, keyboard dropdowns and per-item practice feedback.
+- Budget editor/player: fictional NPR whole rupees, total 1-1,000,000, 2-6 unique categories, remaining/overspend/balanced feedback. Neither practice activity claims mastery or awards client-controlled points.
+- Optional blocks (1-12) per inline lesson; add/reorder/remove/change formats and shared student preview. Old single-format lessons and old array outlines remain compatible. Lesson-level progress IDs stay stable. Each block has its own ID. Validate nested readiness, unique IDs and a 700 KB serialized outline bound. Full separate lesson-document storage is deferred; no live migration was run.
+- Pure gamification stats/rewards/time helpers; fixed 10 XP for a new lesson, +5 first lesson of a Kathmandu day and +50 first course completion. Ledger event keys hash course+lesson to avoid collisions. Progress, ledger and stats use one transaction. Preserve unrelated stats; reject malformed trusted totals rather than overwriting them. No retroactive XP on old completions/replays.
+- Level thresholds follow ARCHITECTURE through 1000, then +350 per level. Streak/day and Sunday-week calculations use Asia/Kathmandu. Seeded first-lesson/course/streak/XP/category badge evaluation is in place; do not silently map the unmatched seed Digital Safety category to digital-skills. Quiz-perfect is not awarded until trusted grading exists.
+- Learner dashboard replaces placeholder with level progress, XP, streak/habit, badges and current-course resume. All data access rechecks student role inside Suspense-safe request-time code. Completion feedback shows XP and static earned-badge cards. No confetti/motion is required.
 
-## Environment and tooling
-- Both .env and .env.local currently have NEXT_PUBLIC_USE_EMULATORS=false. The old roadmap statement that local development uses emulators was wrong. Do not alter these flags or credentials to make the app appear to work.
-- Use npm.cmd/npx.cmd in PowerShell; npm.ps1 is blocked by execution policy. Node is v26.13.0; repo .nvmrc asks for 24 (Firebase tooling emits an engine warning on 26).
-- The incomplete node_modules installation was repaired with npm install --ignore-scripts --package-lock=false. No dependencies were added and no package manifest/lockfile changed.
-- Sandbox blocks esbuild parent-directory lookup and Firebase CLI's external config. Tests passed with tool-approved execution outside sandbox.
-- Rules tests are isolated to demo-studysathi-rules and do not clear live app data. No live account creation, password reset, course publishing, rules deploy or production deploy was performed.
+## Environment and validation
+- .env and .env.local both have NEXT_PUBLIC_USE_EMULATORS=false; the live app settings and credentials were not changed. Never switch these just to make tests pass.
+- PowerShell uses npm.cmd/npx.cmd because npm.ps1 is blocked. Node 26 works here but .nvmrc remains 24; Firebase CLI has a Node-engine warning.
+- Lint/typecheck and production build pass. Unit suite: 125 passing tests. Emulator suite: 16 passing tests (13 rules + 3 real concurrent completion/reward integration cases).
+- Integration tests strictly require a loopback FIRESTORE_EMULATOR_HOST and use dedicated disposable demo-studysathi-rewards-tests. Rules use demo-studysathi-rules. No live user creation, reward write, publish, rules deploy or production deploy performed during checks.
+- Browser/native host remains unavailable (rechecked this session). No desktop/mobile DOM or screenshot acceptance claimed. Public build used bundled catalogue fallback, which does not prove live Firestore seeding.
 
-## Session 7 implementation
-- Fixed existing type/lint errors (editor array indexes, optional quiz answer, PortalWelcome children and audit action types).
-- Fixed the major outline mismatch: save { modules: [...] }, accept old array outlines through readCourseOutline. Creator draft saves/submission are transactional and draft-only. New courses are always drafts even if a request supplies another status. Submission saves current edits before review. Published/review courses show an edit lock.
-- Shared LessonContent renders escaped text, privacy-enhanced YouTube/Vimeo, safe HTTPS images/resources, practice quizzes, reflection notes and checkpoints. Creator preview uses the same renderer. Media and image descriptions are required at submission/publication; duplicate lesson IDs are rejected.
-- Enrollment/completion are transactional and idempotent. Progress validates actual lesson membership. Course UI shows progress and resumes the first unfinished lesson; mobile completion controls are sticky. Historical counters are not backfilled.
-- CourseView counts once per authenticated session-cookie lifetime/course through a SHA-256 digest event and atomic stats.views increment. courseViews has expiresAt but no TTL/cleanup policy was deployed.
-- Parent can create student accounts (synthetic username email, student claim, parent link; leaderboard off by default), reset only a linked child's password and revoke sessions. Auth creation is compensated if Firestore linking fails. Family limit is 10. Student profiles use nickname and 12 fixed icon avatars, including existing yak; Firestore rules enforce the same IDs.
-- Private account library uses users/{uid}/privateData/library for savedIds, path progress and notes. Authenticated server actions check expected uid; default-deny client rules remain. Client queues mutations, debounces notes and flushes pending work before navigation reloads. It keeps cloud data in memory separate from guest localStorage. Merge preserves existing account notes, is idempotent and only clears guest data after success. Limits bound the document size.
-
-## Verified
-- npm.cmd run lint: PASS (no warnings at final lint run).
-- npm.cmd run typecheck: PASS.
-- npm.cmd run test: 101 tests / 21 files PASS.
-- npm.cmd run test:rules: 13 tests PASS (including private-data, forged view/progress writes and fixed avatars).
-- npm.cmd run build: PASS. Public catalogue used bundled seed fallback; this does not verify live catalogue seeding.
-- Browser host/native pipe unavailable through computer-use inventory; no browser/mobile/screenshots or cross-device acceptance claimed.
-
-## Next steps in order
-1. Browser verify Phase 3: parent add-child ? username login ? profile ? password reset; test merge, logout isolation, notes and saved items across devices; mobile at 360px.
-2. Browser verify Phase 4/5: autosave rapid edits, review/publish, safe media, reflection persistence, course completion/replay/concurrent tabs and session view deduplication. In particular test client sync during navigation/sign-out/offline failures; automated tests cover server boundaries/pure merge logic rather than DOM interactions.
-3. Finish Phase 4 sort/budget and multi-block lesson model with explicit compatibility/migration plan; do not silently replace existing inline courses.
-4. Implement Phase 6 using ARCHITECTURE XP rules: pure date/level/streak/badge tests, transactional xpEvents, dashboard/celebrations and parent-consented leaderboards. Quizzes currently provide practice feedback, NOT server-graded mastery or XP.
-5. Phase 7 creator/admin analytics using tracked stats, accessibility/mobile/e2e, then Vercel deployment and explicit live smoke checks.
+## Next work in order
+1. Browser acceptance of Phases 3-6: family lifecycle, profile, sync/merge/logout isolation, autosave/review/publish, stacked sort/budget/reflection practice, completion/replay, reward feedback/dashboard, keyboard and 360px layout. Do not treat automated tests as visual acceptance.
+2. Phase 4 cover/language metadata and submission checklist. Existing courses remain inline; split storage only with an explicit compatibility plan.
+3. Phase 6 server-graded quiz XP/perfect badge, parent-consented weekly/all-time leaderboards (top 10 + you), parent toggle; reconcile category badges. Weekly totals are stored but no leaderboard entries/UI exist yet. Student header/recommendations remain polish work.
+4. Phase 7 creator/admin analytics, accessibility/loading/error polish, e2e smoke tests and deployment/live verification.
 
 ## Code map and guardrails
-Read AGENTS.md, CLAUDE.md, DESIGN.md, ROADMAP, recent session log and installed Next docs before changes. Session/cookie reads stay in Suspense-safe request-time contexts; layouts alone do not protect data. All actions re-check role/ownership; firebase-admin bypasses client rules.
-Learner routes/actions: src/app/learn/courses; family actions: src/app/parent/actions.ts; profile: src/app/learn/profile; editor: src/app/creator/drafts; helpers: src/lib/course; private sync: src/lib/storage/{library,actions,account-store,guest-data} and components/layout/LibrarySync.tsx. ARCHITECTURE now documents actual current storage separately from planned storage.
+Read AGENTS.md, CLAUDE.md, ROADMAP, DESIGN and logs; use installed Next docs before Next APIs. Auth/data checks remain in Suspense-safe request-time contexts; layouts alone do not protect data. Actions validate role/ownership; Firebase Admin bypasses client rules.
+- src/lib/course/{draft,activities,learning,outline}: schemas, compatibility and pure feedback; components/course: shared player/editors including BlockStackEditor.
+- src/app/learn/courses/actions.ts: transactional enrollment/completion; views.ts: session-digest view events. Counts are prospective, without historical backfill or a deployed view-event TTL cleanup policy.
+- src/lib/gamification/{stats,rewards,awards,dashboard}: pure rules, trusted transactional writer and guarded dashboard data. Existing stats get default new fields.
+- src/app/parent/actions.ts and learn/profile: linked student accounts/reset/profile; default leaderboard off. Fixed 12 icon avatars include yak.
+- src/lib/storage/{library,actions,account-store,guest-data} and components/layout/LibrarySync: private library at users/{uid}/privateData/library; optimistic queued changes, debounced/flush notes, idempotent guest merge, cloud state separate from guest localStorage. Browser/offline acceptance still pending.
 
-## Working tree and checkpoint
-Session began with extensive uncommitted earlier portal/course work, which was preserved and extended. The local checkpoint includes that related src/docs work together with this session's changes. scripts/ensure-admin-user.mjs was already untracked and is intentionally excluded. No env files, service-account files or secrets are included. No push/deploy was requested or performed.
-
-Session 8 checkpoint in progress: sort/budget editors and players plus optional stacked blocks are implemented. Old single-kind lessons and array outlines remain readable. Lesson-level completion stays unchanged. Lint/typecheck and 114 tests pass. See current ROADMAP; cover/language and browser acceptance remain. Next work is Phase 6 rewards.
+## Checkpoints
+Session 7 checkpoint: 197a3e3. Session 8 lesson activities checkpoint: b8a77be. The Phase 6 checkpoint includes code/docs/tests together. scripts/ensure-admin-user.mjs was already untracked and remains excluded. No env/service-account files are staged; no push or deployment performed.

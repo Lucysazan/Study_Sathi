@@ -116,3 +116,9 @@ Goal: audit the roadmap and continue the unfinished LMS phases.
 Done: repaired tooling, fixed existing lint/types, canonical course outlines, draft-only transactional creator writes, publish-readiness validation, shared media/quiz player, private reflection notes, progress/counters/session views; real family creation/reset, nickname/icon profile and private library sync/guest merge. ROADMAP reconciled with code and actual live Firebase flags (both false for emulator mode).
 Validation: lint/typecheck/build pass; 101 unit tests pass; 13 isolated emulator rules tests pass. Browser/native host unavailable, so UI/mobile/cross-device acceptance remains explicitly unchecked. No live data mutation or deployment performed. Existing uncommitted portal/course source was preserved for the local checkpoint; pre-existing ensure-admin-user script excluded.
 Remaining: Phase 3-5 browser acceptance, Phase 4 sort/budget/stacked blocks, Phase 6 gamification, Phase 7 analytics/accessibility/e2e/deployment. See HANDOVER for exact next steps and data shapes.
+
+## 2026-11-05 - Session 8 - Codex
+Goal: continue toward the remaining phases.
+Done: sort/budget lesson activity schemas/editors/players; compatible stacked blocks and bounded outlines; core Phase 6 lesson XP, Kathmandu streaks/weeks, levels/baseline badges, atomic ledger/progress, dashboard and static reward feedback.
+Checks: lint/typecheck/build pass; 125 unit tests and 16 isolated emulator tests pass, including real concurrent same/different lesson submissions and dashboard reward state. Browser host unavailable; UI/mobile/live acceptance remains pending. No live mutations/config changes/deploy.
+Next: browser acceptance; cover/language checklist; trusted quiz rewards and parent-consented leaderboards; Phase 7 analytics/polish/deployment. Updated HANDOVER/ROADMAP/ARCHITECTURE/decision and implementation logs. Existing untracked admin helper is preserved and excluded.

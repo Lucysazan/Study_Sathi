@@ -1,23 +1,111 @@
+import { getStudentDashboard } from '@/lib/gamification/dashboard';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PortalWelcome } from '@/components/portal/PortalWelcome';
+import { Suspense } from 'react';
+import { PortalLoading } from '@/components/portal/PortalShell';
+import { badges } from '@/data/seed/badges';
+import { avatarGlyphs } from '@/lib/avatars';
 
 export const metadata: Metadata = { title: 'My learning', robots: { index: false } };
 
 export default function LearnPage() {
   return (
-    <PortalWelcome
-      eyebrow="MY LEARNING"
-      comingSoon="Your courses, XP and badges will appear here soon."
-    >
-      <div className="portal-actions" style={{ justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+    <Suspense fallback={<PortalLoading />}>
+      <Dashboard />
+    </Suspense>
+  );
+}
+
+async function Dashboard() {
+  const { stats, level, streak, continuing, nickname, avatarId } = await getStudentDashboard();
+  const earned = badges.filter((badge) => stats.badgeIds.includes(badge.id));
+  return (
+    <section className="site-container section portal-welcome">
+      <div className="eyebrow">MY LEARNING</div>
+      <h1 className="detail-title">
+        <span aria-hidden="true">{avatarGlyphs[avatarId] ?? '🌿'}</span> Hello, {nickname}!
+      </h1>
+      <div className="learning-dashboard">
+        <div className="learning-card learning-continue">
+          <h2>{continuing?.complete ? 'A course you finished' : 'Continue learning'}</h2>
+          {continuing ? (
+            <>
+              <h3>{continuing.title}</h3>
+              <p>
+                {continuing.done} of {continuing.total} lessons complete
+              </p>
+              <Link className="button primary" href={continuing.path}>
+                {continuing.complete ? 'Review course' : 'Continue lesson'}
+              </Link>
+            </>
+          ) : (
+            <>
+              <p>Your next discovery starts here.</p>
+              <Link className="button primary" href="/learn/courses">
+                Explore courses
+              </Link>
+            </>
+          )}
+        </div>
+        <div className="learning-card">
+          <h2>
+            Level {level.level}: {level.name}
+          </h2>
+          <div
+            className="level-ring"
+            aria-hidden="true"
+            style={{
+              background: `conic-gradient(var(--primary) ${(100 * level.earned) / (level.next - level.start)}%, var(--border) 0)`,
+            }}
+          >
+            <span>{level.level}</span>
+          </div>
+          <p>
+            {stats.xp} XP · {level.remaining} XP to the next level
+          </p>
+          <progress
+            value={level.earned}
+            max={level.next - level.start}
+            aria-label="Progress to next level"
+          />
+        </div>
+        <div className="learning-card">
+          <h2>Your learning habit</h2>
+          <p>
+            {streak > 0
+              ? `${streak} day${streak === 1 ? '' : 's'} of learning in a row`
+              : 'Start a new streak today!'}
+          </p>
+          <p>
+            {stats.lessonCount} lessons finished · {stats.courseCount} courses completed
+          </p>
+        </div>
+        <div className="learning-card learning-continue">
+          <h2>Your badges</h2>
+          {earned.length ? (
+            <ul>
+              {earned.map((badge) => (
+                <li key={badge.id}>
+                  <strong>{badge.name}</strong> — {badge.description}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Finish a lesson to earn your first badge.</p>
+          )}
+        </div>
+      </div>
+      <div className="portal-actions" style={{ flexWrap: 'wrap' }}>
+        <Link href="/learn/courses" className="button secondary">
+          All courses
+        </Link>
         <Link href="/learn/profile" className="button secondary">
           My profile
         </Link>
-        <Link href="/learn/courses" className="button primary">
-          Explore courses
+        <Link href="/saved" className="button secondary">
+          Saved resources
         </Link>
       </div>
-    </PortalWelcome>
+    </section>
   );
 }

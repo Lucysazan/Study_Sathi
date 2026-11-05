@@ -5,9 +5,9 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 ## Current status (2026-11-05)
 - Phases 0-2: implementation complete; Vercel deployment remains outstanding.
 - Phase 3: family accounts, profile, private library sync and merge implemented; browser acceptance checks remain.
-- Phase 4: creator/admin flow and seven lesson formats implemented; sort/budget and full multi-block lessons remain.
+- Phase 4: creator/admin flow, nine activity formats and stacked lessons implemented; cover/language and browser acceptance remain.
 - Phase 5: lesson rendering, transactional progress, course resume and session views implemented; browser/mobile acceptance remains.
-- Phases 6-7: gamification and analytics/polish remain unfinished.
+- Phase 6: lesson XP, levels, streaks, baseline badges and dashboard implemented; quiz awards and leaderboards remain. Phase 7 analytics/polish remain unfinished.
 - Both local env files currently set NEXT_PUBLIC_USE_EMULATORS=false. Do not switch the app to emulators to hide production issues. Rules tests use their own demo project.
 - Automated checks are recorded in HANDOVER; a passing build does not imply browser, live Firebase or deployment acceptance.
 
@@ -65,7 +65,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 
 ## Phase 5 ? Learning experience
 - [x] Published-only catalogue, category filter, course details and transactional enrollment
-- [x] Shared seven-format lesson renderer, private reflection notes and inline practice quiz feedback
+- [x] Shared nine-format lesson renderer, private reflection notes and inline practice quiz feedback
 - [x] Privacy-enhanced YouTube/Vimeo embeds and safe HTTPS media links
 - [x] Transactional, idempotent completion validates published course, actual lesson and enrollment
 - [x] Course completion counts, progress bar, outline links, first-unfinished resume and review links
@@ -74,10 +74,13 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Render sort/budget and stacked blocks through the shared learner/creator preview renderer
 
 ## Phase 6 — Gamification
-- [ ] `lib/gamification` pure functions + tests (xp, levels, streaks, badges)
-- [ ] Award transaction with idempotent `xpEvents`
-- [ ] Student dashboard: level ring, streak, badges, continue card
-- [ ] Celebrations (XP toast, badge card, reduced-motion fallback)
+- [x] `lib/gamification` pure functions + tests (lesson XP, levels, Kathmandu streaks, baseline badges)
+- [x] Award transaction with idempotent `xpEvents`; emulator-tested concurrent completions
+- [x] Student dashboard: level ring, streak, badges, continue card
+- [x] Static XP feedback and earned badge cards (reduced-motion safe)
+- [ ] Server-graded quiz first-pass XP and perfect-quiz badge
+- [ ] Reconcile category badge taxonomy (seed Digital Safety vs course digital-skills); no badge silently mapped
+- [ ] Browser acceptance for awards, dashboard resume and static celebrations
 - [ ] Leaderboards (weekly + all-time, opt-in, top 10 + you)
 - [ ] Parent leaderboard toggle
 

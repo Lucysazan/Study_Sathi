@@ -1,5 +1,6 @@
 'use server';
 
+import { awardLesson, noReward, type RewardReceipt } from '@/lib/gamification/awards';
 import { FieldValue } from 'firebase-admin/firestore';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
@@ -49,6 +50,7 @@ export async function enrollInCourse(formData: FormData): Promise<ActionResult> 
         transaction.update(db.collection('courses').doc(courseId), {
           'stats.enrollments': FieldValue.increment(1),
         });
+      transaction.update(db.collection('users').doc(user.uid), { currentCourseId: courseId });
       return ok();
     });
     if (result.ok) revalidatePath('/learn/courses/' + courseId);
@@ -58,7 +60,7 @@ export async function enrollInCourse(formData: FormData): Promise<ActionResult> 
   }
 }
 
-export async function completeLesson(formData: FormData): Promise<ActionResult> {
+export async function completeLesson(formData: FormData): Promise<ActionResult<RewardReceipt>> {
   const parsed = completionSchema.safeParse({
     courseId: formData.get('courseId'),
     lessonId: formData.get('lessonId'),
@@ -71,6 +73,7 @@ export async function completeLesson(formData: FormData): Promise<ActionResult> 
     return fail('This lesson is not available right now.');
   }
 
+  const now = new Date();
   try {
     const result = await adminDb().runTransaction(async (transaction) => {
       const courseRef = adminDb().collection('courses').doc(courseId);
@@ -103,6 +106,15 @@ export async function completeLesson(formData: FormData): Promise<ActionResult> 
       const allDone =
         lessonIds.length > 0 &&
         lessonIds.every((id) => id === lessonId || completedLessons.includes(id));
+      const receipt = !completedLessons.includes(lessonId)
+        ? await awardLesson(transaction, adminDb(), user.uid, {
+            courseId,
+            lessonId,
+            now,
+            completedCourse: allDone && !progressSnap.get('completedAt'),
+            category: String(courseSnap.get('category') ?? ''),
+          })
+        : noReward;
       if (!completedLessons.includes(lessonId) || (allDone && !progressSnap.get('completedAt'))) {
         transaction.set(
           progressRef,
@@ -120,7 +132,7 @@ export async function completeLesson(formData: FormData): Promise<ActionResult> 
 
       if (allDone && !progressSnap.get('completedAt'))
         transaction.update(courseRef, { 'stats.completions': FieldValue.increment(1) });
-      return ok();
+      return ok(receipt);
     });
     if (result.ok) {
       revalidatePath(`/learn/courses/${courseId}`, 'layout');

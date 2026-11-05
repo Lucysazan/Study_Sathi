@@ -71,3 +71,9 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 - Added bounded sort/budget schemas, pure feedback helpers, accessible editor/player components and shared preview support.
 - Added optional ordered blocks to lessons without rewriting existing data; completion remains at lesson level. Nested media readiness, unique IDs and a 700 KB outline bound prevent invalid or oversized submissions. Fixed nested quiz editing to update the selected block.
 - Validation: lint/typecheck and 114 unit tests pass; activity-only production build passed; final stacked-lesson build remains to be run.
+
+## 2026-11-05 - Session 8: Phase 6 foundation
+- Added pure validated stats, level thresholds, Kathmandu calendar streaks/Sunday weeks and seeded baseline badge rules.
+- Integrated hashed lesson xpEvents, daily/course bonuses and server stats writes into the same transaction as completion. Repeated or historical completions do not mint XP.
+- Replaced learner placeholder with guarded dashboard, level progress ring, habit/badge/continue cards, and static completion reward feedback. Enrollment tracks currentCourseId.
+- Added unit regressions and isolated real-Firestore concurrency integration tests. No cloud credentials/config were changed or live learner data mutated during testing.

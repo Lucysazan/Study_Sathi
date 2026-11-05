@@ -7,6 +7,10 @@ const mocks = vi.hoisted(() => ({
   revalidate: vi.fn(),
   role: vi.fn(),
 }));
+vi.mock('@/lib/gamification/awards', () => ({
+  awardLesson: async () => ({ xpAwarded: 15, newBadges: [] }),
+  noReward: { xpAwarded: 0, newBadges: [] },
+}));
 vi.mock('next/cache', () => ({ revalidatePath: mocks.revalidate }));
 vi.mock('@/lib/auth/session', () => ({ requireRole: mocks.role }));
 vi.mock('@/lib/firebase/admin', () => ({
