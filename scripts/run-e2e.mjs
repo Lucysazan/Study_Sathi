@@ -55,9 +55,15 @@ const args =
           'demo-studysathi',
           'node scripts/run-e2e.mjs --test',
         ];
+const childEnv = { ...process.env, ...overrides };
+if (mode === '--app' && process.env.STUDYSATHI_E2E_PRODUCTION === '1') {
+  // Match serverless runtimes where CommonJS cannot require an ESM-only dependency.
+  childEnv.NODE_OPTIONS =
+    `${process.env.NODE_OPTIONS ?? ''} --no-experimental-require-module`.trim();
+}
 const child = spawn(process.execPath, args, {
   stdio: 'inherit',
-  env: { ...process.env, ...overrides },
+  env: childEnv,
 });
 child.on('error', (error) => {
   console.error(error.message);

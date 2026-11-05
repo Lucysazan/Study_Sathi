@@ -1,13 +1,19 @@
 # Handover
 
-Last updated: 2026-11-05, Codex session 17. Branch: main.
+Last updated: 2026-11-05, Codex session 18. Branch: main.
 
 ## Current state
 StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/course flows, nine activity formats with stacked lessons, gamification/consented leaderboards and analytics are implemented. Cover/language metadata and submission checklist are now implemented. Student account toolbar, course discovery and linked-parent progress are implemented. Desktop/360px Chromium smoke tests now pass. Production application deployment, catalog seeding, rules, Auth domain and all ten live query/index probes are verified. Broader assistive-technology/manual acceptance and authenticated production play-through remain unfinished. ROADMAP is current; do not claim all phases complete.
 
-## Immediate production blocker
-Application release 4e72b49 deployed successfully, but the live Vercel API runtime is failing: /api/auth/setup and /api/auth/session return HTTP 500 with an empty body and no content type. GET/OPTIONS to setup also fail; static /signup, /login and home return 200. This persists across Node fetch and curl. Local production build/start passes all 30 browser cases, so do not claim the live signup incident resolved.
-Vercel runtime logs are required next: https://vercel.com/susan-shresthas-projects-be9908c2/study-sathi/3ZewqK4pRHL4oGBjm9RuAW3oeJhm . User was asked for the first red error/missing-module message without secrets. No Vercel API token/local login or reachable browser session is available; computer-use native pipe is unavailable (skill read/initialized). Local route NFT traces include firebase-admin (40 files) and Firestore (373 files); do not blindly add external package configuration (firebase-admin already defaults external).
+## Production auth incident: confirmed cause
+User supplied Vercel runtime logs: firebase-admin/auth -> jwks-rsa 4.1.0 -> jose 6.2.15 throws ERR_REQUIRE_ESM before the handlers load. The same logs include a stale /signup Server Action ID from an older page/deployment. Static pages and direct local Admin SDK probes do not establish live API health.
+Exact import failure reproduced with node --no-experimental-require-module requiring firebase-admin/auth. Scoped npm override jwks-rsa -> jose 5.10.0 makes that same command pass; other consumers retain jose 6. Node engines pinned to 24.x to match .nvmrc. Unit regression also resolves an RSA JWK and validates a signature under the restrictive flag. Production-mode E2E app startup now disables require(ESM), so the old dependency tree would fail these tests.
+Confirmed local validation: exact restrictive import now passes; 147 unit tests, lint/typecheck and all 30 production-build browser cases PASS with require(ESM) disabled. Deployment/live endpoint verification follows. A clean reinstall in the active checkout hit a Windows lightningcss file lock; dependencies are being restored and any fresh-install check must use an isolated folder. Do not claim live signup fixed until /api/auth/setup and /api/auth/session return their expected JSON responses on the production domain.
+
+## Session 18 compatibility fix
+- Narrow dependency override, lockfile and Node major alignment; no Firebase env, role, credential, IAM or data changes.
+- 147 unit tests pass, including the exact CommonJS import/key-resolution regression; production-mode 30-case suite runs under the restrictive runtime flag.
+- Upstream evidence: https://github.com/auth0/node-jwks-rsa/issues/507 . Treat the scoped major-version compatibility override as temporary and review when upstream fixes this import path. Do not globally downgrade jose or rely only on changing Node versions.
 
 ## Session 17 signup recovery
 - User reported production React #441 during creator signup. Decoder identifies a generic server-render error; fresh parent/creator signup passed locally in development and production before changes, so the exact live exception is not proven from available logs.
@@ -59,7 +65,7 @@ Vercel runtime logs are required next: https://vercel.com/susan-shresthas-projec
 - Student course catalogue/detail show optional cover and teaching language. Legacy published courses stay readable without migration; missing language shows Not specified, never an inferred English label. Legacy drafts need new metadata before submission/republishing.
 
 ## Validation
-- 146 unit tests / 31 files PASS.
+- 147 unit tests / 32 files PASS.
 - Previous rules-suite verification: 43 emulator tests / 6 files PASS: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
 - Lint, typecheck, production build PASS. Normal production build passed with the configured real project. Isolated browser builds intentionally use demo catalog fallback; production seed counts were verified separately.
 - 30 Playwright Chromium tests PASS against an isolated production build across desktop/360px; see Session 14 coverage and limits. Native UI host is not needed for the automated suite. Production login/play-through is not yet verified.

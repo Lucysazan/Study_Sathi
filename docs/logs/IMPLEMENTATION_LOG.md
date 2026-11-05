@@ -116,3 +116,6 @@ Session 16 result: verified seven READY indexes, ten passing live probes, succes
 
 ## 2026-11-05 - Session 17 - Codex
 Added same-origin JSON auth setup route and moved setup into server-only helper; auth client no longer imports a setup Server Action. Preserve matching Firebase user for interrupted signup retry; only deliberate public auth errors reach forms. Delay shared auth input enablement until hydration. Added signup/retry/forged-token/browser production-build support and unit regressions.
+
+## 2026-11-05 - Session 18 - Codex
+Confirmed Vercel ERR_REQUIRE_ESM from the supplied runtime logs; reproduced Firebase Admin auth import under --no-experimental-require-module. Added scoped jwks-rsa jose 5.10.0 override/lockfile and Node 24 pin; runtime import + RSA public-key/signature regression. Production-mode E2E starts the app with require(ESM) disabled to prevent localhost-only false acceptance.
