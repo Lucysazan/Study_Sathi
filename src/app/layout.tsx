@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+import { LibrarySync } from '@/components/layout/LibrarySync';
 import type { Metadata } from 'next';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import { Footer } from '@/components/layout/Footer';
@@ -28,6 +30,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           Skip to content
         </a>
         <Header />
+        <Suspense fallback={null}>
+          <LibrarySync />
+        </Suspense>
         <StorageNotice />
         <main id="main">{children}</main>
         <Footer />

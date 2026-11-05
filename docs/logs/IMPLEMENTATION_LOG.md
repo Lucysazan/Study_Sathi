@@ -52,3 +52,17 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 - [2.4] Admin users: Firebase Auth list (no Firestore reads) + creator-applicant flag, search, role change via `assignRole` (approves applicants), turn off/on (revokes tokens), self-protection — src/app/admin/users/*, src/lib/admin/users.ts, src/components/admin/UserRowControls.tsx
 - [2.3] Security fix found during build: auth checks moved into the admin data layer (`requireAdmin()` in every read) because layouts don't gate pages (ADR-011)
 - [2.x] Rules tests isolated in project `demo-studysathi-rules` (they had wiped the dev emulator); new audit-log rules test (11 rules tests)
+- [5.1] Added student course detail + enrollment flow and lesson page with a trusted completion action; link catalog cards to real course pages and record progress in `courseProgress` per user/course — src/app/learn/courses/**, src/lib/course/learning.ts, src/lib/course/learning.test.ts — closes the learner path from catalog to first lesson
+
+## 2026-11-05 ? Session 6
+- Learner actions: validated IDs, transactional enrollment/completion, lesson membership check, atomic idempotent progress and route refresh.
+- Added LearningAction feedback and course completion/resume links; removed touched learner any casts and fixed catalog status typing.
+- Added completion boundary regression tests and Firestore client-write denial coverage. Tests currently blocked at runner startup by missing picomatch.
+
+## 2026-11-05 ? Session 7
+- Restored incomplete npm installation; fixed existing creator array-index typing, audit action union and PortalWelcome children. Lint/typecheck now execute and pass.
+- Fixed outline array/object mismatch with compatibility reader; transactional creator save/submit, forced draft creation, readiness validation, publish validation, actual shared preview and autosave cleanup.
+- Added parent-created student accounts, ownership-checked password resets, profile editing and fixed-avatar validation/rules.
+- Added private account library (bookmarks/progress/notes), transactional mutations, merge prompt and debounced client writes; public guest experience remains available.
+- Added safe media renderer with video embeds, inline quiz practice and private reflection input; progress UI, session-view digest ledger and idempotent enrollment/completion counters.
+- Added family, creator, library, media, view and completion regressions. Updated ROADMAP against actual code and corrected its stale emulator claim.

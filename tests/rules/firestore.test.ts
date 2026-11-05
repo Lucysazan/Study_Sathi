@@ -43,6 +43,33 @@ beforeEach(async () => {
 });
 
 describe('default deny', () => {
+  it('keeps private library data and view events inaccessible to other learners', async () => {
+    await seed(env, {
+      'users/student-1/privateData/library': { notes: { private: 'A private note' } },
+    });
+    await assertFails(asUser(otherStudent).doc('users/student-1/privateData/library').get());
+    await assertFails(asUser(student).doc('courseViews/forged').set({ courseId: 'course' }));
+    await assertFails(
+      asUser(student)
+        .doc('users/student-1/privateData/library')
+        .set({ savedIds: ['1'] }),
+    );
+    await assertFails(
+      asUser(student).doc('users/student-1').update({ avatarId: 'external-photo' }),
+    );
+  });
+  it('prevents clients from forging enrollment and lesson progress', async () => {
+    for (const user of [student, otherStudent, admin]) {
+      await assertFails(
+        asUser(user)
+          .doc('courseProgress/student-1_course')
+          .set({ completedLessons: ['one'], userId: 'student-1' }),
+      );
+      await assertFails(
+        asUser(user).doc('courseEnrollments/student-1_course').set({ userId: 'student-1' }),
+      );
+    }
+  });
   it('blocks reads and writes to unknown collections', async () => {
     await assertFails(asGuest().doc('auditLog/a1').get());
     await assertFails(asUser(student).doc('auditLog/a1').get());

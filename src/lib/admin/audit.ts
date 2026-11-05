@@ -2,6 +2,8 @@ import { FieldValue, type Firestore, type Timestamp } from 'firebase-admin/fires
 
 /** Admin/creator actions are recorded in `auditLog` (server-only collection). */
 export type AuditAction =
+  | 'course.review'
+  | 'course.review.note'
   | 'role.set'
   | 'user.disable'
   | 'user.enable'

@@ -85,3 +85,34 @@ Template:
 **Files touched:** [src/lib/auth/session.ts](src/lib/auth/session.ts), [src/app/admin/layout.tsx](src/app/admin/layout.tsx), [src/app/parent/layout.tsx](src/app/parent/layout.tsx), [src/app/creator/layout.tsx](src/app/creator/layout.tsx), [src/app/learn/layout.tsx](src/app/learn/layout.tsx), [src/app/account/page.tsx](src/app/account/page.tsx)
 **Checks:** lint ✅ · typecheck ✅ · build ✅ · test ❌ · test:rules ❌
 **Next:** Resolve the shared Vitest runner/config issue; then rerun the full repo checks and continue with Phase 2 browser verification.
+
+## 2026-11-05 · Session 5 · Copilot (MAI-Code-1.1-Flash)
+**Goal:** Continue the learner-facing roadmap milestone: make the published course catalog lead to a real course detail and lesson flow with completion tracking.
+**Done:**
+- Added the real student lesson route at [src/app/learn/courses/[id]/[lessonId]/page.tsx](src/app/learn/courses/[id]/[lessonId]/page.tsx) with a server-side student gate, enrollment check, and lesson completion UI.
+- Added the trusted lesson completion server action in [src/app/learn/courses/actions.ts](src/app/learn/courses/actions.ts), writing progress into `courseProgress/{uid_courseId}` without trusting the client.
+- Added a small shared helper in [src/lib/course/learning.ts](src/lib/course/learning.ts) and a unit test in [src/lib/course/learning.test.ts](src/lib/course/learning.test.ts) to drive the route logic.
+- Replaced the disabled catalog action with real links and added a first-lesson route from the course detail page in [src/app/learn/courses/page.tsx](src/app/learn/courses/page.tsx) and [src/app/learn/courses/[id]/page.tsx](src/app/learn/courses/[id]/page.tsx).
+- Recorded the decision in [docs/logs/DECISIONS.md](docs/logs/DECISIONS.md) and updated the roadmap/handover files.
+**Not done / blocked:** Terminal verification is still blocked before the repo runners start: the environment throws an immediate Node syntax error (`Unexpected token '/'` / `Unexpected identifier 'test'`) before any project test can execute.
+**Files touched:** [src/app/learn/courses/actions.ts](src/app/learn/courses/actions.ts), [src/app/learn/courses/page.tsx](src/app/learn/courses/page.tsx), [src/app/learn/courses/[id]/page.tsx](src/app/learn/courses/[id]/page.tsx), [src/app/learn/courses/[id]/[lessonId]/page.tsx](src/app/learn/courses/[id]/[lessonId]/page.tsx), [src/lib/course/learning.ts](src/lib/course/learning.ts), [src/lib/course/learning.test.ts](src/lib/course/learning.test.ts), [docs/ROADMAP.md](docs/ROADMAP.md), [docs/HANDOVER.md](docs/HANDOVER.md), [docs/logs/DECISIONS.md](docs/logs/DECISIONS.md), [docs/logs/IMPLEMENTATION_LOG.md](docs/logs/IMPLEMENTATION_LOG.md)
+**Checks:** editor diagnostics ✅ · terminal test execution ❌ (environment-level Node runner failure before tests start)
+**Next:** Fix the local Node/terminal runner issue so the repo-level lint/typecheck/test commands can run, then continue to the next Phase 5 milestone: lesson play-through and view counting.
+
+## 2026-11-05 ? Session 6 ? Codex
+Goal: continue Phase 5 by securing and surfacing lesson completion.
+Done: transactional enrollment/completion, actual lesson validation, idempotency, feedback forms, course progress/resume, regression tests and rules coverage. Preserved the extensive pre-existing uncommitted changes.
+Checks: targeted learner lint passes (existing img warning); full lint/typecheck fail in existing creator/admin/dashboard code. Unit tests fail at startup on missing nested picomatch; dependency repair attempted. No browser/live data/deploy verification.
+Next: repair dependencies and baseline checks, browser verify progress, then richer lesson interactions and session view counting. Handover rewritten to remove stale phase/environment claims.
+
+Dependency repair outcome: online npm install made no completion after several minutes and was interrupted. No dependency or lockfile change was intended; test runner remains unverified. No commit created: existing in-progress code and the session changes remain together in the working tree, described in this handover.
+
+## 2026-11-05 - Local server recovery
+Owner reported ERR_CONNECTION_REFUSED on localhost:3000/login?next=%2Fadmin. No listener was running on port 3000. Started npm.cmd run dev; Next reported Ready and an HTTP request to the exact login URL returned 200. No application code, credentials or dependencies changed during this recovery. Keep the dev terminal running; restart npm.cmd run dev from Study_Sathi when it stops.
+
+
+## 2026-11-05 ? Session 7 ? Codex
+Goal: audit the roadmap and continue the unfinished LMS phases.
+Done: repaired tooling, fixed existing lint/types, canonical course outlines, draft-only transactional creator writes, publish-readiness validation, shared media/quiz player, private reflection notes, progress/counters/session views; real family creation/reset, nickname/icon profile and private library sync/guest merge. ROADMAP reconciled with code and actual live Firebase flags (both false for emulator mode).
+Validation: lint/typecheck/build pass; 101 unit tests pass; 13 isolated emulator rules tests pass. Browser/native host unavailable, so UI/mobile/cross-device acceptance remains explicitly unchecked. No live data mutation or deployment performed. Existing uncommitted portal/course source was preserved for the local checkpoint; pre-existing ensure-admin-user script excluded.
+Remaining: Phase 3-5 browser acceptance, Phase 4 sort/budget/stacked blocks, Phase 6 gamification, Phase 7 analytics/accessibility/e2e/deployment. See HANDOVER for exact next steps and data shapes.

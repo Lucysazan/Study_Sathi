@@ -131,3 +131,8 @@ Implemented as pure functions in `lib/gamification/` (unit tested), applied by s
 ## 7. Guest data migration
 
 Guests keep using localStorage keys from the prototype (`studysathi-saved`, `studysathi-progress`, `studysathi-notes`). On first sign-in as a student, offer "Bring your saved items into your account?" and merge them via a server action, then clear local keys.
+
+## Current implemented storage (2026-11-05)
+The model above includes planned work. Current course routes use courses/{id}.outline = { modules: [{ id, title, lessons: [{ id, title, kind, duration, ...content }] }] }. Legacy array-shaped outlines are read compatibly. Creator identity is createdBy; statuses are draft/review/published. Full stacked block lesson documents remain on the roadmap.
+Student enrollment lives at courseEnrollments/{uid}_{courseId}; progress at courseProgress/{uid}_{courseId} with completedLessons, nextLessonId, updatedAt and completedAt. Transactions protect review status, enrollment, progress and course stats counters. courseViews/{sessionCourseDigest} deduplicates views without persisting a raw auth token.
+Private library data uses users/{uid}/privateData/library = { savedIds, progress, notes }. Server actions check the current student and expected uid. Cloud data stays in client memory, separate from guest localStorage; the merge prompt preserves existing account notes. Profiles use nickname plus one of 12 fixed avatar IDs. Parent-created students use the configured synthetic email domain and default leaderboardOptIn=false. Phase 6 awards/leaderboards are not implemented yet.

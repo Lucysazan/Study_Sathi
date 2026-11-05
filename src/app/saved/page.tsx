@@ -5,7 +5,7 @@ import { getCatalog } from '@/data/catalog.server';
 
 export const metadata: Metadata = {
   title: 'My Saved Resources',
-  description: 'Your bookmarked learning resources, saved in this browser.',
+  description: 'Your bookmarked learning resources.',
   robots: { index: false },
 };
 
@@ -16,7 +16,7 @@ export default async function SavedPage() {
       <PageTitle
         eyebrow="A LITTLE COLLECTION OF POSSIBILITIES"
         title="My Saved Resources"
-        intro="Your next discoveries, all in one place. Saved on this browser, without an account."
+        intro="Your next discoveries, all in one place. Learner accounts sync saved items across devices; guests save in this browser."
       />
       <section className="site-container section">
         <SavedList resources={resources} canPrune={source === 'firestore'} />

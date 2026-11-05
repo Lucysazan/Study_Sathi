@@ -41,7 +41,7 @@ service cloud.firestore {
           request.resource.data.nickname is string
           && request.resource.data.nickname.size() >= 2
           && request.resource.data.nickname.size() <= 20))
-        && (!('avatarId' in request.resource.data) || request.resource.data.avatarId is string);
+        && (!('avatarId' in request.resource.data) || request.resource.data.avatarId in ['panda', 'yak', 'fox', 'owl', 'rabbit', 'elephant', 'butterfly', 'turtle', 'leaf', 'flower', 'mountain', 'sun']);
       allow create, delete: if false;
 
       // Server-only XP ledger.

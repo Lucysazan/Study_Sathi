@@ -1,14 +1,18 @@
 import { Compass } from 'lucide-react';
+import { Suspense, type ReactNode } from 'react';
 import { SignOutButton } from '@/components/auth/SignOutButton';
 import { getCurrentUser } from '@/lib/auth/session';
+import { PortalLoading } from './PortalShell';
 
 /** Phase 1 placeholder for each portal: greets the user and says what is coming. */
-export async function PortalWelcome({
+async function PortalWelcomeBody({
   eyebrow,
   comingSoon,
+  children,
 }: {
   eyebrow: string;
   comingSoon: string;
+  children?: ReactNode;
 }) {
   const user = await getCurrentUser();
   const firstName = user?.name?.split(' ')[0];
@@ -23,9 +27,22 @@ export async function PortalWelcome({
           <p>{comingSoon}</p>
         </div>
       </div>
+      {children}
       <div className="portal-actions">
         <SignOutButton />
       </div>
     </section>
+  );
+}
+
+export function PortalWelcome(props: {
+  eyebrow: string;
+  comingSoon: string;
+  children?: ReactNode;
+}) {
+  return (
+    <Suspense fallback={<PortalLoading />}>
+      <PortalWelcomeBody {...props} />
+    </Suspense>
   );
 }

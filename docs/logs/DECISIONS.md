@@ -83,3 +83,19 @@ Template:
 **Context:** Next renders layouts and pages in parallel, so a role check in a portal layout does not stop the page's data fetching or keep its output out of the RSC payload. Separately, public pages must not cost Firestore reads per visitor.
 **Decision:** Admin reads go through functions in `src/lib/admin/*` that each call `requireAdmin()`. Server Actions re-check with `getAdmin()` and return typed results. The public catalogue is one cached server read (`getCatalog`, tag `catalog`) refreshed by `updateTag` after admin edits, with a short-lived seed fallback. Deleting a resource that a learning path uses is blocked. Admins cannot change their own role or turn off their own account. Rules tests use project id `demo-studysathi-rules` (emulator `singleProjectMode: false`) so they never wipe dev data.
 **Consequences:** New portal pages must call a guarded data function or `requireRole()` themselves; a layout gate alone is not enough.
+
+## ADR-012: Learner progress is server-trusted and per-course
+**Date:** 2026-11-05 · **Status:** Accepted
+**Context:** The learner flow needs a real course path: enroll, go to the first lesson, complete a lesson, and continue. These actions cannot rely on client-only storage because a user could bypass or replay them.
+**Decision:** Enrollments live in `courseEnrollments/{uid_courseId}` and lessons are tracked in `courseProgress/{uid_courseId}` with a `completedLessons` array. The server writes these values from authenticated student actions only; the UI reads them as a server-view snapshot. The first lesson is selected from the course outline and used as the canonical route forward after enrollment.
+**Consequences:** We need a lightweight lesson route and a completion action, but we avoid client-side trust issues and keep progression easy to audit later for XP and analytics.
+
+## 2026-11-05 ? Transactional learner progress
+Completion remains learner self-attestation in Phase 5 (no quiz score/XP award). Validate course membership and enrollment from server data within a transaction; arrayUnion preserves concurrent lesson completions. The course resume link derives the first unfinished outline lesson rather than trusting the last navigation field. No new dependency.
+
+## 2026-11-05 ? Course compatibility and review boundary
+Keep the established inline outline model for current courses: outline is { modules: [...] }, with one kind per lesson. Read older array-shaped outlines without rewriting live data. Save canonical objects. Stacked block documents, sort and budget remain explicit unfinished work. Creator writes are transactional and draft-only; publishing remains admin-only. Plain text is escaped, never rendered as raw HTML. Quiz feedback is practice; it awards no mastery score or XP.
+
+## 2026-11-05 ? Private library and view counts
+Store bookmarks, path progress and private notes together at users/{uid}/privateData/library for one read per navigation and low read cost. This supersedes the originally planned per-note/per-bookmark storage for the current library. All reads/writes validate the student session on the server; default-deny client rules remain. Merge is idempotent, keeps account notes on conflicts and only clears guest state after confirmed success. Apply per-document bounds and debounce notes.
+Course views mean once per authenticated session-cookie lifetime per course. Store only a SHA-256 session/course digest in courseViews, never the raw cookie. The event and counter increment are atomic. expiresAt supports future cleanup; no TTL policy was deployed. Enrollment and completion counters start from tracked events; no historical backfill was performed. No new dependencies were added.

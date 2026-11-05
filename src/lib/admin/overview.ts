@@ -1,6 +1,7 @@
 import 'server-only';
 import { adminAuth, adminDb } from '@/lib/firebase/admin';
 import { type AuditEntry, recentAudit } from './audit';
+import { countPendingCourseReviews } from './courses';
 import { requireAdmin } from './guard';
 import { countPendingCreators } from './users';
 
@@ -10,14 +11,16 @@ export async function getAdminOverview(): Promise<{
   resourceCount: number;
   accountCount: string;
   pendingCreators: number;
+  pendingCourseReviews: number;
   activity: AuditEntry[];
 }> {
   const admin = await requireAdmin();
   const db = adminDb();
-  const [resources, users, pendingCreators, activity] = await Promise.all([
+  const [resources, users, pendingCreators, pendingCourseReviews, activity] = await Promise.all([
     db.collection('resources').count().get(),
     adminAuth().listUsers(1000),
     countPendingCreators(),
+    countPendingCourseReviews(),
     recentAudit(db),
   ]);
   return {
@@ -25,6 +28,7 @@ export async function getAdminOverview(): Promise<{
     resourceCount: resources.data().count,
     accountCount: `${users.users.length}${users.pageToken ? '+' : ''}`,
     pendingCreators,
+    pendingCourseReviews,
     activity,
   };
 }

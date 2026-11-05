@@ -2,12 +2,14 @@
 
 Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until the previous one builds and its checks pass. If a task grows, split it here rather than doing it all at once.
 
-## Current status — Firebase and app state
-- [x] Firebase project credentials are present in `.env` for the real StudySathi project.
-- [x] Local development is intentionally running against Firebase emulators via `.env.local` with `NEXT_PUBLIC_USE_EMULATORS=true`.
-- [x] Firestore Auth + Admin SDK wiring is active for local emulator development and production-safe env validation.
-- [x] Admin resource and user pages were verified in-browser after the request-time session fix under Next 16.
-- [ ] Production deploy to Vercel still needs the repo connected to the owner’s Vercel account and final env values set there.
+## Current status (2026-11-05)
+- Phases 0-2: implementation complete; Vercel deployment remains outstanding.
+- Phase 3: family accounts, profile, private library sync and merge implemented; browser acceptance checks remain.
+- Phase 4: creator/admin flow and seven lesson formats implemented; sort/budget and full multi-block lessons remain.
+- Phase 5: lesson rendering, transactional progress, course resume and session views implemented; browser/mobile acceptance remains.
+- Phases 6-7: gamification and analytics/polish remain unfinished.
+- Both local env files currently set NEXT_PUBLIC_USE_EMULATORS=false. Do not switch the app to emulators to hide production issues. Rules tests use their own demo project.
+- Automated checks are recorded in HANDOVER; a passing build does not imply browser, live Firebase or deployment acceptance.
 
 ## Phase 0 — Repo setup and parity migration (no Firebase yet)
 - [x] Move the Vite prototype into `legacy/` (read-only reference)
@@ -36,24 +38,39 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Admin layout + sidebar; admin resources CRUD; audit log entries (verified in-browser; request-time auth fix applied under Next 16)
 - [x] Admin users list (search, role change, disable) (verified in-browser; role and access changes are working)
 
-## Phase 3 — Parents and students
-- [ ] Parent dashboard, add child (username + password), reset child password
-- [ ] Student profile: nickname + avatar picker (12 avatars)
-- [ ] Signed-in bookmarks/notes in Firestore; guest → account merge prompt
+## Phase 3 ? Parents and students
+- [x] Parent dashboard with linked learner nicknames and usernames
+- [x] Parent-created username/password accounts, student claims, family linking and cleanup on failed linking (unit tests)
+- [x] Parent-owned child password reset and session revocation (unit tests)
+- [x] Student nickname and fixed 12-avatar selector; matching server validation and rules
+- [x] Signed-in bookmarks, path progress and private notes sync through authenticated server actions
+- [x] Guest merge prompt; idempotent merge preserves account notes and clears guest copy after success
+- [ ] Browser verify add child ? student login ? profile ? password reset at desktop/360px
+- [ ] Browser verify sync across devices, merge, logout isolation and offline/retry feedback
 
-## Phase 4 — Creator portal and course builder
-- [ ] Creator application flow + admin approval
-- [ ] Course CRUD (draft), outline editor (modules/lessons, reorder)
-- [ ] Block editors + zod schemas: text, video, image, resource, quiz, reflection, checkpoint
-- [ ] Block editors: sort, budget
-- [ ] Live student preview, autosave, submit-for-review checklist
-- [ ] Admin review queue: preview, approve/publish, request changes with note
+## Phase 4 ? Creator portal and course builder
+- [x] Creator studio, application and admin approval
+- [x] Draft creation, list and module/lesson outline editor
+- [x] Seven formats: text, video, image, resource, quiz, reflection and checkpoint
+- [x] Readiness validation for media links, image descriptions and duplicate lesson IDs
+- [x] Module/lesson ordering, debounced autosave and shared student-renderer preview
+- [x] Submission saves current edits before review; creator cannot publish or edit a course under review/published
+- [x] Admin review queue, notes and publish/return-to-draft actions
+- [x] Canonical outline object saves with compatibility reads for previously saved array outlines
+- [ ] Sort activity editor/player and schema
+- [ ] Budget activity editor/player and schema
+- [ ] Full multi-block lesson documents (current editor has one content kind per lesson); cover/language metadata and checklist
+- [ ] Browser verify rapid edits/autosave, submit, return to draft and publish; mobile layout
 
-## Phase 5 — Learning experience
-- [ ] Course catalogue `/learn/courses` (filter by category/age, published only)
-- [ ] Course page + enrollment
-- [ ] Lesson player for all block types; complete lesson server action
-- [ ] View counting (once per session per course)
+## Phase 5 ? Learning experience
+- [x] Published-only catalogue, category filter, course details and transactional enrollment
+- [x] Shared seven-format lesson renderer, private reflection notes and inline practice quiz feedback
+- [x] Privacy-enhanced YouTube/Vimeo embeds and safe HTTPS media links
+- [x] Transactional, idempotent completion validates published course, actual lesson and enrollment
+- [x] Course completion counts, progress bar, outline links, first-unfinished resume and review links
+- [x] Per-authenticated-session course view deduplication; transactional enrollment/completion counters
+- [ ] Browser verify learning play-through, refresh persistence, repeat/concurrent submissions and 360px sticky controls
+- [ ] Render sort/budget and stacked blocks after Phase 4 models are added
 
 ## Phase 6 — Gamification
 - [ ] `lib/gamification` pure functions + tests (xp, levels, streaks, badges)

@@ -1,103 +1,46 @@
 # Handover
 
-> Rewrite this whole file at the end of every session. A new agent with no chat history must be able to continue from here.
-
-**Last updated:** 2026-11-05 · **By:** Session 3 (Claude Code, claude-opus-5-5) → handing over to another agent (Codex / ChatGPT)
-**Branch:** `main`, pushed to `origin` = https://github.com/Lucysazan/Study_Sathi
+Last updated: 2026-11-05, Codex session 7. Branch: main.
 
 ## Current state
-| Phase | Status |
-| --- | --- |
-| 0: Port the Vite prototype to Next.js | ✅ Done, except the Vercel preview deploy (needs the owner's Vercel + Firebase env vars) |
-| 1: Firebase foundation and auth | ✅ Done and verified in the browser (25 scripted checks + Google sign-in) |
-| 2: Content in Firestore + admin basics | ✅ Built, ⚠️ browser verification only partly done (see below) |
-| 3–7 | Not started |
+StudySathi is a Next.js 16.4.5 + Firebase LMS. Public pages, auth/session guards, admin resources/users, creator applications/drafts/review, and published learner courses are implemented. Phase 3 family/profile/private-library features and the seven-format Phase 5 player are implemented with automated regression coverage. Browser acceptance is still pending. ROADMAP now distinguishes implemented features from unchecked acceptance work.
 
-- Current repo status: lint ✅ · typecheck ✅ · build ✅.
-- Current test status: `npm run test` ❌ (runner/config issue: `describe`/`it` are undefined before tests execute) and `npm run test:rules` ❌ (same Vitest runner problem under the emulator wrapper).
-- The Cache Components auth bug has been fixed: the shared session helper no longer triggers the `Date.now()` prerender warning, and protected portal routes keep the App Router Suspense pattern rather than using the removed `dynamic = 'force-dynamic'` config.
-- No real Firebase project yet. Everything runs on the local emulators (`demo-studysathi`).
+The owner asked to continue toward all phases. Phases 6 (XP, streaks, badges, opt-in leaderboard) and 7 (analytics dashboards, accessibility/e2e, deployment) are NOT done. Phase 4 still needs sort/budget and stacked blocks/cover/language metadata. Current inline outlines have one content kind per lesson; do not claim full stacked-block support.
 
-### Phase 2 verification status (do this first)
-| Feature | Unit/rules tests | Browser checked |
-| --- | --- | --- |
-| Seed script (add-missing, `--force`, `--prod` guard) | n/a | ✅ by running it |
-| Public pages read Firestore; seed fallback when it's down | n/a | ✅ two builds (on/off) |
-| Parent blocked from `/admin/*`, no admin data in the response | n/a | ✅ |
-| Admin overview counts + recent activity | n/a | ✅ |
-| Add / edit / delete resource, public site updates at once, delete blocked for path resources | form schema ✅ | ❌ **not yet**: the test script stopped on a selector bug in the script (not the app) |
-| Users: search, approve creator applicant, turn off/on, self-protection | n/a | ❌ **not yet** |
-| Admin pages at 360 px | n/a | ❌ not yet |
+## Environment and tooling
+- Both .env and .env.local currently have NEXT_PUBLIC_USE_EMULATORS=false. The old roadmap statement that local development uses emulators was wrong. Do not alter these flags or credentials to make the app appear to work.
+- Use npm.cmd/npx.cmd in PowerShell; npm.ps1 is blocked by execution policy. Node is v26.13.0; repo .nvmrc asks for 24 (Firebase tooling emits an engine warning on 26).
+- The incomplete node_modules installation was repaired with npm install --ignore-scripts --package-lock=false. No dependencies were added and no package manifest/lockfile changed.
+- Sandbox blocks esbuild parent-directory lookup and Firebase CLI's external config. Tests passed with tool-approved execution outside sandbox.
+- Rules tests are isolated to demo-studysathi-rules and do not clear live app data. No live account creation, password reset, course publishing, rules deploy or production deploy was performed.
 
-How to verify: start the emulators + seed, `npm run build && npx next start -p 3123`, then click through `/admin` as an admin (steps in "How to run it"). A Playwright script for this existed only in the previous agent's scratch folder. Re-create it under `tests/e2e/` if you want it in the repo (ROADMAP Phase 7 plans Playwright).
+## Session 7 implementation
+- Fixed existing type/lint errors (editor array indexes, optional quiz answer, PortalWelcome children and audit action types).
+- Fixed the major outline mismatch: save { modules: [...] }, accept old array outlines through readCourseOutline. Creator draft saves/submission are transactional and draft-only. New courses are always drafts even if a request supplies another status. Submission saves current edits before review. Published/review courses show an edit lock.
+- Shared LessonContent renders escaped text, privacy-enhanced YouTube/Vimeo, safe HTTPS images/resources, practice quizzes, reflection notes and checkpoints. Creator preview uses the same renderer. Media and image descriptions are required at submission/publication; duplicate lesson IDs are rejected.
+- Enrollment/completion are transactional and idempotent. Progress validates actual lesson membership. Course UI shows progress and resumes the first unfinished lesson; mobile completion controls are sticky. Historical counters are not backfilled.
+- CourseView counts once per authenticated session-cookie lifetime/course through a SHA-256 digest event and atomic stats.views increment. courseViews has expiresAt but no TTL/cleanup policy was deployed.
+- Parent can create student accounts (synthetic username email, student claim, parent link; leaderboard off by default), reset only a linked child's password and revoke sessions. Auth creation is compensated if Firestore linking fails. Family limit is 10. Student profiles use nickname and 12 fixed icon avatars, including existing yak; Firestore rules enforce the same IDs.
+- Private account library uses users/{uid}/privateData/library for savedIds, path progress and notes. Authenticated server actions check expected uid; default-deny client rules remain. Client queues mutations, debounces notes and flushes pending work before navigation reloads. It keeps cloud data in memory separate from guest localStorage. Merge preserves existing account notes, is idempotent and only clears guest data after success. Limits bound the document size.
 
-## How to run it
-1. `.env.local` contains `NEXT_PUBLIC_USE_EMULATORS=true` (gitignored; create it on a new machine).
-2. Terminal 1: `npm run emulators` (Auth 9099, Firestore 8080, UI http://localhost:4000). Needs Java 11+.
-3. Terminal 2: `npm run seed`, then `npm run dev` → http://localhost:3000.
-4. Sign up at `/signup` as a parent → `npm run set-role -- you@example.com admin` → log in again → `/admin`.
-5. Never run the rules tests against your dev data by hand: use `npm run test:rules` (it uses project `demo-studysathi-rules`).
+## Verified
+- npm.cmd run lint: PASS (no warnings at final lint run).
+- npm.cmd run typecheck: PASS.
+- npm.cmd run test: 101 tests / 21 files PASS.
+- npm.cmd run test:rules: 13 tests PASS (including private-data, forged view/progress writes and fixed avatars).
+- npm.cmd run build: PASS. Public catalogue used bundled seed fallback; this does not verify live catalogue seeding.
+- Browser host/native pipe unavailable through computer-use inventory; no browser/mobile/screenshots or cross-device acceptance claimed.
 
-## Code map
-- `src/app/`: routes.
-  - Public: `/`, `/resources`, `/resources/[id]`, `/learning-paths`, `/learning-paths/[id]`, `/volunteers`, `/saved`, `/about`.
-  - Auth: `(auth)/login`, `(auth)/signup`, `account`.
-  - Portals: `admin/**` (real), `parent`, `creator`, `learn` (placeholders).
-  - API: `api/auth/session`.
-- `src/proxy.ts`: cookie-presence redirect for portal routes (Next 16 renamed middleware → proxy).
-- `src/data/`:
-  - `catalog.ts`: pure helpers plus `seedCatalog`;
-  - `catalog.server.ts`: `getCatalog()`, Firestore + cache + seed fallback;
-  - `seed/`: resources.json, learningPaths.ts, badges.ts.
-- `src/lib/auth/`: roles, session (server-only), accounts (`setUpAccount`, `assignRole`), actions, client-flow, errors.
-- `src/lib/admin/`: `guard.ts` (`requireAdmin`, `getAdmin`), `audit.ts`, `overview.ts`, `resources.ts`, `users.ts`. **Every read calls `requireAdmin()`.**
-- `src/lib/validation/`: zod schemas (auth forms, resource form + Firestore docs).
-- `src/lib/`: `filters.ts`, `budget.ts`, `categories.ts`, `storage/` (guest localStorage), `env/` (zod env), `firebase/` (client + admin).
-- `src/components/`: `layout`, `resources`, `paths`, `home`, `ui`, `auth`, `portal` (`PortalShell`), `admin`.
-- `scripts/`: `seed.ts`, `set-role.ts`, `lib/admin.ts`. Scripts use emulators unless `--prod`.
-- `tests/rules/`: Firestore rules tests.
+## Next steps in order
+1. Browser verify Phase 3: parent add-child ? username login ? profile ? password reset; test merge, logout isolation, notes and saved items across devices; mobile at 360px.
+2. Browser verify Phase 4/5: autosave rapid edits, review/publish, safe media, reflection persistence, course completion/replay/concurrent tabs and session view deduplication. In particular test client sync during navigation/sign-out/offline failures; automated tests cover server boundaries/pure merge logic rather than DOM interactions.
+3. Finish Phase 4 sort/budget and multi-block lesson model with explicit compatibility/migration plan; do not silently replace existing inline courses.
+4. Implement Phase 6 using ARCHITECTURE XP rules: pure date/level/streak/badge tests, transactional xpEvents, dashboard/celebrations and parent-consented leaderboards. Quizzes currently provide practice feedback, NOT server-graded mastery or XP.
+5. Phase 7 creator/admin analytics using tracked stats, accessibility/mobile/e2e, then Vercel deployment and explicit live smoke checks.
 
-## Things the next agent must know
-- **Read `AGENTS.md`**: this Next.js (16.4) differs from older training data. Check `node_modules/next/dist/docs/` before using a Next API.
-- **Layouts don't protect pages** (ADR-011). Any new portal page must call a guarded data function or `requireRole()` itself. Every Server Action re-checks the user: validate with zod → check role → do the work → `updateTag`/`revalidatePath` → return `ActionResult`.
-- **Cache Components:**
-  - Anything that reads cookies or the session goes inside `<Suspense>`.
-  - No raw `new Date()` in prerendered server components.
-  - Client components using `useSearchParams` need a fallback that doesn't call it.
-  - Visited pages stay mounted but hidden: use `useId()` for ids; in tests count `:visible` elements, and read errors from `.form-error` (Next has its own empty `role=alert`).
-- **Catalogue:** public pages call `getCatalog()`. After changing resources or paths in a Server Action, call `updateTag(CATALOG_TAG)`.
-- **CSS:**
-  - Use `site-container`, not `container`.
-  - The prototype CSS styles every `<nav>` like the header menu, so override it, as `.portal-sidebar nav` does.
-  - New CSS goes in section 4 at the end of `globals.css`.
-  - Bare headings are weight 400, so set a weight.
-- **Header "Log in / My account"** reads a non-secret hint cookie (ADR-010). Never use it for access.
-- Prettier ignores `*.md`; `.gitattributes` forces LF. Node ≥ 22.12 (`.nvmrc` 24). On Windows Git Bash, set `MSYS_NO_PATHCONV=1` when passing `/routes` as arguments.
+## Code map and guardrails
+Read AGENTS.md, CLAUDE.md, DESIGN.md, ROADMAP, recent session log and installed Next docs before changes. Session/cookie reads stay in Suspense-safe request-time contexts; layouts alone do not protect data. All actions re-check role/ownership; firebase-admin bypasses client rules.
+Learner routes/actions: src/app/learn/courses; family actions: src/app/parent/actions.ts; profile: src/app/learn/profile; editor: src/app/creator/drafts; helpers: src/lib/course; private sync: src/lib/storage/{library,actions,account-store,guest-data} and components/layout/LibrarySync.tsx. ARCHITECTURE now documents actual current storage separately from planned storage.
 
-## Next steps (in order)
-1. **Finish Phase 2 browser verification** (table above). Fix anything found and log it.
-2. Optional small wins: adult "Forgot password" by email; an admin page for learning paths (resources used by a path can't be deleted until paths are editable).
-3. Owner tasks:
-   - create the Firebase project (Spark) and service account;
-   - set the Vercel env vars (README "Deploying to Vercel");
-   - deploy rules: `npx firebase deploy --only firestore:rules,firestore:indexes`;
-   - `npm run seed -- --prod`, then `npm run set-role -- <email> admin --prod`.
-4. **Phase 3** (ROADMAP): parent dashboard + add child (username + password), student profile (nickname + 12 avatars), signed-in bookmarks/notes in Firestore with guest → account merge.
-
-## Open questions (defaults in use until the owner answers)
-| Question | Default in use |
-| --- | --- |
-| Creator applicants: account with no role + "what happens next" note until an admin approves? | Yes (ADR-010); approval = admin sets role "Creator" in Users |
-| Starter badges (`src/data/seed/badges.ts`, 7 badges): names OK? | Seeded as written |
-| Can students aged 13–16 sign up themselves? | No; parent-created only |
-| Course images/PDFs hosting (Storage needs Blaze) | URLs + YouTube/Vimeo; Cloudinary proposed (ADR-004, pending) |
-| Bilingual UI from the start? | English first |
-| Classes for volunteers? | Not in v1 |
-| `.nvmrc` 24 (was 20.9.0 in the Vercel commit) | Node 24; firebase-admin 14 needs ≥ 22 |
-
-## Known issues / risks
-- Admin users list shows the first 1,000 accounts (no paging yet).
-- About says "No accounts or personal profiles are needed": revisit when student accounts arrive (Phase 3). The owner chose to keep the current About wording.
-- Firestore free tier: public pages cost reads only when the cache refreshes. The admin overview costs ~3 reads plus the audit list.
-- `npm run emulators` saves data to `.emulator-data/` only on a clean Ctrl+C exit.
-- Harmless warnings: a stray `package-lock.json` in the owner's Downloads folder; firebase-tools `url.parse()` deprecation notices.
+## Working tree and checkpoint
+Session began with extensive uncommitted earlier portal/course work, which was preserved and extended. The local checkpoint includes that related src/docs work together with this session's changes. scripts/ensure-admin-user.mjs was already untracked and is intentionally excluded. No env files, service-account files or secrets are included. No push/deploy was requested or performed.

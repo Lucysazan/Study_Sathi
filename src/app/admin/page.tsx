@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Database, UserPlus, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, ClipboardList, Database, UserPlus, Users } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PortalHeader } from '@/components/admin/PortalHeader';
@@ -14,6 +14,7 @@ const actionLabels: Record<string, string> = {
   'resource.create': 'Added a resource',
   'resource.update': 'Edited a resource',
   'resource.delete': 'Removed a resource',
+  'course.review': 'Reviewed a course',
 };
 
 const dateFormat = new Intl.DateTimeFormat('en-GB', {
@@ -46,6 +47,12 @@ export default async function AdminOverviewPage() {
       value: overview.pendingCreators,
       href: '/admin/users',
       Icon: UserPlus,
+    },
+    {
+      label: 'Course reviews',
+      value: overview.pendingCourseReviews,
+      href: '/admin/courses',
+      Icon: ClipboardList,
     },
   ];
 
