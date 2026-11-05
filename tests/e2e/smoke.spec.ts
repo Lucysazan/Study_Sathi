@@ -448,4 +448,3 @@ test('creator analytics shows recorded metrics and recovers from a missing cours
     .click();
   await expect(page).toHaveURL(/\/creator\/analytics$/);
 });
-

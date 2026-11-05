@@ -39,7 +39,7 @@ StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/cou
 - 43 emulator tests / 6 files PASS this session: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
 - Lint, typecheck, production build PASS. Public build used catalogue seed fallback; this does not prove live seeding.
 - 22 Playwright Chromium tests PASS across desktop/360px; see Session 14 coverage and limits. Native UI host is not needed for the automated suite. Production login/play-through is not yet verified.
-- Production rules deployed with explicit approval; live read-only config/query checks performed. Index creation denied by IAM. No env/service-account/IAM changes or production test-account writes. Push/deployment outcome to be recorded below.
+- Production rules deployed with explicit approval; live read-only config/query checks performed. Index creation denied by IAM. No env/service-account/IAM changes or production test-account writes. Release 30f4e35 pushed to origin/main (fast-forward from 80290cc), explicitly authorized. Vercel Git status confirms deployment in progress at https://vercel.com/susan-shresthas-projects-be9908c2/study-sathi/CXim7cA6Fab8EkFgE3684tyHX8jn; successful completion is not yet verified.
 
 ## Environment
 .env and .env.local retain NEXT_PUBLIC_USE_EMULATORS=false. Keep production parity. PowerShell uses npm.cmd/npx.cmd (npm.ps1 blocked). .nvmrc is 24; Node 26 host works with Firebase CLI engine warning. Some tests need approved execution outside sandbox for esbuild/CLI config.
@@ -58,6 +58,12 @@ Read AGENTS.md, CLAUDE.md, DESIGN, ROADMAP and logs. Use installed Next docs bef
 - lib/gamification: fixed new-lesson XP 10 + first daily lesson 5 + first course completion 50; Kathmandu dates/Sunday weeks; levels then +350 after 1000. First trusted correct quiz pass +5 once, no daily/lesson bonus; Digital Safety badge matches digital-safety only. Replays/legacy completions never gain retroactive lesson XP.
 - Leaderboard entries store XP only; guarded presentation returns nickname/avatar/rank/XP/isYou. Parent consent and award transactions share a boundary; opt-out/admin disable/role change revoke entries/consent. Re-enable never silently re-consents. Archived week entries are server-only.
 - Private library at users/{uid}/privateData/library; queued account sync, debounced/flush notes and idempotent guest merge. Existing account notes win and guest state clears only after confirmed success. Browser/offline acceptance remains pending.
+
+## Release follow-up
+- Live read-only probes: catalog/category/review and all five creator sums fail code 9 until the seven indexes exist; creator pagination and status counts pass. Do not mistake emulator/browser passes for live index readiness.
+- Owner was asked to run npx.cmd firebase login; instructions given for VS Code Terminal and cd .\Study_Sathi. Await login confirmation, then use owner credentials (not the denied service-account credentials) to deploy indexes and rerun npm run check:live -- --prod --project studysathi-20d2c.
+- Separate catalog seed attempt was blocked by automatic approval review because production data seeding was not explicitly approved. Asked whether npm run seed -- --prod may add missing resources/paths/badges; approval remains pending. No seed writes occurred.
+- Existing public site HTTP 200 for /, /login, /resources; unsigned /learn and /admin return 307 to login. These do not prove the new Git deployment finished or authenticated production behavior.
 
 ## Checkpoints
 Previous checkpoints include faf5409 and c112725. Session 11 code/docs/tests form a local metadata checkpoint. Pre-existing scripts/ensure-admin-user.mjs remains untracked/excluded. No env/service-account files staged; no push/deploy.

@@ -37,3 +37,7 @@ Record the intended Vercel project, domain and Firebase project before deploying
 7. On HTTPS, check login for each role, session cookie security, logout/revocation, parent ownership, creator submit/admin publish and student enroll/complete with dedicated acceptance accounts. Check catalog data and live queries (review queue, leaderboard, analytics) for missing indexes. Do not run the disposable emulator smoke suite against a live URL.
 
 Record actual deployment URL, commit, project, checks and any failures in HANDOVER/SESSION_LOG. Mark the deployment roadmap item complete only after the deployed site and live rules/indexes/data are verified.
+
+## Current project checkpoint (2026-11-05)
+
+Existing site: https://studysathisip.vercel.app/; Git origin Lucysazan/Study_Sathi, production branch main (confirmed by owner). The authorized push 30f4e35 started a Vercel deployment under study-sathi. Production Auth already authorizes the site. Rules release is deployed; seven indexes await an owner login because the Admin SDK service account cannot create indexes. No IAM permissions were changed. Use `npm run check:live -- --prod --project studysathi-20d2c` after index deployment; it prints query pass/fail only. Production catalog seeding needs the separately requested explicit approval.
