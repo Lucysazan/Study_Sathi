@@ -3,6 +3,7 @@
 Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until the previous one builds and its checks pass. If a task grows, split it here rather than doing it all at once.
 
 ## Current status (2026-11-05)
+- [ ] Production incident: Vercel auth API routes return empty HTTP 500 after successful deployment; obtain runtime logs and resolve before marking live signup accepted. Signup transport/retry fixes pass local production-mode tests.
 - Phases 0-2: implementation complete; Vercel deployment remains outstanding.
 - Phase 3: family accounts, profile, private library sync and merge implemented; browser acceptance checks remain.
 - Phase 4: creator/admin flow, nine activity formats and stacked lessons implemented; cover/language/checklist implemented; browser acceptance remains.
