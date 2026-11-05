@@ -1,9 +1,15 @@
 # Handover
 
-Last updated: 2026-11-05, Codex session 12. Branch: main.
+Last updated: 2026-11-05, Codex session 13. Branch: main.
 
 ## Current state
 StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/course flows, nine activity formats with stacked lessons, gamification/consented leaderboards and analytics are implemented. Cover/language metadata and submission checklist are now implemented. Student account toolbar, course discovery and linked-parent progress are implemented. Browser/mobile acceptance, accessibility/e2e and deployment remain unfinished. ROADMAP is current; do not claim all phases complete.
+
+## Session 13 changes
+- Accessibility code pass: mobile navigation Escape restores focus to the toggle; skip target is programmatically focusable; AccountForm exposes aria-busy and connects field errors with aria-invalid/aria-describedby and unique IDs.
+- Account field-group inputs/selects now use existing design tokens, 44px targets and constrained widths. Portal links have 44px targets and long learner/course text can wrap.
+- Student, parent, creator and admin segments now have loading, error retry and generic not-found screens with role-appropriate dashboard links. Shared PortalRecovery never renders raw errors or claims unsaved edits are safe. Existing analytics-specific boundaries remain.
+- These are source-level improvements. Desktop/360px, keyboard, zoom, screen-reader and contrast acceptance remain unverified; see docs/ACCEPTANCE.md for the next check sequence.
 
 ## Session 12 changes
 - Student toolbar inside the guarded /learn layout shows XP, level, fixed avatar, profile/saved links and logout. Its independent session read runs under Suspense; React cache shares account reads only within a request. Rewards/profile edits invalidate the learning layout.
@@ -21,9 +27,9 @@ StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/cou
 
 ## Validation
 - 141 unit tests / 29 files PASS.
-- 43 emulator tests / 6 files PASS: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
+- Previous Session 12 verification: 43 emulator tests / 6 files PASS: includes family ownership/role guards, matching enrollment and published-course privacy, discovery filtering, and all prior review/analytics/reward/consent/rules cases.
 - Lint, typecheck, production build PASS. Public build used catalogue seed fallback; this does not prove live seeding.
-- Browser/native host unavailable, rechecked. No visual/mobile, end-to-end click-through, cross-device or live index/query acceptance claimed.
+- Browser/native host was unavailable in prior sessions; no browser checks performed this session. No visual/mobile, end-to-end click-through, cross-device or live index/query acceptance claimed.
 - No live data/config mutation, env/service-account change, rules/index deployment, push or Vercel deploy performed.
 
 ## Environment
@@ -32,7 +38,7 @@ All integration writers require loopback FIRESTORE_EMULATOR_HOST and dedicated d
 
 ## Next work
 1. Browser acceptance of Phases 3-7: parent/child/reset/profile; private sync/merge/logout; metadata and stacked editor/autosave/review/publish; quizzes, XP/dashboard, leaderboard consent; analytics pagination/errors; keyboard and 360px layout. Browser host must be available for visual acceptance.
-2. Audit route-specific empty/error/loading states and accessibility; browser-check the new learning toolbar, discovery and parent progress summaries.
+2. Run docs/ACCEPTANCE.md for route recovery, keyboard/forms, zoom, screen readers and desktop/360px views. Portal boundaries and source-level accessibility fixes are implemented; acceptance remains pending.
 3. E2e smoke tests and final deployment/live smoke checks. No abandonment tracker exists: analytics show completion funnels only. No view-event TTL cleanup was deployed.
 
 ## Code map/invariants

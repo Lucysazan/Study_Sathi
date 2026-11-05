@@ -99,3 +99,6 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 
 ## 2026-11-05 - Session 12 - Codex
 Student account toolbar with request-scoped cached guarded reads and layout invalidation; bounded published-course discovery; parent summaries and ownership-guarded progress route; weekly lesson counter and Kathmandu rollover; reusable course progress summary. Added boundary and emulator ownership/discovery coverage.
+
+## 2026-11-05 - Session 13 - Codex
+Added shared PortalRecovery plus portal loading/error/not-found boundaries; preserved analytics overrides. Linked AccountForm field errors to inputs/selects and exposed busy state. Mobile menu Escape restores toggle focus; skip target accepts programmatic focus. Added scoped account controls, touch targets and text wrapping.

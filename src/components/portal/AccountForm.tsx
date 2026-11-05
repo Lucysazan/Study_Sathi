@@ -29,12 +29,22 @@ export function AccountForm({
     null,
   );
   return (
-    <form action={submit} className="auth-form" style={{ maxWidth: 560 }}>
+    <form action={submit} className="auth-form" style={{ maxWidth: 560 }} aria-busy={pending}>
       {fields.map((field) => (
         <div className="field-group" key={field.name}>
           {field.type !== 'hidden' && <label htmlFor={`${id}-${field.name}`}>{field.label}</label>}
           {field.options ? (
-            <select id={`${id}-${field.name}`} name={field.name} defaultValue={field.value}>
+            <select
+              id={`${id}-${field.name}`}
+              name={field.name}
+              defaultValue={field.value}
+              aria-invalid={(state && !state.ok && !!state.fieldErrors?.[field.name]) || undefined}
+              aria-describedby={
+                state && !state.ok && state.fieldErrors?.[field.name]
+                  ? `${id}-${field.name}-error`
+                  : undefined
+              }
+            >
               {field.options.map((value) => (
                 <option key={value} value={value}>
                   {field.name === 'avatarId' ? `${avatarGlyphs[value] ?? ''} ${value}` : value}
@@ -51,10 +61,18 @@ export function AccountForm({
               minLength={field.minLength}
               maxLength={field.maxLength}
               autoComplete={field.type === 'password' ? 'new-password' : 'off'}
+              aria-invalid={(state && !state.ok && !!state.fieldErrors?.[field.name]) || undefined}
+              aria-describedby={
+                state && !state.ok && state.fieldErrors?.[field.name]
+                  ? `${id}-${field.name}-error`
+                  : undefined
+              }
             />
           )}
           {state && !state.ok && state.fieldErrors?.[field.name] && (
-            <p className="form-error">{state.fieldErrors[field.name]}</p>
+            <p id={`${id}-${field.name}-error`} className="form-error">
+              {state.fieldErrors[field.name]}
+            </p>
           )}
         </div>
       ))}

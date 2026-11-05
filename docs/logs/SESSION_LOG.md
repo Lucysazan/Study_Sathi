@@ -145,3 +145,6 @@ Next: DESIGN polish, browser acceptance, accessibility/e2e and deployment/live v
 
 ## 2026-11-05 - Session 12 - Codex
 Goal: remaining Phase 7 DESIGN features. Implemented student toolbar, course discovery, linked-parent progress pages and trusted weekly lesson counts. Unit tests (141), lint, typecheck and production build pass. 43 isolated emulator tests / 6 files pass. Browser host previously unavailable; no visual/mobile or live acceptance claimed. Next: browser acceptance/accessibility/e2e and deployment. Existing untracked admin helper preserved; no env/live writes or push.
+
+## 2026-11-05 - Session 13 - Codex
+Goal: Phase 7 accessibility and route recovery source pass. Added portal boundaries, accessible field errors, mobile Escape focus restoration, focusable skip destination, 44px account/portal targets and narrow-screen wrapping. Lint/typecheck and 141 unit tests pass; build result in HANDOVER. No emulator rerun needed for UI-only changes; prior 43-test result remains historical. Browser/assistive-technology acceptance remains pending; next checks in docs/ACCEPTANCE.md. Preserved untracked admin helper; no env/live changes, push or deployment.

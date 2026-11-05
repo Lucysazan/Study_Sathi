@@ -90,11 +90,13 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [x] Creator analytics: paginated owned courses, recorded views/enrollments/completions, new-enrollment completion rate and per-lesson completion funnel
 - [ ] Browser acceptance of analytics, sparse/empty metrics and mobile completion charts
 - [x] Admin overview learning metrics and real creator workspace status counts
-- [ ] Accessibility pass (keyboard, screen reader labels, focus, contrast)
+- [x] Source-level accessibility fixes: account field errors/busy state, mobile Escape focus, skip target and portal/account touch targets
+- [ ] Browser accessibility acceptance (keyboard, screen reader labels, focus, zoom, contrast)
 - [x] Student learning account toolbar (XP/avatar/profile/logout), bounded published-course discovery and linked-parent progress summaries
 - [ ] Browser acceptance of student toolbar, discovery and parent progress at desktop/360px
 - [x] Shared root loading/error recovery plus analytics error/not-found and empty states
-- [ ] Audit all route-specific loading/error/empty states in the browser
+- [x] Portal-specific loading, retry and generic unavailable states (student/parent/creator/admin)
+- [ ] Audit all route-specific loading/error/empty states in the browser (docs/ACCEPTANCE.md)
 - [ ] Playwright smoke tests: login per role, complete a lesson, publish a course
 - [ ] Production deploy, rules deployed, seed run, authorized domains set
 

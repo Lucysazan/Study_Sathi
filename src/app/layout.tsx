@@ -34,7 +34,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           <LibrarySync />
         </Suspense>
         <StorageNotice />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>
+          {children}
+        </main>
         <Footer />
         <Toast />
       </body>

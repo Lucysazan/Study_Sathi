@@ -123,3 +123,6 @@ Use externally hosted image URLs and next/image unoptimized so arbitrary creator
 
 ## 2026-11-05 - Session 12 - Codex
 Use a Suspense-wrapped student account toolbar below the shared public header. Keep discovery deterministic and bounded (six candidates/three results). Parent progress exposes recorded totals and only the current published enrolled course, never private notes. Weekly lesson counts are prospective, reset on Sunday in Kathmandu, and separate from bonus/quiz XP.
+
+## 2026-11-05 - Session 13 - Codex
+Portal errors use the installed Next 16 retry prop and static role-appropriate return links, without raw error details or assurances about unsaved edits. Generic unavailable copy avoids disclosing whether a private record exists. Source fixes and browser accessibility acceptance are tracked separately. No dependencies added.

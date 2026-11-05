@@ -3,7 +3,7 @@
 import { Bookmark, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { isActivePath, mainNav } from '@/lib/nav';
 import { useSavedIds } from '@/lib/storage/guest-data';
 import { AccountLink } from './AccountLink';
@@ -26,11 +26,15 @@ function NavbarContent({ pathname }: { pathname: string | null }) {
   const open = openOn === pathname;
   const close = () => setOpenOn(undefined);
   const saved = useSavedIds();
+  const toggle = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpenOn(undefined);
+      if (e.key === 'Escape') {
+        setOpenOn(undefined);
+        toggle.current?.focus();
+      }
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -62,6 +66,7 @@ function NavbarContent({ pathname }: { pathname: string | null }) {
           {saved.length > 0 && <b>{saved.length}</b>}
         </Link>
         <button
+          ref={toggle}
           type="button"
           className="mobile-toggle icon-button"
           aria-label={open ? 'Close navigation' : 'Open navigation'}
