@@ -1,7 +1,7 @@
 'use server';
 
 import { awardLesson, noReward, type RewardReceipt } from '@/lib/gamification/awards';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue, FieldPath } from 'firebase-admin/firestore';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { type ActionResult, fail, ok } from '@/lib/actions';
@@ -45,10 +45,12 @@ export async function enrollInCourse(formData: FormData): Promise<ActionResult> 
           title: String(course.get('title') ?? 'Untitled course'),
           enrolledAt: FieldValue.serverTimestamp(),
           status: 'active',
+          analyticsVersion: 1,
         });
       if (!enrollment.exists)
         transaction.update(db.collection('courses').doc(courseId), {
           'stats.enrollments': FieldValue.increment(1),
+          'stats.analyticsEnrollments': FieldValue.increment(1),
         });
       transaction.update(db.collection('users').doc(user.uid), { currentCourseId: courseId });
       return ok();
@@ -130,8 +132,20 @@ export async function completeLesson(formData: FormData): Promise<ActionResult<R
         );
       }
 
-      if (allDone && !progressSnap.get('completedAt'))
-        transaction.update(courseRef, { 'stats.completions': FieldValue.increment(1) });
+      if (!completedLessons.includes(lessonId))
+        transaction.update(
+          courseRef,
+          new FieldPath('stats', 'lessonCompletions', lessonId),
+          FieldValue.increment(1),
+        );
+      if (allDone && !progressSnap.get('completedAt')) {
+        transaction.update(courseRef, {
+          'stats.completions': FieldValue.increment(1),
+          ...(enrollmentSnap.get('analyticsVersion') === 1
+            ? { 'stats.analyticsCompletions': FieldValue.increment(1) }
+            : {}),
+        });
+      }
       return ok(receipt);
     });
     if (result.ok) {

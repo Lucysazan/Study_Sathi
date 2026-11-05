@@ -7,7 +7,7 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - Phase 3: family accounts, profile, private library sync and merge implemented; browser acceptance checks remain.
 - Phase 4: creator/admin flow, nine activity formats and stacked lessons implemented; cover/language and browser acceptance remain.
 - Phase 5: lesson rendering, transactional progress, course resume and session views implemented; browser/mobile acceptance remains.
-- Phase 6: lesson/quiz rewards, levels, streaks, badges, dashboard and parent-consented leaderboards implemented; browser acceptance remains. Phase 7 analytics/polish remain unfinished.
+- Phase 6: lesson/quiz rewards, levels, streaks, badges, dashboard and parent-consented leaderboards implemented; browser acceptance remains. Phase 7 analytics and shared loading/error recovery implemented; browser accessibility/e2e and deployment remain unfinished.
 - Both local env files currently set NEXT_PUBLIC_USE_EMULATORS=false. Do not switch the app to emulators to hide production issues. Rules tests use their own demo project.
 - Automated checks are recorded in HANDOVER; a passing build does not imply browser, live Firebase or deployment acceptance.
 
@@ -86,10 +86,12 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 - [ ] Browser/mobile acceptance for quiz retries, leaderboard views and parent consent changes
 
 ## Phase 7 — Analytics and polish
-- [ ] Creator analytics (views, enrollments, completions, per-lesson drop-off)
-- [ ] Admin overview cards
+- [x] Creator analytics: paginated owned courses, recorded views/enrollments/completions, new-enrollment completion rate and per-lesson completion funnel
+- [ ] Browser acceptance of analytics, sparse/empty metrics and mobile completion charts
+- [x] Admin overview learning metrics and real creator workspace status counts
 - [ ] Accessibility pass (keyboard, screen reader labels, focus, contrast)
-- [ ] Error/empty/loading states on every route
+- [x] Shared root loading/error recovery plus analytics error/not-found and empty states
+- [ ] Audit all route-specific loading/error/empty states in the browser
 - [ ] Playwright smoke tests: login per role, complete a lesson, publish a course
 - [ ] Production deploy, rules deployed, seed run, authorized domains set
 

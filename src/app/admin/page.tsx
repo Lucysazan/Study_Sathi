@@ -1,3 +1,4 @@
+import { AnalyticsMetrics } from '@/components/course/AnalyticsMetrics';
 import { ArrowRight, BookOpen, ClipboardList, Database, UserPlus, Users } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -72,6 +73,14 @@ export default async function AdminOverviewPage() {
           </Link>
         ))}
       </div>
+
+      <section className="admin-card">
+        <h2>Learning activity</h2>
+        <p>
+          {overview.learning.courses} courses, including {overview.learning.published} published.
+        </p>
+        <AnalyticsMetrics metrics={overview.learning} />
+      </section>
 
       {catalog.source === 'seed' && (
         <div className="notice">

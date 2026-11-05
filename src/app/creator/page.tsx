@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import { SignOutButton } from '@/components/auth/SignOutButton';
 import { PortalLoading } from '@/components/portal/PortalShell';
-import { requireRole } from '@/lib/auth/session';
+import { getCreatorWorkspace } from '@/lib/analytics/courses';
 
 export const metadata: Metadata = { title: 'Creator studio', robots: { index: false } };
 
@@ -17,7 +17,7 @@ export default function CreatorPage() {
 }
 
 async function CreatorDashboard() {
-  const user = await requireRole(['creator'], '/creator');
+  const user = await getCreatorWorkspace();
   const firstName = user.name?.split(' ')[0] ?? 'Creator';
 
   return (
@@ -30,8 +30,8 @@ async function CreatorDashboard() {
         <div>
           <h3>Course workspace</h3>
           <p>
-            Drafts, lesson plans, and classroom-ready content will live here as the course builder
-            comes online.
+            Build lessons, submit your courses for review, and see how learners use your published
+            courses.
           </p>
         </div>
       </div>
@@ -41,12 +41,23 @@ async function CreatorDashboard() {
           <PlusCircle size={18} aria-hidden="true" />
           New course
         </Link>
-        <Link href="/creator/drafts" className="button secondary" aria-label="Open your saved drafts">
+        <Link
+          href="/creator/drafts"
+          className="button secondary"
+          aria-label="Open your saved drafts"
+        >
           My drafts
         </Link>
-        <Link href="/creator/apply" className="button secondary" aria-label="Review creator guidelines">
+        <Link
+          href="/creator/apply"
+          className="button secondary"
+          aria-label="Review creator guidelines"
+        >
           <Compass size={18} aria-hidden="true" />
           Guidelines
+        </Link>
+        <Link href="/creator/analytics" className="button secondary">
+          Course analytics
         </Link>
       </div>
 
@@ -54,9 +65,9 @@ async function CreatorDashboard() {
         <div className="module-card" style={{ padding: '1rem 1.25rem' }}>
           <h3 style={{ margin: 0 }}>Your workspace</h3>
           <ul style={{ margin: '0.75rem 0 0', paddingLeft: '1.1rem' }}>
-            <li>Drafts: 0</li>
-            <li>Submitted for review: 0</li>
-            <li>Published courses: 0</li>
+            <li>Drafts: {user.draft}</li>
+            <li>Submitted for review: {user.review}</li>
+            <li>Published courses: {user.published}</li>
           </ul>
         </div>
       </div>

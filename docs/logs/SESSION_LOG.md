@@ -130,3 +130,9 @@ Checks: lint/typecheck/build pass; 28 emulator tests passed. Final unit count re
 Next: Phase 3-6 browser acceptance, remaining cover/language metadata, then Phase 7 analytics, accessibility/e2e and deployment checks.
 
 Session 9 final verification: 127 unit tests / 25 files PASS; 28 emulator tests / 3 files PASS; lint, typecheck and production build PASS.
+
+## 2026-11-05 - Session 10 - Codex
+Goal: Phase 7 analytics and error-state foundation.
+Done: owner-scoped paginated creator analytics and lesson funnels, real studio status counts, admin learning aggregates, versioned new-enrollment completion rates and literal per-lesson counters, shared root loading/error recovery and analytics-specific states. Documented prospective limits and avoided student identity/private-progress reads.
+Checks: 131 unit tests, 36 isolated emulator tests, lint/typecheck/build PASS. Browser host unavailable; no visual/mobile/live acceptance or deployment claimed.
+Next: browser acceptance, cover/language metadata, accessibility/e2e, deployment/live checks. Existing untracked admin helper preserved; env/service accounts excluded.

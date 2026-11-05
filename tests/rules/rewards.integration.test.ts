@@ -8,7 +8,7 @@ vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
 vi.mock('@/lib/auth/session', () => ({ requireRole: async () => ({ uid, role: 'student' }) }));
 vi.mock('@/lib/firebase/admin', () => ({ adminDb: () => db }));
 
-import { completeLesson } from '@/app/learn/courses/actions';
+import { completeLesson, enrollInCourse } from '@/app/learn/courses/actions';
 import { getStudentDashboard } from '@/lib/gamification/dashboard';
 import { submitQuiz } from '@/app/learn/courses/quiz';
 
@@ -86,6 +86,45 @@ function input(lessonId: string) {
 }
 
 describe('reward and completion transactions against Firestore', () => {
+  it('counts a comparable analytics cohort once for a new enrollment and course completion', async () => {
+    await db.collection('courseEnrollments').doc(`${uid}_${courseId}`).delete();
+    expect((await enrollInCourse(input('one'))).ok).toBe(true);
+    await Promise.all([completeLesson(input('one')), completeLesson(input('two'))]);
+    await enrollInCourse(input('one'));
+    await completeLesson(input('two'));
+    const course = await db.collection('courses').doc(courseId).get();
+    expect(course.get('stats.analyticsEnrollments')).toBe(1);
+    expect(course.get('stats.analyticsCompletions')).toBe(1);
+  });
+  it('stores dotted lesson IDs as literal counter keys', async () => {
+    await db
+      .collection('courses')
+      .doc(courseId)
+      .update({
+        outline: {
+          modules: [
+            {
+              id: 'part',
+              title: 'A part',
+              lessons: [
+                {
+                  id: 'lesson.with.dot',
+                  title: 'A lesson',
+                  kind: 'text',
+                  duration: '2 min',
+                  content: 'A lesson with a legacy dotted ID.',
+                },
+              ],
+            },
+          ],
+        },
+      });
+    expect((await completeLesson(input('lesson.with.dot'))).ok).toBe(true);
+    const course = await db.collection('courses').doc(courseId).get();
+    expect(course.get('stats.lessonCompletions')).toEqual({ 'lesson.with.dot': 1 });
+    // Existing fixture enrollment is historical; do not count it in the new cohort.
+    expect(course.get('stats.analyticsCompletions')).toBeUndefined();
+  });
   it('grades a stored child quiz and awards its first successful pass only once across tabs', async () => {
     const answer = { courseId, lessonId: 'one', quizId: 'check', answer: 'Right', xp: 999999 };
     const wrong = await submitQuiz({ ...answer, answer: 'Wrong' });
@@ -163,8 +202,10 @@ describe('reward and completion transactions against Firestore', () => {
     expect(user.get('stats.courseCount')).toBe(1);
     expect(new Set(progress.get('completedLessons'))).toEqual(new Set(['one', 'two']));
     expect(course.get('stats.completions')).toBe(1);
+    expect(course.get('stats.lessonCompletions')).toEqual({ one: 1, two: 1 });
     await completeLesson(input('two'));
     expect((await user.ref.get()).get('stats.xp')).toBe(75);
+    expect((await course.ref.get()).get('stats.lessonCompletions')).toEqual({ one: 1, two: 1 });
     const dashboard = await getStudentDashboard();
     expect(dashboard.stats.xp).toBe(75);
     expect(dashboard.continuing).toMatchObject({ complete: true, done: 2, total: 2 });

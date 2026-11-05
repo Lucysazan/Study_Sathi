@@ -43,6 +43,28 @@ beforeEach(async () => {
 });
 
 describe('default deny', () => {
+  it('prevents forged analytics totals and enrollment cohort markers', async () => {
+    await seed(env, {
+      'courses/analytics-course': { status: 'published', stats: { views: 1 } },
+      'courseEnrollments/student-1_analytics-course': {
+        userId: 'student-1',
+        courseId: 'analytics-course',
+      },
+    });
+    await assertFails(
+      asUser(student)
+        .doc('courses/analytics-course')
+        .update({ 'stats.lessonCompletions.lesson': 999 }),
+    );
+    await assertFails(
+      asUser(admin).doc('courses/analytics-course').update({ 'stats.analyticsCompletions': 999 }),
+    );
+    await assertFails(
+      asUser(student)
+        .doc('courseEnrollments/student-1_analytics-course')
+        .update({ analyticsVersion: 1 }),
+    );
+  });
   it('keeps leaderboard writes and participant records server-only', async () => {
     await seed(env, { 'leaderboards/all-time/entries/student-1': { xp: 100 } });
     await assertFails(asUser(student).doc('leaderboards/all-time/entries/student-1').get());

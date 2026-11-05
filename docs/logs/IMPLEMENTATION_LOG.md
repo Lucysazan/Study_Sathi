@@ -84,3 +84,9 @@ Format: `- [phase.task] <what changed> — <files> — <why> (<commit>)`
 - Linked-parent consent writes entries atomically; awards read consent in their transaction so opt-out cannot be undone by a concurrent reward. Disable/role changes revoke visibility and remove current entries.
 - Added explicit digital-safety course category and canonical safety badge rule; catalogue and creator use the same category list.
 - Added emulator tests for authorization, double quiz awards, legacy quizzes, privacy, old-week reset, beyond-top-ten rank, ties, consent/reward races and administrative withdrawal.
+
+## 2026-11-05 - Session 10
+- Added authenticated creator analytics summary/list/detail and admin learning metrics. Queries scope creator ownership, paginate 20 courses and project list fields; independent sum aggregates preserve sparse legacy counters. Removed hard-coded creator workspace zero counts.
+- Added transactional per-lesson completion counters using FieldPath for literal IDs and a versioned new-enrollment cohort for an honest completion rate. Replays/concurrency cannot inflate counts; historical enrollments are excluded from the new rate. No raw student records are read for creator analytics.
+- Added semantic metric cards, relative per-lesson completion bars, clear tracking limitations, global loading/error recovery using Next 16 retry, and analytics-specific retry/not-found/empty states.
+- Added pure metric tests and isolated emulator ownership, role, sparse aggregate, pagination, cohort and dotted-ID tests. 131 unit and 36 emulator tests pass; build/lint/typecheck pass. Browser host remains unavailable.

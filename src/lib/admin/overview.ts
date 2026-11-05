@@ -1,4 +1,5 @@
 import 'server-only';
+import { getAdminLearningMetrics } from '@/lib/analytics/courses';
 import { adminAuth, adminDb } from '@/lib/firebase/admin';
 import { type AuditEntry, recentAudit } from './audit';
 import { countPendingCourseReviews } from './courses';
@@ -13,16 +14,19 @@ export async function getAdminOverview(): Promise<{
   pendingCreators: number;
   pendingCourseReviews: number;
   activity: AuditEntry[];
+  learning: Awaited<ReturnType<typeof getAdminLearningMetrics>>;
 }> {
   const admin = await requireAdmin();
   const db = adminDb();
-  const [resources, users, pendingCreators, pendingCourseReviews, activity] = await Promise.all([
-    db.collection('resources').count().get(),
-    adminAuth().listUsers(1000),
-    countPendingCreators(),
-    countPendingCourseReviews(),
-    recentAudit(db),
-  ]);
+  const [resources, users, pendingCreators, pendingCourseReviews, activity, learning] =
+    await Promise.all([
+      db.collection('resources').count().get(),
+      adminAuth().listUsers(1000),
+      countPendingCreators(),
+      countPendingCourseReviews(),
+      recentAudit(db),
+      getAdminLearningMetrics(),
+    ]);
   return {
     adminName: admin.name,
     resourceCount: resources.data().count,
@@ -30,5 +34,6 @@ export async function getAdminOverview(): Promise<{
     pendingCreators,
     pendingCourseReviews,
     activity,
+    learning,
   };
 }
