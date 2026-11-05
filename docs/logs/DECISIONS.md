@@ -141,3 +141,6 @@ Use a no-store JSON endpoint for the ID-token account-setup exchange, matching t
 
 ## 2026-11-05 - Session 18 - Production Firebase auth module compatibility
 Vercel logs identify jwks-rsa requiring ESM-only jose as the actual auth runtime failure. Reproduced with --no-experimental-require-module; a normal local Node process masks it. Override only jwks-rsa/jose to the published CommonJS-compatible 5.10.0, retaining jose 6 for other consumers and firebase-admin 14.5.0. Pin Node engines to 24.x matching .nvmrc. This is a scoped compatibility exception across a transitive major version; public RSA JWK resolution/signature regression and restrictive production-browser startup verify the used API path. Review/remove when upstream supports the runtime. References: https://github.com/auth0/node-jwks-rsa/issues/507 and https://vercel.com/docs/functions/runtimes/node-js/node-js-versions .
+
+## 2026-11-05 - Session 19 - Codex
+For Windows lockfile reinstall checks, use an isolated folder while a dev server is running. An in-place install can leave native files locked and an existing Turbopack process with stale resolution references; stop/restart only the verified project server when recovery is necessary.

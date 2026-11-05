@@ -1,9 +1,15 @@
 # Handover
 
-Last updated: 2026-11-05, Codex session 18. Branch: main.
+Last updated: 2026-11-05, Codex session 19. Branch: main.
 
 ## Current state
 StudySathi is a Next.js 16.4.5 + Firebase LMS. Core public/auth/admin/family/course flows, nine activity formats with stacked lessons, gamification/consented leaderboards and analytics are implemented. Cover/language metadata and submission checklist are now implemented. Student account toolbar, course discovery and linked-parent progress are implemented. Desktop/360px Chromium smoke tests now pass. Production application deployment, catalog seeding, rules, Auth domain and all ten live query/index probes are verified. Broader assistive-technology/manual acceptance and authenticated production play-through remain unfinished. ROADMAP is current; do not claim all phases complete.
+
+## Session 19 local dev recovery
+- User saw Turbopack Could not find Next.js package after the earlier dependency reinstall. next/package.json exists and resolves to 16.4.5; the active dev server had retained pre-reinstall references.
+- Identified the exact project Node dev-server/worker processes on port 3000, stopped only those, and restarted this project's Next dev server as a hidden background process. No dependency reinstall, config change, cache deletion or live deployment was needed.
+- Local /login and /signup return HTTP 200 with expected page text and no missing-Next package error. Background logs are ignored .firebase/local-dev.stdout.log and .firebase/local-dev.stderr.log. Existing user browser also triggered an unrelated learning-path instant-shell-url-data diagnostic; not covered by this repair.
+- Avoid in-place npm ci while an active dev server holds native module files. Use an isolated install folder for lockfile checks or stop the verified project server first. Existing untracked admin helper preserved.
 
 ## Production auth incident: resolved in cec1ab3
 User supplied Vercel runtime logs: firebase-admin/auth -> jwks-rsa 4.1.0 -> jose 6.2.15 throws ERR_REQUIRE_ESM before the handlers load. The same logs include a stale /signup Server Action ID from an older page/deployment. Static pages and direct local Admin SDK probes do not establish live API health.
