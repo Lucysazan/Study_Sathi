@@ -146,3 +146,5 @@ Final catalog expansion: 137 government PDF records (all verified by HEAD/PDF co
 - Original topic explanations/examples can be saved as small offline text files; no provider media caching, service worker or offline grading. A visual Sets activity offers immediate local feedback without points or persistence.
 - Reader/player resource-help panels copy source details for sharing. They do not submit/store reports, and caption/sign-language support remains provider-dependent. Existing editions/check dates/source links remain visible.
 - No dependencies, credentials, database rules/schema, production fixtures or OLE content added. Human teacher review, source permissions, native-speaker review and full assistive-technology/real-device acceptance remain external work.
+
+Study player layout follow-up: keep resource-help inside the player column so the existing two-column player/lesson-browser layout remains intact.

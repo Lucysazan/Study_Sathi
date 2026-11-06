@@ -64,8 +64,8 @@ export function PlaylistPlayer({ playlist }: { playlist: SchoolPlaylist }) {
           unavailable or embedding is disabled, use the original playlist. No videos are downloaded
           or rehosted.
         </p>
+        <ResourceFeedback title={playlist.title} />
       </div>
-      <ResourceFeedback title={playlist.title} />
       <aside className="lesson-browser">
         <h2>Choose a lesson</h2>
         <label htmlFor="lesson-search">Search lesson or chapter title</label>
