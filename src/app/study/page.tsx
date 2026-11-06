@@ -1,8 +1,10 @@
-﻿import type { Metadata } from 'next';
+import { LibrarySearch } from '@/components/academic/LibrarySearch';
+import { StudyTools, StudyText } from '@/components/academic/StudyTools';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BookOpen, PlayCircle, GraduationCap } from 'lucide-react';
 import { GradeGrid } from '@/components/academic/LibraryNavigation';
-import { schoolLibrary } from '@/lib/academic/library';
+import { bookPath, playlistPath, subjectLabels, schoolLibrary } from '@/lib/academic/library';
 export const metadata: Metadata = {
   title: 'Class-wise learning | Classes 1-12',
   description:
@@ -14,7 +16,9 @@ export default function AcademicHome() {
       <div className="library-heading">
         <div>
           <div className="eyebrow">LEARN BY CLASS</div>
-          <h1>Select your class</h1>
+          <h1>
+            <StudyText en="Select your class" ne="कक्षा छान्नुहोस्" />
+          </h1>
           <p>One place for your textbooks and video lessons. Choose a class, then a subject.</p>
         </div>
         <GraduationCap size={88} aria-hidden="true" />
@@ -29,6 +33,33 @@ export default function AcademicHome() {
         </span>
         <span>English and Nepali materials</span>
       </div>
+      <StudyTools />
+      <LibrarySearch
+        items={[
+          ...schoolLibrary.books.map((b) => ({
+            id: b.id,
+            title: b.title,
+            grade: b.grade,
+            subject: subjectLabels[b.subject]?.name || b.subject,
+            language: b.language,
+            edition: b.edition,
+            kind: 'PDF',
+            path: bookPath(b),
+          })),
+          ...schoolLibrary.playlists.flatMap((p) =>
+            p.videos.map((v) => ({
+              id: p.id + v.id,
+              title: v.title,
+              grade: p.grade,
+              subject: subjectLabels[p.subject]?.name || p.subject,
+              language: p.language,
+              edition: '',
+              kind: 'Video lesson',
+              path: playlistPath(p) + '?video=' + v.id,
+            })),
+          ),
+        ]}
+      />
       <GradeGrid />
       <p className="library-source-note">
         Resources are credited to CDC and NCED Virtual. Coverage varies by subject and grade. These

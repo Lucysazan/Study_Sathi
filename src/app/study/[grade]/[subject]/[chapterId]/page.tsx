@@ -1,3 +1,5 @@
+import { SetExplorer } from '@/components/academic/SetExplorer';
+import { ChapterResources } from '@/components/academic/ChapterResources';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import Link from 'next/link';
@@ -66,6 +68,8 @@ export default async function ChapterPage({
       <Suspense fallback={<p role="status">Loading textbook connection…</p>}>
         <TextbookReader />
       </Suspense>
+      <ChapterResources chapter={chapter} />
+      {chapter.id === 'sets' && <SetExplorer />}
       <section id="explanation">
         <h2>Explanation and worked examples</h2>
         {chapter.skills.map((skill) => (

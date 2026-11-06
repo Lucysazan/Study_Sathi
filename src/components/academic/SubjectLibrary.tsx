@@ -1,3 +1,4 @@
+import { StudyTools, StudyText } from './StudyTools';
 import Link from 'next/link';
 import { BookOpen, PlayCircle } from 'lucide-react';
 import { bookPath, playlistPath, subjectLabels, subjectMaterials } from '@/lib/academic/library';
@@ -16,6 +17,7 @@ export function SubjectLibrary({ grade, subject }: { grade: number; subject: str
       <p className="library-nepali" lang="ne">
         {meta?.nepali}
       </p>
+      <StudyTools />
       <div className="library-modes">
         <a href="#textbooks">
           <BookOpen aria-hidden="true" /> Read · {books.length} PDFs
@@ -25,7 +27,9 @@ export function SubjectLibrary({ grade, subject }: { grade: number; subject: str
         </a>
       </div>
       <section id="textbooks">
-        <h2>Read textbooks</h2>
+        <h2>
+          <StudyText en="Read textbooks" ne="पाठ्यपुस्तक पढ्नुहोस्" />
+        </h2>
         <p>
           View the PDF here or open the government-hosted original to save a copy. Match the edition
           to your school’s syllabus.
@@ -68,7 +72,9 @@ export function SubjectLibrary({ grade, subject }: { grade: number; subject: str
         )}
       </section>
       <section id="video-lessons">
-        <h2>Watch subject lessons</h2>
+        <h2>
+          <StudyText en="Watch subject lessons" ne="विषयका पाठ हेर्नुहोस्" />
+        </h2>
         <p>
           NCED Virtual’s playlists play inside StudySathi. Use the player’s playlist menu to reach
           the full collection.

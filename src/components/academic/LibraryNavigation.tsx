@@ -1,3 +1,4 @@
+import { StudyText } from './StudyTools';
 import Link from 'next/link';
 import { BookOpen, Calculator, FlaskConical, Globe, Heart, Languages } from 'lucide-react';
 import {
@@ -20,7 +21,7 @@ export function LibraryBreadcrumb({
   return (
     <div className="library-breadcrumb" aria-label="Breadcrumb">
       <Link href="/study" prefetch={false}>
-        All classes
+        <StudyText en="All classes" ne="सबै कक्षा" />
       </Link>
       {grade && (
         <>
@@ -34,7 +35,10 @@ export function LibraryBreadcrumb({
         <>
           <span aria-hidden="true">/</span>
           <Link href={subjectPath(grade, subject)} prefetch={false}>
-            {subjectLabels[subject]?.name}
+            <StudyText
+              en={subjectLabels[subject]?.name || subject}
+              ne={subjectLabels[subject]?.nepali || subject}
+            />
           </Link>
         </>
       )}
@@ -105,7 +109,9 @@ export function SubjectGrid({ grade }: { grade: number }) {
             <span className="subject-disc">
               <Icon size={40} aria-hidden="true" />
             </span>
-            <strong>{subject.name}</strong>
+            <strong>
+              <StudyText en={subject.name} ne={subject.nepali} />
+            </strong>
             <span lang="ne">{subject.nepali}</span>
             <small>
               {books} PDFs · {playlists} playlists

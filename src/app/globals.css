@@ -3581,3 +3581,12 @@
 @media(max-width:800px) { .playlist-layout { grid-template-columns: 1fr; } .subject-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .grade-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
 @media(max-width:480px) { .grade-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; } .grade-tile { min-height: 170px; } .material-grid { grid-template-columns: 1fr; } .subject-grid { gap: 12px; } .subject-tile { padding: 20px 12px; } .subject-tile strong { font-size: .95rem; } .subject-disc { width: 82px; height: 82px; } .library-heading > svg { display: none; } .video-placeholder { padding: 24px; } .library-modes a { flex: 1; justify-content: center; } }
 @media(prefers-reduced-motion:reduce) { .grade-tile { transition: none; } }
+
+/* Public study discovery and saved activity */
+.study-tools { padding: 1.25rem; margin: 1.5rem 0; border: 1px solid var(--border, #e2e8df); border-radius: 18px; background: white; overflow-wrap: anywhere; }
+.study-tools label { display: grid; gap: .4rem; }
+.library-filters { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 1rem; margin-top: 1rem; }
+.study-tools input, .study-tools select { width: 100%; min-width: 0; min-height: 44px; padding: .6rem; border: 1px solid #64748b; border-radius: 8px; background: white; color: #172b4d; }
+.study-tools li { margin-block: .8rem; }
+.study-tools h2 { font-size: clamp(1.25rem, 3vw, 1.65rem); line-height: 1.4; }
+.catalog-results { max-height: 28rem; overflow-y: auto; padding-right: .75rem; }

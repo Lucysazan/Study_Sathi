@@ -1,12 +1,23 @@
 'use client';
+import { useStudyStorage, useRequestedVideo } from './useStudyStorage';
 import { useState } from 'react';
+import { rememberStudy, ResourceFeedback } from './StudyTools';
 import type { SchoolPlaylist } from '@/lib/academic/library';
 import { playlistEmbedUrl } from '@/lib/academic/library-media';
 
 export function PlaylistPlayer({ playlist }: { playlist: SchoolPlaylist }) {
-  const [selected, setSelected] = useState(playlist.videos[0]?.id);
+  const saved = useStudyStorage('study-video-' + playlist.id);
+  const [chosen, setSelected] = useState<string | undefined>();
   const [loaded, setLoaded] = useState(false);
   const [query, setQuery] = useState('');
+  const requested = useRequestedVideo();
+  const selected =
+    chosen ||
+    (playlist.videos.some((v) => v.id === requested)
+      ? requested
+      : playlist.videos.some((v) => v.id === saved)
+        ? saved
+        : playlist.videos[0]?.id);
   const videos = playlist.videos.filter((video) =>
     video.title.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
   );
@@ -54,6 +65,7 @@ export function PlaylistPlayer({ playlist }: { playlist: SchoolPlaylist }) {
           or rehosted.
         </p>
       </div>
+      <ResourceFeedback title={playlist.title} />
       <aside className="lesson-browser">
         <h2>Choose a lesson</h2>
         <label htmlFor="lesson-search">Search lesson or chapter title</label>
@@ -75,6 +87,7 @@ export function PlaylistPlayer({ playlist }: { playlist: SchoolPlaylist }) {
                 aria-pressed={selected === video.id}
                 onClick={() => {
                   setSelected(video.id);
+                  rememberStudy(video.title, 'study-video-' + playlist.id, video.id);
                   setLoaded(true);
                 }}
               >

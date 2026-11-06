@@ -138,3 +138,13 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Final regression/build and live deployment verification: 8886a0e deployed; 169 unit /40 browser cases pass; anonymous live mobile library controls verified.
 - [ ] Fill remaining subject/edition gaps through reviewed, permitted sources; do not claim complete syllabus coverage.
 - [ ] Real-device PDF/full-playback audit and educational review.
+
+## Study journey additions (2026-11-06)
+- [x] Search all indexed books/video titles with class/subject/material/language filters and edition keywords.
+- [x] Browser-local reader/lesson selection, continue link and erase control.
+- [x] Limited Nepali study navigation and instructions (native-speaker review pending).
+- [x] Original topic companions: textbooks, title-matched videos, existing graded checks/revision and downloadable offline original notes.
+- [x] Original visual Sets activity and source/accessibility help with copyable resource details.
+- [ ] Verify new desktop/mobile regression and deploy.
+- [ ] Teacher-reviewed curriculum/chapter/page mapping beyond the three existing topic pilots.
+- [ ] Complete Nepali localization, native-speaker review, accessible-resource audit and permitted provider offline packs.

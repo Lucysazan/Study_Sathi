@@ -35,3 +35,12 @@ No Firebase schema/rules/index changes or new dependencies/secrets are required 
 
 
 Regression notes: legacy custom textbook configuration now streams at request time inside Suspense, and admin mutations refresh only the admin form. Library destination links disable partial prefetch to avoid stale partial navigation responses. The mobile test explicitly waits for /study before selecting a class, preventing a race with same-named class links retained from the homepage. Global partialPrefetching remains enabled; an experimental toggle was reverted after identifying the test race.
+
+## 2026-11-06 - Study discovery and chapter companions
+- Added public /study search across all indexed book and video titles, with class, subject, material and language filters; edition text is searchable. Results cap at 30 and link to the selected video.
+- Reader page jumps and selected playlist lessons persist locally with a continue link and explicit clear control. These are reading/selection preferences, not verified viewing completion or synced academic progress. Native PDF scrolling and YouTube playback timestamps cannot be observed by this implementation.
+- Added English/Nepali study instructions, heading/breadcrumb/subject navigation and Read/Watch headings. This is a limited study-interface translation, not full-site translation; native-speaker review remains pending.
+- Existing three original Grade 9 Maths topic pages now connect subject textbooks, title-matched videos and existing graded practice/revision. Exact official chapter/page mappings are unverified; no new all-grade chapter coverage is claimed.
+- Original topic explanations/examples can be saved as small offline text files; no provider media caching, service worker or offline grading. A visual Sets activity offers immediate local feedback without points or persistence.
+- Reader/player resource-help panels copy source details for sharing. They do not submit/store reports, and caption/sign-language support remains provider-dependent. Existing editions/check dates/source links remain visible.
+- No dependencies, credentials, database rules/schema, production fixtures or OLE content added. Human teacher review, source permissions, native-speaker review and full assistive-technology/real-device acceptance remain external work.
