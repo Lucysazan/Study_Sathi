@@ -135,6 +135,6 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] In-site native PDF reading, page jump and original-file open/save fallback.
 - [x] Full-playlist YouTube embeds, selected lesson switching and searchable indexed lesson titles.
 - [x] Preserve original practice routes and account/course tools; explain source/edition/coverage limits.
-- [ ] Final regression/build and live deployment verification for the class-wise release.
+- [x] Final regression/build and live deployment verification: 8886a0e deployed; 169 unit /40 browser cases pass; anonymous live mobile library controls verified.
 - [ ] Fill remaining subject/edition gaps through reviewed, permitted sources; do not claim complete syllabus coverage.
 - [ ] Real-device PDF/full-playback audit and educational review.
