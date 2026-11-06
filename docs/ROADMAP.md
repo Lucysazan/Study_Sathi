@@ -156,4 +156,4 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [ ] Confirm publisher file recovery or a verified official replacement; real PDF rendering remains unverified.
 
 - [x] Implement optional attributed OLE class-library fallback without rehosting; verify a real alternative PDF response.
-- [ ] Verify embedded alternative navigation and deploy recovery release.
+- [x] 52a1139 deployed; live 360px embedded Class 6 Maths/Sets navigation reaches actual PDF HTTP 200 with no page errors/outer overflow.
