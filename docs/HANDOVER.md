@@ -2,6 +2,9 @@
 
 Last updated: 2026-11-06, Codex session 24. Branch: main.
 
+## Efficient alternative reader release
+Optional credited OLE grade-library reader added to subject/book pages. Actual OLE Class 6 Sets PDF GET returns 200 application/pdf and %PDF- prefix; public grade navigation verified for 1/6/9/12. This is alternative material, not replacement copies of all 137 books. Government iframe now opt-in; original link/retry preserved. No media copies/proxy/storage/API keys. Validation: lint/typecheck, 169 unit tests and all six targeted production-build desktop/mobile library/discovery cases pass. Actual local embedded OLE navigation Class 6 -> Maths -> Sets -> document succeeds; its PDF content responds 200/%PDF-. Government originals remain unavailable. Deployment pending.
+
 ## Session 24 - PDF provider failure
 Actual PDF delivery is currently failing in sampled browser/Node requests (cdc-113, cdc-150, cdc-570), although HEAD checks succeed. No confirmed working replacement. Reader now offers prominent publisher-listing fallback, retry and hide controls; checker upgraded to actual PDF-prefix GET checks. This is graceful recovery, not restoration of government files. Targeted production-build desktop/mobile library regression (2 cases), 169 unit tests, lint and typecheck pass. 16d5f78 fallback deployment is successful. User confirms every PDF fails. All 137 catalog PDFs share giwmscdnone.gov.np; current publisher listing still uses those URLs. Published old CDC storage links tested return 404; official library/CEHRD alternatives tested timed out, so no working replacement verified. Library-wide incident notice added to study home, subject and sources pages. File recovery is still outstanding.
 

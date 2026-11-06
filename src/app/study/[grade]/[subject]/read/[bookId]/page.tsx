@@ -37,8 +37,8 @@ export default async function ReadPage({ params }: { params: Promise<Params> }) 
       <div className="library-source-note">
         <h2>Original source</h2>
         <p>
-          This PDF is displayed directly from the government’s server. StudySathi does not own or
-          rehost it. Check the book’s edition against your school’s current syllabus.
+          When enabled, this PDF loads directly from the government’s server. StudySathi does not
+          own or rehost it. Check the book’s edition against your school’s current syllabus.
         </p>
         <a href={book.sourceUrl} target="_blank" rel="noopener noreferrer">
           View official source

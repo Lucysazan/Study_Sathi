@@ -162,3 +162,6 @@ Class-library regression follow-up: scoped library links use prefetch=false afte
 
 ## 2026-11-06 - Study journey scope following OLE comparison
 User authorized all useful comparison points, including Nepali navigation and lightweight offline material (superseding their previous deferred status for this narrow study scope). Reuse existing server-graded original topic checks rather than invent official curricula. Match suggested videos by title with clear unreviewed labels; never fabricate chapter/page mappings. Keep resume data browser-local and erasable; no XP from reading/selection. Offer original text downloads instead of caching provider media. Resource-help copies details without creating a public/free-text report collection. Full localization, human educational review, accessibility validation and licensed offline provider packs remain pending. No new dependencies.
+
+## 2026-11-06 - Efficient PDF incident fallback
+Use the existing public OLE grade-library pages through optional attributed embedding and original links, rather than bulk-copying textbooks or adding storage/keys. An alternative collection must not be presented as the same book/edition. No internal provider API integration. Keep government iframe opt-in while file delivery fails. No dependency added.

@@ -154,3 +154,6 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Prominent publisher-listing fallback, manual retry/hide controls and actual PDF-prefix maintenance checks.
 - [x] Verify fallback regression and deployment: 16d5f78 Vercel success; desktop/mobile fallback tests pass.
 - [ ] Confirm publisher file recovery or a verified official replacement; real PDF rendering remains unverified.
+
+- [x] Implement optional attributed OLE class-library fallback without rehosting; verify a real alternative PDF response.
+- [ ] Verify embedded alternative navigation and deploy recovery release.

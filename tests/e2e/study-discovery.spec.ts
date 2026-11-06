@@ -13,9 +13,11 @@ test('study search filters, saved reading, language and privacy reset', async ({
   await search.getByRole('combobox', { name: 'Material', exact: true }).selectOption('PDF');
   await expect(search.getByRole('link').first()).toBeVisible();
   await search.getByRole('link').first().click();
+  await page.getByRole('button', { name: 'Retry PDF viewer', exact: true }).click();
   await page.getByLabel('PDF page', { exact: true }).fill('7');
   await page.getByRole('button', { name: 'Go to page', exact: true }).click();
   await page.reload();
+  await page.getByRole('button', { name: 'Retry PDF viewer', exact: true }).click();
   await expect(page.locator('.library-pdf')).toHaveAttribute('src', /#page=7$/);
   await page.goto('/study');
   await expect(page.getByRole('link', { name: /Continue studying:/ })).toBeVisible();
