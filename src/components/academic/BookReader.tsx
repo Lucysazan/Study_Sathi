@@ -3,12 +3,11 @@ import { useStudyStorage } from './useStudyStorage';
 import { useState, type FormEvent } from 'react';
 import { rememberStudy, ResourceFeedback } from './StudyTools';
 import type { SchoolBook } from '@/lib/academic/library';
-import { AlternativeLibrary } from './AlternativeLibrary';
 
 export function BookReader({ book }: { book: SchoolBook }) {
   const saved = Number(useStudyStorage('study-book-' + book.id));
   const [chosen, setPage] = useState<number | null>(null);
-  const [showViewer, setShowViewer] = useState(false);
+  const [showViewer, setShowViewer] = useState(true);
   const [attempt, setAttempt] = useState(0);
   const page = chosen ?? (Number.isInteger(saved) && saved >= 1 && saved <= 2000 ? saved : 1);
   function jump(event: FormEvent<HTMLFormElement>) {
@@ -76,7 +75,6 @@ export function BookReader({ book }: { book: SchoolBook }) {
           guarantee the PDF will load now.
         </p>
       </aside>
-      <AlternativeLibrary grade={book.grade} />
       <p role="status">Reading PDF page {page}. Use Go to page to remember your place.</p>
       {showViewer ? (
         <iframe
@@ -88,8 +86,7 @@ export function BookReader({ book }: { book: SchoolBook }) {
         />
       ) : (
         <p role="status">
-          Government viewer is off. Try the alternative library above, or use Retry PDF viewer to
-          test the original file.
+          Viewer hidden. Use the official book listing or the original PDF link above.
         </p>
       )}
       <p>

@@ -165,3 +165,6 @@ User authorized all useful comparison points, including Nepali navigation and li
 
 ## 2026-11-06 - Efficient PDF incident fallback
 Use the existing public OLE grade-library pages through optional attributed embedding and original links, rather than bulk-copying textbooks or adding storage/keys. An alternative collection must not be presented as the same book/edition. No internal provider API integration. Keep government iframe opt-in while file delivery fails. No dependency added.
+
+## User-directed reader rollback (2026-11-06)
+User rejected the optional embedded OLE library and requested direct PDF opening. Removed AlternativeLibrary from book/subject pages and deleted its component/style; restored the direct government PDF reader enabled by default with existing retry/source controls. No catalog URL changes or mismatched chapter-to-whole-book replacements. Asked whether new link means direct OLE chapter PDFs or the previous government links; answer pending. Actual government delivery remains unresolved. This supersedes the provider-library iframe product choice.

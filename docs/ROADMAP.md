@@ -157,3 +157,6 @@ This is the active public-library priority; the original Grade 9 practice remain
 
 - [x] Implement optional attributed OLE class-library fallback without rehosting; verify a real alternative PDF response.
 - [x] 52a1139 deployed; live 360px embedded Class 6 Maths/Sets navigation reaches actual PDF HTTP 200 with no page errors/outer overflow.
+
+- [x] User-directed removal of alternate-library UI; restore direct-reader interaction.
+- [x] User clarified: restore previous government PDF links; catalog unchanged. No direct OLE chapter replacement requested.

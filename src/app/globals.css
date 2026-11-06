@@ -3590,4 +3590,3 @@
 .study-tools li { margin-block: .8rem; }
 .study-tools h2 { font-size: clamp(1.25rem, 3vw, 1.65rem); line-height: 1.4; }
 .catalog-results { max-height: 28rem; overflow-y: auto; padding-right: .75rem; }
-.alternative-library-frame { width: 100%; height: 78vh; min-height: 500px; border: 1px solid #e2e8df; margin-top: 1rem; border-radius: 12px; background: white; }

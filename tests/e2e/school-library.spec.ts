@@ -17,15 +17,6 @@ test('school library browses classes, reads a government PDF and selects full-pl
   await page.getByRole('link', { name: 'Study Mathematics', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Read textbooks', exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Read textbook', exact: true }).first().click();
-  await expect(page).toHaveURL(/\/read\/cdc-/);
-  await expect(page.locator('.library-pdf')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Load alternative class library', exact: true }).click();
-  await expect(page.locator('.alternative-library-frame')).toHaveAttribute(
-    'src',
-    'https://gradewise.pustakalaya.org/grade/6',
-  );
-  await page.getByRole('button', { name: 'Close alternative library', exact: true }).click();
-  await page.getByRole('button', { name: 'Retry PDF viewer', exact: true }).click();
   await expect(page.locator('.library-pdf')).toHaveAttribute(
     'src',
     /^https:\/\/giwmscdnone.gov.np\/.*\.pdf#page=1$/,
@@ -36,12 +27,9 @@ test('school library browses classes, reads a government PDF and selects full-pl
   await page.getByRole('button', { name: 'Hide failed viewer', exact: true }).click();
   await expect(page.locator('.library-pdf')).toHaveCount(0);
   await expect(
-    page.getByText(
-      'Government viewer is off. Try the alternative library above, or use Retry PDF viewer to test the original file.',
-      {
-        exact: true,
-      },
-    ),
+    page.getByText('Viewer hidden. Use the official book listing or the original PDF link above.', {
+      exact: true,
+    }),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Retry PDF viewer', exact: true }).click();
   await expect(page.locator('.library-pdf')).toHaveCount(1);

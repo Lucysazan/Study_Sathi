@@ -2,7 +2,10 @@
 
 Last updated: 2026-11-06, Codex session 24. Branch: main.
 
-## Efficient alternative reader release
+## User-directed rollback in progress
+User rejected alternate-library UI. Removed embedded OLE browser and restored direct PDF reader enabled by default. Catalog links unchanged; government source still failing in prior probes. User explicitly confirmed restore previous government PDF links. Existing catalog URLs preserved. Lint/typecheck, 169 unit tests and two targeted desktop/mobile production-browser library checks pass. Rollback ready for push. Do not re-add the alternate-library screen.
+
+## Previous alternative reader release (superseded)
 Optional credited OLE grade-library reader added to subject/book pages. Actual OLE Class 6 Sets PDF GET returns 200 application/pdf and %PDF- prefix; public grade navigation verified for 1/6/9/12. This is alternative material, not replacement copies of all 137 books. Government iframe now opt-in; original link/retry preserved. No media copies/proxy/storage/API keys. Validation: lint/typecheck, 169 unit tests and all six targeted production-build desktop/mobile library/discovery cases pass. Actual local embedded OLE navigation Class 6 -> Maths -> Sets -> document succeeds; its PDF content responds 200/%PDF-. Government originals remain unavailable. 52a1139 is pushed and Vercel reports success. Live anonymous 360px browser loaded the optional provider, navigated Class 6 -> Maths -> Sets -> document and received HTTP 200 application/pdf, without page errors or outer-page overflow. This verifies one actual alternative PDF path, not restoration of the 137 government originals.
 
 ## Session 24 - PDF provider failure

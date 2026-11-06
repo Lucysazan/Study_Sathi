@@ -1,5 +1,4 @@
 import { PdfAvailabilityNotice } from '@/components/academic/PdfAvailabilityNotice';
-import { AlternativeLibrary } from './AlternativeLibrary';
 import { StudyTools, StudyText } from './StudyTools';
 import Link from 'next/link';
 import { BookOpen, PlayCircle } from 'lucide-react';
@@ -21,7 +20,6 @@ export function SubjectLibrary({ grade, subject }: { grade: number; subject: str
       </p>
       <PdfAvailabilityNotice />
       <StudyTools />
-      <AlternativeLibrary grade={grade} />
       <div className="library-modes">
         <a href="#textbooks">
           <BookOpen aria-hidden="true" /> Read · {books.length} PDFs
