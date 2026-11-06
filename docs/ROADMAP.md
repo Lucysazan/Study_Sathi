@@ -152,5 +152,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 ## PDF availability incident (2026-11-06)
 - [x] Reproduce actual file request failure despite successful HEAD metadata.
 - [x] Prominent publisher-listing fallback, manual retry/hide controls and actual PDF-prefix maintenance checks.
-- [ ] Verify fallback regression and deployment.
+- [x] Verify fallback regression and deployment: 16d5f78 Vercel success; desktop/mobile fallback tests pass.
 - [ ] Confirm publisher file recovery or a verified official replacement; real PDF rendering remains unverified.

@@ -1,3 +1,4 @@
+import { PdfAvailabilityNotice } from '@/components/academic/PdfAvailabilityNotice';
 import { StudyTools, StudyText } from './StudyTools';
 import Link from 'next/link';
 import { BookOpen, PlayCircle } from 'lucide-react';
@@ -17,6 +18,7 @@ export function SubjectLibrary({ grade, subject }: { grade: number; subject: str
       <p className="library-nepali" lang="ne">
         {meta?.nepali}
       </p>
+      <PdfAvailabilityNotice />
       <StudyTools />
       <div className="library-modes">
         <a href="#textbooks">

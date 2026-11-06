@@ -1,4 +1,5 @@
-﻿import type { Metadata } from 'next';
+import { PdfAvailabilityNotice } from '@/components/academic/PdfAvailabilityNotice';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { schoolGrades, schoolLibrary, gradeSubjects } from '@/lib/academic/library';
 export const metadata: Metadata = { title: 'School library sources and coverage' };
@@ -12,6 +13,7 @@ export default function Sources() {
         Original files and videos remain with their providers. StudySathi is independent and does
         not claim a provider partnership or endorsement.
       </p>
+      <PdfAvailabilityNotice />
       <h2>Textbooks</h2>
       <p>
         {schoolLibrary.books.length} PDF links were checked for successful responses and PDF content

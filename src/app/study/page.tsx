@@ -1,3 +1,4 @@
+import { PdfAvailabilityNotice } from '@/components/academic/PdfAvailabilityNotice';
 import { LibrarySearch } from '@/components/academic/LibrarySearch';
 import { StudyTools, StudyText } from '@/components/academic/StudyTools';
 import type { Metadata } from 'next';
@@ -33,6 +34,7 @@ export default function AcademicHome() {
         </span>
         <span>English and Nepali materials</span>
       </div>
+      <PdfAvailabilityNotice />
       <StudyTools />
       <LibrarySearch
         items={[
