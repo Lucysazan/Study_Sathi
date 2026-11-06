@@ -121,7 +121,7 @@ User requested academic focus in the existing site. This section takes priority 
 - [x] Student-private latest-result saving and linked-parent summaries, separate from XP.
 - [x] Admin official textbook source manager, audit and permission-controlled reader with fallback.
 - [x] Academic homepage, About, navigation and transparent source/review status.
-- [ ] Verify final academic tests, release build, browser desktop/mobile and release deployment.
+- [x] Verify academic checks: 164 unit tests, 38 production-browser desktop/mobile cases, Firestore integration suite, lint/typecheck/build; b241742 deployed and live anonymous academic flow verified.
 - [ ] Teacher review, current CDC curriculum/edition and chapter/page mapping.
 - [ ] Connect a real approved PDF and test actual provider embedding on devices.
 - [ ] Obtain supported OLE API/feed and permission if offered; no public key flow confirmed.
