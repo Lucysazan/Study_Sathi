@@ -1,8 +1,12 @@
 # Handover
 
-Last updated: 2026-11-06, Codex session 21. Branch: main.
+Last updated: 2026-11-06, Codex session 22. Branch: main.
 
-## Active academic pivot
+## Active class-wise library expansion
+
+User corrected scope to OLE-style class/subject browsing with in-site PDFs and teaching playlists across Classes 1-12. New catalog: 137 official PDF links verified by response headers, 56 NCED-owned playlists and 3,270 distinct indexed video IDs. Added grade/subject/read/watch routes, deferred full-playlist player, lesson search, native PDF reader and original save links. Original Grade 9 practice paths/accounts remain. Coverage is partial, especially Grades 9-12; no OLE collection or API/partnership is claimed. See docs/SCHOOL_LIBRARY.md. Final library: 169 unit tests /38 files, lint and normal production build PASS. All 40 final production-browser desktop/mobile regression cases PASS, including class/read/watch, original practice, admin source refresh/navigation and existing auth/LMS. Production deployment is not yet claimed. Prior Session 21 claims below are historical.
+
+## Previous academic pilot
 
 User requested academic study in the existing site. Implemented a three-topic original Grade 9 Mathematics pilot, server grading, revision recommendations, private student summaries, linked-parent views and admin permission-controlled textbook reader. Homepage prioritizes /study. No real textbook is enabled and no OLE API/permissions are established. Teacher review/current-edition mapping, academic CMS and complete syllabus/grades remain open. See docs/ACADEMIC_PLAN.md. Local checks: 164 unit tests /37 files, all 38 desktop/mobile production-browser tests, Firestore rules/integration suite, lint and typecheck PASS. Production browser suite includes existing auth/LMS and new academic persistence/source controls. Final normal production build PASS. b241742 is deployed successfully on Vercel; live academic/source/progress routes return 200 and fresh anonymous 360px Sets grading/revision passes without overflow/page errors. No live saved data or real PDF was written. Authenticated production acceptance remains separate. No real PDF/provider integration or teacher approval is claimed.
 

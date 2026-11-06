@@ -1,4 +1,5 @@
 import { getAcademicTextbook } from '@/lib/academic/source.server';
+import Link from 'next/link';
 
 export async function TextbookReader() {
   const textbook = await getAcademicTextbook();
@@ -7,16 +8,12 @@ export async function TextbookReader() {
       <section className="learning-card">
         <h2>Official textbook</h2>
         <p>
-          A verified textbook PDF is not connected yet. You can use the original explanations and
-          practice below.
+          Read the government-hosted Mathematics books in our class library. This original practice
+          unit is not yet mapped to specific textbook pages.
         </p>
-        <a
-          href="https://lib.moecdc.gov.np/catalog/opac_css/index.php?id=13786&lvl=notice_display"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View the CDC textbook catalog
-        </a>
+        <Link href="/study/9/mathematics#textbooks" prefetch={false}>
+          Read Grade 9 Mathematics textbooks
+        </Link>
       </section>
     );
   return (

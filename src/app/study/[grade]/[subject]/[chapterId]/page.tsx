@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AcademicFrame } from '@/components/academic/AcademicFrame';
@@ -7,18 +8,28 @@ import { TextbookReader } from '@/components/academic/TextbookReader';
 import { academicChapters, findAcademicChapter } from '@/data/academic';
 
 export function generateStaticParams() {
-  return academicChapters.map((chapter) => ({ chapterId: chapter.id }));
+  return academicChapters.map((chapter) => ({
+    grade: '9',
+    subject: 'mathematics',
+    chapterId: chapter.id,
+  }));
 }
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ chapterId: string }>;
+  params: Promise<{ grade: string; subject: string; chapterId: string }>;
 }): Promise<Metadata> {
   const chapter = findAcademicChapter((await params).chapterId);
   return { title: chapter ? `${chapter.title} · Grade 9 Mathematics` : 'Topic not found' };
 }
-export default async function ChapterPage({ params }: { params: Promise<{ chapterId: string }> }) {
-  const chapter = findAcademicChapter((await params).chapterId);
+export default async function ChapterPage({
+  params,
+}: {
+  params: Promise<{ grade: string; subject: string; chapterId: string }>;
+}) {
+  const route = await params;
+  if (route.grade !== '9' || route.subject !== 'mathematics') notFound();
+  const chapter = findAcademicChapter(route.chapterId);
   if (!chapter) notFound();
   const publicQuestion = ({ id, prompt, options }: (typeof chapter.questions)[number]) => ({
     id,
@@ -52,7 +63,9 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
           ))}
         </ul>
       </section>
-      <TextbookReader />
+      <Suspense fallback={<p role="status">Loading textbook connection…</p>}>
+        <TextbookReader />
+      </Suspense>
       <section id="explanation">
         <h2>Explanation and worked examples</h2>
         {chapter.skills.map((skill) => (

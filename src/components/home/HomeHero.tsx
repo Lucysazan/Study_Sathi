@@ -10,9 +10,9 @@ export function HomeHero() {
           <span /> ACADEMIC LEARNING FOR NEPAL
         </div>
         <h1>
-          Understand. Practise.
+          Your class. Your subjects.
           <br />
-          <span>Find your next step.</span>
+          <span>Learn right here.</span>
           <svg viewBox="0 0 390 15" aria-hidden="true">
             <path
               d="M3 10Q190-4 384 8"
@@ -24,8 +24,8 @@ export function HomeHero() {
           </svg>
         </h1>
         <p>
-          Study mathematics with clear explanations, worked examples and feedback on what to revise.
-          Start with our Grade 9 pilot.
+          Find government textbooks and NCED Virtual teaching playlists for Classes 1–12. Read PDFs
+          and watch subject lessons without leaving StudySathi.
         </p>
         <div className="hero-buttons">
           <Link className="button" href="/study">
@@ -36,7 +36,7 @@ export function HomeHero() {
           </Link>
         </div>
         <div className="hero-notes">
-          {['Free pilot', 'Public practice', 'Made for Nepal'].map((note) => (
+          {['Free to explore', 'Classes 1–12', 'Made for Nepal'].map((note) => (
             <span key={note}>
               <CheckCircle2 size={16} aria-hidden="true" /> {note}
             </span>

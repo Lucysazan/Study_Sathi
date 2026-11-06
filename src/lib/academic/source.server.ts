@@ -1,12 +1,12 @@
 import 'server-only';
-import { cacheLife, cacheTag } from 'next/cache';
+import { connection } from 'next/server';
 import { adminDb } from '@/lib/firebase/admin';
 import { textbookSchema } from './source';
 
 export async function getAcademicTextbook() {
-  'use cache';
-  cacheLife('minutes');
-  cacheTag('academic-textbook');
+  // Keep mutable source configuration out of the prebuilt route shell. A missing
+  // source at build time must not remain embedded in the reader after publication.
+  await connection();
   try {
     const doc = await adminDb().collection('academicSources').doc('grade9-mathematics').get();
     const result = textbookSchema.safeParse(doc.data());

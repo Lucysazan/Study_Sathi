@@ -37,9 +37,8 @@ it('rejects unapproved content before any write', async () => {
   expect((await saveAcademicTextbook({ ...data, approvedForEmbed: false })).ok).toBe(false);
   expect(mocks.batch).not.toHaveBeenCalled();
 });
-it('publishes source and audit together, then invalidates public cache', async () => {
+it('publishes source and audit together', async () => {
   expect((await saveAcademicTextbook(data)).ok).toBe(true);
   expect(mocks.set).toHaveBeenCalledTimes(2);
   expect(mocks.commit).toHaveBeenCalledOnce();
-  expect(mocks.tag).toHaveBeenCalledWith('academic-textbook');
 });

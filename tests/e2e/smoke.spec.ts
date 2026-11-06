@@ -199,6 +199,10 @@ test('academic admin can publish and withdraw an approved textbook reference', a
   await expect(page.getByText('Textbook withdrawn.', { exact: true })).toBeVisible();
   await page.goto('/study/9/mathematics/sets');
   await expect(page.getByText('Emulator-only textbook', { exact: false })).toHaveCount(0);
+  // Source edits must not invalidate the unrelated class-navigation shells.
+  await page.goto('/study');
+  await page.getByRole('link', { name: 'Choose Grade 6', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Class 6');
 });
 
 for (const role of roles)

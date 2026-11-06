@@ -127,3 +127,14 @@ User requested academic focus in the existing site. This section takes priority 
 - [ ] Obtain supported OLE API/feed and permission if offered; no public key flow confirmed.
 - [ ] Extend creator/admin content authoring for academic taxonomy and versioned questions.
 - [ ] Expand reviewed chapters/subjects/grades and evaluate with learners.
+
+## Class-wise library expansion (2026-11-06 user clarification)
+This is the active public-library priority; the original Grade 9 practice remains available.
+- [x] Research and classify actual government PDFs and NCED Virtual teaching playlists across Classes 1-12.
+- [x] Twelve class tiles, subject cards and Read/Watch material screens with real counts.
+- [x] In-site native PDF reading, page jump and original-file open/save fallback.
+- [x] Full-playlist YouTube embeds, selected lesson switching and searchable indexed lesson titles.
+- [x] Preserve original practice routes and account/course tools; explain source/edition/coverage limits.
+- [ ] Final regression/build and live deployment verification for the class-wise release.
+- [ ] Fill remaining subject/edition gaps through reviewed, permitted sources; do not claim complete syllabus coverage.
+- [ ] Real-device PDF/full-playback audit and educational review.

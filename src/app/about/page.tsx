@@ -11,8 +11,8 @@ export default function AboutPage() {
       <div className="eyebrow">OUR PURPOSE</div>
       <h1>A clearer path from reading to understanding</h1>
       <p>
-        StudySathi is developing an academic learning space for students in Nepal. Our first
-        academic pilot focuses on Grade 9 Mathematics.
+        StudySathi brings together class-wise textbooks and teaching playlists for learners in
+        Nepal, alongside original practice activities.
       </p>
       <h2>The problem we are addressing</h2>
       <p>
@@ -21,20 +21,23 @@ export default function AboutPage() {
       </p>
       <h2>Our approach</h2>
       <p>
-        Choose a topic, read an explanation, follow worked examples, and answer practice questions.
-        Feedback links missed questions to a relevant skill so the learner has a clear next step.
+        Choose a class and subject, read a government-hosted textbook or watch NCED Virtual lessons
+        inside StudySathi. Our original Grade 9 Mathematics practice adds feedback and revision
+        suggestions.
       </p>
       <h2>What is available</h2>
       <p>
-        Three original mathematics topic units, chapter checks and different follow-up sets,
-        student-account result saving, parent progress views, and a permission-controlled textbook
-        reader. Existing resources and course tools remain available.
+        Class and subject browsing for Grades 1–12, in-page PDF viewing with original download
+        links, full-playlist YouTube players and searchable indexed lesson lists. The mathematics
+        practice pilot, student accounts, parent progress views and creator course tools remain
+        available.
       </p>
       <h2>What still needs review</h2>
       <p>
-        Teacher review, current-edition curriculum mapping, verified textbook display permissions
-        and real learner evaluation remain pending. The pilot is not a complete syllabus, an
-        official government course, or a validated mastery assessment.
+        Catalog coverage varies by grade and subject. Provider materials may use different editions;
+        students should match them to their school syllabus. Teacher review of our original practice
+        and real learner evaluation remain pending. This is not an official government course or a
+        validated mastery assessment.
       </p>
       <h2 id="sdg">Our connection to SDG 4</h2>
       <p>

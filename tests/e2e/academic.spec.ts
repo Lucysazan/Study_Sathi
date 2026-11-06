@@ -5,8 +5,11 @@ test('academic public learning recommends revision and offers different follow-u
 }, testInfo) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Start Academic Study', exact: true }).click();
+  await expect(page).toHaveURL(/\/study$/);
   await page.getByRole('link', { name: 'Choose Grade 9', exact: true }).click();
+  await expect(page).toHaveURL(/\/study\/9$/);
   await page.getByRole('link', { name: 'Study Mathematics', exact: true }).click();
+  await expect(page).toHaveURL(/\/study\/9\/mathematics$/);
   await page.getByRole('link', { name: 'Study Sets', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Sets', exact: true })).toBeVisible();
   const fields = page.locator('.academic-practice fieldset');

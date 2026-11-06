@@ -1,9 +1,14 @@
 'use server';
-import { revalidatePath, updateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { FieldValue } from 'firebase-admin/firestore';
 import { requireRole } from '@/lib/auth/session';
 import { adminDb } from '@/lib/firebase/admin';
 import { textbookSchema } from './source';
+
+function refreshTextbookReaders() {
+  // Reader configuration streams at request time; only the admin form needs refresh.
+  revalidatePath('/admin/academic');
+}
 
 export async function saveAcademicTextbook(input: unknown) {
   const admin = await requireRole(['admin'], '/admin/academic');
@@ -24,9 +29,7 @@ export async function saveAcademicTextbook(input: unknown) {
       summary: 'Grade 9 Mathematics textbook reference',
     });
     await batch.commit();
-    updateTag('academic-textbook');
-    revalidatePath('/study', 'layout');
-    revalidatePath('/admin/academic');
+    refreshTextbookReaders();
     return { ok: true };
   } catch {
     return { ok: false, error: 'The textbook could not be saved. Please try again.' };
@@ -46,9 +49,7 @@ export async function removeAcademicTextbook() {
       summary: 'Grade 9 Mathematics textbook reference',
     });
     await batch.commit();
-    updateTag('academic-textbook');
-    revalidatePath('/study', 'layout');
-    revalidatePath('/admin/academic');
+    refreshTextbookReaders();
     return { ok: true };
   } catch {
     return { ok: false, error: 'The textbook could not be withdrawn. Please try again.' };
