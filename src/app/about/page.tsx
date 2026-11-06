@@ -1,123 +1,61 @@
-import { BookOpen, Compass, Search } from 'lucide-react';
-import type { Metadata } from 'next';
-import { MissionBanner } from '@/components/ui/MissionBanner';
-import { PageTitle } from '@/components/ui/PageTitle';
-import { SectionHeading } from '@/components/ui/SectionHeading';
-
+﻿import type { Metadata } from 'next';
+import Link from 'next/link';
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'About StudySathi',
   description:
-    'Why StudySathi exists, how it organizes free learning resources, and how it supports SDG 4.',
+    'Academic topic learning, original practice and targeted revision for learners in Nepal.',
 };
-
-const roadmap = [
-  {
-    title: 'Functional resource directory',
-    label: 'Available now',
-    text: '15 resources, search and filters, saved materials and learning paths.',
-  },
-  {
-    title: 'More resources, better Nepali accessibility',
-    label: 'Future phase',
-    text: 'Expand the reviewed collection and improve access in Nepali.',
-  },
-  {
-    title: 'User testing and content improvements',
-    label: 'Future phase',
-    text: 'Learn from children, parents and educators to improve usability.',
-  },
-  {
-    title: 'Potential NGO and INGO collaboration',
-    label: 'Future phase',
-    text: 'Explore opportunities without assuming or claiming partnerships.',
-  },
-  {
-    title: 'Community and offline learning support',
-    label: 'Future phase',
-    text: 'Investigate practical ways to support learning with limited connectivity.',
-  },
-];
-
 export default function AboutPage() {
   return (
-    <>
-      <PageTitle
-        eyebrow="OUR PURPOSE"
-        title={
-          <>
-            Learning opens possibilities.
-            <br />
-            <span>Let&apos;s make it easier to find.</span>
-          </>
-        }
-        intro="StudySathi is a free educational resource discovery platform for children and community educators in Nepal."
-      />
-      <section className="site-container section about-content">
-        <div className="about-grid">
-          <div>
-            <span className="path-icon academic" aria-hidden="true">
-              <Search />
-            </span>
-            <h2>The problem</h2>
-            <p>
-              Free learning resources exist across many websites. Finding materials that suit a
-              child&apos;s age, language and interests can take time and guidance.
-            </p>
-          </div>
-          <div>
-            <span className="path-icon environment" aria-hidden="true">
-              <Compass />
-            </span>
-            <h2>Our approach</h2>
-            <p>
-              Bring selected resources into one simple directory, organized by category, age,
-              language and purpose. Add short learning paths and tools to save useful materials.
-            </p>
-          </div>
-        </div>
-
-        <MissionBanner
-          id="sdg"
-          eyebrow="SDG 4 · QUALITY EDUCATION"
-          title="Easier access can support inclusive learning."
-        >
-          StudySathi aims to help learners and educators discover free materials, including
-          resources in Nepali. It focuses on resource discovery and organized learning; it does not
-          claim measured educational impact.
-        </MissionBanner>
-
-        <SectionHeading
-          className="related"
-          eyebrow="WHERE WE GO FROM HERE"
-          title="A thoughtful path forward"
-          intro="The directory is the beginning. Future phases depend on testing and available support."
-        />
-        <ol className="roadmap">
-          {roadmap.map(({ title, label, text }, i) => (
-            <li key={title}>
-              <b>{String(i + 1).padStart(2, '0')}</b>
-              <div>
-                <span className="eyebrow">{label}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
-        <div className="notice">
-          <BookOpen size={25} aria-hidden="true" />
-          <div>
-            <h3>Built to help people find learning</h3>
-            <p>
-              StudySathi organizes links. Learning materials remain on the providers&apos; websites
-              and belong to them. The interface is in English for now; individual resource languages
-              are clearly labeled. No accounts or personal profiles are needed. Saved items, notes
-              and progress stay in your browser and may be lost if browser data is cleared.
-            </p>
-          </div>
-        </div>
-      </section>
-    </>
+    <section className="site-container section academic-shell">
+      <div className="eyebrow">OUR PURPOSE</div>
+      <h1>A clearer path from reading to understanding</h1>
+      <p>
+        StudySathi is developing an academic learning space for students in Nepal. Our first
+        academic pilot focuses on Grade 9 Mathematics.
+      </p>
+      <h2>The problem we are addressing</h2>
+      <p>
+        Access to materials is only a starting point. Learners also need explanations, opportunities
+        to practise, and guidance on what to revise.
+      </p>
+      <h2>Our approach</h2>
+      <p>
+        Choose a topic, read an explanation, follow worked examples, and answer practice questions.
+        Feedback links missed questions to a relevant skill so the learner has a clear next step.
+      </p>
+      <h2>What is available</h2>
+      <p>
+        Three original mathematics topic units, chapter checks and different follow-up sets,
+        student-account result saving, parent progress views, and a permission-controlled textbook
+        reader. Existing resources and course tools remain available.
+      </p>
+      <h2>What still needs review</h2>
+      <p>
+        Teacher review, current-edition curriculum mapping, verified textbook display permissions
+        and real learner evaluation remain pending. The pilot is not a complete syllabus, an
+        official government course, or a validated mastery assessment.
+      </p>
+      <h2 id="sdg">Our connection to SDG 4</h2>
+      <p>
+        We aim to support access to learning and useful practice. We do not claim measured
+        educational impact before evaluation.
+      </p>
+      <h2>Content and privacy</h2>
+      <p>
+        Official materials remain credited to their publishers. Our explanations and questions are
+        labeled separately. Public practice is visit-only. Signed-in students can save practice
+        results privately, and linked parents can view summaries. No public student profiles or
+        messaging are provided.
+      </p>
+      <div className="academic-actions">
+        <Link className="button" href="/study">
+          Start academic study
+        </Link>
+        <Link className="button secondary" href="/study/sources">
+          Sources and permissions
+        </Link>
+      </div>
+    </section>
   );
 }

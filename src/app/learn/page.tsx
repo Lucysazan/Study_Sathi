@@ -29,6 +29,13 @@ async function Dashboard() {
       </h1>
       <div className="learning-dashboard">
         <div className="learning-card learning-continue">
+          <h2>Academic study and revision</h2>
+          <p>Study Grade 9 Mathematics topics, check your answers and save a revision plan.</p>
+          <Link className="button" href="/study/9/mathematics">
+            Open Mathematics
+          </Link>
+        </div>
+        <div className="learning-card learning-continue">
           <h2>{continuing?.complete ? 'A course you finished' : 'Continue learning'}</h2>
           {continuing ? (
             <>

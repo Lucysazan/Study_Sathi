@@ -129,3 +129,6 @@ Recovered local development server after dependency reorganization by restarting
 Added /safety-mission, bilingual authored scenario data, accessible leaf player, explanation/safer-action feedback, in-memory score/replay and safety-plan result. Added prominent homepage promo/hero entry, scoped responsive styling and authoritative guidance links. Data-integrity and production browser flow coverage added.
 
 Session 20 release: 524b3f1 deployed and anonymous public mission language/feedback/mobile smoke verified on studysathisip.vercel.app.
+
+## 2026-11-06 — Academic pilot: original learning and targeted revision
+User requested the academic pivot in the current site. Added /study grade/subject/topic routes, three original Mathematics units, 24 questions, server grading, skill-linked revision, different follow-up sets, student-private saved summaries and linked-parent views. Homepage/About/navigation now prioritize academic learning. Admin textbook source publish/withdraw validates official hosts and permission reference, records an atomic audit, invalidates cache; lazy PDF reader retains original-source fallback. No actual PDF imported or approved, no provider key obtained, no new dependency/rules/index/env changes. See docs/ACADEMIC_PLAN.md for implementation limits and remaining work. Validation outcome follows in SESSION_LOG/HANDOVER.

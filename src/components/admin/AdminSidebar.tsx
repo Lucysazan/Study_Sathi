@@ -8,6 +8,7 @@ import { SignOutButton } from '@/components/auth/SignOutButton';
 const links = [
   { href: '/admin', label: 'Overview', Icon: LayoutDashboard, exact: true },
   { href: '/admin/resources', label: 'Resources', Icon: BookOpen, exact: false },
+  { href: '/admin/academic', label: 'Academic sources', Icon: BookOpen, exact: false },
   { href: '/admin/courses', label: 'Courses', Icon: ClipboardList, exact: false },
   { href: '/admin/users', label: 'Users', Icon: Users, exact: false },
 ];

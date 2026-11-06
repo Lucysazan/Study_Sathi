@@ -4,7 +4,7 @@ test('public safety mission explains choices, switches language and finishes wit
   page,
 }, testInfo) => {
   await page.goto('/');
-  await page.getByRole('link', { name: 'Try the safety mission', exact: true }).click();
+  await page.getByRole('link', { name: 'Digital safety practice', exact: true }).click();
   await expect(page).toHaveURL(/\/safety-mission$/);
   await page
     .getByRole('radio', { name: 'Reply with the OTP before time runs out.', exact: true })

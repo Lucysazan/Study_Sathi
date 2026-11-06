@@ -3,9 +3,9 @@ export type NavItem = { href: string; label: string };
 /** Main site navigation, in display order (same as the prototype). */
 export const mainNav: readonly NavItem[] = [
   { href: '/', label: 'Home' },
+  { href: '/study', label: 'Academic Study' },
   { href: '/resources', label: 'Resources' },
   { href: '/learning-paths', label: 'Learning Paths' },
-  { href: '/volunteers', label: 'For Volunteers' },
   { href: '/about', label: 'About' },
 ];
 

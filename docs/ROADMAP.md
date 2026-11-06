@@ -113,3 +113,17 @@ Work top to bottom. Tick `[x]` when done and verified. Don't start a phase until
 
 ## Later (do not start without an ADR)
 - Nepali UI translation · class/group leaderboards for volunteers · offline packs · certificates of completion · email notifications
+
+## Active academic pivot (2026-11-06)
+User requested academic focus in the existing site. This section takes priority over adding extra nonacademic features. Detailed plan: ACADEMIC_PLAN.md.
+- [x] Grade 9 Mathematics pilot navigation and three original topic units with examples.
+- [x] Server-graded topic checks, skill-linked revision and different follow-up questions.
+- [x] Student-private latest-result saving and linked-parent summaries, separate from XP.
+- [x] Admin official textbook source manager, audit and permission-controlled reader with fallback.
+- [x] Academic homepage, About, navigation and transparent source/review status.
+- [ ] Verify final academic tests, release build, browser desktop/mobile and release deployment.
+- [ ] Teacher review, current CDC curriculum/edition and chapter/page mapping.
+- [ ] Connect a real approved PDF and test actual provider embedding on devices.
+- [ ] Obtain supported OLE API/feed and permission if offered; no public key flow confirmed.
+- [ ] Extend creator/admin content authoring for academic taxonomy and versioned questions.
+- [ ] Expand reviewed chapters/subjects/grades and evaluate with learners.

@@ -4,6 +4,7 @@ import { adminDb } from '@/lib/firebase/admin';
 import { levelInfo, statsSchema, visibleActivity } from '@/lib/gamification/stats';
 import { summarizeCourseProgress } from '@/lib/course/progress-summary';
 import { readCourseOutline } from '@/lib/course/outline';
+import { readAcademicProgress } from '@/lib/academic/progress.server';
 
 export async function getChildProgress(childUid: string) {
   const parent = await requireRole(['parent'], '/parent');
@@ -12,6 +13,9 @@ export async function getChildProgress(childUid: string) {
   const child = await db.collection('users').doc(childUid).get();
   if (!child.exists || child.get('role') !== 'student' || child.get('parentUid') !== parent.uid)
     return null;
+  const academic = await readAcademicProgress(childUid)
+    .then((results) => Object.values(results))
+    .catch(() => null);
   const stats = statsSchema.parse(child.get('stats') ?? {});
   const activity = visibleActivity(stats, new Date());
   const courseId: unknown = child.get('currentCourseId');
@@ -53,5 +57,6 @@ export async function getChildProgress(childUid: string) {
     courseCount: stats.courseCount,
     ...activity,
     course,
+    academic,
   };
 }

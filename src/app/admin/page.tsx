@@ -16,6 +16,8 @@ const actionLabels: Record<string, string> = {
   'resource.update': 'Edited a resource',
   'resource.delete': 'Removed a resource',
   'course.review': 'Reviewed a course',
+  'academic.source.publish': 'Published a textbook reference',
+  'academic.source.withdraw': 'Withdrew a textbook reference',
 };
 
 const dateFormat = new Intl.DateTimeFormat('en-GB', {

@@ -20,6 +20,8 @@ export function Footer() {
         </div>
         <div>
           <h4>Explore</h4>
+          <Link href="/study">Academic study</Link>
+          <Link href="/study/sources">Academic sources</Link>
           <Link href="/resources">All resources</Link>
           <Link href="/learning-paths">Learning paths</Link>
           <Link href="/saved">Saved resources</Link>

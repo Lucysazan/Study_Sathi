@@ -7,12 +7,12 @@ export function HomeHero() {
     <section className="hero site-container">
       <div className="hero-copy">
         <div className="eyebrow">
-          <span /> FREE LEARNING. SHARED POSSIBILITIES.
+          <span /> ACADEMIC LEARNING FOR NEPAL
         </div>
         <h1>
-          Learn, Explore,
+          Understand. Practise.
           <br />
-          <span>Grow Together.</span>
+          <span>Find your next step.</span>
           <svg viewBox="0 0 390 15" aria-hidden="true">
             <path
               d="M3 10Q190-4 384 8"
@@ -24,19 +24,19 @@ export function HomeHero() {
           </svg>
         </h1>
         <p>
-          Discover free educational resources, build useful skills, and explore new ways to learn —
-          all in one place.
+          Study mathematics with clear explanations, worked examples and feedback on what to revise.
+          Start with our Grade 9 pilot.
         </p>
         <div className="hero-buttons">
-          <Link className="button" href="/resources">
-            Explore Resources <ArrowRight size={18} aria-hidden="true" />
+          <Link className="button" href="/study">
+            Start Academic Study <ArrowRight size={18} aria-hidden="true" />
           </Link>
-          <Link className="button secondary" href="/safety-mission">
-            Try Safety Mission <BookOpen size={18} aria-hidden="true" />
+          <Link className="button secondary" href="/learn">
+            My Learning <BookOpen size={18} aria-hidden="true" />
           </Link>
         </div>
         <div className="hero-notes">
-          {['Always free', 'No account needed', 'Made for Nepal'].map((note) => (
+          {['Free pilot', 'Public practice', 'Made for Nepal'].map((note) => (
             <span key={note}>
               <CheckCircle2 size={16} aria-hidden="true" /> {note}
             </span>

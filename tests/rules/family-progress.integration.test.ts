@@ -44,6 +44,30 @@ it('requires parent role and current ownership', async () => {
   await expect(getChildProgress('child')).rejects.toThrow('Not allowed');
 });
 
+it('shows academic summaries only to the currently linked parent', async () => {
+  await db
+    .collection('users')
+    .doc('child')
+    .collection('privateData')
+    .doc('academic')
+    .set({
+      results: {
+        sets_check: {
+          chapterId: 'sets',
+          phase: 'check',
+          correct: 3,
+          total: 4,
+          skills: [{ id: 'membership', correct: 1, total: 2 }],
+          checkedAt: '2026-11-06T06:00:00.000Z',
+          reviewAt: '2026-11-07T06:00:00.000Z',
+        },
+      },
+    });
+  expect((await getChildProgress('child'))?.academic?.[0]?.correct).toBe(3);
+  await db.collection('users').doc('child').update({ parentUid: 'other' });
+  expect(await getChildProgress('child')).toBeNull();
+});
+
 it('hides course titles without matching enrollment or while unpublished', async () => {
   const enrollment = db.collection('courseEnrollments').doc('child_course');
   await enrollment.set({ userId: 'other', courseId: 'course' });

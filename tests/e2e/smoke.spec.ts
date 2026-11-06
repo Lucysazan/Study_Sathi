@@ -139,6 +139,68 @@ async function login(page: Page, role: Role) {
   await expect(page).toHaveURL(new RegExp(`/${role === 'student' ? 'learn' : role}$`));
 }
 
+test('academic student results persist and stay private across accounts', async ({
+  page,
+  context,
+}) => {
+  await login(page, 'student');
+  await page.goto('/study/9/mathematics/sets');
+  const fields = page.locator('.academic-practice fieldset');
+  await expect(fields.first().getByRole('radio').first()).toBeEnabled();
+  for (const [index, answer] of [1, 2, 0, 2].entries())
+    await fields.nth(index).getByRole('radio').nth(answer).check();
+  await page.getByRole('button', { name: 'Check answers', exact: true }).click();
+  await expect(page.locator('.academic-feedback').getByRole('status')).toContainText(
+    'Saved to your student account.',
+  );
+  await page.reload();
+  await page.getByText('Your saved practice', { exact: true }).click();
+  await expect(page.locator('.academic-practice details')).toContainText('Chapter check: 4/4');
+  const record = await getFirestore(app)
+    .collection('users')
+    .doc(uid('student'))
+    .collection('privateData')
+    .doc('academic')
+    .get();
+  expect(record.get('results.sets_check.correct')).toBe(4);
+  await context.clearCookies();
+  await page.goto('/study/9/mathematics/sets');
+  await expect(fields.first().getByRole('radio').first()).toBeEnabled();
+  await expect(page.getByText('Your saved practice', { exact: true })).toHaveCount(0);
+});
+
+test('academic admin can publish and withdraw an approved textbook reference', async ({ page }) => {
+  await login(page, 'admin');
+  await page.goto('/admin/academic');
+  await page.getByLabel('Book title', { exact: true }).fill('Emulator-only textbook');
+  await page
+    .getByLabel('Edition and language', { exact: true })
+    .fill('Test fixture, not a real book');
+  await page
+    .getByLabel('Official source page URL', { exact: true })
+    .fill('https://moecdc.gov.np/test-fixture');
+  await page
+    .getByLabel('Official PDF URL', { exact: true })
+    .fill('https://moecdc.gov.np/test-fixture.pdf');
+  await page
+    .getByLabel('Permission or license reference', { exact: true })
+    .fill('Emulator-only fixture, no real content imported.');
+  await page.getByRole('checkbox').check();
+  await page.getByRole('button', { name: 'Publish textbook reference', exact: true }).click();
+  await expect(
+    page.getByText('Textbook published to academic pages.', { exact: true }),
+  ).toBeVisible();
+  await page.goto('/study/9/mathematics/sets');
+  await expect(
+    page.getByText('Emulator-only textbook · Test fixture, not a real book', { exact: true }),
+  ).toBeVisible();
+  await page.goto('/admin/academic');
+  await page.getByRole('button', { name: 'Withdraw textbook reference', exact: true }).click();
+  await expect(page.getByText('Textbook withdrawn.', { exact: true })).toBeVisible();
+  await page.goto('/study/9/mathematics/sets');
+  await expect(page.getByText('Emulator-only textbook', { exact: false })).toHaveCount(0);
+});
+
 for (const role of roles)
   test(`${role} logs in to the correct portal`, async ({ page, context }, testInfo) => {
     await login(page, role);

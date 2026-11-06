@@ -43,6 +43,21 @@ beforeEach(async () => {
 });
 
 describe('default deny', () => {
+  it('blocks direct academic result and textbook writes, including forged scores', async () => {
+    await seed(env, {
+      'users/student-1/privateData/academic': { results: {} },
+      'academicSources/grade9-mathematics': { title: 'Book' },
+    });
+    await assertFails(asUser(student).doc('users/student-1/privateData/academic').get());
+    await assertFails(asUser(otherStudent).doc('users/student-1/privateData/academic').get());
+    await assertFails(
+      asUser(student).doc('users/student-1/privateData/academic').set({ correct: 999 }),
+    );
+    await assertFails(
+      asUser(admin).doc('academicSources/grade9-mathematics').set({ pdfUrl: 'forged' }),
+    );
+    await assertFails(asGuest().doc('academicSources/grade9-mathematics').get());
+  });
   it('prevents forged analytics totals and enrollment cohort markers', async () => {
     await seed(env, {
       'courses/analytics-course': { status: 'published', stats: { views: 1 } },

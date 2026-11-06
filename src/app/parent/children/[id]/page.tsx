@@ -31,6 +31,27 @@ async function Progress({ params }: { params: Promise<{ id: string }> }) {
         {child.lessonCount} recorded lessons and {child.courseCount} recorded courses completed.
       </p>
       <p>Totals reflect activity recorded since tracking began.</p>
+      <div className="learning-card">
+        <h2>Academic practice</h2>
+        {child.academic === null ? (
+          <p>Academic results are temporarily unavailable.</p>
+        ) : child.academic.length === 0 ? (
+          <p>No academic practice saved yet.</p>
+        ) : (
+          <ul>
+            {child.academic.map((result) => (
+              <li key={`${result.chapterId}-${result.phase}`}>
+                {result.chapterId.replaceAll('-', ' ')} · {result.phase}: {result.correct}/
+                {result.total}. Suggested review: {result.reviewAt.slice(0, 10)} (UTC).
+              </li>
+            ))}
+          </ul>
+        )}
+        <p>
+          Short practice results guide revision; they do not certify mastery. They do not add to
+          course XP totals.
+        </p>
+      </div>
       {child.course ? (
         <div className="learning-card">
           <h2>{child.course.title}</h2>
