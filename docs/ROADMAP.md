@@ -145,6 +145,6 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Limited Nepali study navigation and instructions (native-speaker review pending).
 - [x] Original topic companions: textbooks, title-matched videos, existing graded checks/revision and downloadable offline original notes.
 - [x] Original visual Sets activity and source/accessibility help with copyable resource details.
-- [ ] Verify new desktop/mobile regression and deploy.
+- [x] Verify desktop/mobile regression and deploy: 9cee3fd /32bb391 Vercel success; anonymous live search/resume/language/practice and desktop player checks pass.
 - [ ] Teacher-reviewed curriculum/chapter/page mapping beyond the three existing topic pilots.
 - [ ] Complete Nepali localization, native-speaker review, accessible-resource audit and permitted provider offline packs.
