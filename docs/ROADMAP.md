@@ -148,3 +148,9 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Verify desktop/mobile regression and deploy: 9cee3fd /32bb391 Vercel success; anonymous live search/resume/language/practice and desktop player checks pass.
 - [ ] Teacher-reviewed curriculum/chapter/page mapping beyond the three existing topic pilots.
 - [ ] Complete Nepali localization, native-speaker review, accessible-resource audit and permitted provider offline packs.
+
+## PDF availability incident (2026-11-06)
+- [x] Reproduce actual file request failure despite successful HEAD metadata.
+- [x] Prominent publisher-listing fallback, manual retry/hide controls and actual PDF-prefix maintenance checks.
+- [ ] Verify fallback regression and deployment.
+- [ ] Confirm publisher file recovery or a verified official replacement; real PDF rendering remains unverified.

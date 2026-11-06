@@ -4,7 +4,7 @@ const catalog = JSON.parse(
 );
 if (!process.argv.includes('--online')) {
   console.log(
-    `Catalog: ${catalog.books.length} PDFs, ${catalog.playlists.length} playlists. Use --online to check official PDF response headers (no file copies).`,
+    `Catalog: ${catalog.books.length} PDFs, ${catalog.playlists.length} playlists. Use --online to check actual PDF response prefixes (no saved file copies).`,
   );
 } else {
   let failed = 0;
@@ -13,10 +13,18 @@ if (!process.argv.includes('--online')) {
       catalog.books.slice(index, index + 2).map(async (book) => {
         try {
           const response = await fetch(book.pdfUrl, {
-            method: 'HEAD',
             signal: AbortSignal.timeout(15000),
           });
-          const ok = response.ok && (response.headers.get('content-type') || '').includes('pdf');
+          const reader = response.body?.getReader();
+          const first = await reader?.read();
+          await reader?.cancel();
+          const prefix = Buffer.from(first?.value || [])
+            .subarray(0, 5)
+            .toString();
+          const ok =
+            response.ok &&
+            (response.headers.get('content-type') || '').includes('pdf') &&
+            prefix === '%PDF-';
           if (!ok) failed++;
           return { id: book.id, status: response.status, ok };
         } catch {
@@ -29,6 +37,13 @@ if (!process.argv.includes('--online')) {
     if (checks.some((result) => result.status === 403 || result.status === 429)) {
       console.log(
         'Provider restricted requests; stopping. No retries or alternate routes will be used.',
+      );
+      process.exitCode = 1;
+      break;
+    }
+    if (checks.some((result) => result.status === 'unreachable')) {
+      console.log(
+        'Provider file request failed; stopping rather than repeating unavailable downloads.',
       );
       process.exitCode = 1;
       break;
