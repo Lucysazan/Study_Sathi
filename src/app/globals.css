@@ -3607,3 +3607,55 @@
 .optional-check { margin-block: 1.5rem; }
 .optional-check > .button { min-height: 52px; font-size: 1.05rem; }
 .play-activity .study-simulation { height: auto; min-height: 0; aspect-ratio: 16 / 10; max-height: 75vh; margin-top: 0; margin-bottom: 1rem; }
+
+/* Visual discovery gallery: original interactive preview art. */
+.play-home.section { padding-top: 30px; }
+.play-hero { position: relative; display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: 30px; padding: 36px 48px; border: 1px solid #c6e5da; border-radius: 28px; background: #e6f5ed; overflow: hidden; }
+.play-kicker { display: inline-flex; align-items: center; gap: 8px; color: #087f75; font-size: .75rem; font-weight: 800; letter-spacing: .1em; }
+.play-hero h1 { font-size: clamp(2.4rem,5vw,4.4rem); font-weight: 800; line-height: 1.12; margin: 20px 0 16px; letter-spacing: -.05em; }
+.play-hero h1 > span { color: #087f75; text-decoration: underline; text-decoration-color: #f5c74c; text-underline-offset: .15em; text-decoration-thickness: .12em; }
+.play-hero-copy > p { font-size: 1.1rem; max-width: 390px; line-height: 1.6; }
+.play-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.play-hero-actions a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 13px; background: white; border: 1px solid #c6e5da; border-radius: 12px; color: #19574f; font-size: .85rem; font-weight: 700; }
+.hero-demo { max-width: 310px; width: 100%; justify-self: center; transform: rotate(3deg); }
+.hero-demo-label { display: block; text-align: center; font-size: .85rem; color: #547760; font-weight: 700; margin-bottom: 10px; }
+.hero-demo .game-preview { border: 4px solid white; border-radius: 24px; box-shadow: 0 10px 0 #b5d5c4; }
+.play-hero-star { position: absolute; right: 24px; top: 20px; color: #d2a43a; font-size: 36px; }
+.play-choose { margin: 36px 0 22px; display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.play-choose h2 { font-size: 1.5rem; margin: 0; }
+.play-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.play-filters button { min-height: 44px; padding: 8px 16px; border: 1px solid #dce5dd; background: white; border-radius: 24px; font-size: .85rem; color: #536678; font-weight: 600; cursor: pointer; }
+.play-filters button[aria-pressed=true] { color: white; background: #087f75; border-color: #087f75; }
+.play-gallery { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+.play-tile { border: 1px solid #e0e7df; background: white; border-radius: 22px; overflow: hidden; box-shadow: 0 5px 0 #e8ede6; transition: transform .2s, box-shadow .2s; }
+.play-tile:hover { transform: translateY(-4px); box-shadow: 0 9px 0 #e0e9df; }
+.tile-picture { position: relative; }
+.tile-kind { position: absolute; z-index: 1; top: 12px; left: 12px; background: #ffffffdf; padding: 4px 10px; font-size: .68rem; font-weight: 700; color: #334c62; border-radius: 20px; pointer-events: none; }
+.game-preview { width: 100%; border: 0; padding: 14px 20px 12px; display: grid; justify-items: center; background: var(--preview-bg,#fff0d2); color: #243c50; cursor: pointer; text-align: center; }
+.preview-art { display: block; width: 100%; height: 170px; max-width: 270px; }
+.preview-status { font-size: .8rem; font-weight: 700; }
+.preview-tap { display: inline-flex; align-items: center; gap: 10px; margin-top: 5px; font-size: .7rem; color: #3a5360; min-height: 24px; }
+.preview-tap > span { font-size: 1.1rem; }
+.preview-fractions { --preview-bg: #fff0ca; }
+.preview-balance { --preview-bg: #dcefeb; }
+.preview-circuits { --preview-bg: #e3eff9; }
+.preview-budget { --preview-bg: #fbe4e6; }
+.preview-digital-safety { --preview-bg: #e4eaff; }
+.preview-waste { --preview-bg: #e5f1d8; }
+.preview-reading { --preview-bg: #e8eefa; }
+.preview-study-habits { --preview-bg: #eee8f8; }
+.tile-copy { padding: 20px 22px 22px; }
+.tile-subject { font-size: .7rem; font-weight: 800; color: #087f75; letter-spacing: .06em; }
+.tile-copy h2 { font-size: 1.45rem; margin: 8px 0; line-height: 1.25; }
+.tile-copy p { font-size: .8rem; margin: 0 0 16px; }
+.tile-play { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; min-height: 46px; background: #087f75; border-radius: 12px; color: white; font-weight: 700; font-size: .9rem; }
+.play-bottom { margin-top: 30px; padding: 20px 24px; border-radius: 18px; background: #eef4e7; display: flex; align-items: center; gap: 16px; }
+.play-bottom > svg { flex-shrink: 0; color: #618357; }
+.play-bottom p { margin: 0; font-size: .85rem; }
+.play-bottom a { display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; font-size: .8rem; font-weight: 700; }
+.play-about { margin-top: 24px; color: #64748b; font-size: .8rem; }
+.preview-float { animation: preview-float 3s ease-in-out infinite; }
+@keyframes preview-float { 50% { transform: translateY(-5px); } }
+@media(max-width:900px) { .play-gallery { grid-template-columns: repeat(2,minmax(0,1fr)); } .play-hero { padding: 28px; gap: 16px; } .play-bottom { flex-wrap: wrap; } }
+@media(max-width:560px) { .play-home.section { padding-top: 18px; } .play-hero { grid-template-columns: 1fr; padding: 24px 20px; gap: 20px; border-radius: 22px; } .play-hero h1 { margin-top: 14px; } .play-hero-copy > p { font-size: .95rem; margin-bottom: 0; } .hero-demo { max-width: 230px; } .hero-demo .preview-art { height: 130px; } .play-hero-actions { gap: 8px; margin-top: 16px; } .play-hero-actions a { font-size: .75rem; padding: 8px 10px; } .play-kicker { font-size: .6rem; } .play-choose { margin-top: 28px; } .play-choose h2 { font-size: 1.25rem; } .play-filters button { padding: 7px 11px; font-size: .75rem; } .play-gallery { gap: 14px; } .play-tile { border-radius: 17px; } .game-preview { padding: 18px 6px 9px; } .preview-art { height: 130px; } .tile-kind { top: 8px; left: 8px; font-size: .55rem; padding: 3px 7px; } .preview-status { font-size: .65rem; } .preview-tap { font-size: .58rem; gap: 4px; } .tile-copy { padding: 12px; } .tile-copy h2 { font-size: 1.05rem; min-height: 2.6em; } .tile-copy p { font-size: .65rem; min-height: 2.6em; margin-bottom: 10px; } .tile-subject { font-size: .55rem; letter-spacing: 0; } .tile-play { padding: 10px; font-size: .75rem; } .play-bottom { padding: 16px; gap: 10px; } }
+@media(prefers-reduced-motion:reduce) { .preview-float { animation: none; } .play-tile { transition: none; } .play-tile:hover { transform: none; } }

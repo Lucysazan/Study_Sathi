@@ -173,3 +173,8 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Auto-load games and show activity before explanation.
 - [x] Optional questions with lazy mount, saved answer continuity and collapsed hints.
 - [ ] Finish focused browser/build verification and deploy.
+
+## Visual activity discovery (2026-11-09)
+- [x] Colourful original interactive previews, compact play cards, subject filters and fractions hero.
+- [x] Retain auto-loaded full games and optional learning checks.
+- [ ] Verify desktop/mobile visuals, preview/filter actions and live release.

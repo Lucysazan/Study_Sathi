@@ -12,6 +12,17 @@ test('public learning journey supports games, feedback and guest privacy', async
   );
   await page.goto('/play');
   await expect(page.getByRole('heading', { name: 'Play and Learn', exact: true })).toBeVisible();
+  await expect(page.locator('.play-tile')).toHaveCount(8);
+  const hero = page.locator('.hero-demo');
+  await expect(hero.locator('.preview-status')).toHaveText('2/4 slices');
+  await hero.getByRole('button', { name: 'Add a slice preview', exact: true }).click();
+  await expect(hero.locator('.preview-status')).toHaveText('3/4 slices');
+  await page.getByRole('button', { name: 'Maths', exact: true }).click();
+  await expect(page.locator('.play-tile')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Science', exact: true }).click();
+  await expect(page.locator('.play-tile')).toHaveCount(2);
+  await page.getByRole('button', { name: 'All activities', exact: true }).click();
+  await expect(page.locator('.play-tile')).toHaveCount(8);
   await page.getByRole('link', { name: 'Start Plan a small budget', exact: true }).click();
   await page.getByLabel('Spend from Rs 100: Rs 50').fill('85');
   await expect(page.getByRole('status').filter({ hasText: 'Rs 15 remaining' })).toBeVisible();

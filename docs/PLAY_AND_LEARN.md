@@ -43,3 +43,5 @@ Each of the three actual embed URLs returned HTTP 200 HTML with content bytes an
 Unit tests cover grading/forged payloads/session changes/save failures and ledger isolation. Firestore integration covers concurrent duplicate submissions, lower retries preserving best, opt-out and disabled accounts. Browser tests cover public exploration, simulation controls, guest results, signed-in persistence, duplicate rewards, leaderboard entry and parent/student privacy at desktop/360px. Broader teacher, native-speaker, assistive-technology and real learner evaluation remains open.
 
 Release 496af04: 179 unit, 50 rules/integration and 48 production-build desktop/mobile checks pass. Final normal build/lint/typecheck pass. Live anonymous resource-to-budget feedback and actual PhET fractions embed verified at 360px with no page errors/outer overflow. No authenticated production fixtures were written.
+
+The /play selection screen now uses original interactive SVG mini previews and subject filters. These are local demonstrations, not full embedded provider simulations or screenshots; play actions open the full activity. Preview clicks never save progress or earn XP.

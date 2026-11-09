@@ -223,3 +223,6 @@ Shared portal layout: left sidebar (collapses to a top menu under 800px), page t
 ### Copy tone
 
 Short sentences. Encouraging, never pressuring. Say what to do next. Avoid jargon such as "module" on student screens; use "Part 1, Part 2" instead.
+
+## Play and Learn visual discovery
+For the user-requested child-facing activity gallery, use original interactive SVG mini previews, pastel subject backgrounds, teal play actions, compact titles and native subject filter buttons. Keep the existing brand fonts/colours and 44px controls. The preview is a small original demonstration; full provider games open on their activity pages. No points for preview clicks. Decorative motion respects reduced-motion preferences. Long teaching/source details use disclosures rather than crowding the discovery screen.

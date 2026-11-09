@@ -1,8 +1,11 @@
 # Handover
 
-Last updated: 2026-11-09, Codex session 26. Branch: main.
+Last updated: 2026-11-09, Codex session 27. Branch: main.
 
-## Session 26 - Game-first layout ready for release
+## Session 27 - Visual gallery ready for release
+User clarified the selection screen needs to be visual, not static text cards. /play now uses PlayGallery with eight original interactive SVG mini previews, fractions hero, short titles, subject filters and play actions. Full games retain session 26 auto-load/optional-quiz behavior. No points or remote calls for preview clicks. 179 unit tests, lint/typecheck, normal build and four targeted production-browser desktop/mobile cases pass. All eight preview interactions manually exercised; screenshot QA at 1280px and 360px passes without page errors/outer overflow, reduced-motion stops animation. Deployment pending.
+
+## Session 26 - Game-first layout (prior release)
 Games auto-load and lead the activity page. Optional quiz mounts behind Check what I learned; hints collapsed. Initial question/progress request absent, answers retained after hide/reopen. Attribution stays visible. 179 unit tests, lint/typecheck and four targeted production-build desktop/mobile guest/authenticated reward/privacy checks pass. Actual local mobile PhET auto-load confirmed with zero initial /api/study requests; questions load only after button. Screenshot inspected; portrait letterboxing reduced with responsive frame ratio and large fullscreen control. Final polished lint/typecheck/build pass. Real mobile PhET auto-load, fullscreen enter/exit and optional quiz opening pass; screenshot inspected after responsive size correction. Deployment pending. No server reward/data changes.
 
 ## Session 25 - Play and Learn released
