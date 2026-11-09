@@ -166,5 +166,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Three attributed permitted PhET embeds, original widgets and server-graded follow-up checks.
 - [x] Private best/latest progress, atomic one-time XP/streak/badges and existing consented leaderboard integration.
 - [x] Student progress/dashboard discovery and ownership-guarded linked-parent summaries.
-- [ ] Final browser/build/live release verification.
+- [x] 496af04 deployed: 179 unit /50 rules-integration /48 browser cases pass; live anonymous mobile resource journey, feedback and real PhET rendering verified.
 - [ ] Teacher/curriculum review, all-subject expansion, native-speaker and assistive-technology acceptance.
