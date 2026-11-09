@@ -1,3 +1,4 @@
+import { studyActivities } from '@/lib/study/catalog';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import Link from 'next/link';
@@ -26,12 +27,40 @@ async function Progress({ params }: { params: Promise<{ id: string }> }) {
       <p>
         Level {child.level} Â· {child.xp} XP Â· {child.streak} day learning streak
       </p>
-      <p>{child.weeklyLessons} recorded lessons this week (Sundayâ€“Saturday, Nepal time).</p>
       <p>
-        {child.lessonCount} recorded lessons and {child.courseCount} recorded courses completed.
+        {child.weeklyLessons} recorded learning activities this week (Sundayâ€“Saturday, Nepal
+        time).
+      </p>
+      <p>
+        {child.lessonCount} recorded learning activities and {child.courseCount} recorded courses
+        completed.
       </p>
       <p>Totals reflect activity recorded since tracking began.</p>
       <div className="learning-card">
+        <h2>Play and Learn checks</h2>
+        {child.study === null ? (
+          <p>Activity checks are temporarily unavailable.</p>
+        ) : Object.keys(child.study).length === 0 ? (
+          <p>No activity checks saved yet.</p>
+        ) : (
+          <ul>
+            {studyActivities
+              .filter((a) => child.study?.[a.id])
+              .map((a) => {
+                const r = child.study![a.id]!;
+                return (
+                  <li key={a.id}>
+                    {a.title}: best {r.best}/{r.total}, latest {r.last}/{r.total}.{' '}
+                    {r.completedAt ? 'Completed' : 'Keep practising'}
+                  </li>
+                );
+              })}
+          </ul>
+        )}
+        <p>
+          Completed learning checks count toward activity totals, XP and eligible rewards. Course
+          completion remains separate.
+        </p>
         <h2>Academic practice</h2>
         {child.academic === null ? (
           <p>Academic results are temporarily unavailable.</p>

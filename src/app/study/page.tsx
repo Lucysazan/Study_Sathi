@@ -62,6 +62,16 @@ export default function AcademicHome() {
           ),
         ]}
       />
+      <div className="study-tools">
+        <h2>Learn, play and check your understanding</h2>
+        <p>
+          Try simple explanations and interactive activities, then earn rewards through learning
+          checks.
+        </p>
+        <Link className="button" href="/play" prefetch={false}>
+          Open Play and Learn
+        </Link>
+      </div>
       <GradeGrid />
       <p className="library-source-note">
         Resources are credited to CDC and NCED Virtual. Coverage varies by subject and grade. These

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Firestore, Transaction } from 'firebase-admin/firestore';
 vi.mock('server-only', () => ({}));
-import { awardLesson } from './awards';
+import { awardLesson, awardStudy } from './awards';
 
 const get = vi.fn();
 const create = vi.fn();
@@ -34,6 +34,17 @@ beforeEach(() => {
   vi.resetAllMocks();
 });
 describe('idempotent reward transaction', () => {
+  it('rewards study checks with a separate ledger without replacing current course', async () => {
+    get.mockResolvedValueOnce(user).mockResolvedValueOnce({ exists: false });
+    expect(await awardStudy(tx, db, 'student', 'fractions', input.now)).toMatchObject({
+      xpAwarded: 15,
+    });
+    expect(create).toHaveBeenCalledWith(
+      expect.objectContaining({ path: expect.stringMatching(/xpEvents\/study_/) }),
+      expect.objectContaining({ reason: 'study_check_pass' }),
+    );
+    expect(update.mock.calls[0]?.[1]).not.toHaveProperty('currentCourseId');
+  });
   it('creates a ledger event and stats only after all reads', async () => {
     get.mockResolvedValueOnce(user).mockResolvedValueOnce({ exists: false });
     expect(await awardLesson(tx, db, 'student', input)).toMatchObject({ xpAwarded: 15 });

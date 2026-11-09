@@ -5,6 +5,7 @@ import { levelInfo, statsSchema, visibleActivity } from '@/lib/gamification/stat
 import { summarizeCourseProgress } from '@/lib/course/progress-summary';
 import { readCourseOutline } from '@/lib/course/outline';
 import { readAcademicProgress } from '@/lib/academic/progress.server';
+import { readStudyProgress } from '@/lib/study/progress.server';
 
 export async function getChildProgress(childUid: string) {
   const parent = await requireRole(['parent'], '/parent');
@@ -17,6 +18,7 @@ export async function getChildProgress(childUid: string) {
     .then((results) => Object.values(results))
     .catch(() => null);
   const stats = statsSchema.parse(child.get('stats') ?? {});
+  const study = await readStudyProgress(childUid).catch(() => null);
   const activity = visibleActivity(stats, new Date());
   const courseId: unknown = child.get('currentCourseId');
   let course: ReturnType<typeof summarizeCourseProgress> | null = null;
@@ -58,5 +60,6 @@ export async function getChildProgress(childUid: string) {
     ...activity,
     course,
     academic,
+    study,
   };
 }

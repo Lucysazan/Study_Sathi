@@ -27,6 +27,13 @@ async function Dashboard() {
       <h1 className="detail-title">
         <span aria-hidden="true">{avatarGlyphs[avatarId] ?? '🌿'}</span> Hello, {nickname}!
       </h1>
+      <div className="study-tools">
+        <h2>Play and Learn progress</h2>
+        <p>Complete learning checks to earn XP, build your streak and work toward badges.</p>
+        <Link className="button" href="/play/progress" prefetch={false}>
+          My activity progress
+        </Link>
+      </div>
       <div className="learning-dashboard">
         <div className="learning-card learning-continue">
           <h2>Academic study and revision</h2>
@@ -86,7 +93,7 @@ async function Dashboard() {
               : 'Start a new streak today!'}
           </p>
           <p>
-            {stats.lessonCount} lessons finished · {stats.courseCount} courses completed
+            {stats.lessonCount} learning activities finished · {stats.courseCount} courses completed
           </p>
         </div>
         <div className="learning-card learning-continue">

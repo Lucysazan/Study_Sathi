@@ -32,6 +32,17 @@ export default function AboutPage() {
         practice pilot, student accounts, parent progress views and creator course tools remain
         available.
       </p>
+      <h2>Play, check and continue</h2>
+      <p>
+        Play and Learn connects simple original explanations, interactive exploration and a short
+        learning check. First completed checks earn XP once, contribute to daily learning streaks
+        and eligible badges, and update the existing optional parent-consented leaderboard. PhET
+        simulations remain hosted by PhET and are credited at the point of use. These are practical
+        study activities, not a claim that games or progress tracking are unique to StudySathi.
+      </p>
+      <Link className="button secondary" href="/play" prefetch={false}>
+        Try Play and Learn
+      </Link>
       <h2>What still needs review</h2>
       <p>
         Catalog coverage varies by grade and subject. Provider materials may use different editions;

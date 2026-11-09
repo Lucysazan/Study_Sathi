@@ -8,6 +8,29 @@ import { lessonReward, quizReward, type LessonRewardInput } from './rewards';
 export type RewardReceipt = { xpAwarded: number; newBadges: string[] };
 export const noReward: RewardReceipt = { xpAwarded: 0, newBadges: [] };
 
+/** Only call after a trusted server check has graded every answer correct. */
+export async function awardStudy(
+  tx: Transaction,
+  db: Firestore,
+  uid: string,
+  activityId: string,
+  now: Date,
+) {
+  return awardActivity(
+    tx,
+    db,
+    uid,
+    {
+      courseId: 'study-activities',
+      lessonId: activityId,
+      now,
+      completedCourse: false,
+      category: 'academic-education',
+    },
+    'study',
+  );
+}
+
 /** Call after reading course/progress and before any transaction writes. */
 export async function awardLesson(
   tx: Transaction,
@@ -32,7 +55,7 @@ async function awardActivity(
   db: Firestore,
   uid: string,
   input: LessonRewardInput & { courseId: string; lessonId: string; quizId?: string },
-  kind: 'lesson' | 'quiz',
+  kind: 'lesson' | 'quiz' | 'study',
 ): Promise<RewardReceipt> {
   const userRef = db.collection('users').doc(uid);
   const key = createHash('sha256')
@@ -48,21 +71,24 @@ async function awardActivity(
     throw new Error('Learner account unavailable');
   const raw: unknown = user.get('stats');
   const previous = statsSchema.parse(raw ?? {});
-  const result =
-    kind === 'lesson' ? lessonReward(previous, input) : quizReward(previous, input.now);
+  const result = kind === 'quiz' ? quizReward(previous, input.now) : lessonReward(previous, input);
   // Preserve unrelated server-maintained stats while replacing validated reward fields.
   const existing = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
   tx.create(eventRef, {
     amount: result.xpAwarded,
     dailyBonus: result.dailyBonus,
     courseBonus: result.courseBonus,
-    reason: kind === 'lesson' ? 'lesson_complete' : 'quiz_pass',
+    reason:
+      kind === 'study' ? 'study_check_pass' : kind === 'lesson' ? 'lesson_complete' : 'quiz_pass',
     ...(kind === 'quiz' ? { quizId: input.quizId } : {}),
     courseId: input.courseId,
     lessonId: input.lessonId,
     createdAt: FieldValue.serverTimestamp(),
   });
-  tx.update(userRef, { stats: { ...existing, ...result.stats }, currentCourseId: input.courseId });
+  tx.update(userRef, {
+    stats: { ...existing, ...result.stats },
+    ...(kind === 'study' ? {} : { currentCourseId: input.courseId }),
+  });
   if (user.get('leaderboardOptIn') === true)
     syncLeaderboardEntries(tx, db, uid, result.stats, true, input.now);
   return { xpAwarded: result.xpAwarded, newBadges: result.newBadges };

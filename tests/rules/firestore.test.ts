@@ -43,6 +43,17 @@ beforeEach(async () => {
 });
 
 describe('default deny', () => {
+  it('blocks direct game progress and score writes including the owner', async () => {
+    await seed(env, { 'users/student-1/privateData/study': { results: {} } });
+    await assertFails(asUser(student).doc('users/student-1/privateData/study').get());
+    await assertFails(asUser(otherStudent).doc('users/student-1/privateData/study').get());
+    await assertFails(
+      asUser(student)
+        .doc('users/student-1/privateData/study')
+        .set({ results: { fractions: { best: 999 } } }),
+    );
+    await assertFails(asGuest().doc('users/student-1/privateData/study').get());
+  });
   it('blocks direct academic result and textbook writes, including forged scores', async () => {
     await seed(env, {
       'users/student-1/privateData/academic': { results: {} },

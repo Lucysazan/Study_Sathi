@@ -1,3 +1,4 @@
+import { ResourceLearning } from '@/components/study/ResourceLearning';
 import { ArrowRight, ChevronRight, ExternalLink } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -44,6 +45,7 @@ export default async function ResourceDetailsPage({ params }: PageProps<'/resour
             <CategoryIcon category={r.category} size={85} />
             <span>{r.topic}</span>
           </div>
+          <ResourceLearning category={r.category} />
           <h2>What you can explore</h2>
           <p>
             Discover {r.topic.toLowerCase()} through materials from {r.provider}. Choose an activity

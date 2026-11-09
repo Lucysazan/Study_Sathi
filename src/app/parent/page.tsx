@@ -96,7 +96,7 @@ async function ParentDashboard() {
                   </h4>
                   <p>
                     Level {summaries[index]?.level ?? 1} / {summaries[index]?.weeklyLessons ?? 0}{' '}
-                    recorded lessons this week
+                    recorded learning activities this week
                   </p>
                   <p>Current course: {summaries[index]?.course?.title ?? 'None to show yet'}</p>
                   <Link href={`/parent/children/${encodeURIComponent(child.id)}`}>

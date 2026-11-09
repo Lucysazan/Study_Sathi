@@ -127,6 +127,65 @@ test.afterAll(async () => {
   if (app) await deleteApp(app);
 });
 
+test('learning checks save private progress, award once and appear for the linked parent', async ({
+  page,
+  context,
+}) => {
+  const learner = `${prefix}-activity`;
+  await getAuth(app).createUser({
+    uid: learner,
+    email: `${learner}@students.studysathi.local`,
+    password,
+  });
+  await getAuth(app).setCustomUserClaims(learner, { role: 'student' });
+  const db = getFirestore(app);
+  await db
+    .collection('users')
+    .doc(learner)
+    .set({
+      role: 'student',
+      status: 'active',
+      nickname: 'Activity learner',
+      avatarId: 'leaf',
+      parentUid: uid('parent'),
+      stats: {},
+      leaderboardOptIn: true,
+    });
+  await page.goto('/login');
+  await page.getByLabel('Username', { exact: true }).fill(learner);
+  await page.getByLabel('Password', { exact: true }).fill(password);
+  await page.getByRole('button', { name: 'Log in', exact: true }).click();
+  await expect(page).toHaveURL(/\/learn$/);
+  await page.goto('/play/budget');
+  const fields = page.locator('.learning-check fieldset');
+  await expect(fields.first().getByRole('radio').first()).toBeEnabled();
+  for (let i = 0; i < 3; i++) await fields.nth(i).getByRole('radio').nth(i).check();
+  await page.getByRole('button', { name: 'Check learning', exact: true }).click();
+  await expect(page.getByRole('status').filter({ hasText: '+15 XP' })).toBeVisible();
+  await page.getByRole('button', { name: 'Try learning check again', exact: true }).click();
+  for (let i = 0; i < 3; i++) await fields.nth(i).getByRole('radio').nth(i).check();
+  await page.getByRole('button', { name: 'Check learning', exact: true }).click();
+  await expect(page.getByRole('status').filter({ hasText: 'already rewarded' })).toBeVisible();
+  expect((await db.collection('users').doc(learner).get()).get('stats.xp')).toBe(15);
+  expect(
+    (
+      await db.collection('leaderboards').doc('all-time').collection('entries').doc(learner).get()
+    ).get('xp'),
+  ).toBe(15);
+  await page.goto('/play/progress');
+  await expect(page.getByText('Best 3/3', { exact: false })).toBeVisible();
+  await context.clearCookies();
+  await login(page, 'parent');
+  await page.goto(`/parent/children/${learner}`);
+  await expect(
+    page.getByText('Plan a small budget: best 3/3, latest 3/3. Completed', { exact: true }),
+  ).toBeVisible();
+  await context.clearCookies();
+  await login(page, 'student');
+  await page.goto('/play/progress');
+  await expect(page.getByText('Best 3/3', { exact: false })).toHaveCount(0);
+});
+
 async function login(page: Page, role: Role) {
   await page.goto('/login');
   if (role !== 'student')

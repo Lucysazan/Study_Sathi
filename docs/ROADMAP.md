@@ -160,3 +160,11 @@ This is the active public-library priority; the original Grade 9 practice remain
 
 - [x] User-directed removal of alternate-library UI; restore direct-reader interaction.
 - [x] User clarified: restore previous government PDF links; catalog unchanged. No direct OLE chapter replacement requested.
+
+## Guided resources and Play and Learn (2026-11-09)
+- [x] Eight simple original activity journeys and category-related resource guides.
+- [x] Three attributed permitted PhET embeds, original widgets and server-graded follow-up checks.
+- [x] Private best/latest progress, atomic one-time XP/streak/badges and existing consented leaderboard integration.
+- [x] Student progress/dashboard discovery and ownership-guarded linked-parent summaries.
+- [ ] Final browser/build/live release verification.
+- [ ] Teacher/curriculum review, all-subject expansion, native-speaker and assistive-technology acceptance.
