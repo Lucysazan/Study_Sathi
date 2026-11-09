@@ -55,7 +55,7 @@ export function LearningCheck({
     }
   }
   return (
-    <section className="study-tools learning-check" id="learning-check">
+    <section className="study-tools learning-check">
       <h2>Check what you learned</h2>
       <p>
         Answer all three questions correctly to complete this activity. The first perfect check

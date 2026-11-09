@@ -168,3 +168,8 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Student progress/dashboard discovery and ownership-guarded linked-parent summaries.
 - [x] 496af04 deployed: 179 unit /50 rules-integration /48 browser cases pass; live anonymous mobile resource journey, feedback and real PhET rendering verified.
 - [ ] Teacher/curriculum review, all-subject expansion, native-speaker and assistive-technology acceptance.
+
+## Game-first presentation (2026-11-09)
+- [x] Auto-load games and show activity before explanation.
+- [x] Optional questions with lazy mount, saved answer continuity and collapsed hints.
+- [ ] Finish focused browser/build verification and deploy.

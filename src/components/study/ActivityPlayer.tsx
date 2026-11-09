@@ -1,36 +1,34 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 export function ActivityPlayer({ url, title }: { url: string; title: string }) {
-  const [loaded, setLoaded] = useState(false);
+  const frame = useRef<HTMLIFrameElement>(null);
+  const [help, setHelp] = useState('');
   return (
     <section className="study-tools">
-      <h2>Explore the simulation</h2>
-      <p>
-        Loading connects to PhET. Try the task above, then complete StudySathi’s check below. The
-        simulation does not send us your score.
-      </p>
+      <iframe
+        ref={frame}
+        className="study-simulation"
+        title={title + ' simulation'}
+        src={url}
+        loading="eager"
+        allowFullScreen
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
       <button
         className="button secondary"
-        onClick={() => setLoaded(!loaded)}
-        aria-expanded={loaded}
+        onClick={async () => {
+          try {
+            if (!frame.current?.requestFullscreen) throw Error();
+            await frame.current.requestFullscreen();
+            setHelp('');
+          } catch {
+            setHelp('Turn your phone sideways or open the original game for more space.');
+          }
+        }}
       >
-        {loaded ? 'Close simulation' : 'Load simulation'}
+        Full screen game
       </button>
-      {loaded && (
-        <iframe
-          className="study-simulation"
-          title={title + ' simulation'}
-          src={url}
-          allowFullScreen
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
-      )}
-      <p>
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          Open original simulation
-        </a>{' '}
-        if your browser cannot run it here.
-      </p>
+      {help && <p role="status">{help}</p>}
       <p>
         Simulation by PhET Interactive Simulations, University of Colorado Boulder, licensed under
         CC BY-NC 4.0 (
@@ -39,13 +37,31 @@ export function ActivityPlayer({ url, title }: { url: string; title: string }) {
         </a>
         ).
       </p>
-      <p>
-        Used on this free, non-commercial learning site.{' '}
-        <a href="https://phet.colorado.edu/en/licensing/" target="_blank" rel="noopener noreferrer">
-          Provider licence
-        </a>
-        . Availability, language options and accessibility vary by simulation.
-      </p>
+      <details>
+        <summary>Game help and source</summary>
+        <p>
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            Open original simulation
+          </a>{' '}
+          if your browser cannot run it here.
+        </p>
+
+        <p>
+          Used on this free, non-commercial learning site.{' '}
+          <a
+            href="https://phet.colorado.edu/en/licensing/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Provider licence
+          </a>
+          . Availability, language options and accessibility vary by simulation.
+        </p>
+        <p>
+          The game loads from PhET automatically. Its score stays in the simulation. Open the
+          optional questions below to check your learning.
+        </p>
+      </details>
     </section>
   );
 }

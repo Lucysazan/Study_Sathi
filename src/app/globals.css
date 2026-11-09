@@ -3599,3 +3599,11 @@
 .learning-check legend { font-weight: 600; padding: .4rem; }
 .budget-visual { height: 32px; border-radius: 10px; background: #ddf7ed; overflow: hidden; margin: 1rem 0; }
 .budget-visual span { display: block; height: 100%; background: #087f75; }
+
+/* Games come first; optional questions open on demand. */
+.play-activity.section { padding-top: 28px; }
+.play-activity .detail-title { margin-block: 12px; }
+.play-task { margin-block: 1rem; }
+.optional-check { margin-block: 1.5rem; }
+.optional-check > .button { min-height: 52px; font-size: 1.05rem; }
+.play-activity .study-simulation { height: auto; min-height: 0; aspect-ratio: 16 / 10; max-height: 75vh; margin-top: 0; margin-bottom: 1rem; }

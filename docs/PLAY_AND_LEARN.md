@@ -6,7 +6,7 @@ Added 2026-11-09 at the user's request to connect resource discovery to simple e
 
 - /play lists eight original StudySathi guides: fractions, balance, circuits, budget, digital safety, waste, reading and study habits.
 - Each activity explains the idea, gives an exploration task and presents three follow-up questions. Incorrect checks explain each answer and suggest revisiting the activity. Original material needs teacher review; age/class ranges are guidance, not official chapter mapping.
-- Three activities use PhET-hosted simulations; budget, digital safety and waste use original widgets. Reading/study habits use guided reflection. No iframe is loaded before the student chooses Load simulation.
+- Three activities use PhET-hosted simulations; budget, digital safety and waste use original widgets. Reading/study habits use guided reflection. Per the user?s later instruction, simulation iframes load automatically on the activity page. Long hints are collapsed; questions mount only after Check what I learned is pressed. Credits remain visible.
 - Guests can practise without accounts, persistence or points. Signed-in students save best/latest/attempt count and first completed date at /play/progress.
 - First perfect checks earn 10 XP plus the existing first eligible daily bonus of 5. The completion is a learning unit counted in existing lessonCount/weeklyLessons stats; UI totals now say learning activities. It does not finish a course or overwrite currentCourseId.
 - Replays and partial results do not earn additional XP. Provider scores, iframe messages, clicks and watch time are not trusted or recorded as completion. These are low-stakes checks with feedback, not certified mastery or proof of watching a simulation.

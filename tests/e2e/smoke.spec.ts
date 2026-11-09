@@ -157,6 +157,8 @@ test('learning checks save private progress, award once and appear for the linke
   await page.getByRole('button', { name: 'Log in', exact: true }).click();
   await expect(page).toHaveURL(/\/learn$/);
   await page.goto('/play/budget');
+  await expect(page.locator('.learning-check fieldset')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Check what I learned', exact: true }).click();
   const fields = page.locator('.learning-check fieldset');
   await expect(fields.first().getByRole('radio').first()).toBeEnabled();
   for (let i = 0; i < 3; i++) await fields.nth(i).getByRole('radio').nth(i).check();
