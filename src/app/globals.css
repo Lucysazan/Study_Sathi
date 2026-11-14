@@ -3985,3 +3985,138 @@
     align-self: center;
   }
 }
+
+/* Resource adventures replace passive oversized category panels. */
+.resource-detail-page .detail-title {
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+.resource-detail-page .large-copy {
+  font-size: 17px;
+  max-width: 65ch;
+  margin-bottom: 24px;
+}
+.resource-adventure {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 28px;
+  background: #fcf1d7;
+  border-radius: 28px;
+  margin: 22px 0 28px;
+  border: 1px solid #e2e8df;
+}
+.resource-adventure h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 12px 0;
+}
+.resource-adventure p {
+  font-size: 16px;
+}
+.resource-adventure small {
+  display: block;
+  font-size: 11px;
+  margin-top: 14px;
+  color: #64748b;
+}
+.resource-adventure .game-preview {
+  width: 100%;
+  min-width: 0;
+}
+.resource-adventure .preview-art {
+  max-height: 230px;
+}
+.resource-detail-page .detail-sidebar {
+  border-radius: 26px;
+  background: #e7f2eb;
+  padding: 24px;
+}
+.resource-detail-page .detail-sidebar h3 {
+  font-size: 24px;
+}
+.resource-detail-page .detail-sidebar > .button {
+  margin: 20px 0;
+}
+.resource-detail-page .detail-sidebar > p {
+  font-size: 15px;
+}
+.resource-detail-page .detail-sidebar .eyebrow {
+  letter-spacing: 0.05em;
+  overflow-wrap: anywhere;
+}
+.provider-details {
+  margin: 28px 0;
+  border: 1px solid #e2e8df;
+  border-radius: 18px;
+  padding: 16px;
+}
+.provider-details summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  gap: 12px;
+}
+.provider-details summary:before {
+  content: "+";
+  font-size: 24px;
+  color: #087f75;
+}
+.provider-details[open] summary:before {
+  content: "-";
+}
+.provider-details .notice {
+  margin-top: 12px;
+}
+.resource-detail-page .study-tools {
+  border-radius: 24px;
+}
+.resource-detail-page .study-tools h2 {
+  font-size: 25px;
+}
+.trail-provider-note {
+  padding: 16px 20px;
+  background: #eaf0fb;
+  border-radius: 18px;
+  font-size: 14px;
+}
+.trail-provider-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 20px 0;
+}
+.trail-provider-action > span {
+  font-weight: 700;
+  color: #087f75;
+  font-size: 14px;
+}
+.trail-provider-action small {
+  font-size: 12px;
+  color: #64748b;
+}
+@media (max-width: 700px) {
+  .resource-adventure {
+    grid-template-columns: 1fr;
+    padding: 22px;
+    gap: 14px;
+  }
+  .resource-adventure h2 {
+    font-size: 25px;
+  }
+  .resource-adventure .game-preview {
+    max-width: 340px;
+    justify-self: center;
+  }
+  .resource-detail-page .detail-title {
+    font-size: 32px;
+  }
+  .resource-detail-page .large-copy {
+    font-size: 16px;
+  }
+}

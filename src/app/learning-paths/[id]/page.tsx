@@ -1,3 +1,4 @@
+import { guidedPaths, guidedPathLinks } from '@/data/guidedPaths';
 import { ChevronRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -10,19 +11,21 @@ import { getCategoryMeta } from '@/lib/categories';
 
 export async function generateStaticParams() {
   const { paths } = await getCatalog();
-  return paths.map((p) => ({ id: p.id }));
+  return [...paths, ...guidedPaths].map((p) => ({ id: p.id }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<'/learning-paths/[id]'>): Promise<Metadata> {
-  const p = findPath(await getCatalog(), (await params).id);
+  const id = (await params).id;
+  const p = findPath(await getCatalog(), id) ?? guidedPaths.find((path) => path.id === id);
   return p ? { title: p.title, description: p.description } : {};
 }
 
 export default async function PathDetailsPage({ params }: PageProps<'/learning-paths/[id]'>) {
   const catalog = await getCatalog();
-  const p = findPath(catalog, (await params).id);
+  const id = (await params).id;
+  const p = findPath(catalog, id) ?? guidedPaths.find((path) => path.id === id);
   if (!p) notFound();
 
   const resourceTitles: Record<string, string> = {};
@@ -48,7 +51,13 @@ export default async function PathDetailsPage({ params }: PageProps<'/learning-p
         <h1>{p.title}</h1>
         <p>{p.description}</p>
       </div>
-      <PathSteps path={p} resourceTitles={resourceTitles} />
+      {guidedPathLinks[p.id] && (
+        <p className="trail-provider-note">
+          Provider activities open in a new tab. Come back here to continue your trail. Your ticks
+          record participation; StudySathi cannot see your provider scores.
+        </p>
+      )}
+      <PathSteps path={p} resourceTitles={resourceTitles} stepLinks={guidedPathLinks[p.id]} />
     </section>
   );
 }

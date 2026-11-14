@@ -230,3 +230,6 @@ For the user-requested child-facing activity gallery, use original interactive S
 
 ## Guided discovery extension (2026-11-14)
 Public home uses four pastel adventure doors, existing hero art, original letter artwork and a circuit mini preview. Resource cards use original sun/hill/book/category scenes, not provider screenshots. Paths expose numbered stops with direct anchor navigation and completion labels; preserve accessible controls and saved-state semantics. Reuse brand colours/fonts, 44px controls, 360px layouts and reduced-motion settings.
+
+
+Resource details now use compact category mini activities, an action-focused provider card and collapsed adult/source details rather than an oversized static icon banner. English/maths trails use existing numbered roadmap components, visible provider credits and explicit external vs in-site action labels.

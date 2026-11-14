@@ -188,3 +188,10 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Unit/lint/typecheck/build and four focused desktop/mobile production-browser checks.
 - [x] d69a38f deployed successfully; anonymous live 360px home/circuit/roadmap/resources/PDF UI verified without page errors or outer overflow.
 - [ ] Supported embed permission/integration for British Council/e-learning for Kids; no blocked or unlicensed whole-site embeds shipped.
+
+
+## Resource detail adventures and provider trails (2026-11-14)
+- [x] Replace passive detail banner with interactive original previews and shorter child-facing copy.
+- [x] Add credited British Council English and e-learning for Kids maths four-stop trails, external provider links plus in-site practice.
+- [x] Preserve saved participation/notes; test provider boundaries and desktop/mobile discovery.
+- [ ] Verify production release of detail redesign and both trails.

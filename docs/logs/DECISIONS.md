@@ -181,3 +181,7 @@ User screenshot showed the /play selection page, while previous auto-load work o
 
 ## 2026-11-14 - Original guided discovery and provider embed boundary
 Use original decorative scenes, a local circuit preview, existing reading activity and clickable numbered roadmap stops to make learning easier to discover. Do not copy provider artwork or whole websites. British Council SAMEORIGIN blocks framing; e-learning for Kids integration remains pending explicit supported embedding permission. No proxy/header bypass. User-requested removal of the BookReader failure aside supersedes the earlier recovery-panel presentation; original government file URLs and the known availability limitation remain unchanged.
+
+
+## 2026-11-14 - Provider link trails alongside in-site practice
+Add two authored four-stop trails without changing existing admin-managed Firestore paths. Trusted static step links retain provider identity, new-tab disclosure and existing participation progress storage; ticks do not import or certify provider scores. British Council/e-learning for Kids remain external where framing permission/support is absent. Original resource previews explicitly distinguish StudySathi practice from provider materials.

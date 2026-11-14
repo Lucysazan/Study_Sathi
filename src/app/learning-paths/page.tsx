@@ -1,3 +1,4 @@
+import { guidedPaths } from '@/data/guidedPaths';
 import { Compass } from 'lucide-react';
 import type { Metadata } from 'next';
 import { PathCard } from '@/components/paths/PathCard';
@@ -20,7 +21,7 @@ export default async function LearningPathsPage() {
       />
       <section className="site-container section">
         <div className="path-grid">
-          {paths.map((p, i) => (
+          {[...guidedPaths, ...paths].map((p, i) => (
             <PathCard key={p.id} path={p} index={i} />
           ))}
         </div>
