@@ -226,3 +226,7 @@ Short sentences. Encouraging, never pressuring. Say what to do next. Avoid jargo
 
 ## Play and Learn visual discovery
 For the user-requested child-facing activity gallery, use original interactive SVG mini previews, pastel subject backgrounds, teal play actions, compact titles and native subject filter buttons. Keep the existing brand fonts/colours and 44px controls. The preview is a small original demonstration; full provider games open on their activity pages. No points for preview clicks. Decorative motion respects reduced-motion preferences. Long teaching/source details use disclosures rather than crowding the discovery screen.
+
+
+## Guided discovery extension (2026-11-14)
+Public home uses four pastel adventure doors, existing hero art, original letter artwork and a circuit mini preview. Resource cards use original sun/hill/book/category scenes, not provider screenshots. Paths expose numbered stops with direct anchor navigation and completion labels; preserve accessible controls and saved-state semantics. Reuse brand colours/fonts, 44px controls, 360px layouts and reduced-motion settings.

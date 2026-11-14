@@ -1,4 +1,5 @@
 ﻿import Link from 'next/link';
+import { DiscoveryGuide } from '@/components/home/DiscoveryGuide';
 import { HomeHero } from '@/components/home/HomeHero';
 import { GradeGrid } from '@/components/academic/LibraryNavigation';
 import { schoolLibrary } from '@/lib/academic/library';
@@ -6,27 +7,7 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <section className="site-container section">
-        <div className="eyebrow">TURN RESOURCES INTO PRACTICE</div>
-        <h2>Learn a little. Try it. See what you understood.</h2>
-        <p>
-          Simple explanations, interactive simulations and practical activities lead to short
-          learning checks. Save your progress, earn XP once per completed activity and build your
-          learning streak.
-        </p>
-        <div className="academic-actions">
-          <Link className="button" href="/play" prefetch={false}>
-            Start Play and Learn
-          </Link>
-          <Link className="button secondary" href="/play/progress" prefetch={false}>
-            My activity progress
-          </Link>
-        </div>
-        <p>
-          Free activities, credited providers and optional parent-consented leaderboards. Practice
-          results guide revision; they do not certify mastery.
-        </p>
-      </section>
+      <DiscoveryGuide />
       <section className="site-container section school-library">
         <div className="eyebrow">TEXTBOOKS AND VIDEO LESSONS</div>
         <h2>Select your class</h2>

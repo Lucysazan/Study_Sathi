@@ -15,6 +15,11 @@ export function PathCard({ path: p, index }: { path: LearningPath; index: number
         LEARNING PATH <span>{String(index + 1).padStart(2, '0')}</span>
       </div>
       <h3>{p.title}</h3>
+      <div className="mini-trail" aria-label={`${p.steps.length} stops on this path`}>
+        {p.steps.map((step, i) => (
+          <span key={step.title}>{i + 1}</span>
+        ))}
+      </div>
       <p>{p.description}</p>
       <div className="path-meta">
         <span>Ages {p.age}</span>

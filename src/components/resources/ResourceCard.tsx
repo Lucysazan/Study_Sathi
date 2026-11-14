@@ -2,7 +2,7 @@ import { ArrowUpRight, Globe, Users } from 'lucide-react';
 import Link from 'next/link';
 import { getCategoryMeta } from '@/lib/categories';
 import type { Resource } from '@/types/catalog';
-import { CategoryIcon } from './CategoryIcon';
+import { ResourceScene } from './ResourceScene';
 import { SaveButton } from './SaveButton';
 
 /** Library card: category art, title (whole card is clickable), provider, meta and a bookmark. */
@@ -12,9 +12,7 @@ export function ResourceCard({ resource: r }: { resource: Resource }) {
   return (
     <article className="resource-card">
       <div className={`resource-art ${className}`}>
-        <CategoryIcon category={r.category} size={38} />
-        <span className="art-orbit" />
-        <span className="art-dot" />
+        <ResourceScene category={r.category} />
         <span className="format-tag">{r.format}</span>
         <SaveButton resourceId={r.id} title={r.title} />
       </div>

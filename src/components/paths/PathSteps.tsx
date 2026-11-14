@@ -52,6 +52,21 @@ export function PathSteps({
           {path.goal}
         </p>
       </div>
+      <nav className="trail-map" aria-label="Your learning roadmap">
+        {path.steps.map((step, i) => (
+          <a
+            key={keys[i]}
+            href={`#trail-step-${i}`}
+            className={complete.includes(keys[i]!) ? 'trail-stop done' : 'trail-stop'}
+          >
+            <span>
+              {complete.includes(keys[i]!) ? <Check aria-label="Complete" size={22} /> : i + 1}
+            </span>
+            <strong>{step.title}</strong>
+            <small>{complete.includes(keys[i]!) ? 'Done - revisit' : 'Explore this step'}</small>
+          </a>
+        ))}
+      </nav>
       {error && <p role="alert">{error}</p>}
       <div className="steps">
         {path.steps.map((s, i) => {
@@ -59,7 +74,7 @@ export function PathSteps({
           const done = complete.includes(key);
           const resourceTitle = s.resource ? resourceTitles[s.resource] : undefined;
           return (
-            <article className={done ? 'step complete' : 'step'} key={key}>
+            <article id={`trail-step-${i}`} className={done ? 'step complete' : 'step'} key={key}>
               <span className="step-number" aria-hidden="true">
                 {done ? <Check size={19} /> : i + 1}
               </span>

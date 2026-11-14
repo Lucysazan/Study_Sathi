@@ -21,18 +21,7 @@ test('school library browses classes, reads a government PDF and selects full-pl
     'src',
     /^https:\/\/giwmscdnone.gov.np\/.*\.pdf#page=1$/,
   );
-  await expect(
-    page.getByRole('link', { name: 'Open official book listing', exact: true }),
-  ).toHaveAttribute('href', /^https:\/\/moecdc.gov.np\//);
-  await page.getByRole('button', { name: 'Hide failed viewer', exact: true }).click();
-  await expect(page.locator('.library-pdf')).toHaveCount(0);
-  await expect(
-    page.getByText('Viewer hidden. Use the official book listing or the original PDF link above.', {
-      exact: true,
-    }),
-  ).toBeVisible();
-  await page.getByRole('button', { name: 'Retry PDF viewer', exact: true }).click();
-  await expect(page.locator('.library-pdf')).toHaveCount(1);
+  await expect(page.getByRole('heading', { name: 'PDF not loading?', exact: true })).toHaveCount(0);
   await page.getByLabel('PDF page', { exact: true }).fill('4');
   await page.getByRole('button', { name: 'Go to page', exact: true }).click();
   await expect(page.locator('.library-pdf')).toHaveAttribute('src', /#page=4$/);

@@ -10,9 +10,9 @@ export function HomeHero() {
           <span /> ACADEMIC LEARNING FOR NEPAL
         </div>
         <h1>
-          Your class. Your subjects.
+          A little curiosity.
           <br />
-          <span>Learn right here.</span>
+          <span>A new adventure.</span>
           <svg viewBox="0 0 390 15" aria-hidden="true">
             <path
               d="M3 10Q190-4 384 8"
@@ -24,15 +24,14 @@ export function HomeHero() {
           </svg>
         </h1>
         <p>
-          Find government textbooks and NCED Virtual teaching playlists for Classes 1–12. Read PDFs
-          and watch subject lessons without leaving StudySathi.
+          Choose your class, try a game or follow a learning trail. Your next discovery starts here.
         </p>
         <div className="hero-buttons">
           <Link className="button" href="/study">
             Start Academic Study <ArrowRight size={18} aria-hidden="true" />
           </Link>
-          <Link className="button secondary" href="/learn">
-            My Learning <BookOpen size={18} aria-hidden="true" />
+          <Link className="button secondary" href="/play">
+            Play and Learn <BookOpen size={18} aria-hidden="true" />
           </Link>
         </div>
         <div className="hero-notes">

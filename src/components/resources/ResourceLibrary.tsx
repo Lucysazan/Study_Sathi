@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useId, useState } from 'react';
@@ -85,6 +86,13 @@ function LibraryView({
 
   return (
     <>
+      {!teaching && (
+        <nav className="resource-shortcuts site-container" aria-label="Choose how to learn">
+          <Link href="/study">My class books</Link>
+          <Link href="/play">Play and discover</Link>
+          <Link href="/learning-paths">Follow a trail</Link>
+        </nav>
+      )}
       <PageTitle
         eyebrow={teaching ? 'LEARN TOGETHER' : 'A WORLD OF FREE LEARNING'}
         title={teaching ? 'Support Learning in Your Community.' : 'Explore Learning Resources'}

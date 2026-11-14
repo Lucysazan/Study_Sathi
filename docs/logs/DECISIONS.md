@@ -177,3 +177,7 @@ User explicitly requested automatic game loading, visible game preview and optio
 
 ## 2026-11-09 - Visual interactive activity selection
 User screenshot showed the /play selection page, while previous auto-load work only changed individual activities. Replaced text-heavy cards with a colourful gallery, original interactive SVG previews, short child-facing names, clear play actions, subject filter chips and a playable fractions hero. Preview interactions are local original demonstrations, not provider screenshots, recordings or the complete PhET simulations. The full activity still opens the auto-loaded game with optional questions. No iframe/audio/progress request or reward on gallery previews. Reduced-motion support stops decorative floating/hover motion. Educational/reward/source detail moves into a disclosure. No dependencies or copied visual assets.
+
+
+## 2026-11-14 - Original guided discovery and provider embed boundary
+Use original decorative scenes, a local circuit preview, existing reading activity and clickable numbered roadmap stops to make learning easier to discover. Do not copy provider artwork or whole websites. British Council SAMEORIGIN blocks framing; e-learning for Kids integration remains pending explicit supported embedding permission. No proxy/header bypass. User-requested removal of the BookReader failure aside supersedes the earlier recovery-panel presentation; original government file URLs and the known availability limitation remain unchanged.

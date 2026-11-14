@@ -16,7 +16,7 @@ export default async function LearningPathsPage() {
       <PageTitle
         eyebrow="LITTLE STEPS. NEW POSSIBILITIES."
         title="Find your learning path"
-        intro="A little structure for your curiosity. Follow a short, curated sequence of free resources and activities."
+        intro="Pick a trail. Follow the numbered stops. Tick off each little discovery as you go."
       />
       <section className="site-container section">
         <div className="path-grid">

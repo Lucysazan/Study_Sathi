@@ -178,3 +178,13 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Colourful original interactive previews, compact play cards, subject filters and fractions hero.
 - [x] Retain auto-loaded full games and optional learning checks.
 - [x] Desktop/mobile visuals and local preview/filter checks pass; 4a69c2e Vercel success and live 360px preview/filter/full-game/optional-questions journey verified 2026-11-14.
+
+
+## Guided public discovery (2026-11-14)
+- [x] Guided homepage with learning-mode doors, English reading entry and interactive circuit preview.
+- [x] Original playful resource illustrations and mode shortcuts.
+- [x] Numbered path trails and clickable roadmap with persistent completion.
+- [x] Remove requested PDF error-help block; preserve reader/page/download controls.
+- [x] Unit/lint/typecheck/build and four focused desktop/mobile production-browser checks.
+- [ ] Verify final production deployment.
+- [ ] Supported embed permission/integration for British Council/e-learning for Kids; no blocked or unlicensed whole-site embeds shipped.
