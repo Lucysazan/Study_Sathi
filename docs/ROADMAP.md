@@ -194,4 +194,4 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Replace passive detail banner with interactive original previews and shorter child-facing copy.
 - [x] Add credited British Council English and e-learning for Kids maths four-stop trails, external provider links plus in-site practice.
 - [x] Preserve saved participation/notes; test provider boundaries and desktop/mobile discovery.
-- [ ] Verify production release of detail redesign and both trails.
+- [x] a52b044 Vercel success; anonymous live mobile resource preview, English/maths links and saved guest participation verified.
