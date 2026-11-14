@@ -214,5 +214,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] 12 selected sources: 8 English, 3 Nepali, 1 visual; 11 subjects; metadata and sampled visual/caption review documented.
 - [x] Owner confirms existing child-directed designation; official requirements documented.
 - [x] 14 focused production-build desktop/mobile cases pass, including private sync/no-XP, buffering/fallback and existing navigation/merge.
-- [ ] Verify production release and real live playback.
+- [x] 9f9ea8a pushed; live mobile12-entry catalogue, actual English/Nepali playback, question, guest Saved, one-player and recap/break verified.
 - [ ] Full audiovisual, native-speaker/teacher/assistive/device review and expansion towards 30 individually approved clips.

@@ -306,3 +306,6 @@ Quick Learn local acceptance: 184 unit tests/41 files, lint/typecheck and normal
 
 
 Final local release checks: last normal build succeeds after failure-destruction cleanup. Direct normal-build desktop/mobile stub probes confirm stalled buffering destroys the iframe and Retry creates a fresh player. Final14 focused browser cases pass, final184 units pass, lint/typecheck pass; all12 source metadata checks match. Ready for main release, live verification outstanding.
+
+
+Quick Learn production release: 9f9ea8a pushed. Public /quick-learn transitioned from404 to200; client feed confirms12 approved entries. GitHub public status endpoint hit rate limits, so no fabricated Vercel status claim. Anonymous live Chromium360px verifies actual English/Nepali video time advancement, single active player, optional correct-question feedback, guest bookmark in /saved and deep-link return, sequential five-card navigation, no player during recap/break, no page errors or outer overflow. No production auth fixtures or Firestore writes. Initial HTML contains Suspense fallback rather than quick-feed, so raw HTML marker absence alone was not a deployment failure. Public route/browser behavior is the final evidence. Full audiovisual/native/teacher/device/assistive acceptance and expansion towards30 remain open, as documented.
