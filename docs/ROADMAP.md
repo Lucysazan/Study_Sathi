@@ -202,5 +202,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Inline original spelling, storybook, apple-counting, frog hops and equal-parts play.
 - [x] Original storybook illustrations replace repeated resource/path icon art.
 - [x] 179 unit tests, lint/typecheck/build and four targeted desktop/mobile discovery/game cases.
-- [ ] Verify live deployment and actual artwork/game interactions.
+- [x] 962c811 Vercel success; anonymous live mobile artwork/spelling/story/apples/frog and no-external-link checks pass.
 - [ ] Teacher/level review, real-device narration and assistive-technology acceptance.
