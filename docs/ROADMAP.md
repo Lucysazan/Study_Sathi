@@ -186,5 +186,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Numbered path trails and clickable roadmap with persistent completion.
 - [x] Remove requested PDF error-help block; preserve reader/page/download controls.
 - [x] Unit/lint/typecheck/build and four focused desktop/mobile production-browser checks.
-- [ ] Verify final production deployment.
+- [x] d69a38f deployed successfully; anonymous live 360px home/circuit/roadmap/resources/PDF UI verified without page errors or outer overflow.
 - [ ] Supported embed permission/integration for British Council/e-learning for Kids; no blocked or unlicensed whole-site embeds shipped.
