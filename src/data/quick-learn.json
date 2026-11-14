@@ -1,0 +1,398 @@
+[
+  {
+    "videoId": "0oedpy8mqWg",
+    "sourceUrl": "https://www.youtube.com/shorts/0oedpy8mqWg",
+    "title": "‘beside’ and ‘besides’ - what’s the difference? #shorts",
+    "creator": "BBC Learning English",
+    "language": "en",
+    "subject": "English",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 17,
+    "objective": "Tell the difference between beside (next to) and besides (in addition).",
+    "question": {
+      "prompt": "Which word means next to?",
+      "options": [
+        "Beside",
+        "Besides",
+        "Before"
+      ],
+      "answer": 0,
+      "explanation": "Beside describes position: next to. Besides means in addition."
+    },
+    "related": {
+      "href": "/learning-paths/english-adventure",
+      "label": "English reading adventure"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  },
+  {
+    "videoId": "LzBmccTtC_Y",
+    "sourceUrl": "https://www.youtube.com/shorts/LzBmccTtC_Y",
+    "title": "हामीले सास कसरी फेर्छौँ? 🫁 | Human Respiration Explained in Nepali | Science Shorts",
+    "creator": "Study Guidance Nepal",
+    "language": "ne",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 60,
+    "objective": "Explore how lungs exchange gases when we breathe.",
+    "question": {
+      "prompt": "Which gas does the body take in from the air?",
+      "options": [
+        "Carbon dioxide",
+        "Oxygen",
+        "Helium"
+      ],
+      "answer": 1,
+      "explanation": "The lungs transfer oxygen from inhaled air into the blood and help remove carbon dioxide."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  },
+  {
+    "videoId": "rt5vE6JD20k",
+    "sourceUrl": "https://www.youtube.com/shorts/rt5vE6JD20k",
+    "title": "Adding Fractions Using the Butterfly Method | Math Tricks with JusticeTheTutor #shorts #math #maths",
+    "creator": "Justice Shepard",
+    "language": "none",
+    "subject": "Maths",
+    "minAge": 10,
+    "maxAge": 14,
+    "durationSeconds": 12,
+    "objective": "Watch 1/3 + 4/5 being rewritten with a common denominator. The lesson is visual; the audio includes music.",
+    "question": {
+      "prompt": "What is 1/3 + 4/5?",
+      "options": [
+        "5/8",
+        "17/15",
+        "4/15"
+      ],
+      "answer": 1,
+      "explanation": "Use fifteenths: 1/3 = 5/15 and 4/5 = 12/15, so the sum is 17/15."
+    },
+    "related": {
+      "href": "/play/fractions",
+      "label": "Explore equal parts"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio. Visual instruction with music, not counted as an English-spoken clip."
+    }
+  },
+  {
+    "videoId": "n3k51_yt6D8",
+    "sourceUrl": "https://www.youtube.com/shorts/n3k51_yt6D8",
+    "title": "The Lightning Capital of the World | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Geography",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 47,
+    "objective": "Discover how warm, moist air around Lake Maracaibo helps produce frequent thunderstorms.",
+    "question": {
+      "prompt": "Where does the clip describe frequent lightning?",
+      "options": [
+        "Lake Maracaibo in Venezuela",
+        "The Moon",
+        "A dry indoor classroom"
+      ],
+      "answer": 0,
+      "explanation": "The clip visits Lake Maracaibo in Venezuela and connects its thunderstorms to warm, moist air."
+    },
+    "related": {
+      "href": "/study/6/social-studies",
+      "label": "Social studies and geography materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  },
+  {
+    "videoId": "ElqY2oqVvTg",
+    "sourceUrl": "https://www.youtube.com/shorts/ElqY2oqVvTg",
+    "title": "नेपाली नोट र सिक्का चिनौँ! Let’s Recognise Nepali Money: Notes and Coins ! 💵🪙 #learn #currency",
+    "creator": "Lovely Kids Nepal",
+    "language": "ne",
+    "subject": "Everyday money",
+    "minAge": 10,
+    "maxAge": 12,
+    "durationSeconds": 55,
+    "objective": "Recognise that Nepali notes and coins show values, and explore the idea of saving. The pictures are illustrations, not a banknote-authentication guide.",
+    "question": {
+      "prompt": "What should you check when comparing the value of two notes?",
+      "options": [
+        "Only their pictures",
+        "Only their size",
+        "The value printed on them"
+      ],
+      "answer": 2,
+      "explanation": "Check the printed denomination. A picture or colour alone is not enough to work out the value."
+    },
+    "related": {
+      "href": "/play/budget",
+      "label": "Plan a small budget"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio. Stylised generated characters and money illustrations; not an official central-bank lesson."
+    }
+  },
+  {
+    "videoId": "-QEEHj1Mn5Y",
+    "sourceUrl": "https://www.youtube.com/shorts/-QEEHj1Mn5Y",
+    "title": "How can you build strong passwords? Teacher tips for you and your students | Hello World podcast",
+    "creator": "Raspberry Pi Foundation",
+    "language": "en",
+    "subject": "Digital safety",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 68,
+    "objective": "Learn why a long passphrase made from unrelated words can be useful. Never type a real password here.",
+    "question": {
+      "prompt": "Which is a better password habit?",
+      "options": [
+        "Use your name on every account",
+        "Use a long, unique passphrase and keep it private",
+        "Share your password with everyone"
+      ],
+      "answer": 1,
+      "explanation": "Use long, unique passwords or passphrases, and keep them private. Follow the rules of the service you use."
+    },
+    "related": {
+      "href": "/play/digital-safety",
+      "label": "Practise digital safety"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  },
+  {
+    "videoId": "mIJJ-6jVFqk",
+    "sourceUrl": "https://www.youtube.com/shorts/mIJJ-6jVFqk",
+    "title": "ह्रस्व दीर्घ ज्ञान || नेपाली व्याकरण #mrteacher #education #hraswadeergha #nepali",
+    "creator": "MR.TEACHER",
+    "language": "ne",
+    "subject": "Nepali",
+    "minAge": 10,
+    "maxAge": 14,
+    "durationSeconds": 15,
+    "objective": "Look at short and long vowel forms in Nepali spelling.",
+    "question": {
+      "prompt": "Which is the long vowel form?",
+      "options": [
+        "उ",
+        "ऊ",
+        "क"
+      ],
+      "answer": 1,
+      "explanation": "ऊ is a long vowel (दीर्घ); उ is its short-vowel counterpart (ह्रस्व)."
+    },
+    "related": {
+      "href": "/study/6/nepali",
+      "label": "Nepali lessons and books"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio. Nepali classification uses the publisher title and visible Nepali grammar lesson; auto-caption language is hi."
+    }
+  },
+  {
+    "videoId": "0FwHdjOEIpY",
+    "sourceUrl": "https://www.youtube.com/shorts/0FwHdjOEIpY",
+    "title": "The Amazing Elephant Seal | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 52,
+    "objective": "Meet the elephant seal and learn why its nose gives it that name.",
+    "question": {
+      "prompt": "What feature gives the elephant seal its name?",
+      "options": [
+        "Its long nose",
+        "Its feathers",
+        "Its horns"
+      ],
+      "answer": 0,
+      "explanation": "The name refers to its prominent nose, also called a proboscis. Elephant seals are mammals."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Living things in science"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  },
+  {
+    "videoId": "EmrMcsnR6k8",
+    "sourceUrl": "https://www.youtube.com/shorts/EmrMcsnR6k8",
+    "title": "Social media and data privacy | #helloworldpodcast #onlinesafety #computerscience #education",
+    "creator": "Raspberry Pi Foundation",
+    "language": "en",
+    "subject": "Technology",
+    "minAge": 13,
+    "maxAge": 16,
+    "durationSeconds": 31,
+    "objective": "Consider how images shared online can be reused, and why privacy matters.",
+    "question": {
+      "prompt": "What is a useful habit before sharing someone else's photo?",
+      "options": [
+        "Post it everywhere first",
+        "Ask permission and consider privacy",
+        "Publish their address too"
+      ],
+      "answer": 1,
+      "explanation": "Think about permission and privacy before sharing. Images may be copied or reused beyond the original audience."
+    },
+    "related": {
+      "href": "/safety-mission",
+      "label": "Try the privacy mission"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  },
+  {
+    "videoId": "NvQihiFG-Ws",
+    "sourceUrl": "https://www.youtube.com/shorts/NvQihiFG-Ws",
+    "title": "Let’s Draw a Colorful Crayon Box! 🖍️ National Color Day",
+    "creator": "Art for Kids Hub",
+    "language": "en",
+    "subject": "Art",
+    "minAge": 10,
+    "maxAge": 14,
+    "durationSeconds": 29,
+    "objective": "See how lines, shapes and colours become a cheerful crayon-box drawing.",
+    "question": {
+      "prompt": "What can you change to make your own version of the drawing?",
+      "options": [
+        "Only copy every colour exactly",
+        "Nothing at all",
+        "Choose your own colours and details"
+      ],
+      "answer": 2,
+      "explanation": "The artist explains that colours change the result. You can use your own choices and details."
+    },
+    "related": {
+      "href": "/study/6/health",
+      "label": "Creative arts learning materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  },
+  {
+    "videoId": "cQ8AksGhtE0",
+    "sourceUrl": "https://www.youtube.com/shorts/cQ8AksGhtE0",
+    "title": "Why do they put salt on sidewalks in winter? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Practical knowledge",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 54,
+    "objective": "Find out why adding salt can help ice melt. Ask an adult before trying an experiment.",
+    "question": {
+      "prompt": "Why is salt used on icy paths?",
+      "options": [
+        "It can lower the freezing point of water",
+        "It makes ice hotter than fire",
+        "It turns water into stone"
+      ],
+      "answer": 0,
+      "explanation": "Salt lowers the freezing point, so ice can melt at temperatures where pure water would stay frozen. It is not effective at every temperature."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Explore science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  },
+  {
+    "videoId": "QP5Fs3AYuWE",
+    "sourceUrl": "https://www.youtube.com/shorts/QP5Fs3AYuWE",
+    "title": "2026 Total Solar Eclipse Over Spain",
+    "creator": "NASA",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 35,
+    "objective": "Watch NASA footage of the Moon covering the Sun during a total solar eclipse. Never look directly at the Sun without suitable protection.",
+    "question": {
+      "prompt": "During a solar eclipse, what passes between Earth and the Sun?",
+      "options": [
+        "Jupiter",
+        "The Moon",
+        "A cloud made of rock"
+      ],
+      "answer": 1,
+      "explanation": "A solar eclipse happens when the Moon moves between Earth and the Sun. Use a safe viewer or certified eclipse glasses for direct viewing; do not look at the Sun unprotected."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Space and science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-14",
+      "reviewer": "Codex assisted editorial review",
+      "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
+      "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
+    }
+  }
+]

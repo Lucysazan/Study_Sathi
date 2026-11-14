@@ -204,3 +204,15 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] 179 unit tests, lint/typecheck/build and four targeted desktop/mobile discovery/game cases.
 - [x] 962c811 Vercel success; anonymous live mobile artwork/spelling/story/apples/frog and no-external-link checks pass.
 - [ ] Teacher/level review, real-device narration and assistive-technology acceptance.
+
+
+## Quick Learn (2026-11-14)
+- [x] Additional public navigation/homepage preview and portrait five-short feed.
+- [x] Fixed approved catalogue, independent spoken-language/subject/age filters, creator credits and related links.
+- [x] One official player, pause/destroy/visibility controls, loading/retry/unavailable fallback.
+- [x] Optional questions, private saved/finished/practice records, global Saved, recap and breaks without XP/social metrics.
+- [x] 12 selected sources: 8 English, 3 Nepali, 1 visual; 11 subjects; metadata and sampled visual/caption review documented.
+- [x] Owner confirms existing child-directed designation; official requirements documented.
+- [x] 14 focused production-build desktop/mobile cases pass, including private sync/no-XP, buffering/fallback and existing navigation/merge.
+- [ ] Verify production release and real live playback.
+- [ ] Full audiovisual, native-speaker/teacher/assistive/device review and expansion towards 30 individually approved clips.

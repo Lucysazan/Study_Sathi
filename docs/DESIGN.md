@@ -237,3 +237,7 @@ Resource details now use compact category mini activities, an action-focused pro
 
 ## Storybook/playable trail revision
 Supersedes icon landscapes and provider-link English/maths trail presentation: use original colourful storybook scene artwork for resources and path covers. Native inline spelling/counting/number-hop games and original picture-book pages are visible without a load button or external route. Optional device narration never starts automatically; preserve quiet text fallback. Large tactile controls and visible text feedback; no points for decorative/game taps. Asset is a shared compressed six-scene sheet, not provider imagery.
+
+
+## Quick Learn
+Additional child-facing finite portrait-video section. Use brand mint/lavender surfaces, native unobstructed YouTube player at 9:16, one active player, external metadata/controls and large filter/select/navigation targets. Mobile has scroll snap and a scrollable detail panel; desktop places the portrait player beside learning details. Never intercept YouTube player gestures or cover controls with custom overlays. Loading text stays outside the active player; failure state replaces a failed player view. Optional questions/source notes use disclosures. No social counters or competitive visuals in StudySathi UI.

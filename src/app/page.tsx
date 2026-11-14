@@ -1,4 +1,5 @@
 ﻿import Link from 'next/link';
+import { QuickPreview } from '@/components/quick-learn/QuickPreview';
 import { DiscoveryGuide } from '@/components/home/DiscoveryGuide';
 import { HomeHero } from '@/components/home/HomeHero';
 import { GradeGrid } from '@/components/academic/LibraryNavigation';
@@ -8,6 +9,7 @@ export default function HomePage() {
     <>
       <HomeHero />
       <DiscoveryGuide />
+      <QuickPreview />
       <section className="site-container section school-library">
         <div className="eyebrow">TEXTBOOKS AND VIDEO LESSONS</div>
         <h2>Select your class</h2>

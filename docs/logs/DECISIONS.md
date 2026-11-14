@@ -189,3 +189,7 @@ Add two authored four-stop trails without changing existing admin-managed Firest
 
 ## 2026-11-14 - Supersede external provider trails with original in-site games
 User explicitly rejected leaving StudySathi. Replace the two recently added English/maths link trails with original playable widgets and story rather than framing blocked/unsupported provider pages. Remove British Council/e-learning for Kids feature claims and external CTAs from those trails. Existing separate provider catalogue and media unaffected. Preview/game interactions grant no XP; participation remains self-reported. Generate original storybook static art using imagegen; no runtime AI, copied provider artwork or new dependency.
+
+
+## 2026-11-14 - Finite curated Quick Learn, no discovery algorithm
+Use a bundled explicit schema-validated approved catalogue, official IFrame API and one privacy-enhanced player. Native controls/proportions preserved, explicit play, pause/destroy on transition and visibility pause. Five-card sessions end in a recap, with deliberate break/new-batch choices. Questions and self-reported end records use private library state without XP or rankings; bookmarks use quick-ID namespace and global Saved support. No API key or channel-wide auto-publish. Review is metadata + sampled playback/text, with transparent limitations; owner confirms child-directed designation. Do not claim no ads/recommendations or human/teacher certification. No new dependency or Firebase write surface.

@@ -21,6 +21,7 @@ export function Footer() {
         <div>
           <h4>Explore</h4>
           <Link href="/study">Academic study</Link>
+          <Link href="/quick-learn">Quick Learn</Link>
           <Link href="/study/sources">Academic sources</Link>
           <Link href="/resources">All resources</Link>
           <Link href="/learning-paths">Learning paths</Link>

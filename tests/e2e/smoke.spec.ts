@@ -575,3 +575,50 @@ test('creator analytics shows recorded metrics and recovers from a missing cours
     .click();
   await expect(page).toHaveURL(/\/creator\/analytics$/);
 });
+
+test('Quick Learn bookmarks and practice sync privately without awarding XP', async ({
+  page,
+  browser,
+}) => {
+  await login(page, 'student');
+  const db = getFirestore(app),
+    user = db.collection('users').doc(uid('student'));
+  const xp = (await user.get()).get('stats.xp');
+  await page.goto('/quick-learn');
+  const card = page.locator('.quick-card').first();
+  await card.getByRole('button', { name: /^Save / }).click();
+  await card.getByText('Try one question (optional)', { exact: true }).click();
+  await card.getByRole('radio').first().check();
+  await card.getByRole('button', { name: 'Check my answer', exact: true }).click();
+  await expect(card.locator('.quick-question').getByRole('status')).toContainText('You got it!');
+  const library = user.collection('privateData').doc('library');
+  await expect
+    .poll(async () => (await library.get()).get('savedIds'))
+    .toContain('quick-0oedpy8mqWg');
+  await expect
+    .poll(async () => (await library.get()).get('progress'))
+    .toContain('quick-check-0oedpy8mqWg');
+  expect((await user.get()).get('stats.xp')).toBe(xp);
+  await page.reload();
+  await expect(
+    page
+      .locator('.quick-card')
+      .first()
+      .getByRole('button', { name: /^Unsave / }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  const second = await browser.newContext({
+    baseURL: 'http://localhost:3100',
+    viewport: page.viewportSize() ?? undefined,
+  });
+  try {
+    await blockExternal(second);
+    const parent = await second.newPage();
+    await login(parent, 'parent');
+    await parent.goto('/saved');
+    await expect(
+      parent.getByRole('heading', { name: 'Your saved Quick Learn shorts', exact: true }),
+    ).toHaveCount(0);
+  } finally {
+    await second.close();
+  }
+});

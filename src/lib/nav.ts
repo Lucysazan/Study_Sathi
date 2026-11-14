@@ -5,6 +5,7 @@ export const mainNav: readonly NavItem[] = [
   { href: '/', label: 'Home' },
   { href: '/study', label: 'Academic Study' },
   { href: '/play', label: 'Play and Learn' },
+  { href: '/quick-learn', label: 'Quick Learn' },
   { href: '/resources', label: 'Resources' },
   { href: '/learning-paths', label: 'Learning Paths' },
   { href: '/about', label: 'About' },
