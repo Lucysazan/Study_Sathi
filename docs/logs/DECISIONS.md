@@ -185,3 +185,7 @@ Use original decorative scenes, a local circuit preview, existing reading activi
 
 ## 2026-11-14 - Provider link trails alongside in-site practice
 Add two authored four-stop trails without changing existing admin-managed Firestore paths. Trusted static step links retain provider identity, new-tab disclosure and existing participation progress storage; ticks do not import or certify provider scores. British Council/e-learning for Kids remain external where framing permission/support is absent. Original resource previews explicitly distinguish StudySathi practice from provider materials.
+
+
+## 2026-11-14 - Supersede external provider trails with original in-site games
+User explicitly rejected leaving StudySathi. Replace the two recently added English/maths link trails with original playable widgets and story rather than framing blocked/unsupported provider pages. Remove British Council/e-learning for Kids feature claims and external CTAs from those trails. Existing separate provider catalogue and media unaffected. Preview/game interactions grant no XP; participation remains self-reported. Generate original storybook static art using imagegen; no runtime AI, copied provider artwork or new dependency.

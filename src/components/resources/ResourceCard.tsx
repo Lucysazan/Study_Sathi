@@ -12,7 +12,7 @@ export function ResourceCard({ resource: r }: { resource: Resource }) {
   return (
     <article className="resource-card">
       <div className={`resource-art ${className}`}>
-        <ResourceScene category={r.category} />
+        <ResourceScene category={r.category} resourceId={r.id} />
         <span className="format-tag">{r.format}</span>
         <SaveButton resourceId={r.id} title={r.title} />
       </div>

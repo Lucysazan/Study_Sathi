@@ -195,3 +195,12 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Add credited British Council English and e-learning for Kids maths four-stop trails, external provider links plus in-site practice.
 - [x] Preserve saved participation/notes; test provider boundaries and desktop/mobile discovery.
 - [x] a52b044 Vercel success; anonymous live mobile resource preview, English/maths links and saved guest participation verified.
+
+
+## In-site games and storybook UI (2026-11-14, supersedes provider-link trails)
+- [x] Remove English/maths external provider CTAs and unsupported provider-feature claims.
+- [x] Inline original spelling, storybook, apple-counting, frog hops and equal-parts play.
+- [x] Original storybook illustrations replace repeated resource/path icon art.
+- [x] 179 unit tests, lint/typecheck/build and four targeted desktop/mobile discovery/game cases.
+- [ ] Verify live deployment and actual artwork/game interactions.
+- [ ] Teacher/level review, real-device narration and assistive-technology acceptance.

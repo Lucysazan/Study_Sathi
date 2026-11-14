@@ -1,16 +1,15 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { CategoryIcon } from '@/components/resources/CategoryIcon';
-import { getCategoryMeta } from '@/lib/categories';
+import { ResourceScene } from '@/components/resources/ResourceScene';
 import type { LearningPath } from '@/types/catalog';
 
 /** Learning path preview card. `index` is 0-based and shown as "01", "02"… */
 export function PathCard({ path: p, index }: { path: LearningPath; index: number }) {
   return (
     <Link href={`/learning-paths/${p.id}`} className="path-card">
-      <span className={`path-icon ${getCategoryMeta(p.category).className}`}>
-        <CategoryIcon category={p.category} size={28} />
-      </span>
+      <div className="path-picture">
+        <ResourceScene category={p.category} resourceId={p.id} />
+      </div>
       <div className="path-topline">
         LEARNING PATH <span>{String(index + 1).padStart(2, '0')}</span>
       </div>

@@ -1,13 +1,12 @@
-import { guidedPaths, guidedPathLinks } from '@/data/guidedPaths';
+import { guidedPaths } from '@/data/guidedPaths';
 import { ChevronRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PathSteps } from '@/components/paths/PathSteps';
-import { CategoryIcon } from '@/components/resources/CategoryIcon';
+import { ResourceScene } from '@/components/resources/ResourceScene';
 import { findPath, findResource } from '@/data/catalog';
 import { getCatalog } from '@/data/catalog.server';
-import { getCategoryMeta } from '@/lib/categories';
 
 export async function generateStaticParams() {
   const { paths } = await getCatalog();
@@ -42,22 +41,22 @@ export default async function PathDetailsPage({ params }: PageProps<'/learning-p
         <span>{p.title}</span>
       </div>
       <div className="path-detail-head">
-        <span className={`path-icon ${getCategoryMeta(p.category).className}`}>
-          <CategoryIcon category={p.category} size={30} />
-        </span>
+        <div className="path-cover">
+          <ResourceScene category={p.category} resourceId={p.id} />
+        </div>
         <div className="eyebrow">
           AGES {p.age} · {p.steps.length} STEPS · YOUR OWN PACE
         </div>
         <h1>{p.title}</h1>
         <p>{p.description}</p>
       </div>
-      {guidedPathLinks[p.id] && (
+      {guidedPaths.some((path) => path.id === p.id) && (
         <p className="trail-provider-note">
-          Provider activities open in a new tab. Come back here to continue your trail. Your ticks
-          record participation; StudySathi cannot see your provider scores.
+          Made by StudySathi. Play here, take your time and tick each stop when you are ready. Ticks
+          record participation, not a test score.
         </p>
       )}
-      <PathSteps path={p} resourceTitles={resourceTitles} stepLinks={guidedPathLinks[p.id]} />
+      <PathSteps path={p} resourceTitles={resourceTitles} />
     </section>
   );
 }

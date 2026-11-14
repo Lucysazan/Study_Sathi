@@ -233,3 +233,7 @@ Public home uses four pastel adventure doors, existing hero art, original letter
 
 
 Resource details now use compact category mini activities, an action-focused provider card and collapsed adult/source details rather than an oversized static icon banner. English/maths trails use existing numbered roadmap components, visible provider credits and explicit external vs in-site action labels.
+
+
+## Storybook/playable trail revision
+Supersedes icon landscapes and provider-link English/maths trail presentation: use original colourful storybook scene artwork for resources and path covers. Native inline spelling/counting/number-hop games and original picture-book pages are visible without a load button or external route. Optional device narration never starts automatically; preserve quiet text fallback. Large tactile controls and visible text feedback; no points for decorative/game taps. Asset is a shared compressed six-scene sheet, not provider imagery.

@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Check, CheckCircle2, Lightbulb, Sparkles } fr
 import Link from 'next/link';
 import { useState } from 'react';
 import { saveNote, toggleStepComplete, useNotes, useProgress } from '@/lib/storage/guest-data';
-import type { TrailLink } from '@/data/guidedPaths';
+import { TrailActivity } from './TrailActivity';
 import type { LearningPath } from '@/types/catalog';
 import { BudgetActivity } from './BudgetActivity';
 
@@ -15,10 +15,8 @@ import { BudgetActivity } from './BudgetActivity';
 export function PathSteps({
   path,
   resourceTitles,
-  stepLinks,
 }: {
   path: LearningPath;
-  stepLinks?: Readonly<Record<number, TrailLink>>;
   /** Titles of linked resources, by resource ID (looked up on the server). */
   resourceTitles: Readonly<Record<string, string>>;
 }) {
@@ -71,11 +69,16 @@ export function PathSteps({
         ))}
       </nav>
       {error && <p role="alert">{error}</p>}
-      <div className="steps">
+      <div
+        className={
+          path.id === 'english-adventure' || path.id === 'maths-world'
+            ? 'steps playable-trail'
+            : 'steps'
+        }
+      >
         {path.steps.map((s, i) => {
           const key = keys[i] ?? `${path.id}-${i}`;
           const done = complete.includes(key);
-          const trailLink = stepLinks?.[i];
           const resourceTitle = s.resource ? resourceTitles[s.resource] : undefined;
           return (
             <article id={`trail-step-${i}`} className={done ? 'step complete' : 'step'} key={key}>
@@ -86,31 +89,7 @@ export function PathSteps({
                 <div className="eyebrow">STEP {String(i + 1).padStart(2, '0')}</div>
                 <h2>{s.title}</h2>
                 <p>{s.description}</p>
-                {trailLink && (
-                  <div className="trail-provider-action">
-                    <span>{trailLink.provider}</span>
-                    {trailLink.external ? (
-                      <a
-                        className="button"
-                        href={trailLink.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {trailLink.label} <ArrowUpRight size={17} aria-hidden="true" />
-                        <span className="sr-only"> (opens in a new tab)</span>
-                      </a>
-                    ) : (
-                      <Link className="button" href={trailLink.href}>
-                        {trailLink.label} <ArrowRight size={17} aria-hidden="true" />
-                      </Link>
-                    )}
-                    <small>
-                      {trailLink.external
-                        ? 'Opens the provider website in a new tab'
-                        : 'Play right here on StudySathi'}
-                    </small>
-                  </div>
-                )}
+                <TrailActivity pathId={path.id} step={i} />
                 {s.resource && resourceTitle && (
                   <Link className="text-link" href={`/resources/${s.resource}`}>
                     {resourceTitle}
