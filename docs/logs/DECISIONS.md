@@ -209,3 +209,7 @@ Global language preference applies to bundled translated UI/game/introduction co
 
 ## 2026-11-17 - Supersede global locale/browser speech
 Explicit owner correction: language/audio live only inside a game page, with visit-local locale and no site-wide effects. Reuse authored Nepali native-game copy. ElevenLabs requested explicitly, so original fixed game narration may be generated offline with owner credentials and served as static attributed MP3s. No runtime AI/TTS feature, public proxy, arbitrary text generation or automatic credit-spending endpoint. Zero recordings until credentials configured and reviewed.
+
+
+## 2026-11-17 - Game controls beside content
+Place local language and current-round audio together in a desktop right-side panel; mobile panel sits above activity. Portal retains game narration state and avoids duplicated controls. Supersedes separate page-top translation/question audio placement.

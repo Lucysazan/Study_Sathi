@@ -257,3 +257,6 @@ Global English/Nepali control in header; preserve mobile menu/account/saved cont
 
 ## Per-game controls (supersedes global bilingual/audio controls)
 Language control sits at top right inside /play/[id], not site header. Locale resets for another game. Header/resources retain their original UI. Listen inside native games plays prepared attributed ElevenLabs recordings only; text fallback when absent. Red/confetti and clipped game artwork unchanged.
+
+
+Game tools placement: desktop right-side sticky panel beside game, below site header. At900px and narrower, static compact panel above game content. One language control and one current-round Listen control; neither in global navigation or repeated near question.

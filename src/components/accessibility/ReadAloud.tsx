@@ -1,10 +1,13 @@
 ﻿'use client';
 import { useEffect, useRef, useState } from 'react';
 import { Volume2, Square } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { useLanguage } from './language';
 import clips from '@/data/game-audio.json';
 const catalogue: Record<string, string> = clips;
 /** Static, prepared ElevenLabs recordings only. No browser speech or runtime generation. */
 export function ReadAloud({ clipId, language = 'en' }: { clipId: string; language?: 'en' | 'ne' }) {
+  const { audioTarget } = useLanguage();
   const audio = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false),
     [notice, setNotice] = useState('');
@@ -14,7 +17,7 @@ export function ReadAloud({ clipId, language = 'en' }: { clipId: string; languag
     return () => {
       player?.pause();
     };
-  }, [clipId]);
+  }, [clipId, audioTarget]);
   async function toggle() {
     if (!src) {
       setNotice(
@@ -47,7 +50,8 @@ export function ReadAloud({ clipId, language = 'en' }: { clipId: string; languag
       );
     }
   }
-  return (
+  if (!audioTarget) return null;
+  return createPortal(
     <span className="read-aloud">
       <button type="button" onClick={() => void toggle()} aria-pressed={playing}>
         {playing ? (
@@ -82,6 +86,7 @@ export function ReadAloud({ clipId, language = 'en' }: { clipId: string; languag
         </>
       )}
       {notice && <small role="status">{notice}</small>}
-    </span>
+    </span>,
+    audioTarget,
   );
 }

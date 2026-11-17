@@ -232,3 +232,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Supersede global language/audio: per-game context and controls, no header/resource/Quick Learn effects.
 - [x] Prepare bounded offline ElevenLabs script and static audio playback integration.
 - [ ] Configure owner ElevenLabs key/voice, generate/review recordings and verify actual playback (currently0 clips).
+
+- [x] Group game-only language/current-round audio in right sidebar; mobile panel above game; placement/translation/round-update checked.

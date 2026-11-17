@@ -28,3 +28,5 @@ Official references checked2026-11-17:
 ## Verification
 
 Normal build, lint, typecheck and184 unit tests pass. Focused normal-build desktop1280/mobile360 browser checks verify game-local translation, client navigation to a different game resetting English, old global setting ignored, unchanged resource/home/header, missing-recording feedback and zero runtime generation requests. Actual ElevenLabs generation/playback awaits credentials and recording review.
+
+Controls are now grouped in the game-only desktop right panel, or above the game on mobile. The current round audio button is rendered there through a portal, with no duplicate beside the question.
