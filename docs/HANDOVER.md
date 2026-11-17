@@ -1,3 +1,7 @@
+# Latest update: 2026-11-17
+
+Bundled English/maths guided trails retired at owner request; older trail release notes below are superseded. /play native activities now use PocketShop and four scene-based three-round missions (digital safety, waste, reading, study habits). Existing PhET embeds, optional checks and server reward logic preserved. Quick Learn remains; its English related link repaired to /play/reading. Lint/typecheck/184 unit tests/normal560-route build pass. Focused production-build desktop1280/mobile360 browser probes pass shop success/failure/reset, four missions finish/replay, retired-trail absence, no errors/overflow. No production writes/deps/env changes. Release push follows; do not claim live until verified.
+
 # Handover
 
 Last updated: 2026-11-14, Codex session 27 release verification. Branch: main.

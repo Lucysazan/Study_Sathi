@@ -5030,3 +5030,257 @@
   min-height: 44px;
   padding: 10px 0;
 }
+
+/* Playable mission boards: compact, tactile and visible before teaching copy. */
+.mini-world {
+  border: 2px solid #d5e8df;
+  border-radius: 30px;
+  padding: clamp(18px, 3vw, 36px);
+  background: #e8f5ee;
+  max-width: 960px;
+  margin: 20px auto;
+  box-shadow: 0 8px 0 #d5e8df;
+  overflow: hidden;
+}
+.mini-heading {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 18px;
+}
+.mini-heading > span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: #087f75;
+}
+.mini-heading h2 {
+  font-size: clamp(26px, 4vw, 42px);
+  line-height: 1.2;
+  margin: 10px 0;
+}
+.mini-heading p {
+  margin: 10px 0;
+  font-size: 18px;
+}
+.mini-world small {
+  display: block;
+  font-size: 13px;
+  margin-top: 14px;
+}
+.mission-track {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 36px;
+  color: #6b7b90;
+}
+.mission-track .collected {
+  color: #8b6717;
+  background: #fcf1d7;
+  border-radius: 50%;
+}
+.mission-scene {
+  height: 190px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(#eaf0fb 65%, #ddf7ed 65%);
+  border-radius: 24px;
+  margin: 12px 0;
+  isolation: isolate;
+}
+.mission-scene > span {
+  font-size: clamp(48px, 9vw, 85px);
+  z-index: 1;
+  filter: drop-shadow(0 8px 0 #0000000d);
+  transition: transform 0.3s;
+}
+.scene-solved > span {
+  transform: translateY(-12px) rotate(-4deg);
+}
+.scene-hill {
+  position: absolute;
+  bottom: 0;
+  width: 80%;
+  height: 45px;
+  border-radius: 100% 100% 0 0;
+  background: #c8e3c0;
+}
+.mission-study-habits .mission-scene {
+  background:
+    radial-gradient(circle at 20% 30%, #f7c948 2px, transparent 3px),
+    radial-gradient(circle at 75% 20%, white 3px, transparent 4px), #243956;
+}
+.mission-study-habits .scene-hill {
+  background: #657394;
+}
+.mission-password {
+  background: #eef0fb;
+}
+.mission-clue {
+  text-align: center;
+  font-size: clamp(19px, 2.5vw, 24px);
+  max-width: 720px;
+  margin: 20px auto;
+}
+.mission-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.mission-choices button,
+.shop-shelf button {
+  background: white;
+  border: 2px solid #d5e1d7;
+  border-bottom-width: 6px;
+  border-radius: 18px;
+  padding: 18px 12px;
+  color: #182f50;
+  font-weight: 700;
+  min-height: 90px;
+  cursor: pointer;
+}
+.mission-choices button:hover:not(:disabled),
+.shop-shelf button:hover:not(:disabled) {
+  border-color: #087f75;
+  transform: translateY(-3px);
+}
+.mission-choices button > span {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+.mini-feedback {
+  padding: 14px 18px;
+  min-height: 55px;
+  background: white;
+  border-radius: 16px;
+  margin: 18px 0;
+  color: #243956;
+}
+.mini-win {
+  background: #fcf1d7;
+  color: #5e4814;
+  font-weight: 700;
+}
+.mission-finish {
+  text-align: center;
+  padding: 15px;
+}
+.mini-world > .button {
+  display: block;
+  margin: 0 auto;
+}
+.shop-world {
+  background: #fcf1d7;
+  border-color: #ead8a3;
+  box-shadow: 0 8px 0 #ead8a3;
+}
+.shop-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 5vw, 60px);
+  padding: 15px;
+  background: #fff9e8;
+  border-radius: 22px;
+}
+.shop-scene > span {
+  font-size: 80px;
+}
+.shop-scene strong {
+  font-size: clamp(23px, 4vw, 36px);
+  color: #087f75;
+}
+.shop-scene small {
+  margin: 0;
+}
+.shop-shelf {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0;
+}
+.shop-shelf button > span {
+  display: block;
+  font-size: 50px;
+  margin-bottom: 8px;
+}
+.shop-shelf small {
+  margin-top: 6px;
+}
+.shop-shelf button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.shop-basket {
+  border: 2px dashed #a68130;
+  border-radius: 18px;
+  padding: 16px;
+  background: #fff9e8;
+  min-height: 100px;
+}
+.shop-basket h3 {
+  font-size: 19px;
+  margin: 0 0 10px;
+}
+.shop-basket button {
+  background: white;
+  border: 1px solid #d4c9a6;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 4px;
+  min-height: 44px;
+}
+.mini-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+@media (max-width: 600px) {
+  .mission-choices {
+    grid-template-columns: 1fr;
+  }
+  .mission-choices button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 62px;
+    text-align: left;
+    padding: 10px 14px;
+  }
+  .mission-choices button > span {
+    font-size: 23px;
+    margin: 0;
+  }
+  .mission-scene {
+    height: 145px;
+  }
+  .shop-shelf {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .shop-scene {
+    gap: 16px;
+  }
+  .shop-scene > span {
+    font-size: 50px;
+  }
+  .mini-world {
+    border-radius: 22px;
+  }
+  .mini-controls > .button {
+    flex: 1;
+    white-space: normal;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mission-scene > span {
+    transition: none;
+  }
+  .scene-solved > span,
+  .mission-choices button:hover:not(:disabled),
+  .shop-shelf button:hover:not(:disabled) {
+    transform: none;
+  }
+}

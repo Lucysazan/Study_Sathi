@@ -24,21 +24,12 @@ export default async function ActivityPage({ params }: { params: Promise<{ id: s
         {a.subject} · {a.ages}
       </div>
       <h1 className="detail-title">{a.title}</h1>
-      <p className="large-copy">{a.summary}</p>
-      <p className="play-task">{a.task}</p>
+      {url && <p className="large-copy">{a.summary}</p>}
       <div id="explore">
         {url ? (
           <ActivityPlayer url={url} title={a.title} />
-        ) : a.widget ? (
-          <PracticeGame kind={a.widget} />
         ) : (
-          <section className="study-tools">
-            <h2>Pause and explain</h2>
-            <p>
-              Explain the idea in your own words, then give an example before checking your
-              understanding.
-            </p>
-          </section>
+          <PracticeGame key={a.id} kind={a.widget || a.id} />
         )}
       </div>
       <OptionalLearningCheck

@@ -216,3 +216,9 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] 14 focused production-build desktop/mobile cases pass, including private sync/no-XP, buffering/fallback and existing navigation/merge.
 - [x] 9f9ea8a pushed; live mobile12-entry catalogue, actual English/Nepali playback, question, guest Saved, one-player and recap/break verified.
 - [ ] Full audiovisual, native-speaker/teacher/assistive/device review and expansion towards 30 individually approved clips.
+
+
+## 2026-11-17 - Play refresh
+- [x] Retire two bundled guided trails; preserve admin-managed paths and repair related short link.
+- [x] Replace budget slider/passive panels with original shop and four visual mission games; desktop/mobile browser flows verified.
+- [ ] Child usability and real-device acceptance for refreshed games.

@@ -241,3 +241,7 @@ Supersedes icon landscapes and provider-link English/maths trail presentation: u
 
 ## Quick Learn
 Additional child-facing finite portrait-video section. Use brand mint/lavender surfaces, native unobstructed YouTube player at 9:16, one active player, external metadata/controls and large filter/select/navigation targets. Mobile has scroll snap and a scrollable detail panel; desktop places the portrait player beside learning details. Never intercept YouTube player gestures or cover controls with custom overlays. Loading text stays outside the active player; failure state replaces a failed player view. Optional questions/source notes use disclosures. No social counters or competitive visuals in StudySathi UI.
+
+
+## Mission boards (2026-11-17)
+Native full activities use pastel illustrated scenes, large shop items/choices, visible mission goals, round stars, clear retry/finish feedback and replay. No timers or penalties. Shop supports item removal and finite funds. Reduced motion disables transforms. Two bundled English/maths trails retired at owner request.

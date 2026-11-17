@@ -193,3 +193,7 @@ User explicitly rejected leaving StudySathi. Replace the two recently added Engl
 
 ## 2026-11-14 - Finite curated Quick Learn, no discovery algorithm
 Use a bundled explicit schema-validated approved catalogue, official IFrame API and one privacy-enhanced player. Native controls/proportions preserved, explicit play, pause/destroy on transition and visibility pause. Five-card sessions end in a recap, with deliberate break/new-batch choices. Questions and self-reported end records use private library state without XP or rankings; bookmarks use quick-ID namespace and global Saved support. No API key or channel-wide auto-publish. Review is metadata + sampled playback/text, with transparent limitations; owner confirms child-directed designation. Do not claim no ads/recommendations or human/teacher certification. No new dependency or Firebase write surface.
+
+
+## 2026-11-17 - Supersede bundled English/maths guided trails
+Owner rejects the two trails and passive activity widgets. Retire bundled trail publication while preserving admin paths and stored participation. Replace native widgets with original visit-only mission games; do not change trusted reward rules or award XP for game taps. Shorts feed is a separate feature and remains intact.

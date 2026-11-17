@@ -19,7 +19,7 @@ const names: Record<string, string> = {
   'digital-safety': 'Code protector',
   waste: 'Planet helpers',
   reading: 'Story detective',
-  'study-habits': 'Build a study streak',
+  'study-habits': 'Mission launch',
 };
 const filters = ['All activities', 'Maths', 'Science', 'Everyday skills'];
 export function PlayGallery({ items }: { items: Item[] }) {
@@ -76,9 +76,7 @@ export function PlayGallery({ items }: { items: Item[] }) {
         {shown.map((a) => (
           <article className={'play-tile tile-' + a.id} key={a.id}>
             <div className="tile-picture">
-              <span className="tile-kind">
-                {a.simulation ? 'Simulation' : a.widget ? 'Quick play' : 'Guided practice'}
-              </span>
+              <span className="tile-kind">{a.simulation ? 'Simulation' : 'Mini game'}</span>
               <GamePreview id={a.id} />
             </div>
             <div className="tile-copy">
@@ -91,7 +89,7 @@ export function PlayGallery({ items }: { items: Item[] }) {
                 prefetch={false}
                 aria-label={'Start ' + a.title}
               >
-                {a.simulation || a.widget ? "Let's play" : "Let's try"}
+                {"Let's play"}
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
             </div>
