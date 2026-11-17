@@ -222,3 +222,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Retire two bundled guided trails; preserve admin-managed paths and repair related short link.
 - [x] Replace budget slider/passive panels with original shop and four visual mission games; desktop/mobile browser flows verified.
 - [ ] Child usability and real-device acceptance for refreshed games.
+
+- [x] Resource-specific three-message introductions replace repeated category games and dense sidebar;15 resources desktop/mobile checked.

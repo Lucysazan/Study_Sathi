@@ -245,3 +245,7 @@ Additional child-facing finite portrait-video section. Use brand mint/lavender s
 
 ## Mission boards (2026-11-17)
 Native full activities use pastel illustrated scenes, large shop items/choices, visible mission goals, round stars, clear retry/finish feedback and replay. No timers or penalties. Shop supports item removal and finite funds. Reduced motion disables transforms. Two bundled English/maths trails retired at owner request.
+
+
+## Resource story introductions
+One hook, one learning message, one first step, manually advanced with back control. Original storybook art, large short text, three progress segments, no auto-advance. Compact provider identity; immediate open/save; optional details/related discovery collapsed.

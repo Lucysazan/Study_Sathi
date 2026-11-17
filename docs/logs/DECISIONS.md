@@ -197,3 +197,7 @@ Use a bundled explicit schema-validated approved catalogue, official IFrame API 
 
 ## 2026-11-17 - Supersede bundled English/maths guided trails
 Owner rejects the two trails and passive activity widgets. Retire bundled trail publication while preserving admin paths and stored participation. Replace native widgets with original visit-only mission games; do not change trusted reward rules or award XP for game taps. Shorts feed is a separate feature and remains intact.
+
+
+## 2026-11-17 - Provider pages introduce their own resource
+Supersede generic category game previews and related-activity blocks on resource detail pages. Use one resource-specific introduction message at a time, with optional source information and immediate provider action. Existing /play games remain separately discoverable.

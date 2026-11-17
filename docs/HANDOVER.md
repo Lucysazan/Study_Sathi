@@ -1,3 +1,6 @@
+## Latest resource UI update (2026-11-17)
+Resource details now use ResourceIntroduction + resourceIntros:15 concise, title-specific three-step messages, original art, next/back and immediate open/save. Removed generic game previews/activity cards and tall sidebar; metadata/related resources collapsed. Desktop/mobile15-resource navigation/save/links probes pass, no overflow/page errors;184 units/lint/typecheck/build pass. Heading wrapper corrected after visual QA; final build repeated. No data/rules/dependency changes. Push pending at this log entry; verify live before claiming deployment.
+
 # Latest update: 2026-11-17
 
 Bundled English/maths guided trails retired at owner request; older trail release notes below are superseded. /play native activities now use PocketShop and four scene-based three-round missions (digital safety, waste, reading, study habits). Existing PhET embeds, optional checks and server reward logic preserved. Quick Learn remains; its English related link repaired to /play/reading. Lint/typecheck/184 unit tests/normal560-route build pass. Focused production-build desktop1280/mobile360 browser probes pass shop success/failure/reset, four missions finish/replay, retired-trail absence, no errors/overflow. No production writes/deps/env changes. Release push follows; do not claim live until verified.

@@ -1,9 +1,9 @@
-import { ResourceLearning } from '@/components/study/ResourceLearning';
+import { ResourceIntroduction } from '@/components/resources/ResourceIntroduction';
+import { resourceIntros } from '@/data/resourceIntros';
 import { ArrowRight, ChevronRight, ExternalLink } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ResourceAdventure } from '@/components/resources/ResourceAdventure';
 import { ResourceGrid } from '@/components/resources/ResourceGrid';
 import { SaveButton } from '@/components/resources/SaveButton';
 import { findResource, relatedResources } from '@/data/catalog';
@@ -35,69 +35,65 @@ export default async function ResourceDetailsPage({ params }: PageProps<'/resour
         <ChevronRight size={14} aria-hidden="true" />
         <span>{r.category}</span>
       </div>
-      <div className="detail-layout">
-        <div>
-          <span className={`category-label ${className}`}>{r.category}</span>
-          <h1 className="detail-title">{r.title}</h1>
-          <p className="detail-provider">By {r.provider}</p>
-          <p className="large-copy">{r.description}</p>
-          <ResourceAdventure category={r.category} />
-          <ResourceLearning category={r.category} />
-          <details className="provider-details">
-            <summary>About this provider resource</summary>
-            <div className="notice">
-              <ExternalLink size={20} aria-hidden="true" />
-              <div>
-                <h3>Before you visit</h3>
-                <p>
-                  {r.note ||
-                    'This material is hosted by its original provider. You will leave StudySathi when you open it.'}
-                </p>
-                <p>{r.verification}</p>
-                <p>
-                  If the site is unavailable, return here and choose a related resource. We cannot
-                  check external availability in real time.
-                </p>
-              </div>
+      <div className="resource-story-header">
+        <span className={`category-label ${className}`}>{r.category}</span>
+        <h1>{r.title}</h1>
+        <p>By {r.provider}</p>
+      </div>
+      <ResourceIntroduction
+        key={r.id}
+        id={r.id}
+        title={r.title}
+        provider={r.provider}
+        category={r.category}
+        url={r.url}
+        lines={
+          resourceIntros[r.title] || [
+            'Curious about ' + r.topic.toLowerCase() + '?',
+            r.description,
+            'Choose one thing to explore. Start small and see what you discover.',
+          ]
+        }
+      />
+      <div className="resource-story-actions">
+        <a href={r.url} target="_blank" rel="noopener noreferrer">
+          Open resource <ExternalLink size={16} aria-hidden="true" />
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+        <SaveButton resourceId={r.id} title={r.title} variant="full" />
+        <span>Original provider website - Opens a new tab</span>
+      </div>
+      <details className="provider-details resource-story-details">
+        <summary>For curious minds &amp; grown-ups</summary>
+        <p>{r.description}</p>
+        <dl>
+          {[
+            ['Suggested age', r.age],
+            ['Language', r.language],
+            ['Format', r.format],
+          ].map(([label, value]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
             </div>
-          </details>
+          ))}
+        </dl>
+        {r.note && <p>{r.note}</p>}
+        <p>{r.verification}</p>
+      </details>
+      <details className="resource-more-details">
+        <summary>Discover another resource</summary>
+        <div className="section-heading related">
+          <div>
+            <div className="eyebrow">KEEP YOUR CURIOSITY GOING</div>
+            <h2>More to explore</h2>
+          </div>
+          <Link className="text-link" href="/resources">
+            All resources <ArrowRight size={17} aria-hidden="true" />
+          </Link>
         </div>
-        <aside className="detail-sidebar" aria-label="Resource summary">
-          <span className="eyebrow">EXPLORE WITH {r.provider}</span>
-          <h3>Ready to have a look?</h3>
-          <p>Choose an activity that feels right for you. Ask an adult if you need a hand.</p>
-          <a className="button full" href={r.url} target="_blank" rel="noopener noreferrer">
-            Explore this resource <ExternalLink size={17} aria-hidden="true" />
-            <span className="sr-only"> (opens in a new tab)</span>
-          </a>
-          <dl>
-            {[
-              ['Recommended age', r.age],
-              ['Language', r.language],
-              ['Format', r.format],
-              ['Topic', r.topic],
-              ['Learning purpose', r.purpose],
-            ].map(([k, v]) => (
-              <div key={k}>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <SaveButton resourceId={r.id} title={r.title} variant="full" />
-          <small>Opens a new tab · Original provider website</small>
-        </aside>
-      </div>
-      <div className="section-heading related">
-        <div>
-          <div className="eyebrow">KEEP YOUR CURIOSITY GOING</div>
-          <h2>More to explore</h2>
-        </div>
-        <Link className="text-link" href="/resources">
-          All resources <ArrowRight size={17} aria-hidden="true" />
-        </Link>
-      </div>
-      <ResourceGrid resources={relatedResources(catalog, r)} />
+        <ResourceGrid resources={relatedResources(catalog, r)} />
+      </details>
     </section>
   );
 }
