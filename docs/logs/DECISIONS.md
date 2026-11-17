@@ -217,3 +217,7 @@ Place local language and current-round audio together in a desktop right-side pa
 
 ## 2026-11-17 - Team narration without service accounts
 Owner accepted team-recording recommendation. Support original human MP3/WAV clips with accurate per-clip credits; no ElevenLabs dependency for this route. Keep optional paid-service generation separate from file import. Never substitute synthetic test tones for real narration or claim recordings exist before supplied.
+
+
+## 2026-11-17 - Browser speech restored
+Explicit owner instruction supersedes ElevenLabs/team-recording playback requirement. Use default browser speech from original fixed game text; no external account or manual recordings required. Keep per-game scope/right-panel placement and stop/cleanup behavior.

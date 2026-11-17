@@ -3,59 +3,77 @@ import { useEffect, useRef, useState } from 'react';
 import { Volume2, Square } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useLanguage } from './language';
-import clips from '@/data/game-audio.json';
-import type { GameAudioClip } from '@/lib/study/audio';
-const catalogue: Record<string, GameAudioClip> = clips;
-/** Static, prepared game recordings only. No browser speech or runtime generation. */
+import { gameNarrationScripts } from '@/lib/study/narration';
+const scripts = new Map(gameNarrationScripts().map((script) => [script.id, script.text]));
+/** Opt-in device/browser speech, scoped to the current game's question. */
 export function ReadAloud({ clipId, language = 'en' }: { clipId: string; language?: 'en' | 'ne' }) {
   const { audioTarget } = useLanguage();
-  const audio = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false),
     [notice, setNotice] = useState('');
-  const clip = catalogue[clipId];
-  const src = clip?.src;
-  useEffect(() => {
-    const player = audio.current;
-    return () => {
-      player?.pause();
-    };
-  }, [clipId, audioTarget]);
-  async function toggle() {
-    if (!src) {
+  const generation = useRef(0);
+  useEffect(
+    () => () => {
+      generation.current++;
+      window.speechSynthesis?.cancel();
+    },
+    [clipId, language],
+  );
+  function toggle() {
+    if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) {
       setNotice(
         language === 'ne'
-          ? 'यो खेलको आवाज तयार हुँदै छ।'
-          : 'This game’s narration is not ready yet.',
+          ? 'यो ब्राउजरमा आवाज सुविधा छैन।'
+          : 'Reading aloud is unavailable in this browser.',
       );
       return;
     }
-    const player = audio.current;
-    if (!player) return;
-    if (!player.paused) {
-      player.pause();
+    const engine = window.speechSynthesis;
+    const current = ++generation.current;
+    engine.cancel();
+    if (playing) {
       setPlaying(false);
+      setNotice('');
       return;
     }
+    const text = scripts.get(clipId);
+    if (!text) return;
+    const voice = engine.getVoices().find((voice) => voice.lang.toLowerCase().startsWith(language));
+    if (language === 'ne' && !voice) {
+      setNotice(
+        'नेपाली आवाज उपलब्ध छैन। उपकरणको भाषा सेटिङमा नेपाली आवाज थप्नुहोस् वा अङ्ग्रेजीमा सुन्नुहोस्।',
+      );
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language === 'ne' ? 'ne-NP' : 'en-US';
+    if (voice) utterance.voice = voice;
+    utterance.rate = 0.9;
+    utterance.onend = () => {
+      if (generation.current === current) setPlaying(false);
+    };
+    utterance.onerror = () => {
+      if (generation.current === current) {
+        setPlaying(false);
+        setNotice(
+          language === 'ne'
+            ? 'आवाज चल्न सकेन। फेरि प्रयास गर्नुहोस्।'
+            : 'Could not play the reading voice. Try again.',
+        );
+      }
+    };
     try {
-      document.querySelectorAll('audio[data-game-narration]').forEach((other) => {
-        if (other !== player) (other as HTMLAudioElement).pause();
-      });
       setNotice('');
-      await player.play();
       setPlaying(true);
+      engine.speak(utterance);
     } catch {
       setPlaying(false);
-      setNotice(
-        language === 'ne'
-          ? 'आवाज चल्न सकेन। फेरि प्रयास गर्नुहोस्।'
-          : 'Could not play audio. Please try again.',
-      );
+      setNotice(language === 'ne' ? 'आवाज चल्न सकेन।' : 'Reading aloud is unavailable.');
     }
   }
   if (!audioTarget) return null;
   return createPortal(
     <span className="read-aloud">
-      <button type="button" onClick={() => void toggle()} aria-pressed={playing}>
+      <button type="button" onClick={toggle} aria-pressed={playing}>
         {playing ? (
           <Square size={16} aria-hidden="true" />
         ) : (
@@ -63,34 +81,6 @@ export function ReadAloud({ clipId, language = 'en' }: { clipId: string; languag
         )}
         {language === 'ne' ? (playing ? 'रोक्नुहोस्' : 'सुन्नुहोस्') : playing ? 'Stop' : 'Listen'}
       </button>
-      {src && (
-        <>
-          <audio
-            ref={audio}
-            data-game-narration
-            src={src}
-            preload="none"
-            onPause={() => setPlaying(false)}
-            onEnded={() => setPlaying(false)}
-            onError={() => {
-              setPlaying(false);
-              setNotice(language === 'ne' ? 'आवाज उपलब्ध छैन।' : 'Audio is unavailable.');
-            }}
-          />
-          {clip?.creditUrl ? (
-            <a
-              href={clip.creditUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="audio-credit"
-            >
-              {clip.credit}
-            </a>
-          ) : (
-            <small className="audio-credit">{clip?.credit}</small>
-          )}
-        </>
-      )}
       {notice && <small role="status">{notice}</small>}
     </span>,
     audioTarget,

@@ -1,3 +1,6 @@
+## Latest audio decision (2026-11-17)
+Owner chose default browser TTS; supersedes prior ElevenLabs/team recording requirement. ReadAloud uses current fixed game question text with speechSynthesis, Listen/Stop, EN/NE device voice selection, cancellation on round/language/unmount and callback guards. Controls remain in game-only right panel/mobile above; no global effects. API key/recordings NOT required now. Old generation/import tooling is optional unused. Device voice availability/quality varies; Nepali missing-voice message retained. Validation/release follows.
+
 ## Latest: free team voice kit (2026-11-17)
 User accepted recommended team recordings. docs/audio/RECORDING_SCRIPT.md has26 scripts/filenames (13 English+13 Nepali). New prepare:recording-kit and import:game-audio CLIs; dry-run by default, reviewed MP3/WAV only, content-hashed output, source-specific manifest credit. No service account needed. Real clips remain0; user must record/supply voices. Isolated synthetic WAV fixture checks pass for import/no-write/credit/duplicates;184 units/lint/typecheck/build pass. No UI placement changes. Optional ElevenLabs remains available but no longer required. Push follows, live not verified.
 
@@ -169,3 +172,5 @@ Read AGENTS.md, CLAUDE.md, DESIGN, ROADMAP and logs. Use installed Next docs bef
 
 ## Checkpoints
 Previous checkpoints include faf5409 and c112725. Session 11 code/docs/tests form a local metadata checkpoint. Pre-existing scripts/ensure-admin-user.mjs remains untracked/excluded. No env/service-account files staged. Release code/docs pushed, production rules released, catalog seeded and Vercel app release succeeded; all seven indexes READY and all ten live query probes PASS.
+
+Browser speech release checks: lint/typecheck/184 units/normal build pass; focused normal-build Chromium1280/360 speech stubs verify English/Nepali script selection, Listen/Stop, round cancellation, missing voice help, game-panel-only controls and no page errors. Actual device audio quality not measured.
