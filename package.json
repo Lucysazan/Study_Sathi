@@ -19,7 +19,9 @@
     "test:e2e": "node scripts/run-e2e.mjs",
     "check:live": "tsx scripts/check-live-queries.ts",
     "check:quick-learn": "tsx scripts/check-quick-learn.ts",
-    "prepare:game-audio": "tsx scripts/generate-game-audio.ts"
+    "prepare:game-audio": "tsx scripts/generate-game-audio.ts",
+    "prepare:recording-kit": "tsx scripts/prepare-recording-kit.ts",
+    "import:game-audio": "tsx scripts/import-game-recordings.ts"
   },
   "dependencies": {
     "firebase": "^13.2.0",

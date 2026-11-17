@@ -213,3 +213,7 @@ Explicit owner correction: language/audio live only inside a game page, with vis
 
 ## 2026-11-17 - Game controls beside content
 Place local language and current-round audio together in a desktop right-side panel; mobile panel sits above activity. Portal retains game narration state and avoids duplicated controls. Supersedes separate page-top translation/question audio placement.
+
+
+## 2026-11-17 - Team narration without service accounts
+Owner accepted team-recording recommendation. Support original human MP3/WAV clips with accurate per-clip credits; no ElevenLabs dependency for this route. Keep optional paid-service generation separate from file import. Never substitute synthetic test tones for real narration or claim recordings exist before supplied.

@@ -1,3 +1,6 @@
+## Latest: free team voice kit (2026-11-17)
+User accepted recommended team recordings. docs/audio/RECORDING_SCRIPT.md has26 scripts/filenames (13 English+13 Nepali). New prepare:recording-kit and import:game-audio CLIs; dry-run by default, reviewed MP3/WAV only, content-hashed output, source-specific manifest credit. No service account needed. Real clips remain0; user must record/supply voices. Isolated synthetic WAV fixture checks pass for import/no-write/credit/duplicates;184 units/lint/typecheck/build pass. No UI placement changes. Optional ElevenLabs remains available but no longer required. Push follows, live not verified.
+
 ## Latest placement correction (2026-11-17)
 Local game controls grouped in desktop right-side Game tools panel (mobile above game), no header/duplicate question control. ReadAloud portals to context audioTarget and follows current round; local locale unchanged. Typecheck/lint/build and desktop/mobile placement/translation/round-update/missing-audio/no-overflow probes pass; desktop screenshot inspected. ElevenLabs recordings still0 awaiting key/voice. Push follows; live not verified.
 

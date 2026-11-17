@@ -30,3 +30,7 @@ Official references checked2026-11-17:
 Normal build, lint, typecheck and184 unit tests pass. Focused normal-build desktop1280/mobile360 browser checks verify game-local translation, client navigation to a different game resetting English, old global setting ignored, unchanged resource/home/header, missing-recording feedback and zero runtime generation requests. Actual ElevenLabs generation/playback awaits credentials and recording review.
 
 Controls are now grouped in the game-only desktop right panel, or above the game on mobile. The current round audio button is rendered there through a portal, with no duplicate beside the question.
+
+
+## Recommended no-account alternative: team voices
+The owner accepted team recording. Use [the recording kit](audio/RECORDING_SCRIPT.md):26 clips,13 English/13 Nepali. `npm.cmd run prepare:recording-kit` regenerates the scripts. `npm.cmd run import:game-audio -- --from "your folder"` previews known MP3/WAV files; add `--import` to copy reviewed recordings and write the manifest. M4A must be exported/converted first. Clips are labelled Voice: StudySathi team. No API key, credits or third-party service required. There are currently0 real recordings; fixtures used for importer checks were isolated synthetic WAVs, not published narration. The manifest now stores per-clip src/credit/optional creditUrl so provider attribution is accurate.

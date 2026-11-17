@@ -4,14 +4,16 @@ import { Volume2, Square } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useLanguage } from './language';
 import clips from '@/data/game-audio.json';
-const catalogue: Record<string, string> = clips;
-/** Static, prepared ElevenLabs recordings only. No browser speech or runtime generation. */
+import type { GameAudioClip } from '@/lib/study/audio';
+const catalogue: Record<string, GameAudioClip> = clips;
+/** Static, prepared game recordings only. No browser speech or runtime generation. */
 export function ReadAloud({ clipId, language = 'en' }: { clipId: string; language?: 'en' | 'ne' }) {
   const { audioTarget } = useLanguage();
   const audio = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false),
     [notice, setNotice] = useState('');
-  const src = catalogue[clipId];
+  const clip = catalogue[clipId];
+  const src = clip?.src;
   useEffect(() => {
     const player = audio.current;
     return () => {
@@ -75,14 +77,18 @@ export function ReadAloud({ clipId, language = 'en' }: { clipId: string; languag
               setNotice(language === 'ne' ? 'आवाज उपलब्ध छैन।' : 'Audio is unavailable.');
             }}
           />
-          <a
-            href="https://elevenlabs.io/text-to-speech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="audio-credit"
-          >
-            Voice by ElevenLabs
-          </a>
+          {clip?.creditUrl ? (
+            <a
+              href={clip.creditUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="audio-credit"
+            >
+              {clip.credit}
+            </a>
+          ) : (
+            <small className="audio-credit">{clip?.credit}</small>
+          )}
         </>
       )}
       {notice && <small role="status">{notice}</small>}

@@ -2,6 +2,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import type { GameAudioClip } from '../src/lib/study/audio';
 import { gameNarrationScripts } from '../src/lib/study/narration';
 async function main() {
   for (const file of ['.env.local', '.env']) if (existsSync(file)) process.loadEnvFile(file);
@@ -27,7 +28,7 @@ async function main() {
   if (model !== 'eleven_v3')
     throw Error('This bilingual catalogue uses eleven_v3, which supports Nepali.');
   const manifestFile = 'src/data/game-audio.json';
-  const manifest: Record<string, string> = JSON.parse(
+  const manifest: Record<string, GameAudioClip> = JSON.parse(
     (await readFile(manifestFile, 'utf8')).replace(/^\uFEFF/, ''),
   );
   const jobs = scripts
@@ -91,7 +92,11 @@ async function main() {
       if (bytes.length < 100) throw Error('Audio response was empty.');
       await writeFile('public' + path, bytes);
     }
-    manifest[script.id] = path;
+    manifest[script.id] = {
+      src: path,
+      credit: 'Voice by ElevenLabs',
+      creditUrl: 'https://elevenlabs.io/text-to-speech',
+    };
     await writeFile(manifestFile, JSON.stringify(manifest, null, 2) + '\n');
     console.log('Prepared ' + script.id);
   }

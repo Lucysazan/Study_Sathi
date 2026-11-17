@@ -234,3 +234,6 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [ ] Configure owner ElevenLabs key/voice, generate/review recordings and verify actual playback (currently0 clips).
 
 - [x] Group game-only language/current-round audio in right sidebar; mobile panel above game; placement/translation/round-update checked.
+
+- [x] Free team narration kit:26 scripts, MP3/WAV importer and provider-neutral credits.
+- [ ] Receive/review team voice files, import and verify actual spoken playback (0 real clips currently).
