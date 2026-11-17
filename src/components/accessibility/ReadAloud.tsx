@@ -1,71 +1,86 @@
 ﻿'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Volume2, Square } from 'lucide-react';
-/** Explicit browser speech only. Never starts on load; unmount cancels route/round speech. */
-export function ReadAloud({ text, language = 'en' }: { text?: string; language?: 'en' | 'ne' }) {
-  const [speaking, setSpeaking] = useState(false),
+import clips from '@/data/game-audio.json';
+const catalogue: Record<string, string> = clips;
+/** Static, prepared ElevenLabs recordings only. No browser speech or runtime generation. */
+export function ReadAloud({ clipId, language = 'en' }: { clipId: string; language?: 'en' | 'ne' }) {
+  const audio = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState(false),
     [notice, setNotice] = useState('');
-  useEffect(
-    () => () => {
-      window.speechSynthesis?.cancel();
-    },
-    [text, language],
-  );
-  function read() {
-    if (!('speechSynthesis' in window)) {
+  const src = catalogue[clipId];
+  useEffect(() => {
+    const player = audio.current;
+    return () => {
+      player?.pause();
+    };
+  }, [clipId]);
+  async function toggle() {
+    if (!src) {
       setNotice(
         language === 'ne'
-          ? 'यो ब्राउजरमा आवाज सुविधा छैन।'
-          : 'Reading aloud is unavailable in this browser.',
+          ? 'यो खेलको आवाज तयार हुँदै छ।'
+          : 'This game’s narration is not ready yet.',
       );
       return;
     }
-    const engine = window.speechSynthesis;
-    engine.cancel();
-    if (speaking) {
-      setSpeaking(false);
+    const player = audio.current;
+    if (!player) return;
+    if (!player.paused) {
+      player.pause();
+      setPlaying(false);
       return;
     }
-    const content = (text ?? document.querySelector('main')?.innerText ?? '').slice(0, 14000);
-    if (!content.trim()) return;
-    const voice = engine.getVoices().find((v) => v.lang.toLowerCase().startsWith(language));
-    if (language === 'ne' && !voice) {
-      setNotice('नेपाली आवाज उपलब्ध छैन। उपकरणको भाषा सेटिङमा नेपाली आवाज थप्नुहोस्।');
-      return;
-    }
-    const utterance = new SpeechSynthesisUtterance(content);
-    utterance.lang = language === 'ne' ? 'ne-NP' : 'en-US';
-    if (voice) utterance.voice = voice;
-    utterance.rate = 0.9;
-    utterance.onstart = () => setSpeaking(true);
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => {
-      setSpeaking(false);
+    try {
+      document.querySelectorAll('audio[data-game-narration]').forEach((other) => {
+        if (other !== player) (other as HTMLAudioElement).pause();
+      });
+      setNotice('');
+      await player.play();
+      setPlaying(true);
+    } catch {
+      setPlaying(false);
       setNotice(
         language === 'ne'
           ? 'आवाज चल्न सकेन। फेरि प्रयास गर्नुहोस्।'
-          : 'Could not play the reading voice. Try again.',
+          : 'Could not play audio. Please try again.',
       );
-    };
-    setNotice('');
-    engine.speak(utterance);
+    }
   }
   return (
     <span className="read-aloud">
-      <button type="button" onClick={read} aria-pressed={speaking}>
-        {speaking ? (
+      <button type="button" onClick={() => void toggle()} aria-pressed={playing}>
+        {playing ? (
           <Square size={16} aria-hidden="true" />
         ) : (
           <Volume2 size={18} aria-hidden="true" />
         )}
-        {language === 'ne'
-          ? speaking
-            ? 'रोक्नुहोस्'
-            : 'सुन्नुहोस्'
-          : speaking
-            ? 'Stop'
-            : 'Listen'}
+        {language === 'ne' ? (playing ? 'रोक्नुहोस्' : 'सुन्नुहोस्') : playing ? 'Stop' : 'Listen'}
       </button>
+      {src && (
+        <>
+          <audio
+            ref={audio}
+            data-game-narration
+            src={src}
+            preload="none"
+            onPause={() => setPlaying(false)}
+            onEnded={() => setPlaying(false)}
+            onError={() => {
+              setPlaying(false);
+              setNotice(language === 'ne' ? 'आवाज उपलब्ध छैन।' : 'Audio is unavailable.');
+            }}
+          />
+          <a
+            href="https://elevenlabs.io/text-to-speech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="audio-credit"
+          >
+            Voice by ElevenLabs
+          </a>
+        </>
+      )}
       {notice && <small role="status">{notice}</small>}
     </span>
   );

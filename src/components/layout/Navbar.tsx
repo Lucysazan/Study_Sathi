@@ -7,10 +7,6 @@ import { useEffect, useRef, useState } from 'react';
 import { isActivePath, mainNav } from '@/lib/nav';
 import { useSavedIds } from '@/lib/storage/guest-data';
 import { AccountLink } from './AccountLink';
-import { LanguageSwitch } from '@/components/accessibility/LanguageSwitch';
-import { ReadAloud } from '@/components/accessibility/ReadAloud';
-import { useLanguage } from '@/components/accessibility/language';
-import { navNepali } from '@/data/play-nepali';
 
 const MENU_ID = 'main-navigation';
 
@@ -30,7 +26,6 @@ function NavbarContent({ pathname }: { pathname: string | null }) {
   const open = openOn === pathname;
   const close = () => setOpenOn(undefined);
   const saved = useSavedIds();
-  const { language } = useLanguage();
   const toggle = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -58,14 +53,12 @@ function NavbarContent({ pathname }: { pathname: string | null }) {
               aria-current={active ? 'page' : undefined}
               onClick={close}
             >
-              <span lang={language}>{language === 'ne' ? navNepali[label] || label : label}</span>
+              {label}
             </Link>
           );
         })}
       </nav>
       <div className="nav-tools">
-        <LanguageSwitch />
-        <ReadAloud key={pathname + language} language={language} />
         <AccountLink />
         <Link className="saved-nav" href="/saved" aria-label={`Saved resources (${saved.length})`}>
           <Bookmark size={20} aria-hidden="true" />

@@ -30,10 +30,7 @@ export function PocketShop() {
         <h2>{t('The pocket-money shop')}</h2>
         <p>{t('Buy a notebook and pencil. Keep at least Rs 20 for later.')}</p>
       </div>
-      <ReadAloud
-        language={language}
-        text={t('Buy a notebook and pencil. Keep at least Rs 20 for later.')}
-      />
+      <ReadAloud key={language} language={language} clipId={'budget-' + language + '-intro'} />
       <AnswerEffect success={won} attempt={attempt} />
       <div className="shop-scene">
         <span aria-hidden="true">{'\u{1F3EA}'}</span>

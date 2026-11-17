@@ -2,9 +2,6 @@
 import { useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { ResourceScene } from './ResourceScene';
-import { useLanguage } from '@/components/accessibility/language';
-import { ReadAloud } from '@/components/accessibility/ReadAloud';
-import { resourceIntrosNepali, resourceUi } from '@/data/resourceIntrosNepali';
 export function ResourceIntroduction({
   title,
   provider,
@@ -21,9 +18,15 @@ export function ResourceIntroduction({
   lines: readonly string[];
 }) {
   const [step, setStep] = useState(0);
-  const { language } = useLanguage();
-  const ui = resourceUi[language];
-  const messages = language === 'ne' ? resourceIntrosNepali[title] || lines : lines;
+  const language = 'en';
+  const ui = {
+    eyebrows: ['A LITTLE CURIOSITY', 'WHAT YOU CAN DISCOVER', 'YOUR FIRST LITTLE STEP'],
+    more: 'Tell me more',
+    start: 'Where do I start?',
+    explore: 'Explore with',
+    pace: 'Take your time',
+  };
+  const messages = lines;
   const heading = useRef<HTMLHeadingElement>(null);
   function move(next: number) {
     setStep(next);
@@ -50,7 +53,6 @@ export function ResourceIntroduction({
         <h2 ref={heading} tabIndex={-1}>
           {messages[step]}
         </h2>
-        <ReadAloud key={step + language} text={messages[step]} language={language} />
         <div className="story-turns">
           {step > 0 && (
             <button

@@ -5618,53 +5618,6 @@
   position: static;
   max-width: 260px;
 }
-.nav-tools {
-  gap: 8px;
-}
-@media (max-width: 1400px) {
-  header .nav {
-    flex-wrap: wrap;
-    height: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    gap: 10px;
-  }
-  header .nav > nav {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    gap: 22px;
-  }
-  header .nav > .nav-tools {
-    margin-left: auto;
-  }
-}
-@media (max-width: 600px) {
-  .nav-tools {
-    gap: 5px;
-  }
-  .nav-tools .read-aloud > button {
-    font-size: 12px;
-    padding: 6px;
-  }
-  .language-switch {
-    font-size: 13px;
-    padding: 6px 8px;
-  }
-  header .nav {
-    gap: 8px;
-  }
-  .nav-tools {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-  header .nav > nav {
-    order: 3;
-  }
-  .nav-tools .read-aloud > button svg {
-    width: 16px;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .answer-party i {
     animation: none;
@@ -5681,21 +5634,10 @@
   }
 }
 
-@media (max-width: 1400px) {
-  header {
-    height: auto;
-  }
-  header .nav {
-    min-height: 72px;
-  }
-  .nav nav {
-    top: 100%;
-  }
-}
 .quick-question,
 .learning-check {
   position: relative;
 }
-.resource-story-copy > .read-aloud {
-  margin-bottom: 16px;
-}
+
+
+.game-local-tools{display:flex;justify-content:flex-end;margin-bottom:12px}.game-language-scope .read-aloud{flex-wrap:wrap;align-items:center;gap:8px}.audio-credit{font-size:11px;color:#617080}.game-language-scope .read-aloud>small{position:static;min-width:0;max-width:100%;box-shadow:none}.game-language-scope .read-aloud audio{display:none}

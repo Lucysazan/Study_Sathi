@@ -228,3 +228,7 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Mission illustration obstruction fixed; gentle red retry/confetti feedback and reduced-motion fallback.
 - [x] Global EN/NE choice, authored nav/mission/shop/resource-intro translations and opt-in device speech controls/fallback tested.
 - [ ] Full-site authored localization, native-speaker review and real-device voice acceptance (current scope is partial).
+
+- [x] Supersede global language/audio: per-game context and controls, no header/resource/Quick Learn effects.
+- [x] Prepare bounded offline ElevenLabs script and static audio playback integration.
+- [ ] Configure owner ElevenLabs key/voice, generate/review recordings and verify actual playback (currently0 clips).

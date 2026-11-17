@@ -6,10 +6,7 @@ export function LanguageSwitch() {
     <button
       className="language-switch"
       type="button"
-      title="Nepali: menus, mission games, shop and resource introductions. Other pages and provider content keep their original language."
-      aria-label={
-        language === 'en' ? 'Switch menus and available activities to Nepali' : 'Switch to English'
-      }
+      aria-label={language === 'en' ? 'Translate this game to Nepali' : 'Show this game in English'}
       onClick={() => setLanguage(language === 'en' ? 'ne' : 'en')}
       lang={language === 'en' ? 'ne' : 'en'}
     >

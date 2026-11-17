@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { AnswerEffect } from '@/components/accessibility/AnswerEffect';
-import { ReadAloud } from '@/components/accessibility/ReadAloud';
 import type { QuickVideo } from '@/lib/quick-learn/catalog';
 export function ShortQuestion({
   video,
@@ -15,7 +14,6 @@ export function ShortQuestion({
   return (
     <details className="quick-question">
       <summary>Try one question (optional)</summary>
-      <ReadAloud text={video.question.prompt + ' ' + video.question.options.join('. ')} />
       {checked && <AnswerEffect success={choice === video.question.answer} attempt={1} />}
       <form
         onSubmit={(event) => {

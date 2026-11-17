@@ -205,3 +205,7 @@ Supersede generic category game previews and related-activity blocks on resource
 
 ## 2026-11-17 - Explicit authored translation and device speech
 Global language preference applies to bundled translated UI/game/introduction content; untranslated and external material retains source language. No misleading full-site automatic translation promise or external translation service. Device speech is opt-in, cancellable and requires a matching Nepali voice for Nepali text. Gentle red retry/short confetti keep feedback playful without flashing screens, audio autoplay or reward changes.
+
+
+## 2026-11-17 - Supersede global locale/browser speech
+Explicit owner correction: language/audio live only inside a game page, with visit-local locale and no site-wide effects. Reuse authored Nepali native-game copy. ElevenLabs requested explicitly, so original fixed game narration may be generated offline with owner credentials and served as static attributed MP3s. No runtime AI/TTS feature, public proxy, arbitrary text generation or automatic credit-spending endpoint. Zero recordings until credentials configured and reviewed.

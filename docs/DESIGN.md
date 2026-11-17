@@ -253,3 +253,7 @@ One hook, one learning message, one first step, manually advanced with back cont
 
 ## Bilingual play and audio
 Global English/Nepali control in header; preserve mobile menu/account/saved controls when wrapping. Missions/shop/nav/resource intros have authored Nepali. Device Listen/Stop controls never autoplay; missing voices show text help. Wrong choices have gentle red outline/background, correct choices brief confetti outside control hit areas; reduced motion uses static feedback. Mission decoration clipped and class-isolated from resource scenes.
+
+
+## Per-game controls (supersedes global bilingual/audio controls)
+Language control sits at top right inside /play/[id], not site header. Locale resets for another game. Header/resources retain their original UI. Listen inside native games plays prepared attributed ElevenLabs recordings only; text fallback when absent. Red/confetti and clipped game artwork unchanged.
