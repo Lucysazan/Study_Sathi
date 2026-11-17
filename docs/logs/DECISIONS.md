@@ -201,3 +201,7 @@ Owner rejects the two trails and passive activity widgets. Retire bundled trail 
 
 ## 2026-11-17 - Provider pages introduce their own resource
 Supersede generic category game previews and related-activity blocks on resource detail pages. Use one resource-specific introduction message at a time, with optional source information and immediate provider action. Existing /play games remain separately discoverable.
+
+
+## 2026-11-17 - Explicit authored translation and device speech
+Global language preference applies to bundled translated UI/game/introduction content; untranslated and external material retains source language. No misleading full-site automatic translation promise or external translation service. Device speech is opt-in, cancellable and requires a matching Nepali voice for Nepali text. Gentle red retry/short confetti keep feedback playful without flashing screens, audio autoplay or reward changes.

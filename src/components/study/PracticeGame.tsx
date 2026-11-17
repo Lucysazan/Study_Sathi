@@ -1,6 +1,10 @@
 ﻿'use client';
 import { useState } from 'react';
 import { PocketShop } from './PocketShop';
+import { useLanguage } from '@/components/accessibility/language';
+import { ReadAloud } from '@/components/accessibility/ReadAloud';
+import { AnswerEffect } from '@/components/accessibility/AnswerEffect';
+import { nepaliMissions, gameCopy } from '@/data/play-nepali';
 type Round = { scene: string; clue: string; choices: string[]; correct: number; why: string };
 const missions: Record<string, { title: string; intro: string; rounds: Round[] }> = {
   password: {
@@ -116,14 +120,32 @@ export function PracticeGame({ kind }: { kind: string }) {
   const [step, setStep] = useState(0),
     [feedback, setFeedback] = useState(''),
     [solved, setSolved] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const { language } = useLanguage();
+  const copy = gameCopy[language];
   if (kind === 'budget') return <PocketShop />;
-  const mission = missions[kind] || missions.reading!;
+  const original = missions[kind] || missions.reading!;
+  const translated = language === 'ne' ? nepaliMissions[kind] || nepaliMissions.reading : null;
+  const mission = translated
+    ? {
+        ...original,
+        title: translated.title,
+        intro: translated.intro,
+        rounds: original.rounds.map((round, i) => ({ ...round, ...translated.rounds[i] })),
+      }
+    : original;
   const done = step === mission.rounds.length;
   const round = mission.rounds[Math.min(step, mission.rounds.length - 1)]!;
   return (
-    <section className={'mini-world mission-' + kind} aria-label={mission.title}>
+    <section
+      lang={language}
+      className={
+        'mini-world mission-' + kind + (attempt ? (solved ? ' has-success' : ' has-retry') : '')
+      }
+      aria-label={mission.title}
+    >
       <div className="mini-heading">
-        <span>PLAY A LITTLE. DISCOVER SOMETHING.</span>
+        <span>{copy.kicker}</span>
         <h2>{mission.title}</h2>
         <p>{mission.intro}</p>
       </div>
@@ -136,25 +158,32 @@ export function PracticeGame({ kind }: { kind: string }) {
       </div>
       <div className={'mission-scene' + (solved || done ? ' scene-solved' : '')} aria-hidden="true">
         <span>{done ? '\u{1F389} \u{1F31F} \u{1F389}' : round.scene}</span>
-        <div className="scene-hill" />
+        <div className="mission-ground" />
       </div>
       {done ? (
         <div className="mission-finish">
-          <h3>Mission complete!</h3>
-          <p>Three discoveries collected. Want another adventure?</p>
+          <h3>{copy.done}</h3>
+          <p>{copy.discoveries}</p>
           <button
             className="button"
             onClick={() => {
               setStep(0);
               setSolved(false);
               setFeedback('');
+              setAttempt(0);
             }}
           >
-            Play again
+            {copy.replay}
           </button>
         </div>
       ) : (
         <>
+          <ReadAloud
+            key={step + language}
+            language={language}
+            text={round.clue + ' ' + round.choices.join('. ')}
+          />
+          <AnswerEffect success={solved} attempt={attempt} />
           <h3 className="mission-clue">{round.clue}</h3>
           <div className="mission-choices">
             {round.choices.map((choice, i) => (
@@ -164,9 +193,8 @@ export function PracticeGame({ kind }: { kind: string }) {
                 onClick={() => {
                   const ok = i === round.correct;
                   setSolved(ok);
-                  setFeedback(
-                    ok ? round.why : 'Not quite. Look at the clue and try another choice.',
-                  );
+                  setAttempt(attempt + 1);
+                  setFeedback(ok ? round.why : copy.retry);
                 }}
               >
                 <span aria-hidden="true">{['\u{1F7E1}', '\u{1F535}', '\u{1F7E2}'][i]}</span>
@@ -175,25 +203,24 @@ export function PracticeGame({ kind }: { kind: string }) {
             ))}
           </div>
           <p role="status" className={'mini-feedback' + (solved ? ' mini-win' : '')}>
-            {feedback || 'Tap a choice to try it.'}
+            {feedback ? (solved ? round.why : copy.retry) : copy.tap}
           </p>
           {solved && (
             <button
               className="button"
               onClick={() => {
                 setStep(step + 1);
+                setAttempt(0);
                 setSolved(false);
                 setFeedback('');
               }}
             >
-              {step === 2 ? 'Finish my mission' : 'Next discovery'} →
+              {step === 2 ? copy.finish : copy.next} →
             </button>
           )}
         </>
       )}
-      <small>
-        Original StudySathi game. Replay freely. The optional learning check below records progress.
-      </small>
+      <small>{copy.note}</small>
     </section>
   );
 }

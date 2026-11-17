@@ -249,3 +249,7 @@ Native full activities use pastel illustrated scenes, large shop items/choices, 
 
 ## Resource story introductions
 One hook, one learning message, one first step, manually advanced with back control. Original storybook art, large short text, three progress segments, no auto-advance. Compact provider identity; immediate open/save; optional details/related discovery collapsed.
+
+
+## Bilingual play and audio
+Global English/Nepali control in header; preserve mobile menu/account/saved controls when wrapping. Missions/shop/nav/resource intros have authored Nepali. Device Listen/Stop controls never autoplay; missing voices show text help. Wrong choices have gentle red outline/background, correct choices brief confetti outside control hit areas; reduced motion uses static feedback. Mission decoration clipped and class-isolated from resource scenes.

@@ -2,6 +2,9 @@
 import { useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { ResourceScene } from './ResourceScene';
+import { useLanguage } from '@/components/accessibility/language';
+import { ReadAloud } from '@/components/accessibility/ReadAloud';
+import { resourceIntrosNepali, resourceUi } from '@/data/resourceIntrosNepali';
 export function ResourceIntroduction({
   title,
   provider,
@@ -18,13 +21,16 @@ export function ResourceIntroduction({
   lines: readonly string[];
 }) {
   const [step, setStep] = useState(0);
+  const { language } = useLanguage();
+  const ui = resourceUi[language];
+  const messages = language === 'ne' ? resourceIntrosNepali[title] || lines : lines;
   const heading = useRef<HTMLHeadingElement>(null);
   function move(next: number) {
     setStep(next);
     heading.current?.focus();
   }
   return (
-    <section className="resource-story" aria-label={'Meet ' + title}>
+    <section lang={language} className="resource-story" aria-label={'Meet ' + title}>
       <div className="resource-story-picture">
         <ResourceScene category={category} resourceId={id} />
         <span className="story-sticker" aria-hidden="true">
@@ -40,12 +46,11 @@ export function ResourceIntroduction({
             <span key={i} className={i <= step ? 'lit' : ''} />
           ))}
         </div>
-        <span className="eyebrow">
-          {['A LITTLE CURIOSITY', 'WHAT YOU CAN DISCOVER', 'YOUR FIRST LITTLE STEP'][step]}
-        </span>
+        <span className="eyebrow">{ui.eyebrows[step]}</span>
         <h2 ref={heading} tabIndex={-1}>
-          {lines[step]}
+          {messages[step]}
         </h2>
+        <ReadAloud key={step + language} text={messages[step]} language={language} />
         <div className="story-turns">
           {step > 0 && (
             <button
@@ -58,19 +63,19 @@ export function ResourceIntroduction({
           )}
           {step < lines.length - 1 ? (
             <button className="button" onClick={() => move(step + 1)}>
-              {step === 0 ? 'Tell me more' : 'Where do I start?'}
+              {step === 0 ? ui.more : ui.start}
               <ArrowRight size={18} aria-hidden="true" />
             </button>
           ) : (
             <a className="button" href={url} target="_blank" rel="noopener noreferrer">
-              Explore with {provider}
+              {ui.explore} {provider}
               <ExternalLink size={18} aria-hidden="true" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
           )}
         </div>
         <p className="story-page-count">
-          {step + 1} / {lines.length} · Take your time
+          {step + 1} / {lines.length} - {ui.pace}
         </p>
       </div>
     </section>

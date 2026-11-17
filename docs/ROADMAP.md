@@ -224,3 +224,7 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [ ] Child usability and real-device acceptance for refreshed games.
 
 - [x] Resource-specific three-message introductions replace repeated category games and dense sidebar;15 resources desktop/mobile checked.
+
+- [x] Mission illustration obstruction fixed; gentle red retry/confetti feedback and reduced-motion fallback.
+- [x] Global EN/NE choice, authored nav/mission/shop/resource-intro translations and opt-in device speech controls/fallback tested.
+- [ ] Full-site authored localization, native-speaker review and real-device voice acceptance (current scope is partial).

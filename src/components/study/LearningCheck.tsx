@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { AnswerEffect } from '@/components/accessibility/AnswerEffect';
+import { ReadAloud } from '@/components/accessibility/ReadAloud';
 type Result = {
   correct: number;
   total: number;
@@ -57,6 +59,8 @@ export function LearningCheck({
   return (
     <section className="study-tools learning-check">
       <h2>Check what you learned</h2>
+      <ReadAloud text={questions.map((q) => q.prompt + ' ' + q.options.join('. ')).join('. ')} />
+      {result && <AnswerEffect success={result.correct === result.total} attempt={1} />}
       <p>
         Answer all three questions correctly to complete this activity. The first perfect check
         earns 10 XP, plus the 5 XP daily bonus when eligible. Replays do not earn more XP. Opening a

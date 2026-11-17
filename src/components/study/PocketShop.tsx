@@ -1,5 +1,9 @@
 ﻿'use client';
 import { useState } from 'react';
+import { useLanguage } from '@/components/accessibility/language';
+import { ReadAloud } from '@/components/accessibility/ReadAloud';
+import { AnswerEffect } from '@/components/accessibility/AnswerEffect';
+import { shopNepali, shopSuccessNepali } from '@/data/play-nepali';
 
 const goods = [
   { name: 'Notebook', picture: '\u{1F4D3}', price: 30 },
@@ -8,32 +12,44 @@ const goods = [
   { name: 'Toy rocket', picture: '\u{1F680}', price: 50 },
 ];
 export function PocketShop() {
+  const { language } = useLanguage();
+  const t = (text: string) => (language === 'ne' ? shopNepali[text] || text : text);
+  const [attempt, setAttempt] = useState(0);
   const [cart, setCart] = useState<number[]>([]);
   const [message, setMessage] = useState('');
   const [won, setWon] = useState(false);
   const spent = cart.reduce((sum, id) => sum + goods[id]!.price, 0);
   return (
-    <section className="mini-world shop-world" aria-label="Pocket money shop">
+    <section
+      lang={language}
+      className={'mini-world shop-world' + (attempt ? (won ? ' has-success' : ' has-retry') : '')}
+      aria-label="Pocket money shop"
+    >
       <div className="mini-heading">
-        <span>YOUR MISSION</span>
-        <h2>The pocket-money shop</h2>
-        <p>Buy a notebook and pencil. Keep at least Rs 20 for later.</p>
+        <span>{t('YOUR MISSION')}</span>
+        <h2>{t('The pocket-money shop')}</h2>
+        <p>{t('Buy a notebook and pencil. Keep at least Rs 20 for later.')}</p>
       </div>
+      <ReadAloud
+        language={language}
+        text={t('Buy a notebook and pencil. Keep at least Rs 20 for later.')}
+      />
+      <AnswerEffect success={won} attempt={attempt} />
       <div className="shop-scene">
         <span aria-hidden="true">{'\u{1F3EA}'}</span>
         <div>
           <strong>Rs {100 - spent}</strong>
-          <small>in your pocket</small>
+          <small>{t('in your pocket')}</small>
         </div>
         <div>
           <strong>{cart.length}</strong>
-          <small>in your basket</small>
+          <small>{t('in your basket')}</small>
         </div>
       </div>
       <div className="shop-shelf">
         {goods.map((g, i) => (
           <button
-            key={g.name}
+            key={t(g.name)}
             disabled={won || spent + g.price > 100}
             onClick={() => {
               setCart([...cart, i]);
@@ -47,9 +63,11 @@ export function PocketShop() {
         ))}
       </div>
       <div className="shop-basket">
-        <h3>{'\u{1F9FA}'} Your basket</h3>
+        <h3>
+          {'\u{1F9FA}'} {t('Your basket')}
+        </h3>
         {cart.length === 0 ? (
-          <p>Tap something on the shelf.</p>
+          <p>{t('Tap something on the shelf.')}</p>
         ) : (
           cart.map((id, i) => (
             <button
@@ -61,7 +79,7 @@ export function PocketShop() {
                 setMessage('Removed. Try another plan!');
               }}
             >
-              {goods[id]!.picture} {goods[id]!.name} ×
+              {goods[id]!.picture} {t(goods[id]!.name)} ×
             </button>
           ))
         )}
@@ -73,6 +91,7 @@ export function PocketShop() {
           onClick={() => {
             const ok = cart.includes(0) && cart.includes(1) && spent <= 80;
             setWon(ok);
+            setAttempt(attempt + 1);
             setMessage(
               ok
                 ? 'Mission complete! You bought your supplies and saved Rs ' + (100 - spent) + '.'
@@ -80,25 +99,31 @@ export function PocketShop() {
             );
           }}
         >
-          Pack my bag
+          {t('Pack my bag')}
         </button>
         <button
           className="button secondary"
           onClick={() => {
             setCart([]);
             setWon(false);
+            setAttempt(0);
             setMessage('Fresh pocket money. Try a different basket!');
           }}
         >
-          Start again
+          {t('Start again')}
         </button>
       </div>
       <p className={'mini-feedback' + (won ? ' mini-win' : '')} role="status">
-        {message || 'Can you afford everything? You decide.'}
+        {won
+          ? language === 'ne'
+            ? shopSuccessNepali + (100 - spent)
+            : message
+          : t(message || 'Can you afford everything? You decide.')}
       </p>
       <small>
-        Imaginary shop prices. Game feedback stays in this visit; the optional learning check
-        records progress.
+        {t(
+          'Imaginary shop prices. Game feedback stays in this visit; the optional learning check records progress.',
+        )}
       </small>
     </section>
   );
