@@ -233,3 +233,6 @@ Owner requests a different-page feel. Hide shared site header/footer only when Q
 
 ## 2026-11-18 - Highlight community in main hero
 Owner clarified free/community must be prominent on live homepage. Main heading now Free learning / Community at heart, supported by explicit free community-based description; publish prior completed UI revisions together.
+
+## 2026-11-18 - Audible Quick Learn and expanded finite catalogue
+Owner explicitly requests sound across switches. Default requests audible autoplay, records deliberate native sound choice for current session and offers one-click recovery when browser blocks sound. Supersedes unconditional mute on every player. Remove count/ordinal labels rather than misrepresenting finite selection as infinite. Add30 individually selected official-channel Shorts with limited metadata/thumbnail/content-topic review, provenance and original questions. No automatic publication or runtime feeds.

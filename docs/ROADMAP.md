@@ -250,3 +250,6 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [x] Quick Learn correction: dedicated viewing layout, tiny title and single Learn/Close button for hidden Q&A; local desktop/mobile probes.
 
 - [x] Publish homepage/Quick Learn changes59934b8; live mobile heading/real image/dedicated viewing shell verified.
+
+- [x] Audible Quick Learn continuity, no catalogue totals,30 more source-checked shorts,12 focused browser cases.
+- [ ] Full audiovisual/teacher/real-device review of expanded Shorts selection (see QUICK_LEARN_EXPANSION.md).

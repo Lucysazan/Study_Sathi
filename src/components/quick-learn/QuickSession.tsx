@@ -17,6 +17,7 @@ export function QuickSession({
   const [active, setActive] = useState(initial);
   const [storageError, setStorageError] = useState('');
   const progress = useProgress(),
+    soundRef = useRef({ muted: false }),
     marked = useRef(new Set<string>()),
     scroll = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
@@ -51,7 +52,9 @@ export function QuickSession({
         >
           Previous
         </button>
-        <p role="status">{`Short ${active + 1} of ${batch.length}`}</p>
+        <p className="sr-only" role="status">
+          {batch[active]?.title}
+        </p>
         <button
           className="button secondary"
           disabled={active === batch.length - 1}
@@ -85,9 +88,8 @@ export function QuickSession({
           <QuickCard
             key={v.videoId}
             video={v}
+            soundRef={soundRef}
             active={i === active}
-            index={i}
-            total={batch.length}
             onStarted={() => {}}
             onFinished={() => mark(`quick-finished-${v.videoId}`)}
             onAnswer={(correct) => {

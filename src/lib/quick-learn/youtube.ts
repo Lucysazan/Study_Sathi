@@ -1,5 +1,7 @@
 export type YouTubePlayer = {
   mute: () => void;
+  unMute: () => void;
+  isMuted: () => boolean;
   playVideo: () => void;
   pauseVideo: () => void;
   destroy: () => void;
@@ -13,6 +15,7 @@ type PlayerOptions = {
   playerVars: Record<string, string | number>;
   events: {
     onReady: (event: { target: YouTubePlayer }) => void;
+    onAutoplayBlocked?: () => void;
     onError: (event: { data: number }) => void;
     onStateChange: (event: { data: number }) => void;
   };

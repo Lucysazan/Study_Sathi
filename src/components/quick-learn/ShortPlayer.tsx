@@ -1,17 +1,22 @@
 'use client';
+import type { RefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { loadYouTube, type YouTubePlayer } from '@/lib/quick-learn/youtube';
 export function ShortPlayer({
   videoId,
+  soundRef,
   title,
   onStarted,
   onFinished,
 }: {
   videoId: string;
+  soundRef: RefObject<{ muted: boolean }>;
   title: string;
   onStarted: () => void;
   onFinished: () => void;
 }) {
+  const [needsSound, setNeedsSound] = useState(false);
+  const livePlayer = useRef<YouTubePlayer | null>(null);
   const mount = useRef<HTMLDivElement>(null),
     callbacks = useRef({ onStarted, onFinished });
   useEffect(() => {
@@ -24,8 +29,19 @@ export function ShortPlayer({
       player: YouTubePlayer | undefined;
     let running = false,
       ready = false,
-      failed = false;
+      failed = false,
+      autoplayMuted = false;
     const host = mount.current;
+    const rememberSound = () => {
+      if (!ready || failed || !player) return;
+      try {
+        const muted = player.isMuted();
+        if (autoplayMuted && muted) return;
+        autoplayMuted = false;
+        soundRef.current.muted = muted;
+      } catch {}
+    };
+    const soundTimer = setInterval(rememberSound, 250);
     let readyTimer: ReturnType<typeof setTimeout>, bufferTimer: ReturnType<typeof setTimeout>;
     const isVisible = () => {
       const rect = host?.getBoundingClientRect();
@@ -92,22 +108,31 @@ export function ShortPlayer({
             rel: 0,
             hl: 'en',
             autoplay: 1,
-            mute: 1,
+            mute: soundRef.current.muted ? 1 : 0,
           },
           events: {
             onReady: ({ target }) => {
               if (disposed || failed) return;
               ready = true;
+              livePlayer.current = target;
               clearTimeout(readyTimer);
               target.getIframe().title = title + ' - YouTube player';
               target.getIframe().referrerPolicy = 'strict-origin-when-cross-origin';
               target.getIframe().allow =
                 'autoplay; encrypted-media; picture-in-picture; fullscreen';
               if (!document.hidden && isVisible()) {
-                target.mute();
+                if (soundRef.current.muted) target.mute();
+                else target.unMute();
                 target.playVideo();
               }
               setStatus('ready');
+            },
+            onAutoplayBlocked: () => {
+              if (disposed || failed || !player || document.hidden || !isVisible()) return;
+              autoplayMuted = true;
+              player.mute();
+              player.playVideo();
+              setNeedsSound(true);
             },
             onError: fail,
             onStateChange: ({ data }) => {
@@ -138,6 +163,9 @@ export function ShortPlayer({
         fail();
       });
     return () => {
+      rememberSound();
+      clearInterval(soundTimer);
+      livePlayer.current = null;
       disposed = true;
       clearTimeout(readyTimer);
       clearTimeout(bufferTimer);
@@ -150,10 +178,23 @@ export function ShortPlayer({
       } catch {}
       host?.replaceChildren();
     };
-  }, [videoId, title, attempt]);
+  }, [videoId, title, attempt, soundRef]);
   return (
     <div className="quick-player">
       <div className="quick-player-mount" ref={mount} />
+      {needsSound && (
+        <button
+          className="quick-sound-button"
+          onClick={() => {
+            livePlayer.current?.unMute();
+            livePlayer.current?.playVideo();
+            soundRef.current.muted = false;
+            setNeedsSound(false);
+          }}
+        >
+          Turn on sound
+        </button>
+      )}
       {(status === 'loading' || status === 'buffering') && (
         <p className="quick-player-status" role="status">
           {status === 'buffering' ? 'Buffering YouTube...' : 'Loading YouTube...'}

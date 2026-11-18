@@ -1,4 +1,5 @@
 'use client';
+import type { RefObject } from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useProgress } from '@/lib/storage/guest-data';
@@ -8,17 +9,15 @@ import { ShortPlayer } from './ShortPlayer';
 import { ShortQuestion } from './ShortQuestion';
 export function QuickCard({
   video,
+  soundRef,
   active,
-  index,
-  total,
   onStarted,
   onFinished,
   onAnswer,
 }: {
   video: QuickVideo;
+  soundRef: RefObject<{ muted: boolean }>;
   active: boolean;
-  index: number;
-  total: number;
   onStarted: () => void;
   onFinished: () => void;
   onAnswer: (correct: boolean) => void;
@@ -26,12 +25,13 @@ export function QuickCard({
   const progress = useProgress();
   const [learning, setLearning] = useState(false);
   return (
-    <article className="quick-card" aria-label={`Short ${index + 1} of ${total}: ${video.title}`}>
+    <article className="quick-card" aria-label={video.title}>
       <div className="quick-media">
         {active ? (
           <ShortPlayer
             key={video.videoId}
             videoId={video.videoId}
+            soundRef={soundRef}
             title={video.title}
             onStarted={onStarted}
             onFinished={onFinished}

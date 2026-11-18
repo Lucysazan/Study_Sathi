@@ -16,7 +16,7 @@ export default function QuickLearnPage() {
           Back
         </Link>
         <h1>Quick Learn</h1>
-        <span>Starts muted / sound in player</span>
+        <span>Swipe to explore</span>
       </div>
       <Suspense fallback={<p role="status">Getting your learning feed ready...</p>}>
         <QuickLearn videos={quickVideos} />

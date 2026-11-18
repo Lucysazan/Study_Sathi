@@ -63,7 +63,7 @@ export function QuickLearn({ videos }: { videos: readonly QuickVideo[] }) {
         </div>
       </details>
       <p className="quick-count" role="status">
-        {selected.length} selected educational shorts.
+        {selected.length ? 'Explore educational shorts.' : 'No matching shorts.'}
       </p>
       {selected.length ? (
         <QuickSession

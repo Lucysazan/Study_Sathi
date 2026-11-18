@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import entries from '../../src/data/quick-learn.json';
 const approved = entries.filter((v) => v.review.status === 'approved');
-const stub = `window.YT={Player:class{constructor(target,options){this.options=options;this.frame=document.createElement('iframe');this.frame.src='https://www.youtube-nocookie.com/embed/'+options.videoId;this.frame.dataset.videoId=options.videoId;this.frame.dataset.controls=String(options.playerVars.controls);target.replaceWith(this.frame);this.listener=e=>{if(e.detail.id===options.videoId){if(e.detail.error)options.events.onError({data:100});else options.events.onStateChange({data:e.detail.state})}};window.addEventListener('quick-fixture-event',this.listener);setTimeout(()=>options.events.onReady({target:this}),5)}mute(){this.frame.dataset.muted='true'}playVideo(){this.frame.dataset.autoplay='true';this.options.events.onStateChange({data:1})}getIframe(){return this.frame}pauseVideo(){document.documentElement.dataset.paused=(document.documentElement.dataset.paused||'')+this.options.videoId+','}destroy(){window.removeEventListener('quick-fixture-event',this.listener);this.frame.remove()}}};window.onYouTubeIframeAPIReady?.();`;
+const stub = `window.YT={Player:class{constructor(target,options){this.options=options;this.frame=document.createElement('iframe');this.frame.src='https://www.youtube-nocookie.com/embed/'+options.videoId;this.frame.dataset.videoId=options.videoId;this.frame.dataset.controls=String(options.playerVars.controls);target.replaceWith(this.frame);this.listener=e=>{if(e.detail.id===options.videoId){if(e.detail.blocked)options.events.onAutoplayBlocked?.();else if(typeof e.detail.muted==='boolean')this.frame.dataset.muted=String(e.detail.muted);else if(e.detail.error)options.events.onError({data:100});else options.events.onStateChange({data:e.detail.state})}};window.addEventListener('quick-fixture-event',this.listener);setTimeout(()=>options.events.onReady({target:this}),5)}mute(){this.frame.dataset.muted='true'}unMute(){this.frame.dataset.muted='false'}isMuted(){return this.frame.dataset.muted==='true'}playVideo(){this.frame.dataset.autoplay='true';this.options.events.onStateChange({data:1})}getIframe(){return this.frame}pauseVideo(){document.documentElement.dataset.paused=(document.documentElement.dataset.paused||'')+this.options.videoId+','}destroy(){window.removeEventListener('quick-fixture-event',this.listener);this.frame.remove()}}};window.onYouTubeIframeAPIReady?.();`;
 test.beforeEach(async ({ page }) => {
   await page.route('https://www.youtube.com/iframe_api', (route) =>
     route.fulfill({ contentType: 'application/javascript', body: stub }),
@@ -17,13 +17,11 @@ test('Quick Learn filters keep spoken language separate and show only the approv
   await page.goto('/');
   await page.getByRole('link', { name: 'Explore Quick Learn', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Quick Learn');
-  await expect(page.locator('.quick-count')).toContainText(`${approved.length} selected`);
+  await expect(page.locator('.quick-count')).toContainText('Explore educational shorts.');
   await expect(page.locator('.quick-player-mount iframe')).toHaveCount(1);
   await page.getByText('Filter shorts', { exact: true }).click();
   await page.getByRole('combobox', { name: 'Spoken language', exact: true }).selectOption('ne');
-  await expect(page.locator('.quick-count')).toContainText(
-    `${approved.filter((v) => v.language === 'ne').length} selected`,
-  );
+  await expect(page.locator('.quick-count')).toContainText('Explore educational shorts.');
   await page.getByRole('combobox', { name: 'Subject', exact: true }).selectOption('English');
   await expect(
     page.getByRole('heading', { name: 'No reviewed shorts match yet.', exact: true }),
@@ -32,6 +30,7 @@ test('Quick Learn filters keep spoken language separate and show only the approv
   await page.getByRole('button', { name: 'Show all reviewed shorts', exact: true }).click();
   await page.getByRole('combobox', { name: 'Subject', exact: true }).selectOption('Technology');
   await page.getByRole('combobox', { name: 'Suggested age', exact: true }).selectOption('10-12');
+  await page.getByRole('combobox', { name: 'Spoken language', exact: true }).selectOption('ne');
   await expect(
     page.getByRole('heading', { name: 'No reviewed shorts match yet.', exact: true }),
   ).toBeVisible();
@@ -46,7 +45,7 @@ test('Quick Learn pauses old players, saves questions and bookmarks, continues p
   await expect(frame).toHaveCount(1);
   await expect(frame).toHaveAttribute('data-controls', '1');
   await expect(frame).toHaveAttribute('data-autoplay', 'true');
-  await expect(frame).toHaveAttribute('data-muted', 'true');
+  await expect(frame).toHaveAttribute('data-muted', 'false');
   const first = approved[0]!;
   const card = page.locator('.quick-card').first();
   await card.getByRole('button', { name: 'Save ' + first.title, exact: true }).click();
@@ -73,6 +72,7 @@ test('Quick Learn pauses old players, saves questions and bookmarks, continues p
   );
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(frame).toHaveAttribute('data-video-id', approved[1]!.videoId);
+  await expect(frame).toHaveAttribute('data-muted', 'false');
   await expect(page.locator('html')).toHaveAttribute('data-paused', new RegExp(first.videoId));
   await expect(frame).toHaveCount(1);
   await page.evaluate(
@@ -157,4 +157,50 @@ test('Quick Learn offers retry for prolonged buffering', async ({ page }) => {
     approved[0]!.videoId,
   );
   await expect(page.getByText('This video could not load.', { exact: true })).toBeVisible();
+});
+
+test('Quick Learn preserves a deliberate sound choice across next and previous', async ({
+  page,
+}) => {
+  await page.goto('/quick-learn');
+  const frame = page.locator('.quick-player-mount iframe');
+  await expect(frame).toHaveAttribute('data-muted', 'false');
+  await page.evaluate(
+    (id) =>
+      window.dispatchEvent(new CustomEvent('quick-fixture-event', { detail: { id, muted: true } })),
+    approved[0]!.videoId,
+  );
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(frame).toHaveAttribute('data-video-id', approved[1]!.videoId);
+  await expect(frame).toHaveAttribute('data-muted', 'true');
+  await page.evaluate(
+    (id) =>
+      window.dispatchEvent(
+        new CustomEvent('quick-fixture-event', { detail: { id, muted: false } }),
+      ),
+    approved[1]!.videoId,
+  );
+  await page.getByRole('button', { name: 'Previous', exact: true }).click();
+  await expect(frame).toHaveAttribute('data-muted', 'false');
+  await expect(page.locator('.quick-controls')).not.toContainText(/of \d/);
+});
+test('Blocked audible autoplay offers sound once and carries it to the next video', async ({
+  page,
+}) => {
+  await page.goto('/quick-learn');
+  const frame = page.locator('.quick-player-mount iframe');
+  await expect(frame).toHaveAttribute('data-muted', 'false');
+  await page.evaluate(
+    (id) =>
+      window.dispatchEvent(
+        new CustomEvent('quick-fixture-event', { detail: { id, blocked: true } }),
+      ),
+    approved[0]!.videoId,
+  );
+  await expect(frame).toHaveAttribute('data-muted', 'true');
+  await page.getByRole('button', { name: 'Turn on sound', exact: true }).click();
+  await expect(frame).toHaveAttribute('data-muted', 'false');
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(frame).toHaveAttribute('data-video-id', approved[1]!.videoId);
+  await expect(frame).toHaveAttribute('data-muted', 'false');
 });

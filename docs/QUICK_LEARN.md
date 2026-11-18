@@ -1,3 +1,5 @@
+> 2026-11-18 expansion:30 additional clips (42 total internally); no totals shown in viewer. Request audible autoplay and preserve session sound choice; browser-blocked sound has one-click fallback. See QUICK_LEARN_EXPANSION.md for individual sources and limited review scope. Supersedes older muted-default/catalogue-size descriptions below.
+
 > Latest correction2026-11-18: dedicated Back/title/filter shell, shared header/footer hidden for this route, small video title and Learn/Close button. Q&A hidden until Learn opens panel; no additional question-expansion click. Local only, not deployed.
 
 > 2026-11-18: Supersedes earlier five-card recap/break UI below. Current viewer navigates the finite approved catalogue continuously, requests muted autoplay, and keeps filters/questions/sources compact and optional. 8 public browser cases pass with player stub; actual device autoplay acceptance pending.

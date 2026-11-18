@@ -394,5 +394,995 @@
       "basis": "YouTube source metadata (title, creator, duration, embed availability) and actual embedded playback frames near 12%, 50% and 87%; visible captions/text where present. Original question and related local route checked.",
       "notes": "Suggested ages are StudySathi guidance, not a creator certification. Sampled visual/caption review, not a full audio, teacher or native-speaker review. Source player may offer dubbed audio."
     }
+  },
+  {
+    "videoId": "jSMGkm1oMAo",
+    "sourceUrl": "https://www.youtube.com/shorts/jSMGkm1oMAo",
+    "title": "Maiasaura: A Good Dinosaur Mom! | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 45,
+    "objective": "Learn about Maiasaura and care for young dinosaurs.",
+    "question": {
+      "prompt": "What kind of animal was Maiasaura?",
+      "options": [
+        "A dinosaur",
+        "A fish",
+        "An insect"
+      ],
+      "answer": 0,
+      "explanation": "Maiasaura was a plant-eating dinosaur."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "uD7GygtPK1c",
+    "sourceUrl": "https://www.youtube.com/shorts/uD7GygtPK1c",
+    "title": "Platybelodon: Elephants’ Ancient Cousin | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 49,
+    "objective": "Meet an ancient relative of elephants.",
+    "question": {
+      "prompt": "Platybelodon was related to which animal?",
+      "options": [
+        "Sharks",
+        "Frogs",
+        "Elephants"
+      ],
+      "answer": 2,
+      "explanation": "Platybelodon belonged to the group of animals that includes elephants."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "WBrKpFCluKI",
+    "sourceUrl": "https://www.youtube.com/shorts/WBrKpFCluKI",
+    "title": "The World's Biggest Hailstone | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 49,
+    "objective": "Discover how impressive hailstones can become.",
+    "question": {
+      "prompt": "What is a hailstone made of?",
+      "options": [
+        "Wood",
+        "Ice",
+        "Sand"
+      ],
+      "answer": 1,
+      "explanation": "Hailstones are balls or lumps of ice that form in storm clouds."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "evSvbAazbyI",
+    "sourceUrl": "https://www.youtube.com/shorts/evSvbAazbyI",
+    "title": "Meet the monkey with a spectacular snout! | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 54,
+    "objective": "Meet a monkey with an unusual nose.",
+    "question": {
+      "prompt": "A monkey belongs to which animal group?",
+      "options": [
+        "Mammals",
+        "Fish",
+        "Insects"
+      ],
+      "answer": 0,
+      "explanation": "Monkeys are mammals, just like humans."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "X0PLhRxBgFs",
+    "sourceUrl": "https://www.youtube.com/shorts/X0PLhRxBgFs",
+    "title": "How Is Urine Made? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 44,
+    "objective": "Discover how the body makes urine.",
+    "question": {
+      "prompt": "Which organs filter blood to help make urine?",
+      "options": [
+        "Ears",
+        "Bones",
+        "Kidneys"
+      ],
+      "answer": 2,
+      "explanation": "Kidneys filter blood and remove extra water and waste as urine."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "vaQkPnWocYQ",
+    "sourceUrl": "https://www.youtube.com/shorts/vaQkPnWocYQ",
+    "title": "Stargazing: The Geminid Meteor Shower | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 41,
+    "objective": "Explore the Geminid meteor shower.",
+    "question": {
+      "prompt": "What makes the bright streak of a meteor?",
+      "options": [
+        "A cloud turning solid",
+        "Material heating as it enters the atmosphere",
+        "A star switching off"
+      ],
+      "answer": 1,
+      "explanation": "A meteor is the streak of light from material entering the atmosphere at high speed."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "wFcwxRyZwp4",
+    "sourceUrl": "https://www.youtube.com/shorts/wFcwxRyZwp4",
+    "title": "Where do cold symptoms come from? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 47,
+    "objective": "Explore the symptoms of a common cold.",
+    "question": {
+      "prompt": "A common cold is usually caused by what?",
+      "options": [
+        "A virus",
+        "A broken bone",
+        "Loud music"
+      ],
+      "answer": 0,
+      "explanation": "Colds are infections caused by viruses."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "h5g8OZ0NTYc",
+    "sourceUrl": "https://www.youtube.com/shorts/h5g8OZ0NTYc",
+    "title": "Stargazing: Orion | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 35,
+    "objective": "Find out about the constellation Orion.",
+    "question": {
+      "prompt": "What is a constellation?",
+      "options": [
+        "A kind of cloud",
+        "A rock inside Earth",
+        "A named pattern of stars in the sky"
+      ],
+      "answer": 2,
+      "explanation": "Constellations are named areas of the sky associated with recognizable star patterns."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "koss8kk69rg",
+    "sourceUrl": "https://www.youtube.com/shorts/koss8kk69rg",
+    "title": "Long necks, tall necks | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 43,
+    "objective": "Explore animals with long necks.",
+    "question": {
+      "prompt": "Which animal is known for its very long neck?",
+      "options": [
+        "Hedgehog",
+        "Giraffe",
+        "Rabbit"
+      ],
+      "answer": 1,
+      "explanation": "A giraffe has a long neck that helps it reach leaves high in trees."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "9_R6rwIeUMM",
+    "sourceUrl": "https://www.youtube.com/shorts/9_R6rwIeUMM",
+    "title": "Why do leaves change color? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 45,
+    "objective": "Explore why leaves change colour.",
+    "question": {
+      "prompt": "Which pigment makes many leaves look green?",
+      "options": [
+        "Chlorophyll",
+        "Salt",
+        "Ice"
+      ],
+      "answer": 0,
+      "explanation": "Chlorophyll absorbs light for photosynthesis and gives many leaves their green colour."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "FUGYvDzWq5c",
+    "sourceUrl": "https://www.youtube.com/shorts/FUGYvDzWq5c",
+    "title": "Meet the dinosaur tank | Ankylosaurus | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 43,
+    "objective": "Meet the armoured Ankylosaurus.",
+    "question": {
+      "prompt": "What helped protect Ankylosaurus?",
+      "options": [
+        "Feathers made of metal",
+        "A shell made of glass",
+        "Bony armour"
+      ],
+      "answer": 2,
+      "explanation": "Ankylosaurus had bony plates that protected much of its body."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "8OkEt3GXpTU",
+    "sourceUrl": "https://www.youtube.com/shorts/8OkEt3GXpTU",
+    "title": "Stargazing: The Galilean Moons | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 41,
+    "objective": "Discover the Galilean moons.",
+    "question": {
+      "prompt": "The Galilean moons orbit which planet?",
+      "options": [
+        "Mars",
+        "Jupiter",
+        "Earth"
+      ],
+      "answer": 1,
+      "explanation": "Io, Europa, Ganymede and Callisto are four large moons of Jupiter."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "j0eRIAKCp-s",
+    "sourceUrl": "https://www.youtube.com/shorts/j0eRIAKCp-s",
+    "title": "Why do spiders spin webs? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 43,
+    "objective": "Find out why spiders make webs.",
+    "question": {
+      "prompt": "What do many spiders use webs to catch?",
+      "options": [
+        "Prey",
+        "Sunlight",
+        "Rainbows"
+      ],
+      "answer": 0,
+      "explanation": "Many spiders use sticky silk webs to catch insects and other prey."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "sz34EquXSN8",
+    "sourceUrl": "https://www.youtube.com/shorts/sz34EquXSN8",
+    "title": "Stargazing: The Great Square of Pegasus | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 37,
+    "objective": "Explore the Great Square of Pegasus.",
+    "question": {
+      "prompt": "Pegasus is a pattern seen where?",
+      "options": [
+        "On the ocean floor",
+        "Inside a leaf",
+        "In the night sky"
+      ],
+      "answer": 2,
+      "explanation": "Pegasus is a constellation in the night sky."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "K622Hk5onSA",
+    "sourceUrl": "https://www.youtube.com/shorts/K622Hk5onSA",
+    "title": "Why is blood red? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 46,
+    "objective": "Explore why blood looks red.",
+    "question": {
+      "prompt": "Which substance helps carry oxygen in red blood cells?",
+      "options": [
+        "Sand",
+        "Haemoglobin",
+        "Chlorophyll"
+      ],
+      "answer": 1,
+      "explanation": "Haemoglobin is an iron-containing protein that carries oxygen and gives blood its red colour."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "q64T_lxw_bs",
+    "sourceUrl": "https://www.youtube.com/shorts/q64T_lxw_bs",
+    "title": "How do bats see in the dark? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 50,
+    "objective": "Learn how bats find their way in the dark.",
+    "question": {
+      "prompt": "Many bats navigate using what?",
+      "options": [
+        "Echoes of their calls",
+        "A torch",
+        "Street signs"
+      ],
+      "answer": 0,
+      "explanation": "Many bats use echolocation: they listen for echoes of sounds they make."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "VB9BqTey26Q",
+    "sourceUrl": "https://www.youtube.com/shorts/VB9BqTey26Q",
+    "title": "Meet the mighty, spiky Stegosaurus! | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 48,
+    "objective": "Meet the spiky Stegosaurus.",
+    "question": {
+      "prompt": "Stegosaurus is known for having what on its back?",
+      "options": [
+        "A pair of wings",
+        "A sail made of cloth",
+        "Large plates"
+      ],
+      "answer": 2,
+      "explanation": "Stegosaurus had large plates along its back and spikes on its tail."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "2juM3TvIDyw",
+    "sourceUrl": "https://www.youtube.com/shorts/2juM3TvIDyw",
+    "title": "What is the fall equinox? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 37,
+    "objective": "Explore what an equinox means.",
+    "question": {
+      "prompt": "At an equinox, day and night are approximately what?",
+      "options": [
+        "Both a week long",
+        "Equal in length",
+        "Both one hour long"
+      ],
+      "answer": 1,
+      "explanation": "Around an equinox, daylight and night are approximately equal in length."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "eqC3LuM1yNI",
+    "sourceUrl": "https://www.youtube.com/shorts/eqC3LuM1yNI",
+    "title": "How does the James Webb Space Telescope send pictures from outer space? | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Technology",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 55,
+    "objective": "Discover how a space telescope sends information home.",
+    "question": {
+      "prompt": "How does a space telescope send data to Earth?",
+      "options": [
+        "Radio waves",
+        "Paper letters",
+        "Sound through empty space"
+      ],
+      "answer": 0,
+      "explanation": "Spacecraft use electromagnetic signals, including radio waves, to communicate with Earth."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "7EUA4JL85pc",
+    "sourceUrl": "https://www.youtube.com/shorts/7EUA4JL85pc",
+    "title": "Meet Microraptor! | SciShow Kids",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Nature",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 41,
+    "objective": "Meet the small feathered Microraptor.",
+    "question": {
+      "prompt": "Microraptor was which kind of animal?",
+      "options": [
+        "A modern whale",
+        "A beetle",
+        "A feathered dinosaur"
+      ],
+      "answer": 2,
+      "explanation": "Microraptor was a small feathered dinosaur."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "KfCzjeC8swE",
+    "sourceUrl": "https://www.youtube.com/shorts/KfCzjeC8swE",
+    "title": "Stargazing for Kids! Saturn at Opposition #shorts #science #scishowkids #astronomy #saturn",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 39,
+    "objective": "Explore Saturn in the night sky.",
+    "question": {
+      "prompt": "Saturn is especially known for its what?",
+      "options": [
+        "Oceans of fresh water",
+        "Rings",
+        "Forests"
+      ],
+      "answer": 1,
+      "explanation": "Saturn has a bright system of rings made mostly of ice particles."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "b61j6TWy-eI",
+    "sourceUrl": "https://www.youtube.com/shorts/b61j6TWy-eI",
+    "title": "Dancing Raisins! #shorts #science #scishowkids #experiment #bubble",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 42,
+    "objective": "Discover a bubbling raisin demonstration.",
+    "question": {
+      "prompt": "Gas bubbles in a fizzy drink can help a raisin do what?",
+      "options": [
+        "Rise towards the surface",
+        "Turn into metal",
+        "Become a seedling instantly"
+      ],
+      "answer": 0,
+      "explanation": "Bubbles attached to a raisin can increase its buoyancy and help it rise."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "nB7dupOyD58",
+    "sourceUrl": "https://www.youtube.com/shorts/nB7dupOyD58",
+    "title": "Milk Magic! | Surface Tension #shorts #science #scishowkids #experiment #milk",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 50,
+    "objective": "Explore a colourful surface-tension demonstration.",
+    "question": {
+      "prompt": "Surface tension is a property of what?",
+      "options": [
+        "Only solid rocks",
+        "Only empty space",
+        "A liquid surface"
+      ],
+      "answer": 2,
+      "explanation": "Forces between liquid molecules create surface tension at the surface."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "hqA3F3urF0k",
+    "sourceUrl": "https://www.youtube.com/shorts/hqA3F3urF0k",
+    "title": "Stargazing for Kids! The Perseid Meteor Shower #shorts #science #scishowkids #meteor #stargazing",
+    "creator": "SciShow Kids",
+    "language": "en",
+    "subject": "Science",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 37,
+    "objective": "Discover the Perseid meteor shower.",
+    "question": {
+      "prompt": "Where should you look for a meteor shower?",
+      "options": [
+        "At the ground only",
+        "The night sky",
+        "Inside a cupboard"
+      ],
+      "answer": 1,
+      "explanation": "Meteor showers are visible as streaks of light in the night sky when conditions are suitable."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "2A0EwCc3-KU",
+    "sourceUrl": "https://www.youtube.com/shorts/2A0EwCc3-KU",
+    "title": "What's the difference between hurricanes, typhoons and cyclones?",
+    "creator": "BBC Learning English",
+    "language": "en",
+    "subject": "Geography",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 40,
+    "objective": "Compare hurricanes, typhoons and cyclones.",
+    "question": {
+      "prompt": "These names describe related kinds of what?",
+      "options": [
+        "Tropical storms",
+        "Volcanoes",
+        "Snowflakes"
+      ],
+      "answer": 0,
+      "explanation": "Hurricanes and typhoons are regional names for strong tropical cyclones."
+    },
+    "related": {
+      "href": "/study/6/science",
+      "label": "Class 6 science materials"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "PjlmLzqvESk",
+    "sourceUrl": "https://www.youtube.com/shorts/PjlmLzqvESk",
+    "title": "Talking about parts in English #shorts #english",
+    "creator": "BBC Learning English",
+    "language": "en",
+    "subject": "English",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 55,
+    "objective": "Practise talking about parts of food.",
+    "question": {
+      "prompt": "Which phrase describes part of a pizza?",
+      "options": [
+        "A drop of pizza",
+        "A cloud of pizza",
+        "A slice of pizza"
+      ],
+      "answer": 2,
+      "explanation": "We often call a flat cut piece of pizza a slice."
+    },
+    "related": {
+      "href": "/play/reading",
+      "label": "Story detective"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "xLsCqoYmF4o",
+    "sourceUrl": "https://www.youtube.com/shorts/xLsCqoYmF4o",
+    "title": "How to count uncountable nouns #shorts #english",
+    "creator": "BBC Learning English",
+    "language": "en",
+    "subject": "English",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 34,
+    "objective": "Practise counting amounts of uncountable nouns.",
+    "question": {
+      "prompt": "Which phrase counts an amount of water?",
+      "options": [
+        "A water of glass",
+        "A glass of water",
+        "Three waters of glass"
+      ],
+      "answer": 1,
+      "explanation": "A container or measure, such as a glass, helps us describe an amount of water."
+    },
+    "related": {
+      "href": "/play/reading",
+      "label": "Story detective"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "LpL2L8N76Jw",
+    "sourceUrl": "https://www.youtube.com/shorts/LpL2L8N76Jw",
+    "title": "Can you say these vegetables before I do? #shorts",
+    "creator": "BBC Learning English",
+    "language": "en",
+    "subject": "English",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 27,
+    "objective": "Practise vegetable vocabulary.",
+    "question": {
+      "prompt": "Which of these is usually described as a vegetable in cooking?",
+      "options": [
+        "Carrot",
+        "Notebook",
+        "Pencil"
+      ],
+      "answer": 0,
+      "explanation": "Carrot is the English name of a root vegetable."
+    },
+    "related": {
+      "href": "/play/reading",
+      "label": "Story detective"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "H-HVm6hRbsI",
+    "sourceUrl": "https://www.youtube.com/shorts/H-HVm6hRbsI",
+    "title": "4 ways to politely reject an invitation",
+    "creator": "BBC Learning English",
+    "language": "en",
+    "subject": "English",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 26,
+    "objective": "Practise turning down an invitation politely.",
+    "question": {
+      "prompt": "Which answer politely declines an invitation?",
+      "options": [
+        "That is a pencil.",
+        "The sky is blue.",
+        "Thank you, but I cannot make it."
+      ],
+      "answer": 2,
+      "explanation": "Thanking someone and explaining that you cannot attend is a polite way to decline."
+    },
+    "related": {
+      "href": "/play/reading",
+      "label": "Story detective"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
+  },
+  {
+    "videoId": "ErP6UPem__Q",
+    "sourceUrl": "https://www.youtube.com/shorts/ErP6UPem__Q",
+    "title": "How to say the English long vowel /ɑː/ #shorts #english",
+    "creator": "BBC Learning English",
+    "language": "en",
+    "subject": "English",
+    "minAge": 10,
+    "maxAge": 16,
+    "durationSeconds": 35,
+    "objective": "Practise the long vowel sound in father.",
+    "question": {
+      "prompt": "Which word is a useful example for practising this long vowel?",
+      "options": [
+        "Cup",
+        "Father",
+        "Sit"
+      ],
+      "answer": 1,
+      "explanation": "The lesson uses words such as father to model the long vowel sound."
+    },
+    "related": {
+      "href": "/play/reading",
+      "label": "Story detective"
+    },
+    "review": {
+      "status": "approved",
+      "date": "2026-11-18",
+      "reviewer": "Codex assisted editorial selection",
+      "basis": "Individually selected official-channel Short; source title, description, duration, public availability and embed permission checked. Original topic-related practice question checked against established subject knowledge. Source thumbnail/contact-sheet review documented in QUICK_LEARN_EXPANSION.md.",
+      "notes": "Introductory discovery for ages 10-16; some science clips are aimed at younger learners. Not full audiovisual, teacher or native-speaker review. Questions reinforce the topic and are not a transcript test."
+    }
   }
 ]
