@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useState } from 'react';
 import { useProgress } from '@/lib/storage/guest-data';
 import { SaveButton } from '@/components/resources/SaveButton';
 import { quickSaveId, type QuickVideo } from '@/lib/quick-learn/catalog';
@@ -23,6 +24,7 @@ export function QuickCard({
   onAnswer: (correct: boolean) => void;
 }) {
   const progress = useProgress();
+  const [learning, setLearning] = useState(false);
   return (
     <article className="quick-card" aria-label={`Short ${index + 1} of ${total}: ${video.title}`}>
       <div className="quick-media">
@@ -42,73 +44,83 @@ export function QuickCard({
         )}
       </div>
       <div className="quick-card-details">
-        <div className="quick-card-top">
-          <span className="eyebrow">
-            {index + 1} / {total} / {video.durationSeconds}s
-          </span>
+        <div className="quick-title-row">
+          <div>
+            <h2>{video.title}</h2>
+            <p className="quick-creator">{video.creator} / YouTube</p>
+          </div>
+          <button
+            className="quick-learn-button"
+            aria-expanded={learning}
+            aria-controls={`learning-${video.videoId}`}
+            onClick={() => setLearning(!learning)}
+          >
+            {learning ? 'Close' : 'Learn'}
+          </button>
           <SaveButton resourceId={quickSaveId(video.videoId)} title={video.title} />
         </div>
-        <h2>{video.title}</h2>
-        <p className="quick-creator">By {video.creator} / YouTube</p>
-        <details className="quick-extra">
-          <summary>About this short</summary>
-          <div className="quick-tags">
-            <span>
-              Spoken:{' '}
-              {video.language === 'ne'
-                ? 'Nepali'
-                : video.language === 'en'
-                  ? 'English'
-                  : 'No lesson narration'}
-            </span>
-            <span>{video.subject}</span>
-            <span>
-              Ages {video.minAge}-{video.maxAge}
-            </span>
-          </div>
-          <p>{video.objective}</p>
-          <p className="quick-progress">
-            {progress.includes(`quick-finished-${video.videoId}`)
-              ? 'Finished-video record saved. '
-              : ''}
-            {progress.includes(`quick-check-${video.videoId}`) ? 'Practice answer recorded.' : ''}
-          </p>
-        </details>
-        <ShortQuestion video={video} onAnswer={onAnswer} />
-        <details className="quick-extra">
-          <summary>Explore further</summary>
-          <div className="quick-links">
-            {video.related.href.startsWith('/') ? (
-              <Link className="button" href={video.related.href}>
-                Learn more: {video.related.label}
-              </Link>
-            ) : (
-              <a
-                className="button"
-                href={video.related.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn more: {video.related.label} (YouTube playlist)
-              </a>
-            )}
-            <a href={video.sourceUrl} target="_blank" rel="noopener noreferrer">
-              Watch on YouTube<span className="sr-only"> (new tab)</span>
-            </a>
-          </div>
-        </details>
-        <details className="quick-extra">
-          <summary>Sources and more learning</summary>
-          <small>
-            Selected {video.review.date}. Availability can change. Questions are practice, with no
-            XP.
-          </small>
-          <details className="quick-review-scope">
-            <summary>Selection notes</summary>
-            <p>{video.review.basis}</p>
-            <p>{video.review.notes}</p>
+        <div id={`learning-${video.videoId}`} className="quick-learning-panel" hidden={!learning}>
+          <h3>Learning</h3>
+          <ShortQuestion video={video} onAnswer={onAnswer} embedded />
+          <details className="quick-extra">
+            <summary>About this short</summary>
+            <div className="quick-tags">
+              <span>
+                Spoken:{' '}
+                {video.language === 'ne'
+                  ? 'Nepali'
+                  : video.language === 'en'
+                    ? 'English'
+                    : 'No lesson narration'}
+              </span>
+              <span>{video.subject}</span>
+              <span>
+                Ages {video.minAge}-{video.maxAge}
+              </span>
+            </div>
+            <p>{video.objective}</p>
+            <p className="quick-progress">
+              {progress.includes(`quick-finished-${video.videoId}`)
+                ? 'Finished-video record saved. '
+                : ''}
+              {progress.includes(`quick-check-${video.videoId}`) ? 'Practice answer recorded.' : ''}
+            </p>
           </details>
-        </details>
+          <details className="quick-extra">
+            <summary>Explore further</summary>
+            <div className="quick-links">
+              {video.related.href.startsWith('/') ? (
+                <Link className="button" href={video.related.href}>
+                  Learn more: {video.related.label}
+                </Link>
+              ) : (
+                <a
+                  className="button"
+                  href={video.related.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Learn more: {video.related.label} (YouTube playlist)
+                </a>
+              )}
+              <a href={video.sourceUrl} target="_blank" rel="noopener noreferrer">
+                Watch on YouTube<span className="sr-only"> (new tab)</span>
+              </a>
+            </div>
+          </details>
+          <details className="quick-extra">
+            <summary>Sources and more learning</summary>
+            <small>
+              Selected {video.review.date}. Availability can change. Questions are practice, with no
+              XP.
+            </small>
+            <details className="quick-review-scope">
+              <summary>Selection notes</summary>
+              <p>{video.review.basis}</p>
+              <p>{video.review.notes}</p>
+            </details>
+          </details>
+        </div>
       </div>
     </article>
   );

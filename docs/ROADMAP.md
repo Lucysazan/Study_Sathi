@@ -246,3 +246,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [ ] Playful academic study and class-first subject filters.
 - [ ] Material thumbnails/PDF icons and resource rename.
 - [ ] Actual device autoplay acceptance.
+
+- [x] Quick Learn correction: dedicated viewing layout, tiny title and single Learn/Close button for hidden Q&A; local desktop/mobile probes.

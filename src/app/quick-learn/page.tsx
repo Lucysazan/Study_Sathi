@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import Link from 'next/link';
 import { quickVideos } from '@/data/quick-learn';
 import { QuickLearn } from '@/components/quick-learn/QuickLearn';
 export const metadata: Metadata = {
@@ -10,13 +11,13 @@ export const metadata: Metadata = {
 export default function QuickLearnPage() {
   return (
     <section className="site-container section quick-home">
-      <h1>
-        Quick Learn{' '}
-        <span lang="ne">/ {'\u091b\u094b\u091f\u094b \u0938\u093f\u0915\u093e\u0907'}</span>
-      </h1>
-      <p className="quick-intro">
-        A little discovery. Free to explore. Videos start muted; turn on sound in the player.
-      </p>
+      <div className="quick-heading">
+        <Link href="/" aria-label="Back to StudySathi">
+          Back
+        </Link>
+        <h1>Quick Learn</h1>
+        <span>Starts muted / sound in player</span>
+      </div>
       <Suspense fallback={<p role="status">Getting your learning feed ready...</p>}>
         <QuickLearn videos={quickVideos} />
       </Suspense>

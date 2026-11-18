@@ -227,3 +227,6 @@ Owner supersedes five-card recap/break with uninterrupted navigation through the
 
 ## 2026-11-18 - Community homepage photography
 Owner requests real-organization presentation and stock imagery. Replace hero and discovery/reading/card artwork with four locally served Pexels photos under their free-use license (checked2026-11-18); preserve credits/provenance. No remote image hosts or dependencies. Class shortcut now anchors to earlier homepage grade grid; public discovery remains free without login. Supersedes illustrated homepage direction only; interactive game preview remains functional. No claims of nonprofit status, partnerships, impact or pictured actual participants.
+
+## 2026-11-18 - Dedicated Quick Learn shell
+Owner requests a different-page feel. Hide shared site header/footer only when Quick Learn route is present, keep explicit Back link and compact local heading/filter controls. Move all learning details behind Learn/Close; question mounts in embedded form without requiring a second expand click. Preserve muted autoplay/native controls and finite-catalogue no-break navigation. Supersedes always-visible learning/sidebar summary.

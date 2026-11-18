@@ -266,3 +266,5 @@ Owner requests light canvas, dominant portrait player, compact optional question
 
 ## Community homepage update (2026-11-18)
 Owner supersedes original illustrated-home direction: prominent free/community learning copy, real licensed stock photography and clear class-first entry. Keep off-white/teal, readable responsive cards and existing interactive experiment. Photographs are illustrative; do not imply actual programme participants or endorsements. Credits in homepage disclosure and docs/PHOTO_CREDITS.md.
+
+Quick Learn correction: dedicated viewport-height viewing shell without shared navigation/footer, small Back/title/filter toolbar and tiny title/creator row. One Learn/Close button reveals all optional Q&A/details; desktop side panel/mobile panel. Default view reserves space for video.

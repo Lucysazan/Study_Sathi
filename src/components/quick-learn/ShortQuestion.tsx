@@ -5,15 +5,18 @@ import type { QuickVideo } from '@/lib/quick-learn/catalog';
 export function ShortQuestion({
   video,
   onAnswer,
+  embedded = false,
 }: {
   video: QuickVideo;
+  embedded?: boolean;
   onAnswer: (correct: boolean) => void;
 }) {
   const [choice, setChoice] = useState<number | null>(null),
     [checked, setChecked] = useState(false);
+  const Wrapper = embedded ? 'div' : 'details';
   return (
-    <details className="quick-question">
-      <summary>Try one question (optional)</summary>
+    <Wrapper className="quick-question">
+      {!embedded && <summary>Try one question (optional)</summary>}
       {checked && <AnswerEffect success={choice === video.question.answer} attempt={1} />}
       <form
         onSubmit={(event) => {
@@ -52,6 +55,6 @@ export function ShortQuestion({
           </p>
         )}
       </form>
-    </details>
+    </Wrapper>
   );
 }

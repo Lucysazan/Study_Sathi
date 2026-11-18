@@ -50,11 +50,14 @@ test('Quick Learn pauses old players, saves questions and bookmarks, continues p
   const first = approved[0]!;
   const card = page.locator('.quick-card').first();
   await card.getByRole('button', { name: 'Save ' + first.title, exact: true }).click();
-  await card.getByText('Try one question (optional)', { exact: true }).click();
+  await expect(card.locator('.quick-learning-panel')).toBeHidden();
+  await expect(card.getByRole('radio')).toHaveCount(0);
+  await card.getByRole('button', { name: 'Learn', exact: true }).click();
+  await expect(card.getByRole('radio')).toHaveCount(first.question.options.length);
   await card.getByRole('radio').nth(first.question.answer).check();
   await card.getByRole('button', { name: 'Check my answer', exact: true }).click();
   await expect(card.getByRole('status')).toContainText('You got it!');
-  await card.getByText('Try one question (optional)', { exact: true }).click();
+  await card.getByRole('button', { name: 'Close', exact: true }).click();
   await page.evaluate(
     (id) =>
       window.dispatchEvent(new CustomEvent('quick-fixture-event', { detail: { id, state: 0 } })),

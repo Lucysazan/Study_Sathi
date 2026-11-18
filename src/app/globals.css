@@ -5867,3 +5867,45 @@
 }
 .home-step-photo { position: relative; width: 100%; height: 170px; border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
 .home-step-photo img { object-fit: cover; }
+/* Dedicated Shorts viewing page. Learning stays closed until requested. */
+body:has(.quick-home) > header, body:has(.quick-home) > footer { display: none; }
+.quick-home { width: 100%; max-width: none; padding: 12px 24px; min-height: 100svh; }
+.quick-heading { display: flex; align-items: center; gap: 18px; height: 40px; padding-right: 120px; }
+.quick-heading h1 { margin: 0; font-size: 16px; white-space: nowrap; }
+.quick-heading > a { font-size: 12px; font-weight: 700; }
+.quick-heading > span { font-size: 11px; color: var(--muted); }
+.quick-filter-drawer { position: absolute; right: 24px; top: 18px; margin: 0; z-index: 4; }
+.quick-filter-drawer > summary { font-size: 12px; }
+.quick-filter-drawer[open] { max-width: min(650px, calc(100vw - 48px)); background: white; padding: 12px; border: 1px solid var(--border); border-radius: 12px; }
+.quick-count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.quick-session { margin: 0 auto; max-width: 1100px; }
+.quick-feed { height: calc(100svh - 120px); min-height: 320px; max-height: none; }
+.quick-card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 54px; gap: 8px; position: relative; }
+.quick-media { height: 100%; max-width: 100%; aspect-ratio: 9 / 16; }
+.quick-card-details { align-self: stretch; justify-self: center; width: min(100%, 520px); max-height: none; overflow: visible; padding: 0; background: transparent; border: 0; }
+.quick-title-row { display: flex; align-items: center; gap: 10px; height: 46px; }
+.quick-title-row > div { flex: 1; min-width: 0; }
+.quick-title-row h2 { margin: 0; font-size: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.quick-title-row .quick-creator { margin: 2px 0 0; font-size: 10px; }
+.quick-title-row .save-button { position: static; flex-shrink: 0; width: 36px; height: 36px; }
+.quick-learn-button { border: 1px solid var(--border); border-radius: 20px; background: white; color: var(--primary); font: inherit; font-size: 12px; font-weight: 700; min-height: 36px; padding: 6px 16px; cursor: pointer; }
+.quick-learning-panel { position: absolute; right: 0; bottom: 62px; width: min(300px, 100%); max-height: calc(100% - 80px); overflow-y: auto; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 16px; z-index: 3; box-shadow: 0 8px 30px #172b4d14; }
+.quick-learning-panel[hidden] { display: none; }
+.quick-learning-panel h3 { font-size: 15px; margin: 0; }
+.quick-controls { max-width: 520px; width: 100%; align-self: center; margin-top: 0; }
+.quick-controls .button { min-height: 34px; padding: 6px 14px; font-size: 12px; }
+.quick-controls p { font-size: 11px; }
+.quick-parent-info { font-size: 10px; max-width: 1100px; margin: 16px auto 0; }
+@media (max-width: 700px) {
+ .quick-home { padding: 8px 12px; }
+ .quick-heading { gap: 12px; padding-right: 90px; }
+ .quick-heading > span { display: none; }
+ .quick-filter-drawer { right: 12px; top: 14px; }
+ .quick-feed { height: calc(100svh - 100px); min-height: 300px; }
+ .quick-card { grid-template-rows: minmax(0, 1fr) 54px; }
+ .quick-card-details { max-height: none; padding: 0; }
+ .quick-learning-panel { right: 0; bottom: 62px; max-height: 65%; }
+ .quick-title-row h2 { font-size: 11px; }
+}
+/* Expanded filters take space instead of covering the video or empty-state action. */
+.quick-filter-drawer[open] { position: relative; top: auto; right: auto; margin: 0 0 12px auto; }
