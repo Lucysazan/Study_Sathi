@@ -1,3 +1,9 @@
+
+## 2026-11-18 - Teacher feedback step 1: focused Quick Learn
+Implemented larger portrait video/light canvas, collapsed filters, compact optional question/source panel (below video on mobile), muted autoplay request and continuous navigation through finite approved catalogue. Removed forced five-card recap/break. Preserved one-player cleanup, visibility pause, buffering/retry and private saves/progress. No dependencies/database/catalogue changes. Browser/device policies may require playback interaction.
+Validation: lint/typecheck/184 unit tests/production build pass; updated public browser suite 8/8 desktop1280/mobile360 cases pass with official-player stub (autoplay/mute, switching, questions, saved deep links, unavailable/script/buffering failures). Screenshot inspected, no horizontal overflow. Actual YouTube autoplay/audio on real devices remains unverified. No deployment/push in this session.
+Next requested steps: home free/community messaging and real stock photography; playful academic UI; class-first subject filters; thumbnails/PDF icons; resource rename. These remain unfinished because owner requested sequential changes.
+
 ## Latest audio decision (2026-11-17)
 Owner chose default browser TTS; supersedes prior ElevenLabs/team recording requirement. ReadAloud uses current fixed game question text with speechSynthesis, Listen/Stop, EN/NE device voice selection, cancellation on round/language/unmount and callback guards. Controls remain in game-only right panel/mobile above; no global effects. API key/recordings NOT required now. Old generation/import tooling is optional unused. Device voice availability/quality varies; Nepali missing-voice message retained. Validation/release follows.
 

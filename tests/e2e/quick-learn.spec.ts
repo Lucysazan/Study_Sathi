@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import entries from '../../src/data/quick-learn.json';
 const approved = entries.filter((v) => v.review.status === 'approved');
-const stub = `window.YT={Player:class{constructor(target,options){this.options=options;this.frame=document.createElement('iframe');this.frame.src='https://www.youtube-nocookie.com/embed/'+options.videoId;this.frame.dataset.videoId=options.videoId;this.frame.dataset.controls=String(options.playerVars.controls);target.replaceWith(this.frame);this.listener=e=>{if(e.detail.id===options.videoId){if(e.detail.error)options.events.onError({data:100});else options.events.onStateChange({data:e.detail.state})}};window.addEventListener('quick-fixture-event',this.listener);setTimeout(()=>options.events.onReady({target:this}),5)}getIframe(){return this.frame}pauseVideo(){document.documentElement.dataset.paused=(document.documentElement.dataset.paused||'')+this.options.videoId+','}destroy(){window.removeEventListener('quick-fixture-event',this.listener);this.frame.remove()}}};window.onYouTubeIframeAPIReady?.();`;
+const stub = `window.YT={Player:class{constructor(target,options){this.options=options;this.frame=document.createElement('iframe');this.frame.src='https://www.youtube-nocookie.com/embed/'+options.videoId;this.frame.dataset.videoId=options.videoId;this.frame.dataset.controls=String(options.playerVars.controls);target.replaceWith(this.frame);this.listener=e=>{if(e.detail.id===options.videoId){if(e.detail.error)options.events.onError({data:100});else options.events.onStateChange({data:e.detail.state})}};window.addEventListener('quick-fixture-event',this.listener);setTimeout(()=>options.events.onReady({target:this}),5)}mute(){this.frame.dataset.muted='true'}playVideo(){this.frame.dataset.autoplay='true';this.options.events.onStateChange({data:1})}getIframe(){return this.frame}pauseVideo(){document.documentElement.dataset.paused=(document.documentElement.dataset.paused||'')+this.options.videoId+','}destroy(){window.removeEventListener('quick-fixture-event',this.listener);this.frame.remove()}}};window.onYouTubeIframeAPIReady?.();`;
 test.beforeEach(async ({ page }) => {
   await page.route('https://www.youtube.com/iframe_api', (route) =>
     route.fulfill({ contentType: 'application/javascript', body: stub }),
@@ -19,6 +19,7 @@ test('Quick Learn filters keep spoken language separate and show only the approv
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Quick Learn');
   await expect(page.locator('.quick-count')).toContainText(`${approved.length} selected`);
   await expect(page.locator('.quick-player-mount iframe')).toHaveCount(1);
+  await page.getByText('Filter shorts', { exact: true }).click();
   await page.getByRole('combobox', { name: 'Spoken language', exact: true }).selectOption('ne');
   await expect(page.locator('.quick-count')).toContainText(
     `${approved.filter((v) => v.language === 'ne').length} selected`,
@@ -37,13 +38,15 @@ test('Quick Learn filters keep spoken language separate and show only the approv
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
-test('Quick Learn pauses old players, saves questions and bookmarks, recaps five and handles unavailable videos', async ({
+test('Quick Learn pauses old players, saves questions and bookmarks, continues past five and handles unavailable videos', async ({
   page,
 }) => {
   await page.goto('/quick-learn');
   const frame = page.locator('.quick-player-mount iframe');
   await expect(frame).toHaveCount(1);
   await expect(frame).toHaveAttribute('data-controls', '1');
+  await expect(frame).toHaveAttribute('data-autoplay', 'true');
+  await expect(frame).toHaveAttribute('data-muted', 'true');
   const first = approved[0]!;
   const card = page.locator('.quick-card').first();
   await card.getByRole('button', { name: 'Save ' + first.title, exact: true }).click();
@@ -51,6 +54,7 @@ test('Quick Learn pauses old players, saves questions and bookmarks, recaps five
   await card.getByRole('radio').nth(first.question.answer).check();
   await card.getByRole('button', { name: 'Check my answer', exact: true }).click();
   await expect(card.getByRole('status')).toContainText('You got it!');
+  await card.getByText('Try one question (optional)', { exact: true }).click();
   await page.evaluate(
     (id) =>
       window.dispatchEvent(new CustomEvent('quick-fixture-event', { detail: { id, state: 0 } })),
@@ -80,18 +84,9 @@ test('Quick Learn pauses old players, saves questions and bookmarks, recaps five
     await page.getByRole('button', { name: 'Next', exact: true }).click();
     await expect(frame).toHaveAttribute('data-video-id', approved[i + 2]!.videoId);
   }
-  await page.getByRole('button', { name: 'Show recap', exact: true }).click();
-  await expect(
-    page.getByRole('heading', { name: 'Your little learning recap', exact: true }),
-  ).toBeInViewport();
-  await expect(frame).toHaveCount(0);
-  await expect(page.locator('.quick-recap')).toContainText('1 questions tried');
-  await page.getByRole('button', { name: 'Take a break', exact: true }).click();
-  await expect(
-    page.getByRole('heading', { name: 'A little pause is part of learning.', exact: true }),
-  ).toBeVisible();
-  await page.getByRole('button', { name: 'Explore another five', exact: true }).click();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(frame).toHaveAttribute('data-video-id', approved[5]!.videoId);
+  await expect(page.locator('.quick-recap, .quick-break')).toHaveCount(0);
   await page.goto('/saved');
   await expect(
     page.getByRole('heading', { name: 'Your saved Quick Learn shorts', exact: true }),
@@ -109,13 +104,13 @@ test('Quick Learn pauses old players, saves questions and bookmarks, recaps five
     page
       .locator('.quick-card')
       .first()
-      .getByRole('link', { name: /Learn more:/ }),
+      .getByRole('link', { name: /Learn more:/, includeHidden: true }),
   ).toHaveAttribute('href', first.related.href);
   await expect(
     page
       .locator('.quick-card')
       .first()
-      .getByRole('link', { name: /Watch on YouTube/ }),
+      .getByRole('link', { name: /Watch on YouTube/, includeHidden: true }),
   ).toHaveAttribute('href', first.sourceUrl);
   const feed = page.locator('.quick-feed');
   await feed.evaluate((el) => el.scrollTo({ top: el.clientHeight, behavior: 'instant' }));
@@ -132,7 +127,7 @@ test('Quick Learn gives a fallback when the player script cannot load', async ({
     page
       .locator('.quick-card')
       .first()
-      .getByRole('link', { name: /Watch on YouTube/ }),
+      .getByRole('link', { name: /Watch on YouTube/, includeHidden: true }),
   ).toHaveAttribute('href', approved[0]!.sourceUrl);
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.locator('.quick-card').nth(1).getByRole('heading')).toHaveText(

@@ -239,3 +239,10 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [ ] Receive/review team voice files, import and verify actual spoken playback (0 real clips currently).
 
 - [x] Restore browser speech in game-only side panel; external narration setup no longer required.
+
+## Teacher feedback (2026-11-18)
+- [x] Step 1: focused Quick Learn with muted autoplay, compact questions and no forced recap/break; 8 public browser cases pass.
+- [ ] Home free/community messaging and real photography.
+- [ ] Playful academic study and class-first subject filters.
+- [ ] Material thumbnails/PDF icons and resource rename.
+- [ ] Actual device autoplay acceptance.

@@ -786,7 +786,7 @@
     margin: 22px 0;
   }
   .path-meta > span + span:before {
-    content: 'â€¢';
+    content: '•';
     margin-right: 17px;
     color: #aac0b0;
   }
@@ -5645,3 +5645,160 @@
 /* Game-only tools sit beside the activity, never in the site navigation. */
 .game-with-tools{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:start}.game-main-content{min-width:0}.game-controls-panel{position:sticky;top:110px;border:1px solid #d5e1d7;border-radius:22px;background:#fff;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 5px 0 #e8f1e8}.game-controls-panel h2{font-size:17px;margin:0}.game-controls-panel .language-switch{width:100%}.game-panel-audio .read-aloud{display:flex;flex-direction:column;align-items:stretch;gap:10px}.game-panel-audio .read-aloud>small{position:static;min-width:0;padding:10px;box-shadow:none}.game-panel-audio .audio-credit{font-size:11px}.game-panel-audio:empty{display:none}.game-with-tools .mini-world{margin-left:0;margin-right:0}
 @media(max-width:900px){.game-with-tools{grid-template-columns:1fr;gap:20px}.game-controls-panel{position:static;grid-row:1;flex-direction:row;flex-wrap:wrap;align-items:center;padding:14px;gap:12px}.game-controls-panel h2{margin-right:auto}.game-controls-panel .language-switch{width:auto}.game-panel-audio .read-aloud{flex-direction:row;flex-wrap:wrap;align-items:center}.game-panel-audio .read-aloud>small{width:100%}}
+
+/* Focused Quick Learn: video first, optional learning beside it. */
+.quick-home {
+  padding-top: 20px;
+  padding-bottom: 24px;
+}
+.quick-home h1 {
+  font-size: 26px;
+  margin-bottom: 4px;
+}
+.quick-intro {
+  font-size: 13px;
+  margin: 0;
+}
+.quick-filter-drawer {
+  margin-top: 12px;
+}
+.quick-filter-drawer > summary {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  min-height: 32px;
+}
+.quick-filter-drawer .quick-filters {
+  margin-top: 4px;
+  padding: 12px;
+}
+.quick-count {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.quick-session {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.quick-controls {
+  order: 2;
+  margin-top: 10px;
+}
+.quick-feed {
+  height: clamp(400px, calc(100svh - 330px), 800px);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.quick-card {
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 28px;
+  padding: 0;
+  background: transparent;
+}
+.quick-media {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  background: #e7f2eb;
+}
+.quick-card-details {
+  align-self: center;
+  max-height: 100%;
+  padding: 12px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.quick-card-details h2 {
+  font-size: 19px;
+}
+.quick-extra {
+  margin-top: 12px;
+  font-size: 13px;
+}
+.quick-extra > summary {
+  cursor: pointer;
+  min-height: 32px;
+  font-weight: 600;
+}
+.quick-extra p {
+  font-size: 13px;
+}
+.quick-question {
+  padding: 10px;
+  font-size: 13px;
+}
+.quick-question summary {
+  font-size: 13px;
+}
+.quick-player-status {
+  top: 4px;
+  width: auto;
+  padding: 6px 10px;
+  background: white;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.quick-player-fallback {
+  color: var(--heading);
+  background: #e7f2eb;
+}
+.quick-player-fallback p {
+  color: var(--heading);
+}
+.quick-parent-info {
+  margin-top: 14px;
+  font-size: 12px;
+}
+@media (max-width: 700px) {
+  .quick-home {
+    padding-top: 12px;
+  }
+  .quick-home h1 {
+    font-size: 22px;
+  }
+  .quick-feed {
+    height: calc(100svh - 310px);
+    min-height: 360px;
+  }
+  .quick-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 0;
+  }
+  .quick-media {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    margin: auto;
+  }
+  .quick-card-details {
+    max-height: 145px;
+    padding: 8px 10px;
+  }
+  .quick-card-details h2 {
+    font-size: 14px;
+    margin: 2px 0;
+  }
+  .quick-creator {
+    font-size: 11px;
+    margin: 2px 0;
+  }
+  .quick-card-top {
+    float: right;
+    gap: 8px;
+  }
+  .quick-extra {
+    margin-top: 4px;
+  }
+  .quick-question {
+    margin: 4px 0 0;
+    padding: 6px;
+  }
+}

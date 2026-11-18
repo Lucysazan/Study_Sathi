@@ -260,3 +260,6 @@ Language control sits at top right inside /play/[id], not site header. Locale re
 
 
 Game tools placement: desktop right-side sticky panel beside game, below site header. At900px and narrower, static compact panel above game content. One language control and one current-round Listen control; neither in global navigation or repeated near question.
+
+## Quick Learn update (2026-11-18)
+Owner requests light canvas, dominant portrait player, compact optional question/source panel, collapsed filters, and no recap/break interruption. Preserve original aspect ratio and unobstructed native controls. Home photography update remains next.

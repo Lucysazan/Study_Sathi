@@ -221,3 +221,6 @@ Owner accepted team-recording recommendation. Support original human MP3/WAV cli
 
 ## 2026-11-17 - Browser speech restored
 Explicit owner instruction supersedes ElevenLabs/team-recording playback requirement. Use default browser speech from original fixed game text; no external account or manual recordings required. Keep per-game scope/right-panel placement and stop/cleanup behavior.
+
+## 2026-11-18 - Quick Learn focus
+Owner supersedes five-card recap/break with uninterrupted navigation through the finite approved catalogue. Request muted autoplay with official native controls; no sound/autoplay guarantee. Optional compact questions/provenance retained. Sequential teacher-feedback changes begin with Quick Learn. No new dependencies.

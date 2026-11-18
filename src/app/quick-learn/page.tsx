@@ -10,12 +10,13 @@ export const metadata: Metadata = {
 export default function QuickLearnPage() {
   return (
     <section className="site-container section quick-home">
-      <div className="eyebrow">ONE LITTLE IDEA AT A TIME</div>
       <h1>
         Quick Learn{' '}
         <span lang="ne">/ {'\u091b\u094b\u091f\u094b \u0938\u093f\u0915\u093e\u0907'}</span>
       </h1>
-      <p>Watch a short. Try a question. Find a bigger adventure.</p>
+      <p className="quick-intro">
+        A little discovery. Free to explore. Videos start muted; turn on sound in the player.
+      </p>
       <Suspense fallback={<p role="status">Getting your learning feed ready...</p>}>
         <QuickLearn videos={quickVideos} />
       </Suspense>

@@ -1,4 +1,6 @@
 export type YouTubePlayer = {
+  mute: () => void;
+  playVideo: () => void;
   pauseVideo: () => void;
   destroy: () => void;
   getIframe: () => HTMLIFrameElement;

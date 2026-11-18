@@ -91,7 +91,8 @@ export function ShortPlayer({
             controls: 1,
             rel: 0,
             hl: 'en',
-            autoplay: 0,
+            autoplay: 1,
+            mute: 1,
           },
           events: {
             onReady: ({ target }) => {
@@ -100,7 +101,12 @@ export function ShortPlayer({
               clearTimeout(readyTimer);
               target.getIframe().title = title + ' - YouTube player';
               target.getIframe().referrerPolicy = 'strict-origin-when-cross-origin';
-              if (document.hidden || !isVisible()) pause();
+              target.getIframe().allow =
+                'autoplay; encrypted-media; picture-in-picture; fullscreen';
+              if (!document.hidden && isVisible()) {
+                target.mute();
+                target.playVideo();
+              }
               setStatus('ready');
             },
             onError: fail,

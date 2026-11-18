@@ -50,54 +50,64 @@ export function QuickCard({
         </div>
         <h2>{video.title}</h2>
         <p className="quick-creator">By {video.creator} / YouTube</p>
-        <div className="quick-tags">
-          <span>
-            Spoken:{' '}
-            {video.language === 'ne'
-              ? 'Nepali'
-              : video.language === 'en'
-                ? 'English'
-                : 'No lesson narration'}
-          </span>
-          <span>{video.subject}</span>
-          <span>
-            Ages {video.minAge}-{video.maxAge}
-          </span>
-        </div>
-        <p>{video.objective}</p>
-        <p className="quick-progress">
-          {progress.includes(`quick-finished-${video.videoId}`)
-            ? 'Finished-video record saved. '
-            : ''}
-          {progress.includes(`quick-check-${video.videoId}`) ? 'Practice answer recorded.' : ''}
-        </p>
+        <details className="quick-extra">
+          <summary>About this short</summary>
+          <div className="quick-tags">
+            <span>
+              Spoken:{' '}
+              {video.language === 'ne'
+                ? 'Nepali'
+                : video.language === 'en'
+                  ? 'English'
+                  : 'No lesson narration'}
+            </span>
+            <span>{video.subject}</span>
+            <span>
+              Ages {video.minAge}-{video.maxAge}
+            </span>
+          </div>
+          <p>{video.objective}</p>
+          <p className="quick-progress">
+            {progress.includes(`quick-finished-${video.videoId}`)
+              ? 'Finished-video record saved. '
+              : ''}
+            {progress.includes(`quick-check-${video.videoId}`) ? 'Practice answer recorded.' : ''}
+          </p>
+        </details>
         <ShortQuestion video={video} onAnswer={onAnswer} />
-        <div className="quick-links">
-          {video.related.href.startsWith('/') ? (
-            <Link className="button" href={video.related.href}>
-              Learn more: {video.related.label}
-            </Link>
-          ) : (
-            <a
-              className="button"
-              href={video.related.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn more: {video.related.label} (YouTube playlist)
+        <details className="quick-extra">
+          <summary>Explore further</summary>
+          <div className="quick-links">
+            {video.related.href.startsWith('/') ? (
+              <Link className="button" href={video.related.href}>
+                Learn more: {video.related.label}
+              </Link>
+            ) : (
+              <a
+                className="button"
+                href={video.related.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn more: {video.related.label} (YouTube playlist)
+              </a>
+            )}
+            <a href={video.sourceUrl} target="_blank" rel="noopener noreferrer">
+              Watch on YouTube<span className="sr-only"> (new tab)</span>
             </a>
-          )}
-          <a href={video.sourceUrl} target="_blank" rel="noopener noreferrer">
-            Watch on YouTube<span className="sr-only"> (new tab)</span>
-          </a>
-        </div>
-        <small>
-          Selected {video.review.date}. Availability can change. Questions are practice, with no XP.
-        </small>
-        <details className="quick-review-scope">
-          <summary>Selection notes</summary>
-          <p>{video.review.basis}</p>
-          <p>{video.review.notes}</p>
+          </div>
+        </details>
+        <details className="quick-extra">
+          <summary>Sources and more learning</summary>
+          <small>
+            Selected {video.review.date}. Availability can change. Questions are practice, with no
+            XP.
+          </small>
+          <details className="quick-review-scope">
+            <summary>Selection notes</summary>
+            <p>{video.review.basis}</p>
+            <p>{video.review.notes}</p>
+          </details>
         </details>
       </div>
     </article>

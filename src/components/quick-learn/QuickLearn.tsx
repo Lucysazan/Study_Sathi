@@ -20,48 +20,50 @@ export function QuickLearn({ videos }: { videos: readonly QuickVideo[] }) {
   };
   return (
     <>
-      <div className="quick-filters">
-        <label>
-          Spoken language
-          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-            <option value="">All spoken languages</option>
-            <option value="ne">Nepali</option>
-            <option value="en">English</option>
-            <option value="none">Visual / no lesson narration</option>
-          </select>
-        </label>
-        <label>
-          Subject
-          <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-            <option value="">All subjects</option>
-            {quickSubjects.map((s) => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Suggested age
-          <select value={age} onChange={(e) => setAge(e.target.value)}>
-            <option value="">Ages 10-16</option>
-            <option value="10-12">Ages 10-12</option>
-            <option value="13-16">Ages 13-16</option>
-          </select>
-        </label>
-        <label className="quick-saved-filter">
-          <input
-            type="checkbox"
-            checked={savedOnly}
-            onChange={(e) => setSavedOnly(e.target.checked)}
-          />
-          Saved shorts only
-        </label>
-        <button className="text-link" onClick={reset}>
-          Clear filters
-        </button>
-      </div>
+      <details className="quick-filter-drawer">
+        <summary>Filter shorts</summary>
+        <div className="quick-filters">
+          <label>
+            Spoken language
+            <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+              <option value="">All spoken languages</option>
+              <option value="ne">Nepali</option>
+              <option value="en">English</option>
+              <option value="none">Visual / no lesson narration</option>
+            </select>
+          </label>
+          <label>
+            Subject
+            <select value={subject} onChange={(e) => setSubject(e.target.value)}>
+              <option value="">All subjects</option>
+              {quickSubjects.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Suggested age
+            <select value={age} onChange={(e) => setAge(e.target.value)}>
+              <option value="">Ages 10-16</option>
+              <option value="10-12">Ages 10-12</option>
+              <option value="13-16">Ages 13-16</option>
+            </select>
+          </label>
+          <label className="quick-saved-filter">
+            <input
+              type="checkbox"
+              checked={savedOnly}
+              onChange={(e) => setSavedOnly(e.target.checked)}
+            />
+            Saved shorts only
+          </label>
+          <button className="text-link" onClick={reset}>
+            Clear filters
+          </button>
+        </div>
+      </details>
       <p className="quick-count" role="status">
-        {selected.length} selected educational shorts. Spoken language and lesson subject are
-        separate filters.
+        {selected.length} selected educational shorts.
       </p>
       {selected.length ? (
         <QuickSession

@@ -1,3 +1,5 @@
+> 2026-11-18: Supersedes earlier five-card recap/break UI below. Current viewer navigates the finite approved catalogue continuously, requests muted autoplay, and keeps filters/questions/sources compact and optional. 8 public browser cases pass with player stub; actual device autoplay acceptance pending.
+
 # Quick Learn
 
 Additional public route: `/quick-learn`. Navigation/footer and an original homepage preview lead here. Existing school library, portals, original activities and academic pilot remain available.
