@@ -230,3 +230,6 @@ Owner requests real-organization presentation and stock imagery. Replace hero an
 
 ## 2026-11-18 - Dedicated Quick Learn shell
 Owner requests a different-page feel. Hide shared site header/footer only when Quick Learn route is present, keep explicit Back link and compact local heading/filter controls. Move all learning details behind Learn/Close; question mounts in embedded form without requiring a second expand click. Preserve muted autoplay/native controls and finite-catalogue no-break navigation. Supersedes always-visible learning/sidebar summary.
+
+## 2026-11-18 - Highlight community in main hero
+Owner clarified free/community must be prominent on live homepage. Main heading now Free learning / Community at heart, supported by explicit free community-based description; publish prior completed UI revisions together.

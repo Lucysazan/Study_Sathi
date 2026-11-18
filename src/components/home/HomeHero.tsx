@@ -12,11 +12,11 @@ export function HomeHero() {
         <h1>
           Free learning.
           <br />
-          <span>Endless possibility.</span>
+          <span>Community at heart.</span>
         </h1>
         <p>
-          For every curious mind in Nepal. Explore textbooks, video lessons and playful activities,
-          at your own pace.
+          A free, community-based learning platform for curious minds in Nepal. Explore textbooks,
+          video lessons and playful activities, at your own pace.
         </p>
         <div className="hero-buttons">
           <Link className="button" href="#choose-class">
