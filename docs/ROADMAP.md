@@ -253,3 +253,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 
 - [x] Audible Quick Learn continuity, no catalogue totals,30 more source-checked shorts,12 focused browser cases.
 - [ ] Full audiovisual/teacher/real-device review of expanded Shorts selection (see QUICK_LEARN_EXPANSION.md).
+
+- [x] dcb95a3 deployed; live mobile expanded catalogue/no-counts/actual unmuted two-clip playback verified.
