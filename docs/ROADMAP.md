@@ -242,7 +242,7 @@ This is the active public-library priority; the original Grade 9 practice remain
 
 ## Teacher feedback (2026-11-18)
 - [x] Step 1: focused Quick Learn with muted autoplay, compact questions and no forced recap/break; 8 public browser cases pass.
-- [ ] Home free/community messaging and real photography.
+- [x] Home free/community messaging and real photography; desktop/tablet/mobile local browser checks pass.
 - [ ] Playful academic study and class-first subject filters.
 - [ ] Material thumbnails/PDF icons and resource rename.
 - [ ] Actual device autoplay acceptance.

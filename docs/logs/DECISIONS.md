@@ -224,3 +224,6 @@ Explicit owner instruction supersedes ElevenLabs/team-recording playback require
 
 ## 2026-11-18 - Quick Learn focus
 Owner supersedes five-card recap/break with uninterrupted navigation through the finite approved catalogue. Request muted autoplay with official native controls; no sound/autoplay guarantee. Optional compact questions/provenance retained. Sequential teacher-feedback changes begin with Quick Learn. No new dependencies.
+
+## 2026-11-18 - Community homepage photography
+Owner requests real-organization presentation and stock imagery. Replace hero and discovery/reading/card artwork with four locally served Pexels photos under their free-use license (checked2026-11-18); preserve credits/provenance. No remote image hosts or dependencies. Class shortcut now anchors to earlier homepage grade grid; public discovery remains free without login. Supersedes illustrated homepage direction only; interactive game preview remains functional. No claims of nonprofit status, partnerships, impact or pictured actual participants.

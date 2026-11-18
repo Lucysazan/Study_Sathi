@@ -1,13 +1,14 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { BookOpen, Gamepad2, Map, Play, ArrowRight } from 'lucide-react';
 import { GamePreview } from '@/components/study/GamePreview';
 
 export function DiscoveryGuide() {
   return (
     <section className="site-container section discovery-guide">
-      <div className="eyebrow">WHAT SHALL WE DISCOVER TODAY?</div>
-      <h2>Pick your kind of adventure</h2>
-      <p>A book, a little experiment or a trail to follow. You choose.</p>
+      <div className="eyebrow">MANY WAYS TO LEARN</div>
+      <h2>Find what sparks your curiosity</h2>
+      <p>Books, games and small discoveries. Every starting point is free.</p>
       <div className="discovery-doors">
         {[
           {
@@ -16,6 +17,7 @@ export function DiscoveryGuide() {
             text: 'Choose a class. Find books and video lessons.',
             Icon: BookOpen,
             colour: 'mint',
+            photo: 'study-group.jpg',
           },
           {
             href: '/play',
@@ -23,6 +25,7 @@ export function DiscoveryGuide() {
             text: 'Build, balance and explore with hands-on games.',
             Icon: Gamepad2,
             colour: 'lilac',
+            photo: 'science-discovery.jpg',
           },
           {
             href: '/learning-paths',
@@ -30,6 +33,7 @@ export function DiscoveryGuide() {
             text: 'Small steps. A clear route. Go at your own pace.',
             Icon: Map,
             colour: 'peach',
+            photo: 'learning-together.jpg',
           },
           {
             href: '/resources',
@@ -37,11 +41,20 @@ export function DiscoveryGuide() {
             text: 'Explore English, nature, numbers and more.',
             Icon: Play,
             colour: 'yellow',
+            photo: 'library-books.jpg',
           },
-        ].map(({ href, title, text, Icon, colour }) => (
+        ].map(({ href, title, text, Icon, colour, photo }) => (
           <Link key={href} href={href} className={`discovery-door ${colour}`}>
+            <div className="door-photo">
+              <Image
+                src={`/images/home/${photo}`}
+                alt=""
+                fill
+                sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 25vw"
+              />
+            </div>
             <span className="door-icon">
-              <Icon size={42} aria-hidden="true" />
+              <Icon size={22} aria-hidden="true" />
             </span>
             <h3>{title}</h3>
             <p>{text}</p>
@@ -52,9 +65,14 @@ export function DiscoveryGuide() {
         ))}
       </div>
       <div className="discovery-language">
-        <span aria-hidden="true" className="language-art">
-          Aa <span>hello!</span>
-        </span>
+        <div className="language-photo">
+          <Image
+            src="/images/home/study-group.jpg"
+            alt="Learners reading and taking notes together"
+            fill
+            sizes="(max-width: 600px) 100vw, 35vw"
+          />
+        </div>
         <div>
           <div className="eyebrow">WORDS AND STORIES</div>
           <h2>A little English adventure</h2>

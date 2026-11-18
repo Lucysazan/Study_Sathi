@@ -263,3 +263,6 @@ Game tools placement: desktop right-side sticky panel beside game, below site he
 
 ## Quick Learn update (2026-11-18)
 Owner requests light canvas, dominant portrait player, compact optional question/source panel, collapsed filters, and no recap/break interruption. Preserve original aspect ratio and unobstructed native controls. Home photography update remains next.
+
+## Community homepage update (2026-11-18)
+Owner supersedes original illustrated-home direction: prominent free/community learning copy, real licensed stock photography and clear class-first entry. Keep off-white/teal, readable responsive cards and existing interactive experiment. Photographs are illustrative; do not imply actual programme participants or endorsements. Credits in homepage disclosure and docs/PHOTO_CREDITS.md.

@@ -11,7 +11,7 @@ export function QuickPreview() {
           </h2>
           <p>
             Selected educational YouTube Shorts in Nepali and English. Watch, try a little question
-            and explore further. Pause for a recap after five.
+            and explore further.
           </p>
           <Link className="button" href="/quick-learn">
             Explore Quick Learn

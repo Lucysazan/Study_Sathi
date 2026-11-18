@@ -5802,3 +5802,68 @@
     padding: 6px;
   }
 }
+/* Community homepage: real photography and clear free-learning purpose. */
+.community-hero { gap: 48px; padding-top: 40px; padding-bottom: 36px; min-height: 560px; }
+.community-kicker { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 750; letter-spacing: 1.1px; color: var(--primary); }
+.community-kicker svg { flex-shrink: 0; }
+.community-hero h1 { font-size: clamp(38px, 4.2vw, 58px); letter-spacing: -2px; }
+.community-hero h1 > svg { display: none; }
+.community-hero .hero-notes { flex-wrap: wrap; gap: 12px; font-size: 11px; }
+.community-photo { position: relative; height: 440px; margin: 0; border-radius: 26px 26px 80px 26px; overflow: hidden; background: #e7f2eb; }
+.community-photo img { object-fit: cover; object-position: 48% center; }
+.community-photo::after { content: ''; position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, rgba(10,38,32,.9)); }
+.community-photo figcaption { position: absolute; bottom: 30px; left: 28px; right: 28px; z-index: 1; color: white; }
+.community-photo figcaption span { font-size: 9px; letter-spacing: 1.5px; font-weight: 700; }
+.community-photo figcaption strong { display: block; font-family: var(--font-jakarta), sans-serif; font-size: 27px; line-height: 1.3; margin-top: 10px; }
+.community-promise { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.community-promise > div { display: flex; gap: 12px; align-items: center; }
+.community-promise svg { color: var(--primary); flex-shrink: 0; }
+.community-promise p { margin: 0; font-size: 12px; line-height: 1.6; }
+.community-promise strong, .community-promise span { display: block; }
+.community-promise strong { color: var(--heading); font-size: 13px; }
+.community-promise > a { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.home-class-library { scroll-margin-top: 100px; }
+.discovery-guide .discovery-door { padding: 0 0 22px; overflow: hidden; border-radius: 18px; }
+.door-photo { position: relative; height: 160px; background: #e7f2eb; }
+.door-photo img { object-fit: cover; }
+.discovery-guide .door-icon { width: 42px; height: 42px; margin: -20px 18px 12px; border-radius: 12px; transform: none; position: relative; background: white; box-shadow: 0 2px 8px #172b4d0d; }
+.discovery-door h3, .discovery-door p, .discovery-door .door-action { margin-left: 18px; margin-right: 18px; }
+.discovery-door h3 { font-size: 18px; }
+.discovery-door p { font-size: 13px; line-height: 1.7; }
+.discovery-door .door-action { font-size: 12px; }
+.discovery-language { display: grid; grid-template-columns: minmax(180px, .7fr) 1fr; overflow: hidden; }
+.language-photo { position: relative; height: 250px; border-radius: 16px; overflow: hidden; }
+.language-photo img { object-fit: cover; }
+.home-photo-credits { font-size: 11px; color: var(--muted); margin-bottom: 24px; }
+.home-photo-credits summary { cursor: pointer; min-height: 32px; }
+.home-photo-credits p { font-size: 11px; }
+@media (max-width: 1000px) { .community-promise { flex-wrap: wrap; } .community-hero { gap: 24px; } }
+@media (max-width: 800px) {
+ .community-hero { grid-template-columns: 1fr; padding-top: 28px; padding-bottom: 24px; gap: 28px; }
+ .community-hero h1 { font-size: clamp(36px, 7vw, 52px); }
+ .community-hero .hero-copy > p { margin-top: 18px; max-width: 560px; }
+ .community-photo { height: 340px; }
+ .community-promise { gap: 18px; }
+}
+@media (max-width: 600px) {
+ .community-kicker { font-size: 8px; letter-spacing: .7px; }
+ .community-hero h1 { font-size: 38px; letter-spacing: -1.5px; }
+ .community-hero .hero-buttons { flex-direction: column; align-items: stretch; }
+ .community-hero .hero-buttons .button { justify-content: center; }
+ .community-hero .hero-notes { font-size: 10px; gap: 10px; }
+ .community-photo { height: 280px; border-radius: 20px 20px 55px 20px; }
+ .community-photo figcaption { left: 20px; bottom: 24px; }
+ .community-photo figcaption strong { font-size: 23px; }
+ .community-promise { align-items: flex-start; flex-direction: column; padding: 20px 0; }
+ .community-promise p { font-size: 11px; }
+ .discovery-guide .discovery-doors { grid-template-columns: 1fr 1fr; gap: 12px; }
+ .door-photo { height: 115px; }
+ .discovery-door h3 { font-size: 16px; }
+ .discovery-door p { font-size: 12px; }
+ .discovery-door h3, .discovery-door p, .discovery-door .door-action { margin-left: 12px; margin-right: 12px; }
+ .discovery-guide .door-icon { margin-left: 12px; }
+ .discovery-language { grid-template-columns: 1fr; }
+ .language-photo { width: 100%; height: 200px; }
+}
+.home-step-photo { position: relative; width: 100%; height: 170px; border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+.home-step-photo img { object-fit: cover; }
