@@ -248,3 +248,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [ ] Actual device autoplay acceptance.
 
 - [x] Quick Learn correction: dedicated viewing layout, tiny title and single Learn/Close button for hidden Q&A; local desktop/mobile probes.
+
+- [x] Publish homepage/Quick Learn changes59934b8; live mobile heading/real image/dedicated viewing shell verified.
