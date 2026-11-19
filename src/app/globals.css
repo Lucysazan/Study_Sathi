@@ -5868,7 +5868,7 @@
 .home-step-photo { position: relative; width: 100%; height: 170px; border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
 .home-step-photo img { object-fit: cover; }
 /* Dedicated Shorts viewing page. Learning stays closed until requested. */
-body:has(.quick-home) > header, body:has(.quick-home) > footer { display: none; }
+/* Header/footer visibility follows the active pathname in RouteChrome. */
 .quick-home { width: 100%; max-width: none; padding: 12px 24px; min-height: 100svh; }
 .quick-heading { display: flex; align-items: center; gap: 18px; height: 40px; padding-right: 120px; }
 .quick-heading h1 { margin: 0; font-size: 16px; white-space: nowrap; }

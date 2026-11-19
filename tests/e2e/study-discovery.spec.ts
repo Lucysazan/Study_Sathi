@@ -17,12 +17,18 @@ test('study search filters, saved reading, language and privacy reset', async ({
   await page.getByRole('button', { name: 'Go to page', exact: true }).click();
   await page.reload();
   await expect(page.locator('.library-pdf')).toHaveAttribute('src', /#page=7$/);
-  await page.goto('/study');
+  await page.goto('/study/6');
   await expect(page.getByRole('link', { name: /Continue studying:/ })).toBeVisible();
   await page.getByRole('button', { name: 'English / नेपाली', exact: true }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('कक्षा छान्नुहोस्');
+  await expect(page.getByRole('button', { name: /^English/ })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
   await page.reload();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('कक्षा छान्नुहोस्');
+  await expect(page.getByRole('button', { name: /^English/ })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
   await page.getByRole('button', { name: 'Clear saved study activity', exact: true }).click();
   await expect(page.getByRole('link', { name: /Continue studying:/ })).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

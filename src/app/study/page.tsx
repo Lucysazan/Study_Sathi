@@ -1,6 +1,5 @@
-import { PdfAvailabilityNotice } from '@/components/academic/PdfAvailabilityNotice';
 import { LibrarySearch } from '@/components/academic/LibrarySearch';
-import { StudyTools, StudyText } from '@/components/academic/StudyTools';
+import { StudyText } from '@/components/academic/StudyTools';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BookOpen, PlayCircle, GraduationCap } from 'lucide-react';
@@ -34,8 +33,6 @@ export default function AcademicHome() {
         </span>
         <span>English and Nepali materials</span>
       </div>
-      <PdfAvailabilityNotice />
-      <StudyTools />
       <LibrarySearch
         items={[
           ...schoolLibrary.books.map((b) => ({

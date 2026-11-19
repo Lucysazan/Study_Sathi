@@ -5,6 +5,7 @@ import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import { Footer } from '@/components/layout/Footer';
 import { StorageNotice, Toast } from '@/components/layout/GuestFeedback';
 import { Header } from '@/components/layout/Header';
+import { RouteChrome } from '@/components/layout/RouteChrome';
 import './globals.css';
 
 // Self-hosted by next/font (no request to Google from the browser).
@@ -29,7 +30,11 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <Header />
+        <Suspense fallback={<Header />}>
+          <RouteChrome>
+            <Header />
+          </RouteChrome>
+        </Suspense>
         <Suspense fallback={null}>
           <LibrarySync />
         </Suspense>
@@ -37,7 +42,11 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <main id="main" tabIndex={-1}>
           {children}
         </main>
-        <Footer />
+        <Suspense fallback={<Footer />}>
+          <RouteChrome>
+            <Footer />
+          </RouteChrome>
+        </Suspense>
         <Toast />
       </body>
     </html>

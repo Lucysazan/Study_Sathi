@@ -17,6 +17,12 @@ export function LibrarySearch({ items }: { items: SearchMaterial[] }) {
     [subject, setSubject] = useState(''),
     [kind, setKind] = useState(''),
     [language, setLanguage] = useState('');
+  const classItems = items.filter((item) => !grade || String(item.grade) === grade);
+  const subjectItems = classItems.filter((item) => !subject || item.subject === subject);
+  const materialItems = subjectItems.filter((item) => !kind || item.kind === kind);
+  const subjects = [...new Set(classItems.map((item) => item.subject))].sort();
+  const kinds = [...new Set(subjectItems.map((item) => item.kind))].sort();
+  const languages = [...new Set(materialItems.map((item) => item.language))].sort();
   const active = Boolean(query || grade || subject || kind || language);
   const results = items.filter(
     (i) =>
@@ -43,7 +49,16 @@ export function LibrarySearch({ items }: { items: SearchMaterial[] }) {
       <div className="library-filters">
         <label htmlFor="catalog-grade">
           Class
-          <select id="catalog-grade" value={grade} onChange={(e) => setGrade(e.target.value)}>
+          <select
+            id="catalog-grade"
+            value={grade}
+            onChange={(e) => {
+              setGrade(e.target.value);
+              setSubject('');
+              setKind('');
+              setLanguage('');
+            }}
+          >
             <option value="">All classes</option>
             {Array.from({ length: 12 }, (_, i) => (
               <option key={i + 1}>{i + 1}</option>
@@ -52,19 +67,35 @@ export function LibrarySearch({ items }: { items: SearchMaterial[] }) {
         </label>
         <label htmlFor="catalog-subject">
           Subject
-          <select id="catalog-subject" value={subject} onChange={(e) => setSubject(e.target.value)}>
+          <select
+            id="catalog-subject"
+            value={subject}
+            onChange={(e) => {
+              setSubject(e.target.value);
+              setKind('');
+              setLanguage('');
+            }}
+          >
             <option value="">All subjects</option>
-            {[...new Set(items.map((i) => i.subject))].sort().map((s) => (
+            {subjects.map((s) => (
               <option key={s}>{s}</option>
             ))}
           </select>
         </label>
         <label htmlFor="catalog-kind">
           Material
-          <select id="catalog-kind" value={kind} onChange={(e) => setKind(e.target.value)}>
+          <select
+            id="catalog-kind"
+            value={kind}
+            onChange={(e) => {
+              setKind(e.target.value);
+              setLanguage('');
+            }}
+          >
             <option value="">All materials</option>
-            <option>PDF</option>
-            <option>Video lesson</option>
+            {kinds.map((value) => (
+              <option key={value}>{value}</option>
+            ))}
           </select>
         </label>
         <label htmlFor="catalog-language">
@@ -75,7 +106,7 @@ export function LibrarySearch({ items }: { items: SearchMaterial[] }) {
             onChange={(e) => setLanguage(e.target.value)}
           >
             <option value="">All languages</option>
-            {[...new Set(items.map((i) => i.language))].sort().map((s) => (
+            {languages.map((s) => (
               <option key={s}>{s}</option>
             ))}
           </select>

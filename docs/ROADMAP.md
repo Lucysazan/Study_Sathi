@@ -243,7 +243,8 @@ This is the active public-library priority; the original Grade 9 practice remain
 ## Teacher feedback (2026-11-18)
 - [x] Step 1: focused Quick Learn with muted autoplay, compact questions and no forced recap/break; 8 public browser cases pass.
 - [x] Home free/community messaging and real photography; desktop/tablet/mobile local browser checks pass.
-- [ ] Playful academic study and class-first subject filters.
+- [x] Class-first dependent subject/material/language filters; all12 classes and resets browser-tested.
+- [ ] Playful academic study visual refresh.
 - [ ] Material thumbnails/PDF icons and resource rename.
 - [ ] Actual device autoplay acceptance.
 
@@ -255,3 +256,6 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [ ] Full audiovisual/teacher/real-device review of expanded Shorts selection (see QUICK_LEARN_EXPANSION.md).
 
 - [x] dcb95a3 deployed; live mobile expanded catalogue/no-counts/actual unmuted two-clip playback verified.
+
+- [x] Remove requested /study notice/resume panels; restore site header after Quick Learn without reload.
+- [ ] Owner hero image file path and Nepal-oriented homepage photography update.

@@ -236,3 +236,6 @@ Owner clarified free/community must be prominent on live homepage. Main heading 
 
 ## 2026-11-18 - Audible Quick Learn and expanded finite catalogue
 Owner explicitly requests sound across switches. Default requests audible autoplay, records deliberate native sound choice for current session and offers one-click recovery when browser blocks sound. Supersedes unconditional mute on every player. Remove count/ordinal labels rather than misrepresenting finite selection as infinite. Add30 individually selected official-channel Shorts with limited metadata/thumbnail/content-topic review, provenance and original questions. No automatic publication or runtime feeds.
+
+## 2026-11-19 - Route chrome follows URL, discovery filters follow class
+Next retains inactive route DOM; document :has selectors must not control shared chrome by presence of a route element. Use current usePathname in a bounded client wrapper with Suspense, leaving Header/Footer content server-rendered. Cascading filter changes reset downstream choices rather than leaving invalid invisible selections. Remove only the two requested study landing panels; keep source disclosure and existing class/reader controls elsewhere.
