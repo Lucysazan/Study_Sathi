@@ -259,3 +259,5 @@ This is the active public-library priority; the original Grade 9 practice remain
 
 - [x] Remove requested /study notice/resume panels; restore site header after Quick Learn without reload.
 - [ ] Owner hero image file path and Nepal-oriented homepage photography update.
+
+- [x] e4fff54 live desktop/mobile checks: scoped class10 subjects, removed panels and restored header after Quick Learn.

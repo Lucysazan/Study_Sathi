@@ -1,4 +1,8 @@
 
+## 2026-11-19 - Study/navigation error fixes live
+ e4fff54 pushed; Vercel success confirmed. Anonymous live Chromium1280/360 verifies /study crossed-out panels absent, class10 subject list excludes upper-grade Physics/Biology, Mathematics selection works, Quick Learn hides shared header, Back restores it, and subsequent menu navigation to /play works with visible header. No reload between route changes. Screenshots .firebase/live-restored-header-1280.png /360.png inspected. Local20 focused production browser/184 units/lint/typecheck/build pass. No production account/database writes. Separate owner-supplied hero image/local file path and Nepal-oriented photos remain pending.
+
+
 ## 2026-11-19 - Class-dependent filters and header recovery
 Owner requested removal of the crossed-out PDF outage and language/resume panels on /study, class-scoped dropdown choices, and header recovery after leaving Quick Learn. Removed only landing-page panel mounts; source-page notice and class-level study controls/reader recovery remain available. LibrarySearch scopes subject options to selected grade, material options to grade+subject, languages to grade+subject+kind, resetting downstream choices on upstream change. Existing result filtering stays class-scoped.
 Root cause of disappearing header: body:has(.quick-home) matched retained Next Activity route DOM even after navigation. Removed DOM-presence CSS and added usePathname-driven RouteChrome for shared Header/Footer in Suspense. Current pathname controls visibility, regardless of cached inactive pages. No forced reload, no dependencies/data/schema changes.
