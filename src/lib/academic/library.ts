@@ -1,6 +1,9 @@
 import catalog from '@/data/school-library.json';
+import readable from '@/data/school-readable-books.json';
 
-export const schoolLibrary = catalog;
+// Only byte-verified readable copies appear in discovery. Keep old URLs addressable.
+export const legacySchoolBooks = catalog.books;
+export const schoolLibrary = { ...catalog, bookChecked: readable.checked, books: readable.books };
 export type SchoolBook = (typeof catalog.books)[number];
 export type SchoolPlaylist = (typeof catalog.playlists)[number];
 export const subjectLabels: Record<string, { name: string; nepali: string; icon: string }> = {
@@ -42,7 +45,7 @@ export function parseSchoolGrade(value: string) {
 }
 export function gradeSubjects(grade: number) {
   const ids = new Set(
-    [...catalog.books, ...catalog.playlists]
+    [...schoolLibrary.books, ...schoolLibrary.playlists]
       .filter((item) => item.grade === grade)
       .map((item) => item.subject),
   );
@@ -52,7 +55,7 @@ export function gradeSubjects(grade: number) {
 }
 export function subjectMaterials(grade: number, subject: string) {
   return {
-    books: catalog.books.filter((item) => item.grade === grade && item.subject === subject),
+    books: schoolLibrary.books.filter((item) => item.grade === grade && item.subject === subject),
     playlists: catalog.playlists.filter((item) => item.grade === grade && item.subject === subject),
   };
 }
@@ -82,3 +85,29 @@ export function officialPdfUrl(value: string) {
     return false;
   }
 }
+
+/** Vetted public OLE file URLs; separate from admin's government-source allowlist. */
+export function readableSchoolPdfUrl(value: string) {
+  try {
+    const url = new URL(value);
+    return (
+      url.protocol === 'https:' &&
+      url.hostname === 'pustakalaya.org' &&
+      !url.username &&
+      !url.password &&
+      !url.port &&
+      !url.search &&
+      !url.hash &&
+      url.pathname.startsWith('/media/uploads/documents/') &&
+      url.pathname.toLowerCase().endsWith('.pdf')
+    );
+  } catch {
+    return false;
+  }
+}
+
+if (
+  schoolLibrary.books.some((book) => !readableSchoolPdfUrl(book.pdfUrl)) ||
+  new Set(schoolLibrary.books.map((book) => book.id)).size !== schoolLibrary.books.length
+)
+  throw new Error('Invalid readable school catalogue');

@@ -239,3 +239,6 @@ Owner explicitly requests sound across switches. Default requests audible autopl
 
 ## 2026-11-19 - Route chrome follows URL, discovery filters follow class
 Next retains inactive route DOM; document :has selectors must not control shared chrome by presence of a route element. Use current usePathname in a bounded client wrapper with Suspense, leaving Header/Footer content server-rendered. Cascading filter changes reset downstream choices rather than leaving invalid invisible selections. Remove only the two requested study landing panels; keep source disclosure and existing class/reader controls elsewhere.
+
+## 2026-11-20 - Reader catalogue uses verified public CDC copies
+Owner urgently requests working PDFs. Supersedes government-only discovery URLs and unresolved delivery incident: use verified full CDC textbooks hosted publicly by OLE Nepal, source/edition explicitly shown, no site-wrapper iframe or chapter-for-book substitution. Keep137 historical routes with available-edition choices; primary list contains only86 byte-verified copies. No proxy/rehosting, no extracted API tokens. Separate allowlist for vetted reader file paths; keep admin government-reference validation unchanged. Senior-grade gaps remain explicit.

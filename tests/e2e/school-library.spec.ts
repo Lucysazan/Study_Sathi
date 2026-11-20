@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('school library browses classes, reads a government PDF and selects full-playlist lessons', async ({
+test('school library browses classes, reads a verified CDC PDF and selects full-playlist lessons', async ({
   page,
 }, testInfo) => {
   page.on('pageerror', (error) => console.log(`Library browser error: ${error.message}`));
@@ -19,7 +19,7 @@ test('school library browses classes, reads a government PDF and selects full-pl
   await page.getByRole('link', { name: 'Read textbook', exact: true }).first().click();
   await expect(page.locator('.library-pdf')).toHaveAttribute(
     'src',
-    /^https:\/\/giwmscdnone.gov.np\/.*\.pdf#page=1$/,
+    /^https:\/\/pustakalaya.org\/media\/uploads\/documents\/.*\.pdf#page=1$/,
   );
   await expect(page.getByRole('heading', { name: 'PDF not loading?', exact: true })).toHaveCount(0);
   await page.getByLabel('PDF page', { exact: true }).fill('4');
@@ -27,7 +27,7 @@ test('school library browses classes, reads a government PDF and selects full-pl
   await expect(page.locator('.library-pdf')).toHaveAttribute('src', /#page=4$/);
   await expect(
     page.getByRole('link', { name: 'Download / open PDF', exact: true }),
-  ).toHaveAttribute('href', /^https:\/\/giwmscdnone.gov.np\//);
+  ).toHaveAttribute('href', /^https:\/\/pustakalaya.org\/media\/uploads\/documents\//);
   await page.goto('/study/6/mathematics');
   await page.getByRole('link', { name: 'Watch playlist', exact: true }).first().click();
   await expect(page.locator('.video-stage iframe')).toHaveCount(0);

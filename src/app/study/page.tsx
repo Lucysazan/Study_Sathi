@@ -8,7 +8,7 @@ import { bookPath, playlistPath, subjectLabels, schoolLibrary } from '@/lib/acad
 export const metadata: Metadata = {
   title: 'Class-wise learning | Classes 1-12',
   description:
-    'Choose your class and subject. Read government-hosted PDFs and watch NCED Virtual teaching playlists inside StudySathi.',
+    'Choose your class and subject. Read available CDC textbook PDFs and watch NCED Virtual teaching playlists inside StudySathi.',
 };
 export default function AcademicHome() {
   return (
@@ -25,7 +25,8 @@ export default function AcademicHome() {
       </div>
       <div className="library-summary">
         <span>
-          <BookOpen size={20} aria-hidden="true" /> {schoolLibrary.books.length} government PDFs
+          <BookOpen size={20} aria-hidden="true" /> {schoolLibrary.books.length} verified textbook
+          PDFs
         </span>
         <span>
           <PlayCircle size={20} aria-hidden="true" /> {schoolLibrary.playlists.length} teaching

@@ -1,4 +1,3 @@
-import { PdfAvailabilityNotice } from '@/components/academic/PdfAvailabilityNotice';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { schoolGrades, schoolLibrary, gradeSubjects } from '@/lib/academic/library';
@@ -9,17 +8,21 @@ export default function Sources() {
       <Link href="/study">Back to all classes</Link>
       <h1>Sources and catalog coverage</h1>
       <p>
-        Our library connects government-hosted textbooks and NCED Virtual teaching playlists.
-        Original files and videos remain with their providers. StudySathi is independent and does
-        not claim a provider partnership or endorsement.
+        Our library connects CDC textbooks hosted by OLE Nepal E-Pustakalaya and NCED Virtual
+        teaching playlists. Original files and videos remain with their providers. StudySathi is
+        independent and does not claim a provider partnership or endorsement.
       </p>
-      <PdfAvailabilityNotice />
       <h2>Textbooks</h2>
       <p>
+        The previous government file host is unavailable. Discovery now lists independently verified
+        readable copies. Older bookmarked government editions show available alternatives with their
+        actual edition details; we do not silently substitute editions.
+      </p>
+      <p>
         {schoolLibrary.books.length} PDF links were checked for successful responses and PDF content
-        type on {schoolLibrary.checked}. Titles and source links come from CDC listings and indexed
-        government PDF records. Editions are shown as listed; we do not claim every item matches the
-        latest curriculum.
+        type and %PDF- file signatures on {schoolLibrary.bookChecked}. Titles, editions and source
+        links come from OLE Nepal E-Pustakalaya records identifying CDC as the publisher. Editions
+        are shown as listed; we do not claim every item matches the latest curriculum.
       </p>
       <a
         href="https://moecdc.gov.np/category/textbook--g-/"
@@ -78,7 +81,7 @@ export default function Sources() {
       </p>
       <h2>Viewing and downloading</h2>
       <p>
-        PDFs load directly from government servers into your browser. Use the original link if
+        PDFs load directly from OLE Nepal E-Pustakalaya into your browser. Use the original link if
         inline reading is unsupported. Saving uses your browser’s PDF controls. Videos use YouTube’s
         supported player with source credits; no video download or rehosting is provided.
       </p>

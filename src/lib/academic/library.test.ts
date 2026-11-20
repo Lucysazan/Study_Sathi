@@ -3,6 +3,8 @@ import {
   bookPath,
   gradeSubjects,
   officialPdfUrl,
+  readableSchoolPdfUrl,
+  legacySchoolBooks,
   parseSchoolGrade,
   playlistPath,
   schoolGrades,
@@ -16,15 +18,17 @@ describe('class-wise school library', () => {
   it('has real catalog material for every class 1 to 12', () => {
     expect(schoolGrades).toHaveLength(12);
     for (const grade of schoolGrades) expect(gradeSubjects(grade).length).toBeGreaterThan(0);
-    expect(schoolLibrary.books).toHaveLength(137);
+    expect(legacySchoolBooks).toHaveLength(137);
+    expect(schoolLibrary.books.length).toBeGreaterThan(0);
     expect(schoolLibrary.playlists).toHaveLength(56);
   });
-  it('has unique official PDF references with grade and subject mappings', () => {
+  it('has unique verified readable PDF references with grade and subject mappings', () => {
     expect(new Set(schoolLibrary.books.map((book) => book.id)).size).toBe(
       schoolLibrary.books.length,
     );
     for (const book of schoolLibrary.books) {
-      expect(officialPdfUrl(book.pdfUrl)).toBe(true);
+      expect(readableSchoolPdfUrl(book.pdfUrl)).toBe(true);
+      expect(book.sourceUrl).toMatch(/^https:\/\/pustakalaya\.org\/documents\/detail\//);
       expect(subjectLabels[book.subject]).toBeDefined();
       expect(book.grade).toBeGreaterThanOrEqual(1);
       expect(book.grade).toBeLessThanOrEqual(12);
@@ -69,5 +73,11 @@ describe('class-wise school library', () => {
     expect(playlistEmbedUrl('bad?list=other')).toBeNull();
     expect(playlistEmbedUrl('PLVOHiHZt8InJ29mBch-66uCQUmHxR6SpU', 'bad')).toBeNull();
     expect(officialPdfUrl('https://evil.test/a.pdf')).toBe(false);
+    for (const value of [
+      'https://evil.test/a.pdf',
+      'https://pustakalaya.org/elsewhere/a.pdf',
+      'https://pustakalaya.org@evil.test/media/uploads/documents/a.pdf',
+    ])
+      expect(readableSchoolPdfUrl(value)).toBe(false);
   });
 });

@@ -54,8 +54,8 @@ export default function HomePage() {
               </div>
               <h3>Read your textbook</h3>
               <p>
-                Open a government PDF in our reader, jump to a page, or open the original to save
-                it.
+                Open a verified textbook PDF in our reader, jump to a page, or open the original to
+                save it.
               </p>
             </article>
             <article className="learning-card">

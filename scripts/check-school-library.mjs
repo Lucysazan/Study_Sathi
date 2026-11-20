@@ -1,10 +1,10 @@
 import fs from 'node:fs';
 const catalog = JSON.parse(
-  fs.readFileSync(new URL('../src/data/school-library.json', import.meta.url), 'utf8'),
+  fs.readFileSync(new URL('../src/data/school-readable-books.json', import.meta.url), 'utf8'),
 );
 if (!process.argv.includes('--online')) {
   console.log(
-    `Catalog: ${catalog.books.length} PDFs, ${catalog.playlists.length} playlists. Use --online to check actual PDF response prefixes (no saved file copies).`,
+    `Catalog: ${catalog.books.length} PDFs, readable copies. Use --online to check actual PDF response prefixes (no saved file copies).`,
   );
 } else {
   let failed = 0;

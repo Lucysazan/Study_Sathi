@@ -3,13 +3,13 @@ import Link from 'next/link';
 
 export async function TextbookReader() {
   const textbook = await getAcademicTextbook();
-  if (!textbook)
+  if (!textbook || new URL(textbook.pdfUrl).hostname === 'giwmscdnone.gov.np')
     return (
       <section className="learning-card">
         <h2>Official textbook</h2>
         <p>
-          Read the government-hosted Mathematics books in our class library. This original practice
-          unit is not yet mapped to specific textbook pages.
+          Read the available CDC Mathematics books in our class library. This original practice unit
+          is not yet mapped to specific textbook pages.
         </p>
         <Link href="/study/9/mathematics#textbooks" prefetch={false}>
           Read Grade 9 Mathematics textbooks

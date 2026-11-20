@@ -1,4 +1,3 @@
-import { PdfAvailabilityNotice } from '@/components/academic/PdfAvailabilityNotice';
 import { StudyTools, StudyText } from './StudyTools';
 import Link from 'next/link';
 import { BookOpen, PlayCircle } from 'lucide-react';
@@ -18,7 +17,6 @@ export function SubjectLibrary({ grade, subject }: { grade: number; subject: str
       <p className="library-nepali" lang="ne">
         {meta?.nepali}
       </p>
-      <PdfAvailabilityNotice />
       <StudyTools />
       <div className="library-modes">
         <a href="#textbooks">
@@ -33,12 +31,12 @@ export function SubjectLibrary({ grade, subject }: { grade: number; subject: str
           <StudyText en="Read textbooks" ne="पाठ्यपुस्तक पढ्नुहोस्" />
         </h2>
         <p>
-          View the PDF here or open the government-hosted original to save a copy. Match the edition
-          to your school’s syllabus.
+          Read verified CDC textbooks hosted by OLE Nepal E-Pustakalaya. Match the edition to your
+          school’s syllabus.
         </p>
         {books.length === 0 ? (
           <p className="library-empty">
-            A verified textbook for this subject is not in the catalog yet. Video lessons below are
+            A readable textbook for this subject is not verified yet. Video lessons below are
             available.
           </p>
         ) : (
@@ -52,7 +50,7 @@ export function SubjectLibrary({ grade, subject }: { grade: number; subject: str
                   <span>{book.language}</span>
                 </div>
                 <div className="material-body">
-                  <span className="material-kind">GOVERNMENT PDF</span>
+                  <span className="material-kind">CDC TEXTBOOK PDF</span>
                   <h3>{book.title}</h3>
                   <p>{book.provider}</p>
                   <p>{book.edition}</p>

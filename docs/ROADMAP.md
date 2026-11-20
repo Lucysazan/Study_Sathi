@@ -261,3 +261,8 @@ This is the active public-library priority; the original Grade 9 practice remain
 - [ ] Owner hero image file path and Nepal-oriented homepage photography update.
 
 - [x] e4fff54 live desktop/mobile checks: scoped class10 subjects, removed panels and restored header after Quick Learn.
+
+## 2026-11-20 PDF recovery
+- [x] Replace failed-host discovery links with86 independently verified full CDC textbooks on OLE; all12 grades have some coverage.
+- [x] Preserve legacy URLs with explicit edition alternatives; native full-Chromium PDF rendering and14 desktop/mobile cases pass.
+- [ ] Fill remaining subjects/editions, particularly Classes11-12; teacher/current-syllabus and real-device review.
