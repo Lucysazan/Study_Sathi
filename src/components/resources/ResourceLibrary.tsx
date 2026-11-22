@@ -101,6 +101,9 @@ function LibraryView({
             ? 'Discover educational resources to help parents, teachers, and volunteers guide children through useful learning activities.'
             : 'Find free and useful learning materials from trusted educational providers.'
         }
+        motif={teaching ? 'board' : 'globe'}
+        word={teaching ? 'Together' : 'Explore'}
+        tone={teaching ? 'grass' : 'cobalt'}
       >
         <div className="search-box" role="search">
           <Search size={21} aria-hidden="true" />

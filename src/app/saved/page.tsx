@@ -18,6 +18,9 @@ export default async function SavedPage() {
         eyebrow="A LITTLE COLLECTION OF POSSIBILITIES"
         title="My Saved Resources"
         intro="Your next discoveries, all in one place. Learner accounts sync saved items across devices; guests save in this browser."
+        motif="bookmark"
+        word="Keep"
+        tone="blush"
       />
       <section className="site-container section">
         <SavedList

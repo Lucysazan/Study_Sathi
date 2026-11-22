@@ -33,14 +33,13 @@ export function PlayGallery({ items }: { items: Item[] }) {
   );
   return (
     <>
-      <section className="play-hero">
+      <section className="play-hero slide tone-grass">
+        <span className="page-hero-bar" aria-hidden="true" />
         <div className="play-hero-copy">
           <span className="play-kicker">
-            <Gamepad2 size={19} aria-hidden="true" /> YOUR LITTLE DISCOVERY ZONE
+            <Gamepad2 size={19} aria-hidden="true" /> Your little discovery zone
           </span>
-          <h1>
-            Play and <span>Learn</span>
-          </h1>
+          <h1>Play and learn</h1>
           <p>Pick something fun. Tap, explore, and see what happens.</p>
           <div className="play-hero-actions">
             <Link href="/play/progress" prefetch={false}>
@@ -55,9 +54,9 @@ export function PlayGallery({ items }: { items: Item[] }) {
           <span className="hero-demo-label">Go on, add a slice!</span>
           <GamePreview id="fractions" />
         </div>
-        <span className="play-hero-star" aria-hidden="true">
-          ✦
-        </span>
+        <p className="page-hero-word" aria-hidden="true">
+          Play
+        </p>
       </section>
       <div className="play-choose">
         <h2>What will you try today?</h2>

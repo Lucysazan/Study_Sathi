@@ -81,18 +81,18 @@ html[data-motion='on'][data-scroll='down'] header:not(:has(nav.open)) {
 .logo > span.logo-word {
   color: var(--ink);
 }
-nav > a {
+header nav > a {
   color: color-mix(in srgb, var(--ink) 68%, transparent);
   font-weight: 500;
   font-size: 14px;
   transition: color 0.2s;
 }
-nav > a:hover,
-nav > a.active {
+header nav > a:hover,
+header nav > a.active {
   color: var(--ink);
 }
-nav > a::after,
-nav > a.active::after {
+header nav > a::after,
+header nav > a.active::after {
   content: '';
   position: absolute;
   left: 0;
@@ -105,8 +105,8 @@ nav > a.active::after {
   transform-origin: right;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-nav > a:hover::after,
-nav > a.active::after {
+header nav > a:hover::after,
+header nav > a.active::after {
   transform: scaleX(1);
   transform-origin: left;
 }
@@ -1432,4 +1432,651 @@ html[data-motion='on'] .hills-art .hills-sun {
   header {
     transition: none;
   }
+}
+
+/* ============ 5. Inner pages: every page is a small deck ============ */
+
+.deck-page {
+  padding-top: clamp(16px, 3vw, 40px);
+}
+.deck-page > section,
+.deck-page > nav.resource-shortcuts {
+  width: min(1240px, calc(100% - var(--gutter) * 2));
+  max-width: none;
+  margin: 0 auto clamp(20px, 3vw, 40px);
+}
+/* Text-led sections become one paper slide */
+.deck-page > section.site-container {
+  position: relative;
+  background: var(--paper);
+  padding: clamp(24px, 4vw, 56px);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.6) inset,
+    0 30px 50px -28px rgb(46 44 34 / 0.55),
+    0 6px 14px -6px rgb(46 44 34 / 0.22);
+}
+/* List-led sections stay on the table; their cards become the slides */
+.deck-page > section.play-home,
+.deck-page > section.library-section,
+.deck-page > section:has(> .path-grid) {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+.deck-page
+  :is(
+    .play-tile,
+    .resource-card,
+    .path-card,
+    .filters,
+    .path-notice,
+    .play-bottom,
+    .volunteer-bottom .session,
+    .future-callout
+  ) {
+  background: var(--paper);
+  border: 0;
+  border-radius: 0;
+  box-shadow:
+    0 22px 36px -24px rgb(46 44 34 / 0.55),
+    0 4px 10px -4px rgb(46 44 34 / 0.2);
+}
+.deck-page :is(.play-tile, .resource-card, .path-card) {
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.4s;
+}
+.deck-page :is(.play-tile, .resource-card, .path-card):hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow:
+    0 34px 46px -26px rgb(46 44 34 / 0.6),
+    0 6px 12px -4px rgb(46 44 34 / 0.2);
+}
+.deck-page :is(.resource-art, .path-picture, .tile-picture) {
+  border-radius: 0;
+}
+
+/* Headings inside page slides */
+.deck-page .school-library > h1,
+.deck-page .detail-title,
+.deck-page .academic-shell > h1 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(34px, 4.6vw, 60px);
+  font-size-adjust: none;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.deck-page > section.site-container > h2,
+.deck-page .study-play-promo h2,
+.deck-page .session h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-size-adjust: none;
+  letter-spacing: 0;
+}
+.deck-page .library-breadcrumb a {
+  color: var(--cobalt);
+}
+.deck-page .subject-tile,
+.deck-page .material-card,
+.deck-page .study-tools,
+.deck-page .library-modes a {
+  border-radius: 0;
+}
+.deck-page .subject-tile {
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s;
+}
+.deck-page .subject-tile:hover {
+  transform: translateY(-4px);
+  border-color: var(--ink);
+}
+.deck-page .study-tools {
+  background: color-mix(in srgb, var(--paper) 60%, white);
+}
+.deck-page .study-play-promo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'title action' 'text action';
+  align-items: center;
+  gap: 6px 32px;
+}
+.study-play-promo h2 {
+  grid-area: title;
+}
+.study-play-promo p {
+  grid-area: text;
+  color: var(--muted);
+}
+.study-play-promo .button {
+  grid-area: action;
+}
+.study-play-promo::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  background: var(--grass);
+}
+
+/* ---- Title slide for inner pages ---- */
+.tone-cobalt {
+  --tone: var(--cobalt);
+}
+.tone-grass {
+  --tone: var(--grass);
+}
+.tone-marigold {
+  --tone: var(--marigold);
+}
+.tone-blush {
+  --tone: var(--blush);
+}
+.page-title.page-hero {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.page-hero-slide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 250px) 48px;
+  align-items: center;
+  gap: clamp(16px, 3vw, 48px);
+  min-height: 330px;
+  padding: clamp(56px, 5vw, 72px) clamp(24px, 4.5vw, 64px) clamp(32px, 4.5vw, 64px);
+}
+.page-hero-bar {
+  position: absolute;
+  top: clamp(24px, 2.6vw, 34px);
+  left: clamp(24px, 4.5vw, 64px);
+  width: 72px;
+  height: 12px;
+  background: var(--tone);
+}
+.page-hero-kicker {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-size-adjust: none;
+  color: var(--ink);
+}
+.page-title.page-hero h1 {
+  margin: 8px 0 16px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(38px, 5.4vw, 78px);
+  font-size-adjust: none;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.page-hero-intro {
+  max-width: 54ch;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.page-hero .search-box {
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  background: #fffcf4;
+  color: var(--ink);
+}
+.page-hero .search-box:focus-within {
+  outline: 3px solid var(--tone);
+  outline-offset: 2px;
+}
+.page-hero .library-summary {
+  margin: 22px 0 0;
+  gap: 10px 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.page-hero .library-summary span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.page-hero-art {
+  justify-self: center;
+  width: 100%;
+  max-width: 250px;
+  transform: translate(calc(var(--px, 0) * -8px), calc(var(--py, 0) * -6px));
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.motif {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.page-hero-word {
+  align-self: start;
+  justify-self: end;
+  margin: 0;
+  writing-mode: vertical-rl;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 22px;
+  font-size-adjust: none;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* ---- Play and Learn ---- */
+.deck-page .play-hero {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) 48px;
+  padding: clamp(56px, 5vw, 72px) clamp(24px, 4.5vw, 64px) clamp(32px, 4.5vw, 64px);
+  background: var(--paper);
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+.deck-page .play-kicker {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--ink);
+  text-transform: none;
+}
+.deck-page .play-kicker svg {
+  color: var(--grass);
+}
+.deck-page .play-hero h1 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(42px, 6vw, 84px);
+  font-size-adjust: none;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.deck-page .play-hero-actions a {
+  border-radius: 0;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  box-shadow: none;
+}
+.deck-page .play-hero-actions a:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.deck-page .hero-demo .game-preview {
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 10px 10px 0 var(--marigold);
+}
+.deck-page .hero-demo-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink);
+}
+.deck-page .play-choose {
+  margin-top: clamp(28px, 4vw, 48px);
+}
+.deck-page .play-choose h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(26px, 3vw, 38px);
+  font-size-adjust: none;
+}
+.deck-page .play-filters button {
+  border-radius: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: none;
+}
+.deck-page .play-filters button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.deck-page .tile-kind,
+.deck-page .format-tag,
+.deck-page .category-label {
+  border-radius: 0;
+}
+.deck-page .tile-copy h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size-adjust: none;
+}
+.deck-page .play-about {
+  background: var(--paper);
+  padding: 18px 24px;
+  margin-top: 24px;
+}
+
+/* ---- Resources & paths ---- */
+.deck-page .resource-shortcuts {
+  height: auto;
+  padding-top: 0;
+  gap: 10px;
+}
+.deck-page .resource-shortcuts a {
+  height: auto;
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid transparent;
+  box-shadow: 0 6px 12px -8px rgb(46 44 34 / 0.5);
+}
+.deck-page .resource-shortcuts a:hover {
+  border-color: var(--ink);
+}
+.deck-page .filters {
+  padding: 22px;
+}
+.deck-page .card-title,
+.deck-page .path-card h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size-adjust: none;
+}
+.deck-page .path-notice {
+  padding: 26px 30px;
+}
+
+/* ---- About: question on the left, answer on the right ---- */
+.deck-page .about-rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  column-gap: clamp(24px, 5vw, 72px);
+  align-items: start;
+}
+.about-rows > * {
+  grid-column: 2;
+  max-width: 62ch;
+}
+.about-rows > h2 {
+  grid-column: 1;
+  margin: 0;
+  padding-top: 22px;
+  border-top: 1.5px solid var(--ink);
+}
+.about-rows > h2 + p {
+  margin-top: 0;
+  padding-top: 22px;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+.about-rows > p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+.about-rows > .button {
+  justify-self: start;
+  margin-bottom: 30px;
+}
+
+/* ---- Auth: marigold panel + form ---- */
+.deck-page .auth-page {
+  min-height: 0;
+  padding: 0;
+}
+.deck-page .auth-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  max-width: 940px;
+  margin: 0 auto;
+}
+.auth-art {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+}
+.auth-art .peek-art {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+.auth-body {
+  padding: clamp(28px, 4vw, 52px);
+}
+.auth-body > .logo {
+  margin-bottom: 26px;
+}
+.deck-page .auth-panel {
+  border: 0;
+  background: none;
+  padding: 0;
+}
+.deck-page .auth-panel h1 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 40px;
+  font-size-adjust: none;
+  letter-spacing: -0.02em;
+}
+.deck-page .auth-panel input,
+.deck-page .auth-panel select {
+  border-radius: 0;
+  border-color: color-mix(in srgb, var(--ink) 30%, transparent);
+  background: #fffcf4;
+}
+
+/* ---- Inner-page motion ---- */
+html[data-motion='on'] .deck-page > * {
+  animation: slide-land 0.9s cubic-bezier(0.16, 0.9, 0.2, 1) backwards;
+}
+html[data-motion='on'] .deck-page > :nth-child(2) {
+  animation-delay: 0.12s;
+}
+html[data-motion='on'] .deck-page > :nth-child(3) {
+  animation-delay: 0.24s;
+}
+html[data-motion='on'] .page-hero-art {
+  animation: pop-in 0.9s cubic-bezier(0.3, 1.5, 0.5, 1) 0.25s backwards;
+}
+html[data-motion='on'] .page-hero-bar {
+  transform-origin: left;
+  animation: wipe-x 0.6s cubic-bezier(0.7, 0, 0.2, 1) 0.5s backwards;
+}
+html[data-motion='on'] .page-hero-word {
+  animation: wipe-down 0.8s cubic-bezier(0.7, 0, 0.2, 1) 0.45s backwards;
+}
+html[data-motion='on'] :is(.play-gallery, .path-grid, .resource-grid) > * {
+  animation: deal-in 0.9s cubic-bezier(0.16, 0.9, 0.2, 1) backwards;
+}
+html[data-motion='on'] :is(.play-gallery, .path-grid, .resource-grid) > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+html[data-motion='on'] :is(.play-gallery, .path-grid, .resource-grid) > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+html[data-motion='on'] :is(.play-gallery, .path-grid, .resource-grid) > :nth-child(4) {
+  animation-delay: 0.24s;
+}
+html[data-motion='on'] :is(.play-gallery, .path-grid, .resource-grid) > :nth-child(5) {
+  animation-delay: 0.32s;
+}
+html[data-motion='on'] :is(.play-gallery, .path-grid, .resource-grid) > :nth-child(6) {
+  animation-delay: 0.4s;
+}
+html[data-motion='on'] :is(.play-gallery, .path-grid, .resource-grid) > :nth-child(n + 7) {
+  animation-delay: 0.48s;
+}
+
+/* Motif idle motions */
+html[data-motion='on']
+  .motif
+  :is(.m-float, .m-sway, .m-tail, .m-pencil, .m-flag, .m-orbit, .m-twinkle) {
+  transform-box: fill-box;
+}
+html[data-motion='on'] .motif .m-float {
+  animation: bob 4.5s ease-in-out infinite;
+}
+html[data-motion='on'] .motif .m-pencil {
+  transform-origin: 20% 80%;
+  animation: wiggle 2.8s ease-in-out infinite;
+}
+html[data-motion='on'] .motif .m-sway {
+  transform-origin: 50% 0;
+  animation: sway 5s ease-in-out infinite;
+}
+html[data-motion='on'] .motif .m-tail {
+  transform-origin: 50% 0;
+  animation: sway 2.4s ease-in-out infinite reverse;
+}
+html[data-motion='on'] .motif .m-spin-land > g {
+  animation: spin-land 14s linear infinite;
+}
+html[data-motion='on'] .motif .m-orbit {
+  transform-box: view-box;
+  transform-origin: 120px 124px;
+  animation: orbit 18s linear infinite;
+}
+html[data-motion='on'] .motif .m-dash {
+  animation: trail-march 2.4s linear infinite;
+}
+html[data-motion='on'] .motif .m-flag {
+  transform-origin: 0 50%;
+  animation: flutter 1.6s ease-in-out infinite alternate;
+}
+html[data-motion='on'] .motif .m-twinkle {
+  transform-origin: center;
+  animation: twinkle 3s ease-in-out infinite;
+}
+html[data-motion='on'] .motif .m-write {
+  animation: chalk 2.2s steps(14) 0.6s backwards;
+}
+html[data-motion='on'] .motif .m-check {
+  stroke-dasharray: 130;
+  animation: draw 1s cubic-bezier(0.6, 0, 0.2, 1) 0.6s backwards;
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-8deg);
+  }
+}
+@keyframes bob {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-10deg) translateY(4px);
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+@keyframes spin-land {
+  to {
+    transform: translateX(-160px);
+  }
+}
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes chalk {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 130;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .page-hero-slide,
+  .deck-page .play-hero {
+    grid-template-columns: minmax(0, 1fr) 120px;
+  }
+  .page-hero-word {
+    display: none;
+  }
+  .page-hero-art {
+    align-self: start;
+  }
+  .deck-page .play-hero .hero-demo {
+    grid-column: 1 / -1;
+  }
+  .deck-page .about-rows,
+  .deck-page .study-play-promo {
+    grid-template-columns: 1fr;
+    grid-template-areas: none;
+  }
+  .about-rows > *,
+  .about-rows > h2,
+  .study-play-promo > * {
+    grid-column: 1;
+    grid-area: auto;
+  }
+  .about-rows > h2 + p {
+    border-top: 0;
+    padding-top: 10px;
+  }
+  .deck-page .auth-card {
+    grid-template-columns: 1fr;
+  }
+  .auth-art {
+    min-height: 220px;
+  }
+}
+@media (max-width: 560px) {
+  .page-hero-slide,
+  .deck-page .play-hero {
+    grid-template-columns: minmax(0, 1fr) 84px;
+    min-height: 0;
+  }
+  .page-hero-copy {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .page-hero-art {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: -30px;
+  }
+}
+
+.page-title.page-hero h1 * {
+  color: inherit;
+}
+
+.deck-page .coverage-table-wrap table {
+  border-collapse: collapse;
+  min-width: 420px;
+}
+.deck-page .coverage-table-wrap :is(th, td) {
+  padding: 8px 18px 8px 0;
+  text-align: right;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.deck-page .coverage-table-wrap :is(th, td):first-child {
+  text-align: left;
 }

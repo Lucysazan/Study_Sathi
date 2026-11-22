@@ -18,6 +18,9 @@ export default async function LearningPathsPage() {
         eyebrow="LITTLE STEPS. NEW POSSIBILITIES."
         title="Find your learning path"
         intro="Pick a trail. Follow the numbered stops. Tick off each little discovery as you go."
+        motif="trail"
+        word="Journey"
+        tone="marigold"
       />
       <section className="site-container section">
         <div className="path-grid">
