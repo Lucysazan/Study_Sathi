@@ -242,3 +242,6 @@ Next retains inactive route DOM; document :has selectors must not control shared
 
 ## 2026-11-20 - Reader catalogue uses verified public CDC copies
 Owner urgently requests working PDFs. Supersedes government-only discovery URLs and unresolved delivery incident: use verified full CDC textbooks hosted publicly by OLE Nepal, source/edition explicitly shown, no site-wrapper iframe or chapter-for-book substitution. Keep137 historical routes with available-edition choices; primary list contains only86 byte-verified copies. No proxy/rehosting, no extracted API tokens. Separate allowlist for vetted reader file paths; keep admin government-reference validation unchanged. Senior-grade gaps remain explicit.
+
+## 2026-11-22 - Paper-deck visual redesign (proposal branch)
+A friend of the team proposed a redesign from a printed slide-deck reference. Supersedes DESIGN.md core colours/fonts (teal + Plus Jakarta/Inter → cobalt/ink on paper + Jost/Newsreader/Mukta) and the photo-led homepage. Fonts still self-hosted through next/font; no new npm dependencies. Motion is CSS + one small client component, all disabled for reduced motion. Kept on branch `redesign/paper-deck` for the owner to review before merging.

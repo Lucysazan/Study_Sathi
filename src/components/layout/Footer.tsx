@@ -41,6 +41,9 @@ export function Footer() {
           <p>Supporting access to inclusive learning opportunities.</p>
         </div>
       </div>
+      <p className="footer-word" aria-hidden="true">
+        StudySathi
+      </p>
       <div className="site-container footer-bottom">
         <span>© 2026 StudySathi</span>
         <span>External learning materials belong to their original providers.</span>

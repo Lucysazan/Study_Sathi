@@ -268,3 +268,11 @@ Owner requests light canvas, dominant portrait player, compact optional question
 Owner supersedes original illustrated-home direction: prominent free/community learning copy, real licensed stock photography and clear class-first entry. Keep off-white/teal, readable responsive cards and existing interactive experiment. Photographs are illustrative; do not imply actual programme participants or endorsements. Credits in homepage disclosure and docs/PHOTO_CREDITS.md.
 
 Quick Learn correction: dedicated viewport-height viewing shell without shared navigation/footer, small Back/title/filter toolbar and tiny title/creator row. One Learn/Close button reveals all optional Q&A/details; desktop side panel/mobile panel. Default view reserves space for video.
+
+## Paper-deck redesign (2026-11-22, proposal — supersedes the colour, type and home sections above)
+Inspired by a printed illustration slide deck. Home is a stack of "slides" on a warm grey table (`--table`): title slide with a large original illustration, a giant display word and a vertical tagline; then Part 01–04 slides (classes, discover, Quick Learn, read/watch/practise) and a cobalt closing slide.
+- Colours: paper `#F6F1E4`, ink `#1D1B18`, cobalt `#1D5FC8` (primary), grass `#26A843`, marigold `#EFB43F`, blush `#EF8A62`. Small colour blocks (bars, squares) are the signature accent.
+- Type: Jost (display + body, `font-size-adjust` keeps the old Inter sizes readable), Newsreader for small serif titles, Mukta for Devanagari.
+- Shape: square corners (radius 0–4px), ink buttons that fill cobalt on hover, underline links that redraw.
+- Illustrations: original inline SVGs in `src/components/art/` (dhaka-topi reader, Himalaya terraces with prayer flags, peeking child). Painted look comes from shared SVG filters in `PaperFilters.tsx`. Home no longer uses stock photos.
+- Motion (`src/components/motion/SiteMotion.tsx` + `src/styles/paper-deck.css`): one title-slide load sequence, slides dealt in on scroll, part numbers rising through a mask, eyes that follow the pointer (wander on touch), prayer flags and walking learner, header tucks away while scrolling down. All gated by `html[data-motion='on']`, never set under `prefers-reduced-motion`.

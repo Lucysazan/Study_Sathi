@@ -1,55 +1,64 @@
-import { ArrowRight, BookOpen, CheckCircle2, HeartHandshake } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
+import { ReaderArt } from '@/components/art/ReaderArt';
 
+const WORD = 'Curiosity';
+
+/** Home hero: a single "title slide" — illustration, giant word, vertical tagline, colour block. */
 export function HomeHero() {
   return (
-    <section className="hero site-container community-hero">
-      <div className="hero-copy">
-        <div className="community-kicker">
-          <HeartHandshake size={17} aria-hidden="true" /> A FREE LEARNING SPACE FOR OUR COMMUNITY
+    <section className="deck-hero" aria-labelledby="hero-title">
+      <div className="slide hero-slide" data-tilt>
+        <div className="hero-side">
+          <p className="serif-pair">
+            Free learning,
+            <br />
+            community at heart
+          </p>
+          <p className="hero-lede">
+            Textbooks, video lessons and playful activities for curious minds in Nepal. Learn at
+            your own pace.
+          </p>
+          <div className="hero-actions">
+            <Link className="ink-button" href="#choose-class">
+              Find my class
+            </Link>
+            <Link className="line-link" href="/play">
+              Play and learn
+            </Link>
+          </div>
+          <ul className="hero-facts">
+            <li>Free to explore</li>
+            <li>No sign-up to start</li>
+            <li>Classes 1–12</li>
+          </ul>
         </div>
-        <h1>
-          Free learning.
-          <br />
-          <span>Community at heart.</span>
-        </h1>
-        <p>
-          A free, community-based learning platform for curious minds in Nepal. Explore textbooks,
-          video lessons and playful activities, at your own pace.
-        </p>
-        <div className="hero-buttons">
-          <Link className="button" href="#choose-class">
-            Find my class <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-          <Link className="button secondary" href="/play">
-            Play and Learn <BookOpen size={18} aria-hidden="true" />
-          </Link>
-        </div>
-        <div className="hero-notes">
-          {['Free to explore', 'No sign-up to start', 'Classes 1–12'].map((note) => (
-            <span key={note}>
-              <CheckCircle2 size={16} aria-hidden="true" /> {note}
+
+        <div className="hero-stage">
+          <div className="hero-art" data-eyes>
+            <ReaderArt />
+          </div>
+          <span className="monogram" aria-hidden="true">
+            S
+          </span>
+          <h1 id="hero-title" className="hero-word">
+            <span aria-hidden="true">
+              {WORD.split('').map((ch, i) => (
+                <span key={i} style={{ '--i': i } as CSSProperties}>
+                  {ch}
+                </span>
+              ))}
             </span>
-          ))}
+            <span className="sr-only">Curiosity: free learning for curious minds in Nepal</span>
+          </h1>
         </div>
+
+        <p className="hero-vertical" aria-hidden="true">
+          <span>Learn. Explore.</span>
+          <span>Grow together.</span>
+        </p>
+        <span className="hero-block" aria-hidden="true" />
       </div>
-      <figure className="community-photo">
-        <Image
-          src="/images/home/learning-together.jpg"
-          alt="Students sharing a laptop and studying together in a library"
-          fill
-          sizes="(max-width: 800px) 100vw, 50vw"
-          preload
-        />
-        <figcaption>
-          <span>LEARN. EXPLORE. GROW TOGETHER.</span>
-          <strong>
-            A little support.
-            <br />A world of discovery.
-          </strong>
-        </figcaption>
-      </figure>
     </section>
   );
 }
